@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>eq()演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li>list item 1</li>
+      <li>list item 2</li>
+      <li>list item 3</li>
+      <li>list item 4</li>
+      <li>list item 5</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // -- 全部的li集合
+      //   res = $("li")
+      // res = d("li")
+
+      // -- 返回一个包含第三个li的新的对象
+      //   res = $("li").eq(2)
+      //   res = d("li").eq(2)
+
+      // -- 支持负数，表示从后往前
+
+      //   res = $("li").eq(-2)
+      //   res = d("li").eq(-2)
+
+      // -- 超出了范围的情况
+      // res = $("li").eq(5)
+      // res = d("li").eq(5)
+
+      // -- 奇怪的字符串
+      // res = $("li").eq("dsa")
+      // res = d("li").eq("dsa")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

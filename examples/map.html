@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>map演示</title>
+  </head>
+
+  <body>
+    <form method="post" action="">
+      <fieldset>
+        <div>
+          <label for="two">2</label>
+          <input type="checkbox" value="2" id="two" name="number[]" />
+        </div>
+        <div>
+          <label for="four">4</label>
+          <input type="checkbox" value="4" id="four" name="number[]" />
+        </div>
+        <div>
+          <label for="six">6</label>
+          <input type="checkbox" value="6" id="six" name="number[]" />
+        </div>
+        <div>
+          <label for="eight">8</label>
+          <input type="checkbox" value="8" id="eight" name="number[]" />
+        </div>
+      </fieldset>
+    </form>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      //   res = $(":checkbox")
+      //     .map(function (index, domElement) {
+      //       console.log(index)
+      //       console.log(domElement)
+      //       console.log(this)
+      //       //   return this.id
+      //       return [1, 2]
+      //     })
+      //     .get()
+
+      res = d(`input[type="checkbox"]`)
+        .map(function (index, domElement) {
+          //   console.log(index)
+          //   console.log(domElement)
+          //   console.log(this)
+          return this.id
+          //   return [1, 2]
+        })
+        .get()
+
+      console.log(res)
+    </script>
+  </body>
+</html>

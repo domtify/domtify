@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>remove演示</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="hello">Hello</div>
+      <div class="hello">Hello2</div>
+      <div class="hello goodbye">Goodbye</div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 没有参数的移除
+      //   res = $(".hello").remove()
+      //   res = d(".hello").remove()
+
+      // 选择器过滤
+      // res = $(".hello").remove(".goodbye")
+      // res = d(".hello").remove(".goodbye")
+
+      // --remove方法同时也会移除事件监听和data数据
+      /* 
+        1.先给要移除的元素绑定一个事件用于测试以及设置上data数据
+        2.移除该元素
+        3. 重新插入到容器中
+        4.再次点击则事件丢失
+      */
+
+      d(".goodbye").on("click", function () {
+        alert("按钮点击事件仍然有效！")
+      })
+      d(".goodbye").data("foo", "bar")
+
+      res = d(".goodbye").remove().get(0)
+      document.querySelector(".container").appendChild(res)
+      res = d(".goodbye").data("foo")
+      console.log(res)
+    </script>
+  </body>
+</html>

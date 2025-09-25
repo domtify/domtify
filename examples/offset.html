@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>offset演示</title>
+    <style>
+      body {
+        padding-bottom: 3000px;
+      }
+      div {
+        box-sizing: border-box;
+        border: 10px solid red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box1">Hello</div>
+    <div class="box2" style="position: fixed">domtify</div>
+    <div class="box3" style="position: sticky">sticky盒子</div>
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 无元素时返回undefined
+      // res = $(".not-found").offset()
+      // res = d(".not-found").offset()
+
+      // 常规元素不会受滚动条高度影响
+      // res = $(".box1").offset()
+      // res = d(".box1").offset()
+
+      // 脱离文档流的元素会考虑到window窗口的滚动条的高度
+      // res = $(".box2").offset()
+      // res = d(".box2").offset()
+
+      // 普通对象的方式设置
+      res = $("div").offset({
+        top: 30,
+        left: 20,
+      })
+
+      // res = d("div").offset({
+      //   top: 30,
+      //   left: 20,
+      // })
+
+      // 函数
+      //   res = $("p").offset(function (index, obj) {
+      //     console.log(this)
+
+      //     return {
+      //       top: 20,
+      //       left: 8,
+      //     }
+      //   })
+
+      //   res = d("p").offset(function (index, obj) {
+      //     console.log(this)
+
+      //     return {
+      //       top: 20,
+      //       left: 8,
+      //     }
+      //   })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

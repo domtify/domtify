@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>position演示</title>
+    <style>
+      html {
+        margin: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container0">
+      <div class="child" style="display: none"></div>
+    </div>
+
+    <div class="container1" style="padding: 10px; margin: 10px">
+      <div class="child"></div>
+    </div>
+
+    <div
+      class="container2"
+      style="
+        position: relative;
+        padding-left: 10px;
+        padding-top: 20px;
+        margin: 5px;
+      "
+    >
+      <div class="child"></div>
+    </div>
+
+    <div class="container3">
+      <div
+        class="child"
+        style="position: fixed; left: 10px; top: 20px; margin: 10px"
+      ></div>
+    </div>
+
+    <div class="container4">
+      <div
+        class="child"
+        style="position: absolute; left: 10px; top: 20px; margin: 10px"
+      ></div>
+    </div>
+
+    <div class="container5" style="position: relative; border: 10px solid red">
+      <div class="child" style="position: absolute; top: 0; left: 0"></div>
+    </div>
+
+    <div
+      class="container6"
+      style="position: relative; width: 100px; height: 100px; overflow: scroll"
+    >
+      <div style="width: 300px; height: 300px"></div>
+      <div
+        class="child"
+        style="
+          position: absolute;
+          top: 50px;
+          left: 50px;
+          width: 20px;
+          height: 20px;
+        "
+      ></div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 不存在的集合
+      // res = $(".not-exist").position()
+      // res = d(".not-exist").position()
+
+      // 数字
+      // res = $(10).position()
+      // res = d(10).position()
+
+      // 元素不可见,top和left都返回为0
+      // res = $(".container0 .child").position()
+      // res = d(".container0 .child").position()
+
+      // 不会考虑html标签上的 margin
+      // res = $("html").position()
+      // res = d("html").position()
+
+      // 子元素相对 static 父容器,会自动找到顶级doc
+      /* 
+        实际上会直接返回元素getBoundingClientRect方法的left和top值
+      */
+      // res = $(".container1 .child").position()
+      // res = d(".container1 .child").position()
+
+      // 子元素相对 relative 父容器
+      // res = $(".container2 .child").position()
+      // res = d(".container2 .child").position()
+
+      // 父容器有边框
+      // res = $(".container5 .child").position()
+      // res = d(".container5 .child").position()
+
+      // 固定定位
+      // res = $(".container3 .child").position()
+      // res = d(".container3 .child").position()
+
+      // 绝对定位
+      // res = $(".container4 .child").position()
+      // res = d(".container4 .child").position()
+
+      // 父元素有滚动条
+      // const parent = document.querySelector(".container6")
+      // parent.scrollTop = 60
+      // parent.scrollLeft = 32
+      // res = $(".container6 .child").position()
+      // res = d(".container6 .child").position()
+
+      console.log(res)
+    </script>
+  </body>
+</html>

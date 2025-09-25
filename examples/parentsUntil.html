@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>parentsUntil演示</title>
+  </head>
+
+  <body>
+    <ul class="level-1 yes">
+      <li class="item-i">I</li>
+      <li class="item-ii">
+        II
+        <ul class="level-2 yes">
+          <li class="item-a">A</li>
+          <li class="item-b">
+            B
+            <ul class="level-3">
+              <li class="item-1">1</li>
+              <li class="item-2">2</li>
+              <li class="item-3">3</li>
+            </ul>
+          </li>
+          <li class="item-c">C</li>
+        </ul>
+      </li>
+      <li class="item-iii">III</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // 不传递任何参数
+      // res = $("li.item-a").parentsUntil()
+      // res = d("li.item-a").parentsUntil()
+
+      // -- 测试第一个参数,直到什么地方停止，支持选择器，element，jquery对象
+      // res = $("li.item-a").parentsUntil("li.item-ii")
+      // res = d("li.item-a").parentsUntil("li.item-ii")
+
+      // res = $("li.item-a").parentsUntil(document.querySelector(".level-1"))
+      // res = d("li.item-a").parentsUntil(document.querySelector(".level-1"))
+
+      // res = $("li.item-a").parentsUntil($(".level-1"))
+      // res = d("li.item-a").parentsUntil(d(".level-1"))
+
+      // -- 第二个参数支持过滤
+      // res = $("li.item-a").parentsUntil($(".level-1"), ".yes")
+      res = d("li.item-a").parentsUntil(d(".level-1"), ".yes")
+      console.log(res)
+    </script>
+  </body>
+</html>

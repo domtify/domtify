@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>u-setIn演示</title>
+  </head>
+
+  <body>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <div id="d3"></div>
+    <div id="d4"></div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/immutable@5.1.3/dist/immutable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+      // 字符串方式设置 "a[0].b.c"
+      // let object = { a: [{ b: { c: 3 } }] }
+      // d.setIn(object, "a[0].b.c", 4)
+      // console.log(object.a[0].b.c)
+
+      // 数组的方式 ["x", "0", "y", "z"]
+      // let object = { a: [{ b: { c: 3 } }] }
+      // d.setIn(object, ["x", "0", "y", "z"], 5)
+      // console.log(object.x[0].y.z)
+
+      // 返回值
+      // let object = { a: [{ b: { c: 3 } }] }
+      // let res = d.setIn(object, ["x", "0", "y", "z"], 5)
+      // console.log(res)
+
+      // let object = { a: [{ b: { c: 3 } }] }
+      // let res = _.set(object, ["x", "0", "y", "z"], 5)
+      // console.log(res)
+
+      // 支持 Symbol
+      // const obj5 = { a: {} }
+      // const sym = Symbol("symKey")
+      // let res = d.setIn(obj5.a, sym, 7) // true
+      // console.log(res)
+      // console.log(obj5)
+
+      // const obj5 = { a: {} }
+      // const sym = Symbol("symKey")
+      // let res = _.set(obj5.a, sym, 7) // true
+      // console.log(res)
+      // console.log(obj5)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>removeData演示</title>
+  </head>
+
+  <body>
+    <div data-count="10"></div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 不传递参数，表示删除全部
+      // res = $("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = $("div").removeData()
+
+      // res = d("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = d("div").removeData()
+
+      // 删除指定的key
+      // res = $("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = $("div").removeData("test1")
+
+      // res = d("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = d("div").removeData("test1")
+
+      // 删除一个不存在的key,没有任何影响
+      // res = $("div").removeData(123)
+      // res = $("div").removeData("foo-bar")
+      // res = d("div").removeData(123)
+      // res = d("div").removeData("foo-bar")
+      // 同时删除多个空格分隔的key
+      // res = $("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = $("div").removeData("test1 test2")
+
+      // res = d("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = d("div").removeData("test1 test2")
+
+      // 通过数组删除多个 key
+      // res = $("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = $("div").removeData(["test1", "test2"])
+
+      // res = d("div").data({
+      //   test1: "VALUE-1",
+      //   test2: "VALUE-2",
+      // })
+      // res = d("div").removeData(["test1", "test2"])
+
+      console.dir(document.querySelector("div"))
+
+      console.log(res)
+    </script>
+  </body>
+</html>

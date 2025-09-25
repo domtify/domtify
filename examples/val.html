@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>val演示</title>
+  </head>
+
+  <body>
+    <select id="single">
+      <option>option1</option>
+      <option>option2</option>
+    </select>
+
+    <select id="multiple" multiple="multiple">
+      <option selected="selected">option1</option>
+      <option>option2</option>
+      <option selected="selected">option3</option>
+    </select>
+
+    <input type="text" value="some text" />
+    <input type="checkbox" name="checkboxname" value="check1" /> check1
+    <input type="checkbox" name="checkboxname" value="check2" /> check2
+    <input type="radio" name="r" value="radio1" /> radio1
+    <input type="radio" name="r" value="radio2" /> radio2
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // -- 获取值
+      // 单选下拉列表
+      //   res = $("#single").val()
+      //   res = d("#single").val()
+
+      // 多选下拉列表
+      //   res = $("#multiple").val()
+      //   res = d("#multiple").val()
+
+      // 输入框
+      //   res = $("input").val()
+      //   res = d("input").val()
+
+      // -- 设置值
+
+      // 输入框-字符串
+      // 结果：只有type="text"这个input的值变为"foo bar",其它input框不受影响
+      //   res = $("input").val("foo bar")
+      //   res = d("input").val("foo bar")
+
+      // 输入框-数字
+      // 结果：只有type="text"这个input的值变为"100",其它input框不受影响
+      //   res = $("input").val(100)
+      //   res = d("input").val(100)
+
+      // 输入框-数组
+      // 结果1：type="text"这个input的值为"check1,check2,radio1"
+      // 结果2：name="checkboxname"这个input框check1和check1被选中
+      // 结果3：name="r"这个input框radio1被选中
+      //   res = $("input").val(["check1", "check2", "radio1"])
+      //   res = d("input").val(["check1", "check2", "radio1"])
+
+      // 输入框-函数
+      // 结果：只有type="text"这个input的值变为"foo",其它input框不受影响
+      // res = $("input").val(function (index, oldVal) {
+      //   console.log(index)
+      //   console.log(oldVal)
+      //   return "foo"
+      // })
+      // res = d("input").val(function (index, oldVal) {
+      //   console.log(index)
+      //   console.log(oldVal)
+      //   return "foo"
+      // })
+
+      // -- select元素-字符串
+      // 结果1：单选和多选下拉框都选中了option2选项
+      //   res = $("select").val("option2")
+      //   res = d("select").val("option2")
+
+      // -- select元素-数组
+      // 结果1：不带multiple="multiple"的select元素选中了"option2"
+      // 结果2：带multiple="multiple"的select元素选中了"option2", "option3"
+      //   res = $("select").val(["option2", "option3"])
+      //   res = d("select").val(["option2", "option3"])
+
+      // -- select元素-函数
+      //   res = $("select").val(function (index, oldVal) {
+      //     console.log(index)
+      //     console.log(oldVal)
+      //     return ["option2", "option3"]
+      //   })
+
+      //   res = d("select").val(function (index, oldVal) {
+      //     console.log(index)
+      //     console.log(oldVal)
+      //     return ["option2", "option3"]
+      //   })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

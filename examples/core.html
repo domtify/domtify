@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>core演示</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <p class="item">hello</p>
+      <span class="item">world</span>
+      <input class="form-check-input" type="checkbox" value="" id="input" />
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 支持直接传入element
+      // res = $(document.getElementById("app"))
+      // res = d(document.getElementById("app"))
+
+      // 选择器
+      // res = $("#app")
+
+      // for (const item of res) {
+      //   console.log(item)
+      // }
+
+      // for (const [i, el] of Array.from(res).entries()) {
+      //   console.log(i, el)
+      // }
+
+      // console.log(Array.from(res))
+
+      res = d("#app")
+
+      // 支持HTML字符串
+      // res = $(`<div class='new'>test</div>`)
+      // res = d(`<div class='new'>test</div>`)
+
+      // 不支持jQuery中的特殊选择器
+      // res = $(`:checkbox`) // 仅jQ支持
+      // res = d(`:checkbox`)
+
+      // 支持NodeList/HTMLCollection
+      // res = $(document.querySelectorAll(".item"))
+      // res = d(document.querySelectorAll(".item"))
+
+      // 支持包含元素的数组
+      // res = $([document.createElement("a"), document.createElement("b")])
+      // res = d([document.createElement("a"), document.createElement("b")])
+
+      // 支持解析domtify实例对象
+      // res = $($(".item"))
+      // res = d(d(".item"))
+
+      // 传递函数表示页面加载完成后触发回调
+      // res = $(() => console.log("load"))
+      // res = d(() => console.log("load"))
+
+      // null或者undefined
+      // res = $(undefined)
+      // res = d(undefined)
+
+      // 数字
+      // res = $(1)
+      // res = d(1)
+
+      // 字符串非id选择器和html字符串都会绑定prevObject属性
+      // res = $(".item", document.querySelector("#app"))
+      // res = d(".item", document.querySelector("#app"))
+
+      // res = document.getElementById("input")
+      // res = document.querySelector("#app").getElementById("input")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

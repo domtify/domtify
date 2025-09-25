@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>off演示</title>
+  </head>
+
+  <body>
+    <ul class="u1">
+      <li>foo</li>
+      <li>bar</li>
+    </ul>
+
+    <ul class="u2">
+      <li>foo</li>
+      <li>bar</li>
+    </ul>
+
+    <button onclick="off()">off</button>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      function handle(event) {
+        console.log(event.handleObj.namespace)
+      }
+
+      function handle2(event) {
+        console.log(event.handleObj.namespace + "------handle2触发的")
+      }
+      $(".u1").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle)
+      // 内部的解析为 .a.ns1.t
+      $(".u1").on("click.ns1.a.t", "li", handle2)
+      $(".u1").on("click.ns1.a.t", handle2)
+
+      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle)
+      d(".u2").on("click.ns1.a.t", "li", handle2)
+      d(".u2").on("click.ns1.a.t", handle2)
+
+      function off() {
+        // 无参数,移除当前元素上所有绑定事件
+        // $(".u1").off()
+        // d(".u2").off()
+        // 按照事件名称，会移除所有的点击事件
+        // $(".u1").off("click")
+        // d(".u2").off("click")
+        // 移除特定的命名空间的事件
+        // $(".u1").off("click.ns1 click.ns2")
+        // d(".u2").off("click.ns1 click.ns2")
+        // 命名空间支持
+        // $(".u1").off(".ns1.a.t")
+        // $(".u1").off(".a")
+        // $(".u1").off(".ns1")
+        // $(".u1").off(".t")
+        // $(".u1").off(".a.t")
+        // $(".u1").off(".t.a")
+        // ----
+        // d(".u2").off(".ns1.a.t")
+        // d(".u2").off(".a")
+        // d(".u2").off(".ns1")
+        // d(".u2").off(".t")
+        // d(".u2").off(".a.t")
+        // d(".u2").off(".t.a")
+        // 支持句柄进一步过滤
+        // $(".u1").off("click", handle2)
+        // $(".u1").off(".ns1", handle2)
+        // ----
+        // d(".u2").off("click", handle2)
+        // d(".u2").off(".ns1", handle2)
+        // 支持通过对象的方式批量传入要移除的事件
+        // $(".u1").off({ click: handle, "mousedown.ns": handle })
+        // d(".u2").off({ click: handle2, "mousedown.ns": handle })
+        // 支持直接通过绑定的句柄来解绑
+        // d(".u2").off(handle)
+      }
+    </script>
+  </body>
+</html>

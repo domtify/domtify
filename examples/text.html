@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>text演示</title>
+  </head>
+
+  <body>
+    <div class="demo-container">
+      <div class="demo-box">Demonstration Box</div>
+      <ul>
+        <li>list item 1</li>
+        <li>list <strong>item</strong> 2</li>
+      </ul>
+    </div>
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 获取text
+      //   res = $("div.demo-container").text()
+      res = d("div.demo-container")
+        .text()
+        .replace(/<[^>]+>/g, "")
+        .replace(/\s+/g, " ")
+        .trim()
+
+      // --设置text,字符串
+      // res = $("div.demo-container").text("<p>This is a test.</p>")
+      // res = d("div.demo-container").text("<p>This is a test.</p>")
+
+      // --设置text,number
+      // res = $("div.demo-container").text(10)
+      // res = d("div.demo-container").text(10)
+
+      // --设置text,boolean
+      // res = $("div.demo-container").text(true)
+      // res = d("div.demo-container").text(true)
+
+      // --设置text,函数
+      // res = $("div.demo-container").text(function (index, text) {
+      //   console.log(index, text)
+      //   return "new str"
+      // })
+
+      // res = d("div.demo-container").text(function (index, text) {
+      //   console.log(index, text)
+      //   return "new str"
+      // })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>resize演示</title>
+    <style>
+      .resizable {
+        resize: both; /* 允许水平和垂直方向同时缩放 */
+        overflow: auto; /* 必须有 overflow 才能生效 */
+        width: 200px;
+        height: 150px;
+        background: lightblue;
+        border: 2px solid #333;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="resizable"></div>
+    <div class="resizable"></div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      // domtify支持普通元素
+      d(".resizable").resize(
+        function (index, entry) {
+          d(this).html(`
+        <span>高：${entry.contentRect.height}</span>
+        <span>宽：${entry.contentRect.width}</span>
+        `)
+        },
+        { immediate: false },
+      )
+
+      // 取消监听
+      //   d(".resizable").resize(null)
+    </script>
+  </body>
+</html>

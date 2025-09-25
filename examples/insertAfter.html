@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>insertAfter演示</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Greetings</h2>
+      <div class="inner inner1">Hello</div>
+      <div class="inner inner2">Goodbye</div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 支持选择器
+      //   res = $("<p>Test</p>").insertAfter(".inner")
+      // res = d("<p>Test</p>").insertAfter(".inner")
+
+      // 支持字符串(字符串实际上不会有任何反应,还是原来的dom结构)
+      // res = $("<p>我是新元素</p>").insertAfter(`<div>我是div</div>`)
+      // res = d("<p>我是新元素</p>").insertAfter(`<div>我是div</div>`)
+
+      // 支持元素
+      //   res = $("<p>我是新元素</p>").insertAfter(document.querySelector("h2"))
+      // res = d("<p>我是新元素</p>").insertAfter(document.querySelector("h2"))
+
+      // 支持数组
+      // res = $("<p>我是新元素</p>").insertAfter([
+      //   document.querySelector("h2"),
+      //   document.querySelectorAll(".inner"),
+      // ])
+
+      res = d("<p>我是新元素</p>").insertAfter([
+        document.querySelector("h2"),
+        document.querySelectorAll(".inner"),
+      ])
+
+      console.log(res)
+    </script>
+  </body>
+</html>

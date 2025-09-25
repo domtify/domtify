@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>uniqueSort演示</title>
+  </head>
+
+  <body>
+    <div class="item-1">1</div>
+    <div class="item-2">2</div>
+    <div class="dup">3</div>
+    <div class="dup">4</div>
+    <div class="dup">5</div>
+    <div class="item-6">6</div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 去重演示
+      /* 
+        1.找到所有的div
+        2.找到携带.dup类的div然后加入到原先的数组
+        3.使用这个拼接的数组再创建一个新的集合对象
+        3.使用uniqueSort去重
+      */
+      //   let divs = $("div").get()
+      //   divs = divs.concat($(".dup").get())
+      //   res = $(divs).length // 9
+      //   res = $(divs).uniqueSort().length // 6
+
+      //   let divs = d("div").get()
+      //   divs = divs.concat(d(".dup").get())
+      //   res = d(divs).length // 9
+      //   res = d(divs).uniqueSort().length // 6
+
+      // 测试排序功能
+      //   res = $([
+      //     document.querySelector(".item-6"),
+      //     document.querySelector(".item-1"),
+      //     document.querySelector(".item-2"),
+      //   ])
+      //   res = res.uniqueSort()
+
+      res = d([
+        document.querySelector(".item-6"),
+        document.querySelector(".item-1"),
+        document.querySelector(".item-2"),
+      ])
+      res = res.uniqueSort()
+
+      console.log(res)
+    </script>
+  </body>
+</html>

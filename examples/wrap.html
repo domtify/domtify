@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wrap演示</title>
+  </head>
+
+  <body>
+    <p>Hello</p>
+    <p>cruel</p>
+    <p>World</p>
+    <div class="doublediv"><div></div></div>
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 选择器
+      // res = $("p").wrap(".doublediv")
+      // res = d("p").wrap(".doublediv")
+
+      // html字符串
+      //   res = $("p").wrap("<div><b></b></div>")
+      //   res = d("p").wrap("<div><b></b></div>")
+
+      // 元素
+      // res = $("p").wrap(document.querySelector(".doublediv"))
+      // res = d("p").wrap(document.querySelector(".doublediv"))
+
+      // jquery对象
+      //   res = $("p").wrap($(".doublediv"))
+      //   res = d("p").wrap(d(".doublediv"))
+
+      // 函数,返回字符串
+      //   res = $("p").wrap(function (index) {
+      //     return `<div class='wrapper${index}'></div>`
+      //   })
+
+      //   res = d("p").wrap(function (index) {
+      //     return `<div class='wrapper${index}'></div>`
+      //   })
+
+      // 函数，返回jquery对象
+      //   res = $("p").wrap(function (index) {
+      //     return $(".doublediv")
+      //   })
+
+      // res = d("p").wrap(function (index) {
+      //   return d(".doublediv")
+      // })
+
+      // 如果没找到元素,则不进行任何操作提前返回this
+      // res = $("p").wrap(".not-exist")
+      // res = d("p").wrap(".not-exist")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

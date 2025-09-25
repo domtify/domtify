@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wrapInner演示</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="inner">Hello</div>
+      <div class="inner">Goodbye</div>
+    </div>
+    <div class="double"><div></div></div>
+    <div class="double">
+      <div><div></div></div>
+    </div>
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      //  htmlString
+      // res = $(".inner").wrapInner("<div class='new'></div>")
+      // res = d(".inner").wrapInner("<div class='new'></div>")
+
+      // 选择器
+      // res = $(".inner").wrapInner(".double")
+      // res = d(".inner").wrapInner(".double")
+
+      // 集合对象
+      // res = $(".inner").wrapInner($(".double"))
+      // res = d(".inner").wrapInner(d(".double"))
+
+      // 元素
+      // res = $(".inner").wrapInner(document.querySelector(".double"))
+      // res = d(".inner").wrapInner(document.querySelector(".double"))
+
+      // 函数-返回字符串
+      // res = $(".inner").wrapInner(function (index) {
+      //   console.log(index)
+
+      //   return "<div class='new'></div>"
+      // })
+
+      // res = d(".inner").wrapInner(function (index) {
+      //   console.log(index)
+      //   return "<div class='new'></div>"
+      // })
+
+      // 边缘情况测试数字
+      // res = $(".inner").wrapInner(123)
+      res = d(".inner").wrapInner(123)
+
+      console.log(res)
+    </script>
+  </body>
+</html>

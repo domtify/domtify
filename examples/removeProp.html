@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>removeProp演示</title>
+  </head>
+
+  <body>
+    <p></p>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      res = $("p").prop("foo", "bar").removeProp("foo").prop("foo")
+      res = d("p").prop("foo", "bar").removeProp("foo").prop("foo")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

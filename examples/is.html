@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>is演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li>list item 1</li>
+      <li class="special">list item 2</li>
+      <li>list item 3</li>
+      <li>list item 4</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 选择器
+
+      // res = $("li").is(".special")
+      // res = d("li").is(".special")
+
+      // -- 函数
+      // res = $("li").is(function (i, el) {
+      //   console.log(i)
+      //   console.log(el)
+      //   console.log(this)
+
+      //   return $("li").length === 3
+      // })
+
+      // res = d("li").is(function (i, el) {
+      //   console.log(i)
+      //   console.log(el)
+      //   console.log(this)
+
+      //   return d("li").length === 3
+      // })
+
+      // -- 支持直接传入domtify对象
+      // res = $("li").is($("li.special"))
+      // res = d("li").is(d("li.special"))
+
+      // -- 支持传入元素
+      // res = $("li").is(document.querySelector("li.special"))
+      res = d("li").is(document.querySelector("li.special"))
+
+      console.log(res)
+    </script>
+  </body>
+</html>

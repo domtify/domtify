@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prepend演示</title>
+  </head>
+
+  <body>
+    <h2>h2-1</h2>
+    <p>ppp</p>
+    <div class="container">
+      <div class="inner">Hello</div>
+      <div class="inner">Goodbye</div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 支持html字符串
+      // res = $(".inner").prepend("<p>Test2222</p>")
+      // res = d(".inner").prepend("<p>Test2222</p>")
+
+      // HTMLCollection集合
+      // res = $(".inner").prepend(document.getElementsByTagName("p"))
+      // res = d(".inner").prepend(document.getElementsByTagName("p"))
+
+      // 元素
+      // res = $(".inner").prepend(document.querySelector("h2"))
+      // res = d(".inner").prepend(document.querySelector("h2"))
+
+      // 文本节点
+      // res = $(".inner").prepend("TEXT")
+      // res = d(".inner").prepend("TEXT")
+
+      // 数组
+      // res = $(".inner").prepend([document.querySelector("h2"), "TEXT"])
+      // res = d(".inner").prepend([document.querySelector("h2"), "TEXT"])
+
+      // jQuery对象
+      // res = $(".inner").prepend($("h2"))
+      // res = d(".inner").prepend(d("h2"))
+
+      // 函数返回字符串
+      // res = $(".inner").prepend(function (index, html) {
+      //   console.log(index, html)
+      //   return `<b>test${index}</b>`
+      // })
+
+      // res = d(".inner").prepend(function (index, html) {
+      //   console.log(index, html)
+      //   return `<b>test${index}</b>`
+      // })
+
+      // 函数返回HTMLCollection集合
+      // res = $(".inner").prepend(function (index, html) {
+      //   return document.getElementsByTagName("p")
+      // })
+
+      // res = d(".inner").prepend(function (index, html) {
+      //   return document.getElementsByTagName("p")
+      // })
+
+      // 函数返回数组
+      // res = $(".inner").prepend(function (index, html) {
+      //   return ["123", "456", `<p>Test</p>`, document.getElementsByTagName("p")]
+      // })
+
+      // res = d(".inner").prepend(function (index, html) {
+      //   return ["123", "456", `<p>Test</p>`, document.getElementsByTagName("p")]
+      // })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

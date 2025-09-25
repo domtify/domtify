@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>toggleClass演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo" class="myClass yourClass foo null false undefined item-0">
+        foo
+      </li>
+      <li id="bar" class="myClass yourClass foo null false undefined item-11">
+        bar
+      </li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // 一个或者多个空格分割的字符串
+      // res = $("li").toggleClass("myClass yourClass")
+      // res = d("li").toggleClass("myClass yourClass")
+
+      // -- 一个或者多个空格分割的字符串 第二个参数支持状态
+      // res = $("li").toggleClass("myClass yourClass test", true)
+      // res = d("li").toggleClass("myClass yourClass test", true)
+
+      // -- 支持类名数组
+      // res = $("li").toggleClass(["myClass yourClass", "foo"])
+      // res = d("li").toggleClass(["myClass yourClass", "foo"])
+
+      // -- 支持类名数组,第二个参数支持状态
+      // res = $("li").toggleClass(["myClass yourClass", "foo", "test"], true)
+      // res = d("li").toggleClass(["myClass yourClass", "foo", "test"], true)
+
+      // 数组中的边缘情况(它内部会直接把null false都转换成字符串)
+      // res = $("li").toggleClass([
+      //   "myClass yourClass",
+      //   "foo",
+      //   null,
+      //   false,
+      //   undefined,
+      // ])
+      // res = d("li").toggleClass([
+      //   "myClass yourClass",
+      //   "foo",
+      //   null,
+      //   false,
+      //   undefined,
+      // ])
+
+      // -- 函数,返回字符串
+      // res = $("li").toggleClass(function (index, className, state) {
+      //   console.log(this)
+      //   console.log(className)
+      //   console.log(state)
+
+      //   return "myClass"
+      // }, true)
+
+      // res = d("li").toggleClass(function (index, className, state) {
+      //   console.log(this)
+      //   console.log(className)
+      //   console.log(state)
+
+      //   return "item-" + index
+      // }, true)
+
+      // -- 函数,返回字符串,支持第二个参数
+
+      // res = $("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return "item-" + index
+      // }, true)
+
+      // res = d("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return "item-" + index
+      // }, true)
+
+      // -- 函数，返回数组
+      // res = $("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // })
+
+      // res = d("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // })
+
+      // -- 函数，返回数组，第二个参数，状态
+      // res = $("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // }, true)
+
+      // res = d("li").toggleClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // }, true)
+
+      // 是函数,但是集合又不是正常的元素的情况下
+      res = $(1).toggleClass(function (index, className, state) {
+        console.log(this, index, className, state)
+        return "test"
+      })
+
+      res = d(1).toggleClass(function (index, className, state) {
+        console.log(this, index, className, state)
+        return "test"
+      })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

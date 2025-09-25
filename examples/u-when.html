@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>u-when演示</title>
+  </head>
+
+  <body>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <div id="d3"></div>
+    <div id="d4"></div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // 零参数
+      //   res = $.when({ testing: 123 }).done(function (x) {
+      //     console.log(x.testing)
+      //   })
+
+      //   res = d.when().then(() => console.log("fired immediately"))
+
+      //   res = d // 单个普通值
+      //     .when({ testing: 123 })
+      //     .then(
+      //       (values) => console.log(values[0].testing), // 123
+      //     )
+
+      // 单个 Promise
+      //   res = $.when(Promise.resolve("Hello")).then(
+      //     (values) => console.log(values), // "Hello"
+      //   )
+
+      //   res = d.when(Promise.resolve("Hello")).then(
+      //     (values) => console.log(values), // "Hello"
+      //   )
+
+      // 多个 Promise
+      //   const p1 = Promise.resolve("Fish")
+      //   const p2 = Promise.resolve("Pizza")
+
+      //   res = $.when(p1, p2).then(
+      //     (values, v2) => console.log(values, v2), // Fish Pizza
+      //   )
+
+      //   const p1 = Promise.resolve("Fish")
+      //   const p2 = Promise.resolve("Pizza")
+      //   res = d.when(p1, p2).then(
+      //     (v1, v2) => console.log(v1, v2), // Fish Pizza
+      //   )
+
+      // 多值 resolve
+      //   const p3 = new Promise((resolve) => resolve([1, 2, 3]))
+
+      //   res = $.when(p3).then(
+      //     (values) => console.log(values), // [1, 2, 3]
+      //   )
+      //   const p3 = new Promise((resolve) => resolve([1, 2, 3]))
+
+      //   res = d.when(p3).then(
+      //     (values) => console.log(values), // [1, 2, 3]
+      //   )
+
+      // 失败回调
+      //   const pFail = Promise.reject("Error!")
+      //   res = $.when(pFail).then(
+      //     () => {},
+      //     (err) => console.log(err), // Error!
+      //   )
+
+      const pFail = Promise.reject("Error!")
+      res = d.when(pFail).then(
+        () => {},
+        (err) => console.log(err), // Error!
+      )
+
+      console.log(res)
+    </script>
+  </body>
+</html>

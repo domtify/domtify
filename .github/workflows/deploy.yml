@@ -1,0 +1,37 @@
+name: Deploy Docs
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+on:
+  push:
+    branches:
+      - main
+  #允许从页面手动运行此工作流
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0 # 如果未启用lastUpdated，则不需要
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: 全局安装Vercel CLI
+        run: npm install --global vercel@canary
+      - name: 安装Node依赖
+        run: npm install
+      - name: 文档打包
+        run: npm run docs:build
+      - name: Deploy to Vercel
+        run: ${{ secrets.VERCEL_DEPLOY }}

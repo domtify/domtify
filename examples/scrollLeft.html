@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scrollLeft演示</title>
+    <style>
+      div.demo {
+        background: #ccc none repeat scroll 0 0;
+        border: 3px solid #666;
+        margin: 5px;
+        padding: 5px;
+        position: relative;
+        width: 200px;
+        height: 100px;
+        overflow: auto;
+      }
+      p {
+        margin: 10px;
+        padding: 5px;
+        border: 2px solid #666;
+        width: 1000px;
+        height: 1000px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="demo">
+      <h1>lalala</h1>
+      <p>Hello</p>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      //  数字
+      //   res = $("div.demo").scrollLeft(300)
+      //   res = d("div.demo").scrollLeft(300)
+
+      // 支持函数
+      //   res = $("div.demo").scrollLeft((i, old) => old + 100)
+      res = d("div.demo").scrollLeft((i, old) => old + 100)
+      console.log(res)
+    </script>
+  </body>
+</html>

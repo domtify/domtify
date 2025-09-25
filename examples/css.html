@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>css演示</title>
+    <style>
+      #box1 {
+        width: 50px;
+        color: yellow;
+        background-color: blue;
+      }
+      #box2 {
+        width: 80px;
+        color: rgb(255, 255, 255);
+        background-color: rgb(15, 99, 30);
+      }
+      #box3 {
+        width: 40px;
+        color: #fcc;
+        background-color: #123456;
+      }
+      #box4 {
+        width: 70px;
+        background-color: #f11;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="div" style="background-color: blue"></div>
+    <div class="div" style="background-color: rgb(15, 99, 30)"></div>
+    <div class="div" style="background-color: #123456"></div>
+    <div class="div" style="background-color: #f11"></div>
+
+    <div id="box1">1</div>
+    <div id="box2">2</div>
+    <div id="box3">3</div>
+    <div id="box4">4</div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // getter
+      // 获取css,通过eq拿到单个元素
+      // res = $("div").eq(0).css("background-color")
+      // res = d("div").eq(0).css("background-color")
+
+      // 测试多个元素集合获取css的情况,发现它只作用于元素集合中的第一个元素
+      // res = $("div").css("background-color")
+      // res = d("div").css("background-color")
+
+      // 获取一个不存在的属性,应该返回undefined
+      // res = $("div").eq(0).css("foo")
+      // res = d("div").eq(0).css("foo")
+
+      // -- 获取css，支持数组的方式,同时如果是不存在的数据则是返回undefined
+      // res = $("div").css([
+      //   "width",
+      //   "height",
+      //   "color",
+      //   "background-color",
+      //   "foo",
+      // ])
+      // res = d("div").css([
+      //   "width",
+      //   "height",
+      //   "color",
+      //   "background-color",
+      //   "foo",
+      // ])
+
+      // -- setter
+      // -- 设置单个属性
+      // res = $("#box1").css("color", "red")
+      // res = d("#box1").css("color", "red")
+
+      // -- 批量设置属性，支持直接传入一个字面量对象
+      res = $("#box1").css({
+        "background-color": "yellow",
+        "font-weight": "bolder",
+      })
+
+      // res = d("#box1").css({
+      //   "background-color": "yellow",
+      //   "font-weight": "bolder",
+      // })
+
+      // 下面两种用法是domtify独有的
+
+      // -- 设置单个属性,第三个参数追加"important"
+      // res = d("#box1").css("color", "red", "important")
+
+      // -- 批量设置，属性值后面追加 !important
+      // res = d("#box1").css({
+      //   "background-color": "yellow !important",
+      //   "font-weight": "bolder !important",
+      // })
+
+      // -- 不存在时返回undefined
+      // res = $(".not-found").css("color")
+      // res = d(".not-found").css("color")
+
+      // -- 不存在时哪怕时是数组也应该直接返回undefined
+      // res = $(".not-found").css(["background-color"])
+      // res = d(".not-found").css(["background-color"])
+
+      console.log(res)
+    </script>
+  </body>
+</html>

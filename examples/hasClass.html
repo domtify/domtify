@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hasClass演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo" class="foo bar">foo</li>
+      <li id="bar" class="foo bar zoo">bar</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // res = $("li").hasClass("foo")
+      // res = d("li").hasClass("foo")
+
+      // res = $("li").hasClass("bar")
+      // res = d("li").hasClass("bar")
+
+      // 如果是一个不存在得class类名
+      // res = $("li").hasClass("quux")
+      // res = d("li").hasClass("quux")
+
+      // 元素集合为空时,也应该返回false
+      // res = $(".not-exist").hasClass("foo")
+      // res = d(".not-exist").hasClass("foo")
+
+      // 数字不报错
+      // res = $(1).hasClass("foo")
+      // res = d(1).hasClass("foo")
+
+      // 如果只有集合中的某个元素包含某个类,就都返回为真
+      // res = $("li").hasClass("zoo")
+      // res = d("li").hasClass("zoo")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

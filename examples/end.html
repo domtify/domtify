@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>end演示</title>
+  </head>
+
+  <body>
+    <p><span>Hello</span>, how are you?</p>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // end后实际上回到了p标签,设置样式
+      //   res = $("p").find("span").end().css("border", "2px red solid")
+      //   res = d("p").find("span").end().css("border", "2px red solid")
+
+      // 多次调用,最终回到最顶级实例
+      res = d("p").find("span").end().end().end().end()
+
+      console.log(res)
+    </script>
+  </body>
+</html>

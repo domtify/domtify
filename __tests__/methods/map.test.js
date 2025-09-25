@@ -1,0 +1,62 @@
+import { describe, it, expect, beforeEach, vi } from "vitest"
+
+// 导入核心
+import { domtify as d } from "@/core.js"
+
+// 按需导入
+import "@/methods/map.js"
+import "@/methods/toArray.js"
+
+describe("map", () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+    <form method="post" action="">
+      <fieldset>
+        <div>
+          <label for="two">2</label>
+          <input type="checkbox" value="2" id="two" name="number[]" />
+        </div>
+        <div>
+          <label for="four">4</label>
+          <input type="checkbox" value="4" id="four" name="number[]" />
+        </div>
+        <div>
+          <label for="six">6</label>
+          <input type="checkbox" value="6" id="six" name="number[]" />
+        </div>
+        <div>
+          <label for="eight">8</label>
+          <input type="checkbox" value="8" id="eight" name="number[]" />
+        </div>
+      </fieldset>
+    </form>
+    `
+  })
+
+  it("返回input的id属性值数组", () => {
+    const $checkboxs = d(`input[type="checkbox"]`).map(function () {
+      return this.id // this === el
+    })
+    expect($checkboxs.toArray()).toEqual(["two", "four", "six", "eight"])
+  })
+
+  it("map内部的话返回数组应该展开", () => {
+    const $checkboxs = d(`input[type="checkbox"]`).map(() => [1, 2])
+    expect($checkboxs.toArray()).toEqual([1, 2, 1, 2, 1, 2, 1, 2])
+  })
+
+  it("undefined/null 则不返回任何值", () => {
+    const $checkboxs = d(`input[type="checkbox"]`).map(() => null)
+    expect($checkboxs.toArray()).toEqual([])
+  })
+
+  it("回调参数index,element测试", () => {
+    const mock = vi.fn(function (i, el) {
+      return el.id
+    })
+    d(`input[type="checkbox"]`).map(mock)
+    expect(mock).toHaveBeenCalledTimes(4)
+    expect(mock.mock.calls[0][0]).toBe(0) // index
+    expect(mock.mock.calls[0][1]).toBeInstanceOf(HTMLElement) // element
+  })
+})

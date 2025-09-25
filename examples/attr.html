@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>attr演示</title>
+  </head>
+
+  <body>
+    <input id="check1" type="checkbox" checked="checked" />
+    <label for="check1">check1</label>
+    <input id="check2" type="checkbox" />
+    <label for="check2">check2</label>
+    <p aria-hidden="true">
+      Once there was a <em title="huge, gigantic">large</em> dinosaur...
+    </p>
+    <img id="photo" />
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 存在的属性
+      //   res = $("#check1").attr("checked")
+      //   res = d("#check1").attr("checked")
+
+      // 不存在的属性返回undefined
+      //   res = $("#check2").attr("checked")
+      //   res = d("#check2").attr("checked")
+
+      // 测试获取title
+      //   res = $("em").attr("title")
+      //   res = d("em").attr("title")
+
+      // 设置简单属性
+      //   res = $("#check1").attr("alt", "Beijing Brush Seller")
+      //   res = d("#check1").attr("alt", "Beijing Brush Seller")
+
+      // 删除属性-通过设置值为null的方式
+      //   res = $("#check1").attr("checked", null)
+      //   res = d("#check1").attr("checked", null)
+
+      // 删除属性-通过设置值为false的方式
+      //   res = $("#check1").attr("checked", false)
+      //   res = d("#check1").attr("checked", false)
+
+      // 删除属性针对如果aria属性的设置为false无效
+      //   res = $("p").attr("aria-hidden", false)
+      //   res = d("p").attr("aria-hidden", false)
+
+      // 函数的方式
+      //   res = $("em").attr("title", function (i, val) {
+      //     return val + i
+      //   })
+
+      //   res = d("em").attr("title", function (i, val) {
+      //     return val + i
+      //   })
+
+      // 通过对象的方式
+      res = $("img").attr({
+        title: "domtify",
+        alt: "domtify Logo",
+      })
+      // res = d("img").attr({
+      //   title: "domtify",
+      //   alt: "domtify Logo",
+      // })
+      console.log(res)
+    </script>
+  </body>
+</html>

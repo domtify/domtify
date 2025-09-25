@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>add演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li>list item 1</li>
+      <li>list item 2</li>
+      <li>list item 3</li>
+    </ul>
+    <p>a paragraph</p>
+    <div class="empty">
+      <p>this is empty p</p>
+    </div>
+
+    <script src="/domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // css选择器
+      res = $("li").add("p")
+      // res = d("li").add("p")
+
+      // 元素
+      // res = $("li").add(document.querySelector("p"))
+      // res = d("li").add(document.querySelector("p"))
+
+      // html代码片段
+      // res = $("li").add(`<p id='new'>new paragraph</p>`)
+      // res = d("li").add(`<p id='new'>new paragraph</p>`)
+
+      // jquery对象
+      // res = $("li").add($("p"))
+      // res = d("li").add(d("p"))
+
+      // 支持第二个参数上下文
+      const context = document.querySelector(".empty")
+      // res = $("li").add("p", context)
+      // res = d("li").add("p", context)
+      console.log(res)
+    </script>
+  </body>
+</html>

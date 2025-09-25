@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>replaceClass演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo" class="foo bar">foo</li>
+      <li id="bar" class="foo bar">bar</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 支持字符串
+      // res = d("li").replaceClass("foo", "new-foo")
+
+      // 新的class值支持函数
+      // res = d("li").replaceClass("foo", function (index, currClass) {
+      //   console.log(index)
+      //   console.log(currClass)
+      //   console.log(this)
+      //   return "new-foo" + index
+      // })
+
+      // 支持对象
+      // d("li").replaceClass({
+      //   foo: "new-foo",
+      // })
+
+      // 支持函数
+      // d("li").replaceClass(function (index, currClass) {
+      //   return {
+      //     foo: "new-foo" + index,
+      //     bar: "new-bar" + index,
+      //   }
+      // })
+
+      // 边缘情况数字测试
+      d([10, 20]).replaceClass(function (index, currClass) {
+        console.log(index)
+        console.log(currClass)
+      })
+
+      console.log(res)
+    </script>
+  </body>
+</html>

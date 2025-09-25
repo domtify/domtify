@@ -1,0 +1,11 @@
+// 保持徽章一行渲染
+.badge {
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  img {
+    display: inline-block;
+  }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>replaceWith演示</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <p>this is p</p>
+      <h1>this is h1</h1>
+      <h2>this is h2</h2>
+      <div class="inner first">Hello</div>
+      <div class="inner second">And</div>
+      <div class="inner third">Goodbye</div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // html字符串
+      // res = $("div.second").replaceWith("<h2>New heading</h2>")
+      // res = d("div.second").replaceWith("<h2>New heading</h2>")
+
+      // Element
+      // res = $("div.second").replaceWith(document.querySelector("p"))
+      // res = d("div.second").replaceWith(document.querySelector("p"))
+
+      // TextNode节点
+      // res = $("div.second").replaceWith(document.createTextNode("TextNode"))
+      // res = d("div.second").replaceWith(document.createTextNode("TextNode"))
+
+      // 数组
+      // res = $("div.second").replaceWith([
+      //   document.querySelector("p"),
+      //   "<h2>New heading</h2>",
+      // ])
+
+      // res = d("div.second").replaceWith([
+      //   document.querySelector("p"),
+      //   "<h2>New heading</h2>",
+      // ])
+
+      // 数组-页面时多个真实元素和其它混合测试
+      // res = $("div.second").replaceWith([$("p"), $("h1"), $("h2"), 10])
+      // res = d("div.second").replaceWith([d("p"), d("h1"), d("h2"), 10])
+
+      // 集合对象
+      // res = $("div.second").replaceWith($("p"))
+      // res = d("div.second").replaceWith(d("p"))
+
+      // 函数-可以返回上面的所有类型
+      // res = $("div.second").replaceWith(function (index, oldTextCnt) {
+      //   console.log(index)
+      //   console.log(oldCnt)
+      //   console.log(this)
+      //   return $("p")
+      // })
+
+      // res = d("div.second").replaceWith(function (index, oldTextCnt) {
+      //   console.log(index)
+      //   console.log(oldTextCnt)
+      //   console.log(this)
+      //   return d("p")
+      // })
+
+      // 函数-可以返回字符串
+      res = d("div.second").replaceWith(function (index, oldTextCnt) {
+        console.log(index)
+        console.log(oldTextCnt)
+        console.log(this)
+        return `<span>Fn span</span>`
+      })
+
+      // 函数是数字的情况
+      // jQuery下面这种情况会直接抛出异常
+      // res = $([10, document.querySelector("div.second")]).replaceWith(
+      //   function (index, oldTextCnt) {
+      //     console.log(index)
+      //     console.log(oldTextCnt)
+      //     console.log(this)
+      //     // return d("p")
+      //     return "123"
+      //   },
+      // )
+      // res = d([10, document.querySelector("div.second")]).replaceWith(
+      //   function (index, oldTextCnt) {
+      //     console.log(index)
+      //     console.log(oldTextCnt)
+      //     console.log(this)
+      //     return d("p")
+      //   },
+      // )
+
+      console.log(res)
+    </script>
+  </body>
+</html>

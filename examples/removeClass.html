@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>removeClass演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo" class="myClass yourClass foo null false undefined item-0">
+        foo
+      </li>
+      <li id="bar" class="myClass yourClass foo null false undefined item-11">
+        bar
+      </li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // 一个或者多个空格分割的字符串
+      // res = $("li").removeClass("myClass yourClass")
+      // res = d("li").removeClass("myClass yourClass")
+
+      // -- 支持类名数组
+      // res = $("li").removeClass(["myClass yourClass", "foo"])
+      // res = d("li").removeClass(["myClass yourClass", "foo"])
+
+      // 数组中的边缘情况(它内部会直接把null false都转换成字符串)
+      //   res = $("li").removeClass([
+      //     "myClass yourClass",
+      //     "foo",
+      //     null,
+      //     false,
+      //     undefined,
+      //   ])
+      // res = d("li").removeClass([
+      //   "myClass yourClass",
+      //   "foo",
+      //   null,
+      //   false,
+      //   undefined,
+      // ])
+
+      // -- 函数,返回字符串
+      // res = $("li").removeClass(function (index) {
+      //   console.log(this)
+
+      //   return "item-" + index
+      // })
+
+      // res = d("li").removeClass(function (index) {
+      //   console.log(this)
+
+      //   return "item-" + index
+      // })
+
+      // -- 函数，返回数组
+      // res = $("li").removeClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // })
+
+      // res = d("li").removeClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, null, false, undefined]
+      // })
+
+      // - 不给参数则表示移除所有的class类
+      // res = $("li").removeClass()
+      // res = d("li").removeClass()
+
+      // 如果是函数但是集合又不是类的情况
+      // res = $(1).removeClass(function (index, className) {
+      //   console.log(this, index, className)
+      //   return "test"
+      // })
+
+      // res = d(1).removeClass(function (index, className) {
+      //   console.log(this, index, className)
+      //   return "test"
+      // })
+
+      // 如果传递的是数字
+      // res = $("li").removeClass(1)
+      // res = d("li").removeClass(1)
+
+      console.log(res)
+    </script>
+  </body>
+</html>

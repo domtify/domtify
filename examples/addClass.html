@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>addClass演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo" class="foo myclass">foo</li>
+      <li id="bar" class="bar myclass">bar</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+      // 一个或者多个空格分割的字符串
+      // res = $("li").addClass("myClass yourClass")
+      // res = d("li").addClass("myClass yourClass")
+      // res = c("li").addClass("myClass yourClass")
+
+      // -- 支持类名数组
+      // res = $("li").addClass(["myClass yourClass","foo"])
+      // res = d("li").addClass(["myClass yourClass", "foo"])
+      // res = c("li").addClass(["myClass yourClass", "foo"])//很明显它不支持
+
+      // 数组中的边缘情况(它内部会直接把null false都转换成字符串)
+      // res = $("li").addClass([
+      //   "myClass yourClass",
+      //   "foo",
+      //   null,
+      //   false,
+      //   undefined,
+      // ])
+      // res = d("li").addClass([
+      //   "myClass yourClass",
+      //   "foo",
+      //   null,
+      //   false,
+      //   undefined,
+      // ])
+
+      // -- 函数,返回字符串
+      // res = $("li").addClass(function (index, currentClassName) {
+      //   console.log(this, currentClassName)
+
+      //   return "item-" + index
+      // })
+
+      // res = d("li").addClass(function (index, currentClassName) {
+      //   console.log(this, currentClassName)
+
+      //   return "item-" + index
+      // })
+
+      // -- 函数，返回数组
+      // res = $("li").addClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, "abc", "hello domtify"]
+      // })
+
+      // res = d("li").addClass(function (index) {
+      //   console.log(this)
+
+      //   return ["item-" + index, "abc", "hello domtify"]
+      // })
+
+      // -- 函数，如果传入的不是元素,那么currentClassName为传入本身
+      // res = $("10").addClass(function (index, currentClassName) {
+      //   console.log(this)
+      //   console.log(currentClassName)
+      //   return ["item-" + index, "abc", "hello domtify"]
+      // })
+      // res = d(10).addClass(function (index, currentClassName) {
+      //   console.log(this)
+      //   console.log(currentClassName)
+
+      //   return ["item-" + index, "abc", "hello domtify"]
+      // })
+      console.log(res)
+    </script>
+  </body>
+</html>

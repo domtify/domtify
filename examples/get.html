@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>get演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo">foo</li>
+      <li id="bar">bar</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 默认不传递参数,获取全部
+      // res = $("li").get()
+      res = d("li").get()
+
+      // 传递null也是获取全部
+      // res = $("li").get(null)
+      // res = d("li").get(null)
+
+      // 数字字符串
+      // res = $("li").get("1")
+      // res = d("li").get("1")
+
+      // 其它字符串都返回undefined
+      // res = $("li").get("abc")
+      // res = d("li").get("abc")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

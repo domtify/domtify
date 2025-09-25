@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>u-map演示</title>
+  </head>
+
+  <body>
+    <div id="d1"></div>
+    <div id="d2"></div>
+    <div id="d3"></div>
+    <div id="d4"></div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+      let res
+
+      // 数组
+      // let arr = [0, 1, 2]
+      // res = $.map(arr, function (v, k) {
+      //   console.log(v)
+      //   console.log(k)
+      //   return v + 4
+      // })
+      // res = d.map(arr, function (v, k) {
+      //   console.log(v)
+      //   console.log(k)
+      //   return v + 4
+      // })
+
+      //   数组过滤
+      // res = $.map([0, 1, 2], function (value, index) {
+      //   return value > 0 ? value + 1 : null
+      // })
+
+      // res = d.map([0, 1, 2], function (value, index) {
+      //   return value > 0 ? value + 1 : null
+      // })
+
+      // 数组扁平化
+      // res = $.map([0, 1, 2], function (value, index) {
+      //   return [value, value + 1]
+      // })
+
+      // res = d.map([0, 1, 2], function (value, index) {
+      //   return [value, value + 1]
+      // })
+
+      // 对象映射
+      let obj = { width: 10, height: 15, length: 10 }
+
+      // res = $.map(obj, function (v, k) {
+      //   console.log(v)
+      //   console.log(k)
+      //   return v * 2
+      // })
+
+      // res = d.map(obj, function (v, k) {
+      //   console.log(v)
+      //   console.log(k)
+      //   return v * 2
+      // })
+
+      // 操作大于50的item
+      // res = $.map([0, 1, 52, 97], (a) => (a > 50 ? a - 45 : null))
+      // res = d.map([0, 1, 52, 97], (a) => (a > 50 ? a - 45 : null))
+
+      // 扁平化 + 索引
+      // res = $.map([0, 1, 52, 97], (a, i) => [a - 45, i])
+      res = d.map([0, 1, 52, 97], (a, i) => [a - 45, i])
+
+      console.log(res)
+    </script>
+  </body>
+</html>

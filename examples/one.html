@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>one演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li id="foo">foo</li>
+      <li id="bar">bar</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 直接绑定
+      // res = $("ul").one("click", function () {
+      //   console.log("111")
+      // })
+      // res = d("ul").one("click", function () {
+      //   console.log("111")
+      // })
+
+      // -- 委托模式
+      // res = $("ul").one("click", "li", function () {
+      //   console.log(this)
+      // })
+
+      // res = d("ul").one("click", "li", function () {
+      //   console.log(this)
+      // })
+
+      // -- 支持选项
+      res = d("ul").one(
+        "click",
+        function () {
+          console.log("111")
+        },
+        { capture: false },
+      )
+
+      console.log(res)
+    </script>
+  </body>
+</html>

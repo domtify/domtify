@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>siblings演示</title>
+  </head>
+
+  <body>
+    <ul>
+      <li>list item 1</li>
+      <li class="item">list item 2</li>
+      <li class="third-item">list item 3</li>
+      <li class="item">list item 4</li>
+      <li>list item 5</li>
+    </ul>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 不传递参数获取所有的兄弟节点
+      //   res = $("li.third-item").siblings()
+      //   res = d("li.third-item").siblings()
+
+      // -- 传递参数过滤
+      //   res = $("li.third-item").siblings(".item")
+      res = d("li.third-item").siblings(".item")
+
+      console.log(res)
+    </script>
+  </body>
+</html>

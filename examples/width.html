@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>width演示</title>
+    <style>
+      .box {
+        border: 10px solid red;
+        height: 50px;
+        width: 200px;
+      }
+      .border-box {
+        box-sizing: border-box;
+      }
+      .content-box {
+        box-sizing: content-box;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="box border-box">.border-box</div>
+    <div class="box content-box">.content-box</div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // window对象
+      //   res = $(window).width()
+      //   res = d(window).width()
+
+      // document
+      //   res = $(document).width()
+      //   res = d(document).width()
+
+      // border-box 元素
+      //   res = $(".border-box").width()
+      //   res = d(".border-box").width()
+
+      // content-box 元素
+      //   res = $(".content-box").width()
+      //   res = d(".content-box").width()
+
+      // 数字
+      //   res = $(10).width()
+      //   res = d(10).width()
+
+      // setter
+
+      // 设置高度-数字
+      //   res = $(".box").width(100)
+      //   res = d(".box").width(100)
+
+      // 设置高度-数字字符串
+      //   res = $(".box").width("100.1")
+      //   res = d(".box").width("100.1")
+
+      // 设置高度-带单位的字符串 如“em”、“％”、“rem”等
+      //   res = $(".box").width("10em")
+      //   res = d(".box").width("10em")
+
+      // 设置高度-带错误单位的字符串
+      //   res = $(".box").width("10pq")
+      //   res = d(".box").width("10pq")
+
+      // 设置高度-函数
+      //   res = $(".box").width(function (index, oldHeight) {
+      //     console.log(index)
+      //     console.log(oldHeight)
+      //     return "100"
+      //   })
+
+      // res = d(".box").width(function (index, oldHeight) {
+      //   console.log(index)
+      //   console.log(oldHeight)
+      //   return "100"
+      // })
+
+      // 数字测试
+      //   res = $(10).width("100")
+      //   res = d(10).width("100")
+      console.log(res)
+    </script>
+  </body>
+</html>

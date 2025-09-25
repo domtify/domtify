@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>detach演示</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="hello">Hello</div>
+      <div class="hello">Hello2</div>
+      <div class="hello goodbye">Goodbye</div>
+    </div>
+
+    <script src="domtify.js"></script>
+    <script src="jquery.js"></script>
+
+    <script>
+      let res
+
+      // 没有参数的移除
+      // res = $(".hello").detach()
+      // res = d(".hello").detach()
+
+      // 选择器过滤
+      // res = $(".hello").detach(".goodbye")
+      // res = d(".hello").detach(".goodbye")
+
+      // --detach方法也会保留data和事件监听
+      // 1.先给要移除的元素绑定一个事件用于测试
+      d(".goodbye").on("click", function () {
+        alert("按钮点击事件仍然有效！")
+      })
+      // 2.移除该元素
+      res = d(".goodbye").detach()[0]
+      //3. 重新插入到容器中
+      document.querySelector(".container").appendChild(res)
+      // 4.再次点击则事件还在
+
+      console.log(res)
+    </script>
+  </body>
+</html>
