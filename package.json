@@ -1,6 +1,6 @@
 {
   "name": "domtify",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Lightweight DOM & event utility with a jQuery-style API.",
   "repository": "github:ajiho/domtify",
   "bugs": {
