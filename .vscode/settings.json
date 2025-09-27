@@ -1,3 +1,4 @@
 {
-  "prettier.configPath": "./configs/prettier.config.mjs"
+  "prettier.configPath": "./configs/prettier.config.mjs",
+  "npm.scriptHover": false
 }

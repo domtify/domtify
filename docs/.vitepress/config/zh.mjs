@@ -335,10 +335,6 @@ function sidebarAPI() {
               link: "method-children",
             },
             {
-              text: "pushStack",
-              link: "method-pushStack",
-            },
-            {
               text: "toArray",
               link: "method-toArray",
             },
