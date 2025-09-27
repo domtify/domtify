@@ -54,7 +54,7 @@
 ```
 
 > [!TIP]
-> 至于为什么domtify不包含ajax模块,请查看[迁移指南](/guide/migration#不支持ajax模块)查看原因,以及查看更多需要主意的信息。axios库的文档[快捷入口](https://axios-http.com/docs/intro)🚀
+> 至于为什么domtify不包含ajax模块,请查看[迁移指南](/guide/migration#不支持ajax模块)查看原因,以及查看更多需要注意的信息。axios库的文档[快捷入口](https://axios-http.com/docs/intro)🚀
 
 ## 包管理器
 
