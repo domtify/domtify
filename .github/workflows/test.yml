@@ -1,10 +1,17 @@
 name: Run tests and upload coverage
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
-    name: Run tests and collect coverage
+    if: |
+      github.actor != 'renovate[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,13 +21,39 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v4
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Cache Playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
+      - name: Run lint
+        run: npm run check
+
       - name: Run tests
         run: npm run coverage
+
       - name: Upload results to Codecov
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
