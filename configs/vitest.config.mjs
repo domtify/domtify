@@ -5,22 +5,22 @@ export default defineConfig({
     globals: false,
     setupFiles: ["./configs/vitest.setup.mjs"],
     name: "browser",
-    include: ["__tests__/**/*.test.js"],
+    include: ["__tests__/**/*.test.ts"],
     coverage: {
       enabled: true,
       all: true, //哪怕没改动的文件也显示出来
       provider: "v8",
       reportOnFailure: true,
-      include: ["src/**/*.js"], // 指定包含的文件
+      include: ["src/**/*.ts"], // 指定包含的文件
       // 排除测试文件
       exclude: [
-        "**/*.test.js",
+        "**/*.test.ts",
         "**/__tests__/**",
-        "src/wrappers/*.js",
-        "src/index.js",
-        "src/methods.js",
-        "src/utilities/type/*.js",
-        "src/utilities/index.js",
+        "src/wrappers/*.ts",
+        "src/index.ts",
+        "src/methods.ts",
+        "src/utilities/type/*.ts",
+        "src/utilities/index.ts",
       ],
     },
     browser: {
