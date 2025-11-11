@@ -18,7 +18,7 @@ export default {
       files: "package.json",
       options: {
         parser: "sort-package-json",
-        packageJsonIgnoreSortKeys: ["scripts"],
+        packageJsonIgnoreSortKeys: ["scripts", "exports"],
       },
     },
   ],
