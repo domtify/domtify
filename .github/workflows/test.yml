@@ -19,30 +19,14 @@ jobs:
 
       - name: Set up Node
         uses: actions/setup-node@v4
-
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        run: echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
-
-      - name: Cache npm
-        uses: actions/cache@v4
         with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v4
-        with:
-          path: node_modules/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+        run: npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps --force
+        run: npx playwright install --with-deps
 
       - name: Lint
         run: npm run check

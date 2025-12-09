@@ -31,14 +31,14 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: 全局安装Vercel CLI
+      - name: Install Vercel CLI
         run: npm install --global vercel@canary
 
-      - name: 安装依赖
-        run: npm ci
+      - name: Install dependencies
+        run: npm install
 
-      - name: 构建文档
+      - name: Docs Build
         run: npm run docs:build
 
-      - name: 部署到 Vercel
+      - name: Deploy Project Artifacts to Vercel
         run: ${{ secrets.VERCEL_DEPLOY }}

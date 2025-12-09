@@ -1,4 +1,5 @@
 {
   "prettier.configPath": "./configs/prettier.config.mjs",
-  "npm.scriptHover": false
+  "npm.scriptHover": false,
+  "cSpell.enabled": false
 }
