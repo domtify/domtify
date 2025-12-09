@@ -99,7 +99,7 @@
     "rollup-plugin-cleanup": "^3.2.1",
     "rollup-plugin-delete": "^3.0.1",
     "sass": "^1.93.2",
-    "semver": "^7.7.2",
+    "semver": "^7.7.3",
     "size-limit": "^11.2.0",
     "vitepress": "^1.6.4",
     "vitepress-plugin-group-icons": "^1.6.5",
