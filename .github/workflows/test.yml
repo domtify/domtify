@@ -10,8 +10,9 @@ on:
 
 jobs:
   test:
+    if: ! (github.event_name == 'push' && github.actor == 'renovate[bot]')
+
     runs-on: ubuntu-latest
-    if: github.event_name != 'push' || github.actor != 'renovate[bot]'
     steps:
       - name: Checkout
         uses: actions/checkout@v6
