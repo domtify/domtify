@@ -9,6 +9,7 @@ import del from "rollup-plugin-delete"
 import path from "path"
 import { fileURLToPath } from "url"
 import cleanup from "rollup-plugin-cleanup"
+import strip from "@rollup/plugin-strip"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -29,6 +30,7 @@ const plugins = [
     configFile: "./configs/babel.config.mjs",
   }),
   cleanup(),
+  strip(),
 ]
 
 if (isProd) {
@@ -42,22 +44,6 @@ if (isProd) {
       },
     }),
   )
-}
-
-function removeComments() {
-  return {
-    name: "remove-comments",
-    renderChunk(code) {
-      return {
-        code: stripComments(code, {
-          line: true, // 删除单行注释 `// xxx`
-          block: true, // 删除块注释 `/* xxx */`
-          preserveNewlines: false, // 不保留空行
-        }),
-        map: null, // 不生成 source map
-      }
-    },
-  }
 }
 
 const esmDir = "dist/esm"
