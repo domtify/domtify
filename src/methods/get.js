@@ -1,18 +1,8 @@
-import { isInteger, isNull, isUndefined } from "is-what"
-import { fn } from "@/core.js"
+import { isNull, isUndefined } from "is-what"
 
-import "./toArray.js"
+export const get = (index) => (els) => {
+  if (isUndefined(index) || isNull(index)) return els
 
-fn.get = function (index) {
-  let result
-
-  if (isUndefined(index) || isNull(index)) {
-    result = this.toArray()
-  } else {
-    index = Number(index)
-
-    result = isInteger(index) ? this.toArray().at(index) : undefined
-  }
-
-  return result
+  const i = Number(index)
+  return Number.isInteger(i) ? els.at(i) : undefined
 }

@@ -1,11 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/removeProp.js"
-import "@/methods/prop.js"
+import { el } from "@/core.js"
+import { removeProp } from "@/methods/removeProp.js"
+import { prop } from "@/methods/prop.js"
 
 describe("removeProp", () => {
   beforeEach(() => {
@@ -15,7 +12,9 @@ describe("removeProp", () => {
   })
 
   it("删除后应返回undefined", () => {
-    const result = d("p").prop("foo", "bar").removeProp("foo").prop("foo")
+    let result = prop("foo", "bar")(el("p"))
+    result = removeProp("foo")(result)
+    result = prop("foo")(result)
     expect(result).toBeUndefined()
   })
 })

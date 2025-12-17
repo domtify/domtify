@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/serialize.js"
+import { el } from "@/core.js"
+import { serialize } from "@/methods/serialize.js"
 
 describe("serialize", () => {
   beforeEach(() => {
@@ -80,7 +77,7 @@ describe("serialize", () => {
   })
 
   it("遍历所有元素", () => {
-    const result = d("form").serialize()
+    const result = serialize()(el("form"))
     expect(result).toBe(
       "email=123%40qq.com&single=Single&multiple=Multiple&multiple=Multiple3&check=check2&radio=radio1",
     )

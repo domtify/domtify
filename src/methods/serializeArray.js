@@ -1,18 +1,11 @@
-import { fn } from "@/core.js"
+import { eachFormEntry } from "@/utils/eachFormEntry.js"
 
-import "./toArray.js"
-
-fn.serializeArray = function () {
+export const serializeArray = () => (els) => {
   const params = []
 
-  for (const [, element] of this.toArray().entries()) {
-    if (element.tagName === "FORM") {
-      const fd = new FormData(element)
-      for (const [key, value] of fd.entries()) {
-        params.push({ name: key, value })
-      }
-    }
-  }
+  eachFormEntry(els, ([name, value]) => {
+    params.push({ name, value })
+  })
 
   return params
 }

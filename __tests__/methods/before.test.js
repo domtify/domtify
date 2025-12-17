@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/before.js"
+import { el } from "@/core.js"
+import { before } from "@/methods/before.js"
 
 describe("before", () => {
   beforeEach(() => {
@@ -20,30 +17,30 @@ describe("before", () => {
   })
 
   it("插入 HTML 字符串", () => {
-    d(".inner").before("<p>this is p</p>")
+    before("<p>this is p</p>")(el(".inner"))
     const inner1 = document.querySelectorAll(".inner")[0]
     expect(inner1.previousElementSibling.tagName).toBe("P")
     expect(inner1.previousElementSibling.textContent).toBe("this is p")
   })
 
   it("插入 DOM 元素", () => {
-    const el = document.createElement("span")
-    el.textContent = "span-text"
-    d(".inner").before(el)
+    const spanEl = document.createElement("span")
+    spanEl.textContent = "span-text"
+    before(spanEl)(el(".inner"))
     const inner1 = document.querySelectorAll(".inner")[0]
     expect(inner1.previousElementSibling.tagName).toBe("SPAN")
     expect(inner1.previousElementSibling.textContent).toBe("span-text")
   })
 
   it("插入文本节点", () => {
-    d(".inner").before("TEXT")
+    before("TEXT")(el(".inner"))
     expect(
       document.querySelector(".inner").previousSibling.nodeValue,
     ).toContain("TEXT")
   })
 
   it("元素和文本节点数组", () => {
-    d(".inner").before([document.querySelector("h2"), "TEXT"])
+    before([document.querySelector("h2"), "TEXT"])(el(".inner"))
 
     const inner1 = document.querySelectorAll(".inner")[0]
     expect(inner1.previousElementSibling.tagName).toBe("H2")
@@ -51,18 +48,18 @@ describe("before", () => {
     expect(inner1.previousSibling.previousSibling.textContent).toBe("h2-1")
   })
 
-  it("插入 domtify 对象", () => {
-    const h2s = d("h2")
-    d(".inner").before(h2s)
+  it("插入元素数组", () => {
+    const h2El = el("h2")
+    before(h2El)(el(".inner"))
     const inner1 = document.querySelectorAll(".inner")[0]
     expect(inner1.previousElementSibling.tagName).toBe("H2")
     expect(inner1.previousElementSibling.textContent).toBe("h2-2")
   })
 
   it("函数返回HTML字符串", () => {
-    d(".inner").before((index, html) => {
+    before((index, html) => {
       return `<b>test-${index}</b>`
-    })
+    })(el(".inner"))
     const nodeList = document.querySelectorAll("b")
 
     expect(nodeList[0].textContent).toBe("test-0")
@@ -70,9 +67,9 @@ describe("before", () => {
   })
 
   it("函数返回HTMLCollection集合", () => {
-    d(".inner").before(function (index, html) {
+    before(function (index, html) {
       return document.getElementsByTagName("p")
-    })
+    })(el(".inner"))
 
     const container = document.querySelector(".container")
 
@@ -82,7 +79,7 @@ describe("before", () => {
   })
 
   it("多个匹配元素都插入内容", () => {
-    d(".inner").before("<i>italic</i>")
+    before("<i>italic</i>")(el(".inner"))
     const iTags = document.querySelectorAll("i")
     expect(iTags.length).toBe(2)
     expect(iTags[0].textContent).toBe("italic")

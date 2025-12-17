@@ -1,9 +1,4 @@
-import { fn } from "@/core.js"
-import { siblings } from "@/utils/siblings.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { dirSibling } from "@/utils/dirSibling.js"
 
-import "./toArray.js"
-
-fn.next = function (selector) {
-  return pushStack(this, siblings(this.toArray(), "next", { filter: selector }))
-}
+export const next = (selector) => (els) =>
+  dirSibling(els, "next", { filter: selector })

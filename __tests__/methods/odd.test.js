@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/odd.js"
-import "@/methods/get.js"
+import { el } from "@/core.js"
+import { odd } from "@/methods/odd.js"
 
 describe("odd", () => {
   beforeEach(() => {
@@ -22,10 +18,10 @@ describe("odd", () => {
   })
 
   it("应该返回索引为奇数的元素", () => {
-    const items = d("li").odd()
+    const items = odd()(el("li"))
     expect(items.length).toBe(3)
-    expect(items.get(0).textContent).toBe("list item 1")
-    expect(items.get(1).textContent).toBe("list item 3")
-    expect(items.get(2).textContent).toBe("list item 5")
+    expect(items[0].textContent).toBe("list item 1")
+    expect(items[1].textContent).toBe("list item 3")
+    expect(items[2].textContent).toBe("list item 5")
   })
 })

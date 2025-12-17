@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/css.js"
+import { el } from "@/core.js"
+import { css } from "@/methods/css.js"
 
 describe("css", () => {
   beforeEach(() => {
@@ -14,13 +11,13 @@ describe("css", () => {
     `
   })
 
-  it("获取单个css属性", () => {
-    const color = d("#box1").css("color")
+  it("获取单个css属性2", () => {
+    const color = css("color")(el("#box1"))
     expect(color).toBe("rgb(255, 255, 0)")
   })
 
   it("获取多个属性(返回的是属性值对象)", () => {
-    const result = d("#box1").css(["width", "color", "background-color"])
+    const result = css(["width", "color", "background-color"])(el("#box1"))
     expect(result).toEqual({
       width: "100px",
       color: "rgb(255, 255, 0)",
@@ -29,13 +26,13 @@ describe("css", () => {
   })
 
   it("设置单个css属性", () => {
-    d("#box1").css("color", "red")
+    css("color", "red")(el("#box1"))
     const color = getComputedStyle(document.querySelector("#box1")).color
     expect(color).toBe("rgb(255, 0, 0)")
   })
 
   it("第三个参数priority", () => {
-    d("#box1").css("color", "blue", "important")
+    css("color", "blue", "important")(el("#box1"))
     const box1El = document.querySelector("#box1")
 
     const colorPriority = box1El.style.getPropertyPriority("color")
@@ -46,10 +43,10 @@ describe("css", () => {
   })
 
   it("批量设置css", () => {
-    d("#box1").css({
+    css({
       "background-color": "green",
       "font-weight": "bold",
-    })
+    })(el("#box1"))
 
     const style = getComputedStyle(document.querySelector("#box1"))
     expect(style.backgroundColor).toBe("rgb(0, 128, 0)")
@@ -57,46 +54,46 @@ describe("css", () => {
   })
 
   it("批量设置属性支持!important", () => {
-    d("#box1").css({
+    css({
       color: "black !important",
       "font-size": "20px !important",
-    })
+    })(el("#box1"))
 
-    const el = document.querySelector("#box1")
-    const colorPriority = el.style.getPropertyPriority("color")
-    const fontSizePriority = el.style.getPropertyPriority("font-size")
+    const box1El = document.querySelector("#box1")
+    const colorPriority = box1El.style.getPropertyPriority("color")
+    const fontSizePriority = box1El.style.getPropertyPriority("font-size")
     expect(colorPriority).toBe("important")
     expect(fontSizePriority).toBe("important")
   })
 
   it("设置时第二个参数支持函数", () => {
-    d("#box1").css("width", (i, old) => {
+    css("width", (i, old) => {
       expect(i).toBe(0)
       expect(old).toBe("100px")
       return "300px"
-    })
+    })(el("#box1"))
 
     const width = getComputedStyle(document.querySelector("#box1")).width
     expect(width).toBe("300px")
   })
 
   it("无匹配元素时返回 undefined", () => {
-    const result = d(".not-found").css("color")
+    const result = css("color")(el(".not-found"))
     expect(result).toBeUndefined()
   })
 
   it("无匹配元素时获取多个属性 computed 为 null", () => {
-    const result = d(".not-found").css(["width", "color"])
+    const result = css(["width", "color"])(el(".not-found"))
     expect(result).toBeUndefined()
   })
 
   it("未知的css属性返回 undefined", () => {
-    const result = d("#box1").css("foo")
+    const result = css("foo")(el("#box1"))
     expect(result).toBeUndefined()
   })
 
   it("数组方式对于未知的css属性返回 undefined", () => {
-    const result = d("#box1").css(["width", "foo"])
+    const result = css(["width", "foo"])(el("#box1"))
     expect(result).toEqual({
       foo: undefined,
       width: "100px",

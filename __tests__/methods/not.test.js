@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/not.js"
-import "@/methods/toArray.js"
+import { el } from "@/core.js"
+import { not } from "@/methods/not.js"
 
 describe("not", () => {
   beforeEach(() => {
@@ -21,9 +17,9 @@ describe("not", () => {
   })
 
   it("过滤：选择器字符串", () => {
-    const res = d("li").not(":nth-child(2n)")
+    const res = not(":nth-child(2n)")(el("li"))
     expect(res).toHaveLength(3)
-    expect(res.toArray().map((el) => el.textContent)).toEqual([
+    expect(res.map((el) => el.textContent)).toEqual([
       "list item 1",
       "list item 3",
       "list item 5",
@@ -31,12 +27,10 @@ describe("not", () => {
   })
 
   it("过滤：单个 DOM 元素", () => {
-    const el = document.querySelector(".item3")
-    const res = d("li").not(el)
+    const item3El = document.querySelector(".item3")
+    const res = not(item3El)(el("li"))
     expect(res).toHaveLength(4)
-    expect(res.toArray().some((li) => li.classList.contains("item3"))).toBe(
-      false,
-    )
+    expect(res.some((li) => li.classList.contains("item3"))).toBe(false)
   })
 
   it("过滤：元素数组", () => {
@@ -44,30 +38,24 @@ describe("not", () => {
       document.querySelector(".item3"),
       document.querySelector(".item4"),
     ]
-    const res = d("li").not(arr)
+    const res = not(arr)(el("li"))
     expect(res).toHaveLength(3)
-    expect(res.toArray().some((li) => li.classList.contains("item3"))).toBe(
-      false,
-    )
-    expect(res.toArray().some((li) => li.classList.contains("item4"))).toBe(
-      false,
-    )
+    expect(res.some((li) => li.classList.contains("item3"))).toBe(false)
+    expect(res.some((li) => li.classList.contains("item4"))).toBe(false)
   })
 
-  it("过滤：domtify对象", () => {
-    const domObj = d(".item")
-    const res = d("li").not(domObj)
+  it("过滤：元素数组", () => {
+    const domArr = el(".item")
+    const res = not(domArr)(el("li"))
     expect(res).toHaveLength(3)
-    expect(res.toArray().some((li) => li.classList.contains("item"))).toBe(
-      false,
-    )
+    expect(res.some((li) => li.classList.contains("item"))).toBe(false)
   })
 
   it("过滤：函数形式", () => {
-    const res = d("li").not(function (index, el) {
+    const res = not(function (index, el) {
       // 排除索引 3 的元素
       return index === 3
-    })
+    })(el("li"))
     expect(res).toHaveLength(4)
     expect(res[3].textContent).toBe("list item 5")
   })

@@ -1,46 +1,36 @@
-import {
-  isFunction,
-  isString,
-  isInstanceOf,
-  isUndefined,
-  isPlainObject,
-} from "is-what"
-import { fn } from "@/core.js"
+import { isFunction, isString, isPlainObject, isInstanceOf } from "is-what"
 
-import "./toArray.js"
-
-fn.replaceClass = function (oldClassName, newClassName) {
-  let replace = {}
-
-  for (const [index, element] of this.toArray().entries()) {
-    if (isString(oldClassName)) {
-      const value = callMaybeFunction(newClassName, element, index)
-      if (isString(value) && !isUndefined(value)) {
-        replace[oldClassName] = value
-      }
-    } else if (isPlainObject(oldClassName)) {
-      replace = oldClassName
-    } else if (isFunction(oldClassName)) {
-      const result = callMaybeFunction(oldClassName, element, index)
-      if (isPlainObject(result)) replace = result
-    }
-
-    for (const [key, val] of Object.entries(replace)) {
-      if (isInstanceOf(element, Element) && element.classList.contains(key)) {
-        element.classList.replace(key, val)
-      }
-    }
+const callMaybeFunction = (value, el, index) =>
+  isFunction(value) ? value.call(el, index, el?.classList?.value ?? "") : value
+const resolveReplaceMap = (oldClassName, newClassName, el, index) => {
+  if (isString(oldClassName)) {
+    const v = callMaybeFunction(newClassName, el, index)
+    return isString(v) ? { [oldClassName]: v } : {}
   }
 
-  return this
+  if (isPlainObject(oldClassName)) {
+    return oldClassName
+  }
+
+  if (isFunction(oldClassName)) {
+    const r = callMaybeFunction(oldClassName, el, index)
+    return isPlainObject(r) ? r : {}
+  }
+
+  return {}
 }
+export const replaceClass = (oldClassName, newClassName) => (els) => {
+  for (const [i, el] of els.entries()) {
+    if (!isInstanceOf(el, Element)) continue
 
-function callMaybeFunction(maybeFn, element, index) {
-  if (isFunction(maybeFn)) {
-    return Reflect.apply(maybeFn, element, [
-      index,
-      isInstanceOf(element, Element) ? element.classList.value : "",
-    ])
+    const map = resolveReplaceMap(oldClassName, newClassName, el, i)
+
+    for (const [from, to] of Object.entries(map)) {
+      if (el.classList.contains(from)) {
+        el.classList.replace(from, to)
+      }
+    }
   }
-  return maybeFn
+
+  return els
 }

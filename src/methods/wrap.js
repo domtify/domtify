@@ -1,16 +1,14 @@
 import { isFunction } from "is-what"
-import { domtify, fn } from "@/core.js"
+import { el } from "@/core.js"
 
-import "./toArray.js"
-
-fn.wrap = function (wrappingElement) {
-  for (const [index, element] of this.toArray().entries()) {
+export const wrap = (wrappingElement) => (els) => {
+  for (const [index, element] of els.entries()) {
     let wrapper = isFunction(wrappingElement)
-      ? Reflect.apply(wrappingElement, element, [index])
+      ? wrappingElement.call(element, index)
       : wrappingElement
-    wrapper = domtify(wrapper).toArray().at(0)
+    wrapper = el(wrapper).at(0)
 
-    if (!wrapper) return this // 如果没有找到元素直接提前退出避免浪费性能
+    if (!wrapper) return els
 
     const clone = wrapper.cloneNode(true)
 
@@ -27,5 +25,5 @@ fn.wrap = function (wrappingElement) {
     deepest?.appendChild(element)
   }
 
-  return this
+  return els
 }

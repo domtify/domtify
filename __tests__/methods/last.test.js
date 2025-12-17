@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/last.js"
+import { el } from "@/core.js"
+import { last } from "@/methods/last.js"
 
 describe("last", () => {
   beforeEach(() => {
@@ -21,7 +18,7 @@ describe("last", () => {
   })
 
   it("获取最后一个元素", () => {
-    const res = d("li").last()
+    const res = last()(el("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 5")
   })

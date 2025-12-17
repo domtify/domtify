@@ -1,9 +1,5 @@
-import { fn } from "@/core.js"
-
-import "./toArray.js"
-
-fn.unwrap = function (selector) {
-  for (const el of this.toArray()) {
+export const unwrap = (selector) => (els) => {
+  for (const el of els) {
     const parent = el.parentNode
 
     if (
@@ -25,5 +21,5 @@ fn.unwrap = function (selector) {
     // 移除父元素
     parent.remove()
   }
-  return this
+  return els
 }

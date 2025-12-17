@@ -1,12 +1,7 @@
-import { isInstanceOf } from "is-what"
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d, Domtify } from "@/core.js"
-
-// 按需导入
-import "@/methods/nextUntil.js"
-import "@/methods/toArray.js"
+import { el } from "@/core.js"
+import { nextUntil } from "@/methods/nextUntil.js"
 
 describe("nextUntil", () => {
   beforeEach(() => {
@@ -29,8 +24,8 @@ describe("nextUntil", () => {
   })
 
   it("选择器参数: 从 term-2 到下一个 dt 之间的所有兄弟节点", () => {
-    const res = d("#term-2").nextUntil("dt")
-    expect(res.toArray().map((el) => el.textContent.trim())).toEqual([
+    const res = nextUntil("dt")(el("#term-2"))
+    expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
       "definition 2-c",
@@ -39,8 +34,8 @@ describe("nextUntil", () => {
 
   it("Element 参数: 从 term-2 到 term-3 之间", () => {
     const target = document.querySelector("#term-3")
-    const res = d("#term-2").nextUntil(target)
-    expect(res.toArray().map((el) => el.textContent.trim())).toEqual([
+    const res = nextUntil(target)(el("#term-2"))
+    expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
       "definition 2-c",
@@ -48,15 +43,13 @@ describe("nextUntil", () => {
   })
 
   it("过滤器参数: 只匹配 .b", () => {
-    const res = d("#term-2").nextUntil("dt", ".b")
-    expect(res.toArray().map((el) => el.textContent.trim())).toEqual([
-      "definition 2-b",
-    ])
+    const res = nextUntil("dt", ".b")(el("#term-2"))
+    expect(res.map((el) => el.textContent.trim())).toEqual(["definition 2-b"])
   })
 
   it("传入 domtify 对象作为 until 元素", () => {
-    const res = d("#term-2").nextUntil(d("dt"))
-    expect(res.toArray().map((el) => el.textContent.trim())).toEqual([
+    const res = nextUntil(el("dt"))(el("#term-2"))
+    expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
       "definition 2-c",
@@ -64,14 +57,15 @@ describe("nextUntil", () => {
   })
 
   it("当没有匹配时返回空数组", () => {
-    const res = d(".not-exist").nextUntil("dt")
-    expect(res.toArray()).toEqual([])
+    const res = nextUntil("dt")(el(".not-exist"))
+    expect(res).toEqual([])
   })
 
-  it("返回 this 以支持链式调用", () => {
-    const instance = d("#term-2")
-    const returned = instance.nextUntil(d("dt"))
-    expect(isInstanceOf(instance, Domtify)).toBe(true)
-    expect(isInstanceOf(returned, Domtify)).toBe(true)
+  it("返回元素数组", () => {
+    const res = el("#term-2")
+    const nextUntilRes = nextUntil(el("dt"))(res)
+
+    expect(Array.isArray(res)).toBe(true)
+    expect(Array.isArray(nextUntilRes)).toBe(true)
   })
 })

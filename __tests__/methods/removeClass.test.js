@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/removeClass.js"
+import { el } from "@/core.js"
+import { removeClass } from "@/methods/removeClass.js"
 
 describe("removeClass", () => {
   let ul
@@ -21,7 +18,7 @@ describe("removeClass", () => {
   })
 
   it("移除单个类", () => {
-    d("li").removeClass("foo")
+    removeClass("foo")(el("li"))
 
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("bar item-0")
@@ -29,16 +26,16 @@ describe("removeClass", () => {
   })
 
   it("空格分割的多个字符串", () => {
-    d("li").removeClass("foo bar")
+    removeClass("foo bar")(el("li"))
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("item-0")
     expect(lis[1].className).toBe("item-1")
   })
 
   it("函数，返回字符串", () => {
-    d("li").removeClass(function (index) {
+    removeClass(function (index) {
       return "item-" + index
-    })
+    })(el("li"))
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("foo bar")
     expect(lis[1].className).toBe("bar")
@@ -46,33 +43,33 @@ describe("removeClass", () => {
   })
 
   it("函数，返回数组", () => {
-    d("li").removeClass(function (index) {
+    removeClass(function (index) {
       return ["item-" + index, "bar"]
-    })
+    })(el("li"))
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("foo")
     expect(lis[1].className).toBe("")
   })
 
   it("不传递参数默认移除所有的类", () => {
-    d("li").removeClass()
+    removeClass()(el("li"))
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("")
     expect(lis[1].className).toBe("")
   })
 
   it("如果是函数但是集合又不是正常元素的情况", () => {
-    d(1).removeClass(function (index, className) {
+    removeClass(function (index, className) {
       expect(index).toBe(0)
       expect(typeof this).toBe("number")
       expect(this.valueOf()).toBe(1)
       expect(className).toBe("")
       return "test"
-    })
+    })(el(1))
   })
 
   it("如果是数字", () => {
-    d("li").removeClass(1)
+    removeClass(1)(el("li"))
     const lis = ul.querySelectorAll("li")
     expect(lis[0].className).toBe("foo bar item-0")
     expect(lis[1].className).toBe("bar item-1")

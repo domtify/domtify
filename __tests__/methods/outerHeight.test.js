@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/outerHeight.js"
+import { el } from "@/core.js"
+import { outerHeight } from "@/methods/outerHeight.js"
 
 describe("outerHeight", () => {
   let borderBoxEl
@@ -42,58 +39,58 @@ describe("outerHeight", () => {
       configurable: true,
     })
 
-    expect(d(window).outerHeight()).toBe(800)
+    expect(outerHeight()(el(window))).toBe(800)
 
     Object.defineProperty(window, "innerHeight", {
       value: 600,
       configurable: true,
     })
-    expect(d(window).outerHeight()).toBe(600)
+    expect(outerHeight()(el(window))).toBe(600)
   })
 
   it("获取 document 高度", () => {
     document.body.style.height = "1000px"
-    expect(d(document).outerHeight()).toBe(1020)
+    expect(outerHeight()(el(document))).toBe(1020)
 
     document.body.style.height = "2000px"
-    expect(d(document).outerHeight()).toBe(2020)
+    expect(outerHeight()(el(document))).toBe(2020)
   })
   it("border-box 元素", () => {
-    const result = d(".border-box").outerHeight()
+    const result = outerHeight()(el(".border-box"))
     expectPixelEqual(result, 50)
   })
 
   it("content-box 元素", () => {
-    const result = d(".content-box").outerHeight()
+    const result = outerHeight()(el(".content-box"))
     expectPixelEqual(result, 69.2)
   })
 
   it("设置高度", () => {
-    d("div").outerHeight(100)
+    outerHeight(100)(el("div"))
     expectPixelEqual(borderBoxEl.style.height, "100px")
     expectPixelEqual(contentBoxEl.style.height, "80.8px")
   })
 
   it("设置高度-数字字符串", () => {
-    d("div").outerHeight("100.1")
+    outerHeight("100.1")(el("div"))
     expectPixelEqual(borderBoxEl.style.height, "100.1px")
     expectPixelEqual(contentBoxEl.style.height, "80.9px")
   })
 
   it("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    d("div").outerHeight("10em")
+    outerHeight("10em")(el("div"))
     expectPixelEqual(borderBoxEl.style.height, "10em")
     expectPixelEqual(contentBoxEl.style.height, "140.8px")
   })
 
   it("设置高度-带错误单位的字符串", () => {
-    d(".box").outerHeight("10pq")
+    outerHeight("10pq")(el(".box"))
     expect(borderBoxEl.style.height).toBe("")
     expectPixelEqual(contentBoxEl.style.height, "30.8px")
   })
 
   it("设置值时包括margin", () => {
-    d(".box").outerHeight(100, true)
+    outerHeight(100, true)(el(".box"))
     expectPixelEqual(borderBoxEl.style.height, "60px")
     expectPixelEqual(contentBoxEl.style.height, "40.8px")
   })
@@ -101,7 +98,7 @@ describe("outerHeight", () => {
   it("设置高度-函数", () => {
     const fn = vi.fn(() => "100")
 
-    d(".box").outerHeight(fn)
+    outerHeight(fn)(el(".box"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expectPixelEqual(fn.mock.calls[0][1], 50)

@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/toArray.js"
-import "@/methods/siblings.js"
+import { el } from "@/core.js"
+import { siblings } from "@/methods/siblings.js"
 
 describe("siblings", () => {
   beforeEach(() => {
@@ -21,8 +17,8 @@ describe("siblings", () => {
   })
 
   it("返回除了自己的所有的兄弟节点", () => {
-    const siblings = d("li.third-item").siblings()
-    const texts = siblings.toArray().map((li) => li.textContent.trim())
+    const res = siblings()(el("li.third-item"))
+    const texts = res.map((li) => li.textContent.trim())
 
     expect(texts).toEqual([
       "list item 1",
@@ -33,8 +29,8 @@ describe("siblings", () => {
   })
 
   it("传递选择器过滤", () => {
-    const siblings = d("li.third-item").siblings(".item")
-    const texts = siblings.toArray().map((li) => li.textContent.trim())
+    const res = siblings(".item")(el("li.third-item"))
+    const texts = res.map((li) => li.textContent.trim())
 
     expect(texts).toEqual(["list item 2", "list item 4"])
   })

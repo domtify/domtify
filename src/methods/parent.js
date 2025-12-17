@@ -1,21 +1,19 @@
-import { fn } from "@/core.js"
 import { isUndefined } from "is-what"
-import { uniqueArray } from "@/utils/uniqueArray.js"
-import { pushStack } from "@/utils/pushStack.js"
 
-import "./toArray.js"
+export const parent = (selector) => (els) => {
+  const result = []
+  const seen = new Set()
 
-fn.parent = function (selector) {
-  let result = this.toArray()
-    .map((el) => el.parentNode) //这里必须用parentNode而不是parentElement,否则无法和jquery行为完全保持一致
-    .filter((p) => p && p.nodeType !== Node.DOCUMENT_FRAGMENT_NODE)
+  for (const el of els) {
+    const p = el?.parentNode
+    if (!p) continue
+    if (p.nodeType === Node.DOCUMENT_FRAGMENT_NODE) continue
+    if (!isUndefined(selector) && !p.matches(selector)) continue
+    if (seen.has(p)) continue
 
-  if (!isUndefined(selector)) {
-    // 如果传入 selector，则进一步筛选
-    result = result.filter((p) => p.matches(selector))
+    seen.add(p)
+    result.push(p)
   }
 
-  result = uniqueArray(result) // 去重
-
-  return pushStack(this, result)
+  return result
 }

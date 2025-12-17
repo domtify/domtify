@@ -1,12 +1,9 @@
 import { isUndefined } from "is-what"
-import { fn, domtify } from "@/core.js"
+import { removeData } from "./removeData.js"
+import { off } from "./off.js"
 
-import "./off.js"
-import "./removeData.js"
-import "./toArray.js"
-
-fn.remove = function (selector) {
-  let elements = this.toArray()
+export const remove = (selector) => (els) => {
+  let elements = els
 
   if (!isUndefined(selector)) {
     elements = elements.filter((el) => el.matches(selector))
@@ -17,7 +14,8 @@ fn.remove = function (selector) {
   }
 
   // 移除事件和data
-  domtify(elements).off().removeData()
+  off()(els)
+  removeData()(els)
 
-  return this
+  return els
 }

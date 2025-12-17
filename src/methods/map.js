@@ -1,20 +1,17 @@
-import { fn } from "@/core.js"
 import { isArray, isNull, isUndefined } from "is-what"
-import { pushStack } from "@/utils/pushStack.js"
 
-import "./toArray.js"
+export const map = (callback) => (els) => {
+  const result = []
 
-fn.map = function (callback) {
-  let result = []
+  for (const [i, el] of els.entries()) {
+    const value = callback.call(el, i, el)
 
-  for (const [index, element] of this.toArray().entries()) {
-    const returned = Reflect.apply(callback, element, [index, element])
-    if (isArray(returned)) {
-      result.push(...returned) // 扁平化处理
-    } else if (!isUndefined(returned) && !isNull(returned)) {
-      result.push(returned)
+    if (isArray(value)) {
+      result.push(...value)
+    } else if (!isUndefined(value) && !isNull(value)) {
+      result.push(value)
     }
   }
 
-  return pushStack(this, result)
+  return result
 }

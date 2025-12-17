@@ -1,20 +1,17 @@
 import { isFunction } from "is-what"
-import { domtify, fn } from "@/core.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { el } from "@/core.js"
 
-import "./toArray.js"
+export const not = (selector) => (els) => {
+  // 情况 1：函数形式
+  if (isFunction(selector)) {
+    return els.filter(
+      (element, index) => !selector.call(element, index, element),
+    )
+  }
 
-fn.not = function (selector) {
-  // 先获取所有的需要过滤的元素
+  // 情况 2：选择器 / 元素 / 集合
+  const notElements = el(selector)
+  const notSet = new Set(notElements)
 
-  let result = this.toArray().filter((element, index) => {
-    if (isFunction(selector)) {
-      return !Reflect.apply(selector, element, [index, element])
-    } else {
-      let notElements = isFunction(selector) ? [] : domtify(selector).toArray()
-      return !notElements.includes(element)
-    }
-  })
-
-  return pushStack(this, result)
+  return els.filter((element) => !notSet.has(element))
 }

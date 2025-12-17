@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/unwrap.js"
+import { el } from "@/core.js"
+import { unwrap } from "@/methods/unwrap.js"
 
 describe("unwrap", () => {
   beforeEach(() => {
@@ -20,8 +17,8 @@ describe("unwrap", () => {
   })
 
   it("移除父元素，保留子元素", () => {
-    const paragraphs = d(".wrapper p")
-    paragraphs.unwrap()
+    const paragraphs = el(".wrapper p")
+    unwrap()(paragraphs)
 
     // 父元素被移除
     expect(document.querySelector(".wrapper")).toBeNull()
@@ -34,8 +31,8 @@ describe("unwrap", () => {
   })
 
   it("携带选择器时，只有匹配的父元素才会被移除", () => {
-    const paragraphs = d(".wrapper p")
-    paragraphs.unwrap(".non-exist") // 不匹配
+    const paragraphs = el(".wrapper p")
+    unwrap(".non-exist")(paragraphs) // 不匹配
 
     // 父元素未被移除
     expect(document.querySelector(".wrapper")).not.toBeNull()
@@ -44,16 +41,16 @@ describe("unwrap", () => {
   it("不移除 body 或 html", () => {
     // 将 p 直接放到 body 下
     document.body.innerHTML = `<p class="top">Top</p>`
-    const p = d(".top")
-    p.unwrap()
+    const p = el(".top")
+    unwrap()(p)
 
     // body 不会被移除
     expect(document.querySelector("body")).not.toBeNull()
   })
 
   it("多个元素同时 unwrap", () => {
-    const elements = d(".wrapper p, .other-wrapper span")
-    elements.unwrap()
+    const elements = el(".wrapper p, .other-wrapper span")
+    unwrap()(elements)
 
     // 父元素都被移除
     expect(document.querySelector(".wrapper")).toBeNull()

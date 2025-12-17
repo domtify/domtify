@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/parents.js"
-import "@/methods/toArray.js"
+import { el } from "@/core.js"
+import { parents } from "@/methods/parents.js"
 
 describe("parents", () => {
   beforeEach(() => {
@@ -33,11 +29,8 @@ describe("parents", () => {
   })
 
   it("不携带选择器时返回所有祖先", () => {
-    const result = d("li.item-a").parents()
-    const classList = result
-      .toArray()
-      .map((el) => el.className)
-      .filter(Boolean) // 只过滤出有className的
+    const result = parents()(el("li.item-a"))
+    const classList = result.map((el) => el.className).filter(Boolean) // 只过滤出有className的
 
     expect(result.length).toBeGreaterThan(0)
     expect(classList).toContain("level-2")
@@ -46,23 +39,23 @@ describe("parents", () => {
   })
 
   it("携带选择器时过滤祖先", () => {
-    const result = d("li.item-a").parents(".item-ii")
+    const result = parents(".item-ii")(el("li.item-a"))
     expect(result.length).toBe(1)
     expect(result[0].classList.contains("item-ii")).toBe(true)
   })
 
   it("多个元素共享祖先时去重", () => {
-    const result = d("li.item-1, li.item-2, li.item-3").parents()
+    const result = parents()(el("li.item-1, li.item-2, li.item-3"))
 
     // 只过滤出携带.level-3类名的层级
-    const level3Parents = result
-      .toArray()
-      .filter((el) => el.classList.contains("level-3"))
+    const level3Parents = result.filter((el) =>
+      el.classList.contains("level-3"),
+    )
     expect(level3Parents.length).toBe(1) // 共享所以去重只有一个
   })
 
   it("html元素应返回空集合", () => {
-    const result = d("html").parents()
+    const result = parents()(el("html"))
     expect(result.length).toBe(0)
   })
 })

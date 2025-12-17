@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/insertBefore.js"
+import { el } from "@/core.js"
+import { insertBefore } from "@/methods/insertBefore.js"
 
 describe("insertBefore", () => {
   beforeEach(() => {
@@ -18,7 +15,7 @@ describe("insertBefore", () => {
   })
 
   it("支持选择器", () => {
-    d("<p>Test</p>").insertBefore(".inner")
+    insertBefore(".inner")(el("<p>Test</p>"))
     const container = document.querySelector(".container")
     const pList = container.querySelectorAll("p")
     expect(pList.length).toBe(2)
@@ -27,12 +24,12 @@ describe("insertBefore", () => {
   })
 
   it("支持字符串(字符串实际上不会有任何反应,还是原来的dom结构)", () => {
-    d("<p>Invalid</p>").insertBefore("<div>Fake</div>")
+    insertBefore("<div>Fake</div>")(el("<p>Invalid</p>"))
     expect(document.body.innerHTML).not.toContain("Invalid")
   })
 
   it("支持元素", () => {
-    d("<p>Before h2</p>").insertBefore(document.querySelector("h2"))
+    insertBefore(document.querySelector("h2"))(el("<p>Before h2</p>"))
     const container = document.querySelector(".container")
     expect(container.firstElementChild.tagName).toBe("P")
     expect(container.firstElementChild.textContent).toBe("Before h2")
@@ -43,7 +40,7 @@ describe("insertBefore", () => {
       document.querySelector("h2"),
       document.querySelectorAll(".inner"),
     ]
-    d("<span>Multi</span>").insertBefore(targets)
+    insertBefore(targets)(el("<span>Multi</span>"))
     const spans = document.querySelectorAll("span")
     expect(spans.length).toBe(3) // h2 + 2个 inner 前面各有一个
     expect(spans[0].nextElementSibling.tagName).toBe("H2")
@@ -51,12 +48,13 @@ describe("insertBefore", () => {
   })
 
   it("空集合: 不报错", () => {
-    expect(() => d("<p>xx</p>").insertBefore(".not-exist")).not.toThrow()
+    expect(() => insertBefore(".not-exist")(el("<p>xx</p>"))).not.toThrow()
   })
 
-  it("链式调用", () => {
-    const el = d("<p>Chain</p>")
-    const res = el.insertBefore("h2")
-    expect(res).toBe(el)
+  it("返回元素数组", () => {
+    const pEl = el("<p>Chain</p>")
+    const res = insertBefore("h2")(pEl)
+
+    expect(Array.isArray(res)).toBe(true)
   })
 })

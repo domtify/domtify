@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/prependTo.js"
+import { el } from "@/core.js"
+import { prependTo } from "@/methods/prependTo.js"
 
 describe("prependTo", () => {
   beforeEach(() => {
@@ -21,7 +18,7 @@ describe("prependTo", () => {
   })
 
   it("支持选择器", () => {
-    d(".inner").prependTo("h2")
+    prependTo("h2")(el(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
@@ -29,7 +26,7 @@ describe("prependTo", () => {
   })
 
   it("支持 HTML 字符串", () => {
-    d(".inner").prependTo("<p>Test</p>")
+    prependTo("<p>Test</p>")(el(".inner"))
     const p = document.querySelector("p")
 
     expect(document.querySelector(".container .inner")).toBe(null)
@@ -37,14 +34,14 @@ describe("prependTo", () => {
 
   it("支持单个 DOM 元素", () => {
     const h2 = document.querySelector("h2")
-    d(".inner").prependTo(h2)
+    prependTo(h2)(el(".inner"))
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("支持 HTMLCollection", () => {
     const ps = document.getElementsByTagName("p")
-    d(".inner").prependTo([ps])
+    prependTo([ps])(el(".inner"))
 
     for (const p of ps) {
       expect(p.firstElementChild.classList.contains("inner")).toBe(true)
@@ -52,10 +49,9 @@ describe("prependTo", () => {
   })
 
   it("支持数组 (多个目标)", () => {
-    d(".inner").prependTo([
-      document.querySelector("h2"),
-      document.querySelector("h3"),
-    ])
+    prependTo([document.querySelector("h2"), document.querySelector("h3")])(
+      el(".inner"),
+    )
 
     const h2 = document.querySelector("h2")
     const h3 = document.querySelector("h3")
@@ -64,17 +60,15 @@ describe("prependTo", () => {
     expect(h3.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
-  it("支持domtify 对象", () => {
-    d(".inner").prependTo(d("h2"))
+  it("元素对象", () => {
+    prependTo(el("h2"))(el(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("返回被插入的元素本身", () => {
-    const res = d(".inner").prependTo("h2")
-
-    expect(res).toBeInstanceOf(d) // 保持链式调用
+    const res = prependTo("h2")(el(".inner"))
     expect(res.length).toBe(2)
   })
 })

@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/each.js"
+import { el } from "@/core.js"
+import { each } from "@/methods/each.js"
 
 describe("each", () => {
   beforeEach(() => {
@@ -18,29 +15,29 @@ describe("each", () => {
 
   it("遍历所有元素", () => {
     const result = []
-    d("div").each(function (index, el) {
+    each(function (index, el) {
       expect(index).toBeGreaterThanOrEqual(0)
       expect(index).toBe(result.length) // 这里每次 index 应该等于当前 result 长度
 
       expect(this).toBe(el) // 检查 this 是否是当前元素
       result.push(el.id)
-    })
+    })(el("div"))
     expect(result).toEqual(["d1", "d2", "d3", "d4"])
   })
 
   it("return false 时中断循环", () => {
     const result = []
-    d("div").each(function (index, el) {
+    each(function (index, el) {
       result.push(el.id)
       if (el.id === "d2") return false
-    })
+    })(el("div"))
     expect(result).toEqual(["d1", "d2"]) // 应该在 d2 时终止
   })
 
   it("遍历后应该还继续返回原来的对象", () => {
-    const $items = d("div")
+    const $items = el("div")
     const fn = vi.fn()
-    const res = $items.each(fn)
+    const res = each(fn)($items)
     expect($items).toBe(res)
   })
 })

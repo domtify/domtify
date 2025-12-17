@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/parent.js"
-import "@/methods/toArray.js"
+import { el } from "@/core.js"
+import { parent } from "@/methods/parent.js"
 
 describe("parent", () => {
   beforeEach(() => {
@@ -41,30 +37,30 @@ describe("parent", () => {
   })
 
   it("不携带选择器的父级", () => {
-    const el = d("li.item-a").parent()
-    expect(el[0]).toBeInstanceOf(HTMLElement)
-    expect(el[0].classList.contains("level-2")).toBe(true)
+    const res = parent()(el("li.item-a"))
+    expect(res[0]).toBeInstanceOf(HTMLElement)
+    expect(res[0].classList.contains("level-2")).toBe(true)
   })
 
   it("携带选择器的父级", () => {
-    const el = d("p").parent(".selected")
-    expect(el.length).toBe(1)
-    expect(el[0].classList.contains("selected")).toBe(true)
+    const res = parent(".selected")(el("p"))
+    expect(res.length).toBe(1)
+    expect(res[0].classList.contains("selected")).toBe(true)
   })
 
   it("不匹配父级为空", () => {
-    const el = d("p").parent(".non-exist")
-    expect(el.length).toBe(0)
+    const res = parent(".non-exist")(el("p"))
+    expect(res.length).toBe(0)
   })
 
   it("多个相同父级应该去重", () => {
-    const result = d(".child").parent()
+    const result = parent()(el(".child"))
     expect(result.length).toBe(1)
     expect(result[0].classList.contains("wrapper")).toBe(true)
   })
 
   it("html选择器则返回一个包含document的合集", () => {
-    const result = d("html").parent()
+    const result = parent()(el("html"))
     expect(result.length).toBe(1)
     expect(result[0]).toBe(document)
   })

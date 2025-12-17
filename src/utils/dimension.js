@@ -6,27 +6,28 @@ import {
   isBoolean,
   isInstanceOf,
 } from "is-what"
-import { domtify } from "@/core.js"
 
 const UNIT_SUFFIX = "px"
 
+import { el } from "@/core.js"
+
 /**
- * 通用的尺寸处理函数
- * @param {Object} ctx - 上下文 (this)
+ * 通用的尺寸处理函数 适用于 height width innerHeight outerHeight outerWidth innerWidth
+ * @param {Array} els - 元素数组
  * @param {String} prop - "height" | "width"
  * @param {Object} options - 配置
  *   - mode: "content" | "inner" | "outer"
  *   - includeMargin: boolean (仅 outer 时有效)
  * @param {*} value - 设置的值 (可选)
  */
-function dimension(ctx, prop, options, value) {
+function dimension(els, prop, options, value) {
   let { mode = "content", includeMargin = false } = options
 
   if (isUndefined(value) || (mode === "outer" && isBoolean(value))) {
     includeMargin = value
     value = undefined
     // getter
-    const el = ctx.toArray().at(0)
+    const el = els.at(0)
     if (!el) return undefined
 
     if (el === window) {
@@ -66,22 +67,19 @@ function dimension(ctx, prop, options, value) {
     return size
   } else {
     // setter
-    for (const [index, element] of ctx.toArray().entries()) {
+    for (const [index, element] of els.entries()) {
       if (!isInstanceOf(element, Element)) continue
       const style = getComputedStyle(element)
 
       let finalVal = value
+
       if (isFunction(value)) {
-        const $el = domtify(element)
+        const oldVal = dimension(el(element), prop, {
+          mode,
+          includeMargin,
+        })
 
-        const getterMap = {
-          inner: () => $el[`${mode}${ucfirst(prop)}`](),
-          outer: () => $el[`${mode}${ucfirst(prop)}`](includeMargin),
-          content: () => $el[prop](),
-        }
-
-        const oldVal = (getterMap[mode] || getterMap.content)()
-        finalVal = Reflect.apply(value, element, [index, oldVal])
+        finalVal = value.call(element, index, oldVal)
       }
 
       if (isNumber(finalVal) || Number.isFinite(Number(finalVal))) {
@@ -135,7 +133,7 @@ function dimension(ctx, prop, options, value) {
         element.style[prop] = finalVal
       }
     }
-    return ctx
+    return els
   }
 }
 

@@ -1,24 +1,22 @@
-import { domtify, fn } from "@/core.js"
 import { isFunction, isInstanceOf } from "is-what"
+import { el } from "@/core.js"
 
-import "./toArray.js"
+export const wrapAll = (wrappingElement) => (els) => {
+  if (!els.length) return els
 
-fn.wrapAll = function (wrappingElement) {
-  if (!this.length) return this
-
-  const firstEl = this.toArray().at(0)
+  const firstEl = els.at(0)
   let wrapperEl = wrappingElement
   if (isFunction(wrappingElement)) {
     // 回调函数返回包装元素
-    wrapperEl = Reflect.apply(wrappingElement, firstEl, [])
+    wrapperEl = wrappingElement.call(firstEl)
   }
 
-  wrapperEl = domtify(wrapperEl).toArray().at(0)
-  if (!isInstanceOf(wrapperEl, Element)) return this
+  wrapperEl = el(wrapperEl).at(0)
+  if (!isInstanceOf(wrapperEl, Element)) return els
   wrapperEl = wrapperEl.cloneNode(true)
 
   const parent = firstEl.parentNode
-  if (!parent) return this
+  if (!parent) return els
 
   // 将 wrappingElement 插入到第一个元素前面
   parent.insertBefore(wrapperEl, firstEl)
@@ -30,9 +28,9 @@ fn.wrapAll = function (wrappingElement) {
   }
 
   // 将所有目标元素移动到最内层
-  for (const el of this.toArray()) {
+  for (const el of els) {
     deepest.appendChild(el)
   }
 
-  return this
+  return els
 }

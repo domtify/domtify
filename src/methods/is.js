@@ -1,7 +1,3 @@
-import { fn } from "@/core.js"
+import { filter } from "./filter.js"
 
-import "./filter.js"
-
-fn.is = function (selector) {
-  return this.filter(selector).length > 0
-}
+export const is = (selector) => (els) => filter(selector)(els).length > 0

@@ -1,5 +1,4 @@
 import { isUndefined } from "is-what"
-import { domtify } from "@/core.js"
 
 // 默认配置
 const DEFAULT = {
@@ -8,7 +7,7 @@ const DEFAULT = {
   maxWait: undefined, // 最大等待时间（保证一定时间内至少调用一次）
 }
 
-domtify.debounce = function (fn, wait = 0, options = {}) {
+export const debounce = (fn, wait = 0, options = {}) => {
   let timerId // 定时器 id
   let lastArgs // 最近一次调用的参数
   let lastThis // 最近一次调用的 this

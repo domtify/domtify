@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/get.js"
-import "@/methods/offsetParent.js"
+import { el } from "@/core.js"
+import { offsetParent } from "@/methods/offsetParent.js"
 
 describe("offsetParent", () => {
   beforeEach(() => {
@@ -33,23 +29,23 @@ describe("offsetParent", () => {
   })
 
   it("返回最近的已定位父元素", () => {
-    const parent = d("li.item-a").offsetParent()
-    expect(parent.get(0).classList.contains("item-ii")).toBe(true)
+    const res = offsetParent()(el("li.item-a"))
+    expect(res[0].classList.contains("item-ii")).toBe(true)
   })
 
   it("对 display:none 的元素返回 documentElement", () => {
-    const parent = d("li.item-b").offsetParent()
-    expect(parent.get(0)).toBe(document.documentElement)
+    const res = offsetParent()(el("li.item-b"))
+    expect(res[0]).toBe(document.documentElement)
   })
 
   it("多个元素时返回去重后的 offsetParent", () => {
-    const parents = d("li.item-a, li.item-c").offsetParent()
-    expect(parents.length).toBe(1)
-    expect(parents.get(0)).toBe(document.querySelector("li.item-ii"))
+    const res = offsetParent()(el("li.item-a, li.item-c"))
+    expect(res.length).toBe(1)
+    expect(res[0]).toBe(document.querySelector("li.item-ii"))
   })
 
   it("元素本身不存在时返回空", () => {
-    const res = d(".not-exist").offsetParent()
+    const res = offsetParent()(el(".not-exist"))
     expect(res.length).toBe(0)
   })
 })

@@ -1,8 +1,3 @@
-import { fn } from "@/core.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { eq } from "./eq.js"
 
-import "./eq.js"
-
-fn.last = function () {
-  return pushStack(this, this.eq(-1))
-}
+export const last = () => (els) => eq(-1)(els)

@@ -1,15 +1,12 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
+import { el } from "@/core.js"
+import { on } from "@/methods/on.js"
+import { off } from "@/methods/off.js"
+import { trigger } from "@/methods/trigger.js"
+import { one } from "@/methods/one.js"
 
-// 按需导入
-import "@/methods/on.js"
-import "@/methods/one.js"
-import "@/methods/trigger.js"
-import "@/methods/off.js"
-
-import DomtifyEvent from "@/event/DomtifyEvent"
+import DomtifyEvent from "@/event/DomtifyEvent.js"
 
 describe("event", () => {
   describe("on", () => {
@@ -25,12 +22,12 @@ describe("event", () => {
       `
     })
     afterEach(() => {
-      d(window).off()
+      off()(el(window))
     })
 
     it("集合对象的参数不合法", () => {
       const handler = vi.fn()
-      expect(() => d(10).on("resize scroll", handler)).not.throw()
+      expect(() => on("resize scroll", handler)(el(10))).not.throw()
       expect(handler).not.toHaveBeenCalled()
     })
 
@@ -38,7 +35,7 @@ describe("event", () => {
       // global.EventTarget = window.constructor
       const handler = vi.fn()
 
-      d(window).on("click", handler)
+      on("click", handler)(el(window))
 
       // 触发事件
       window.dispatchEvent(new Event("click"))
@@ -48,14 +45,14 @@ describe("event", () => {
 
     it("参数不合法(为传递回调函数)", () => {
       const handler = vi.fn()
-      d("ul").on("click", "li", "errorAra")
+      on("click", "li", "errorAra")(el("ul"))
       document.querySelector("#foo").click()
       expect(handler).not.toHaveBeenCalled()
     })
 
     it("最基础的直接绑定测试", () => {
       const handler = vi.fn()
-      d("#foo").on("click", handler)
+      on("click", handler)(el("#foo"))
 
       document.querySelector("#foo").click()
       expect(handler).toHaveBeenCalledTimes(1)
@@ -63,7 +60,7 @@ describe("event", () => {
 
     it("直接绑定监听时event对象上的属性和this", () => {
       const handler = vi.fn()
-      d("#foo").on("click", handler)
+      on("click", handler)(el("#foo"))
 
       document.querySelector("#foo").click()
 
@@ -85,9 +82,9 @@ describe("event", () => {
       const handler1 = vi.fn((e) => e.stopPropagation())
       const handler2 = vi.fn()
 
-      d("ul").on("click", parentHandler)
-      d("li").on("click", handler1)
-      d("li").on("click", handler2)
+      on("click", parentHandler)(el("ul"))
+      on("click", handler1)(el("li"))
+      on("click", handler2)(el("li"))
 
       document.querySelector("#foo").click()
 
@@ -101,9 +98,9 @@ describe("event", () => {
       const handler1 = vi.fn((e) => e.stopImmediatePropagation())
       const handler2 = vi.fn()
 
-      d("ul").on("click", parentHandler)
-      d("li").on("click", handler1)
-      d("li").on("click", handler2)
+      on("click", parentHandler)(el("ul"))
+      on("click", handler1)(el("li"))
+      on("click", handler2)(el("li"))
 
       document.querySelector("#foo").click()
 
@@ -114,7 +111,7 @@ describe("event", () => {
 
     it("事件委托", () => {
       const handler = vi.fn()
-      d("ul").on("click", "li", handler)
+      on("click", "li", handler)(el("ul"))
 
       // 点击已有 li
       document.querySelector("#bar").click()
@@ -130,7 +127,7 @@ describe("event", () => {
 
     it("事件委托对象上的属性和this", () => {
       const handler = vi.fn()
-      d("ul").on("click", "li", handler)
+      on("click", "li", handler)(el("ul"))
 
       document.querySelector("#foo").click()
       expect(handler).toHaveBeenCalledTimes(1)
@@ -148,21 +145,22 @@ describe("event", () => {
     it("事件冒泡时的触发顺序", () => {
       const calls = []
 
-      d("ul").on("click", function () {
+      on("click", function () {
         calls.push("ul click")
-      })
-      d("ul").on("click.ns1", function () {
+      })(el("ul"))
+      on("click.ns1", function () {
         calls.push("ul click.ns1")
-      })
-      d("ul").on("mousedown.ns1", function () {
+      })(el("ul"))
+      on("mousedown.ns1", function () {
         calls.push("ul mousedown.ns1")
-      })
-      d("ul").on("click", "li", function () {
+      })(el("ul"))
+
+      on("click", "li", function () {
         calls.push("li click-1")
-      })
-      d("ul").on("click", "li", function () {
+      })(el("ul"))
+      on("click", "li", function () {
         calls.push("li click-2")
-      })
+      })(el("ul"))
 
       // 模拟用户操作
       const li = document.querySelector("#foo")
@@ -185,12 +183,14 @@ describe("event", () => {
       const handler3 = vi.fn((e) => e.stopPropagation())
       const handler4 = vi.fn()
 
-      d("ul").on("click", handler0)
-      d("ul").on("click.ns1", handler1)
-      d("ul").on("mousedown.ns1", handler2)
+      const ulEl = el("ul")
+
+      on("click", handler0)(ulEl)
+      on("click.ns1", handler1)(ulEl)
+      on("mousedown.ns1", handler2)(ulEl)
       // 委托
-      d("ul").on("click", "li", handler3)
-      d("ul").on("click", "li", handler4)
+      on("click", "li", handler3)(ulEl)
+      on("click", "li", handler4)(ulEl)
 
       document.querySelector("#foo").click()
 
@@ -209,12 +209,14 @@ describe("event", () => {
       const handler3 = vi.fn((e) => e.stopImmediatePropagation())
       const handler4 = vi.fn()
 
-      d("ul").on("click", handler0)
-      d("ul").on("click.ns1", handler1)
-      d("ul").on("mousedown.ns1", handler2)
+      const ulEl = el("ul")
+
+      on("click", handler0)(ulEl)
+      on("click.ns1", handler1)(ulEl)
+      on("mousedown.ns1", handler2)(ulEl)
       // 委托
-      d("ul").on("click", "li", handler3)
-      d("ul").on("click", "li", handler4)
+      on("click", "li", handler3)(ulEl)
+      on("click", "li", handler4)(ulEl)
 
       document.querySelector("#foo").click()
 
@@ -229,43 +231,45 @@ describe("event", () => {
     it("捕获阶段第三个选项为true或{capture:true}时的触发顺序", () => {
       const calls = []
 
-      d("ul").on(
+      const ulEl = el("ul")
+
+      on(
         "click",
         function () {
           calls.push("ul click")
         },
         true,
-      )
-      d("ul").on(
+      )(ulEl)
+      on(
         "click.ns1",
         function () {
           calls.push("ul click.ns1")
         },
         true,
-      )
-      d("ul").on(
+      )(ulEl)
+      on(
         "mousedown.ns1",
         function () {
           calls.push("ul mousedown.ns1")
         },
         true,
-      )
-      d("ul").on(
+      )(ulEl)
+      on(
         "click",
         "li",
         function () {
           calls.push("li click-1")
         },
         true,
-      )
-      d("ul").on(
+      )(ulEl)
+      on(
         "click",
         "li",
         function () {
           calls.push("li click-2")
         },
         true,
-      )
+      )(ulEl)
 
       // 模拟用户操作
       const li = document.querySelector("#foo")
@@ -283,7 +287,7 @@ describe("event", () => {
 
     it("选项 once 只会执行一次", () => {
       const handler = vi.fn()
-      d("#foo").on("click", handler, { once: true })
+      on("click", handler, { once: true })(el("#foo"))
 
       document.querySelector("#foo").click()
       document.querySelector("#foo").click()
@@ -294,7 +298,7 @@ describe("event", () => {
       const controller = new AbortController()
       const handler = vi.fn()
 
-      d("#foo").on("click", handler, { signal: controller.signal })
+      on("click", handler, { signal: controller.signal })(el("#foo"))
       document.querySelector("#foo").click()
       expect(handler).toHaveBeenCalledTimes(1)
 
@@ -310,12 +314,14 @@ describe("event", () => {
       const handler3 = vi.fn()
       const handler4 = vi.fn()
 
-      d("ul").on("click", handler0, true)
-      d("ul").on("click.ns1", handler1, true)
-      d("ul").on("mousedown.ns1", handler2, true)
+      const ulEl = el("ul")
+
+      on("click", handler0, true)(ulEl)
+      on("click.ns1", handler1, true)(ulEl)
+      on("mousedown.ns1", handler2, true)(ulEl)
       // 委托
-      d("ul").on("click", "li", handler3, true)
-      d("ul").on("click", "li", handler4, true)
+      on("click", "li", handler3, true)(ulEl)
+      on("click", "li", handler4, true)(ulEl)
 
       document
         .querySelector("#foo")
@@ -336,12 +342,14 @@ describe("event", () => {
       const handler3 = vi.fn()
       const handler4 = vi.fn()
 
-      d("ul").on("click", handler0, true)
-      d("ul").on("click.ns1", handler1, true)
-      d("ul").on("mousedown.ns1", handler2, true)
+      const ulEl = el("ul")
+
+      on("click", handler0, true)(ulEl)
+      on("click.ns1", handler1, true)(ulEl)
+      on("mousedown.ns1", handler2, true)(ulEl)
       // 委托
-      d("ul").on("click", "li", handler3, true)
-      d("ul").on("click", "li", handler4, true)
+      on("click", "li", handler3, true)(ulEl)
+      on("click", "li", handler4, true)(ulEl)
 
       document
         .querySelector("#foo")
@@ -371,7 +379,7 @@ describe("event", () => {
 
     it("直接绑定测试", () => {
       const handler = vi.fn()
-      d("ul").one("click", handler)
+      one("click", handler)(el("ul"))
 
       document.querySelector("#foo").click()
       document.querySelector("#foo").click()
@@ -380,7 +388,7 @@ describe("event", () => {
 
     it("事件委托", () => {
       const handler = vi.fn()
-      d("ul").one("click", "li", handler)
+      one("click", "li", handler)(el("ul"))
 
       // 动态添加 li，再触发
       document
@@ -393,7 +401,7 @@ describe("event", () => {
 
     it("也支持第三个参数传递对象", () => {
       const handler = vi.fn()
-      d("ul").one("click", handler, { capture: false })
+      one("click", handler, { capture: false })(el("ul"))
 
       document.querySelector("#foo").click()
       document.querySelector("#foo").click()
@@ -402,7 +410,7 @@ describe("event", () => {
 
     it("边缘情况,第三个参数传递任意其它值", () => {
       const handler = vi.fn()
-      d("ul").one("click", handler, [])
+      one("click", handler, [])(el("ul"))
 
       document.querySelector("#foo").click()
       document.querySelector("#foo").click()
@@ -411,7 +419,7 @@ describe("event", () => {
 
     it("参数不合法", () => {
       const handler = vi.fn()
-      d("ul").one("click", "li", "errorAra")
+      one("click", "li", "errorAra")(el("ul"))
       document.querySelector("#foo").click()
       expect(handler).not.toHaveBeenCalled()
     })
@@ -428,17 +436,17 @@ describe("event", () => {
 
     it("基本的trigger触发2", () => {
       const handler = vi.fn()
-      d(".u2").on("click", handler)
+      on("click", handler)(el(".u2"))
 
       // trigger触发
-      d(".u2").trigger("click")
+      trigger("click")(el(".u2"))
       expect(handler).toHaveBeenCalledTimes(1)
       expect(handler.mock.calls[0][0]).toBeInstanceOf(DomtifyEvent)
     })
 
     it("非trigger触发", () => {
       const handler = vi.fn()
-      d(".u2").on("click", handler)
+      on("click", handler)(el(".u2"))
 
       document.querySelector("#bar").click()
       expect(handler).toHaveBeenCalledTimes(1)
@@ -451,13 +459,16 @@ describe("event", () => {
       const handler2 = vi.fn()
       const handler3 = vi.fn()
 
-      d(".u2").on("click", handler0)
-      d("#bar").on("click.ns2", handler1)
-      d("#bar").on("click.ns1", handler2)
-      d("#bar").on("click.ns1.a.b.c", handler3)
+      on("click", handler0)(el(".u2"))
+
+      const barEl = el("#bar")
+
+      on("click.ns2", handler1)(barEl)
+      on("click.ns1", handler2)(barEl)
+      on("click.ns1.a.b.c", handler3)(barEl)
 
       // 触发
-      d("#bar").trigger("click.ns1")
+      trigger("click.ns1")(barEl)
 
       expect(handler0).not.toHaveBeenCalled()
       expect(handler1).not.toHaveBeenCalled()
@@ -471,13 +482,15 @@ describe("event", () => {
       const handler2 = vi.fn()
       const handler3 = vi.fn()
 
-      d(".u2").on("click", handler0)
-      d("#bar").on("click.ns2", handler1)
-      d("#bar").on("click.ns1", handler2)
-      d("#bar").on("click.ns1.a.b.c", handler3)
+      const barEl = el("#bar")
+
+      on("click", handler0)(el(".u2"))
+      on("click.ns2", handler1)(barEl)
+      on("click.ns1", handler2)(barEl)
+      on("click.ns1.a.b.c", handler3)(barEl)
 
       // 触发
-      d("#bar").trigger("click")
+      trigger("click")(barEl)
 
       expect(handler0).toHaveBeenCalled()
       expect(handler1).toHaveBeenCalled()
@@ -491,20 +504,22 @@ describe("event", () => {
       const handler2 = vi.fn()
       const handler3 = vi.fn()
 
-      d(".u2").on("click", handler0)
-      d("#bar").on("click.ns2", handler1)
-      d("#bar").on("click.ns1", handler2)
-      d("#bar").on("click.ns1.a.b.c", handler3)
+      const barEl = el("#bar")
+
+      on("click", handler0)(el(".u2"))
+      on("click.ns2", handler1)(barEl)
+      on("click.ns1", handler2)(barEl)
+      on("click.ns1.a.b.c", handler3)(barEl)
 
       // 触发
 
-      d("#bar").trigger("click.a")
-      d("#bar").trigger("click.b")
-      d("#bar").trigger("click.c")
-      d("#bar").trigger("click.a.b")
-      d("#bar").trigger("click.a.b.c")
-      d("#bar").trigger("click.a.c")
-      d("#bar").trigger("click.a.c.b")
+      trigger("click.a")(barEl)
+      trigger("click.b")(barEl)
+      trigger("click.c")(barEl)
+      trigger("click.a.b")(barEl)
+      trigger("click.a.b.c")(barEl)
+      trigger("click.a.c")(barEl)
+      trigger("click.a.c.b")(barEl)
 
       expect(handler0).not.toHaveBeenCalled()
       expect(handler1).not.toHaveBeenCalled()
@@ -514,29 +529,32 @@ describe("event", () => {
 
     it("只传递命名空间无法触发", () => {
       const handler3 = vi.fn()
-      d("#bar").on("click.ns1.a.b.c", handler3)
-      d("#bar").trigger(".b")
+
+      const barEl = el("#bar")
+
+      on("click.ns1.a.b.c", handler3)(barEl)
+      trigger(".b")(barEl)
       expect(handler3).not.toHaveBeenCalled()
     })
 
     it("支持传递参数", () => {
       const handler = vi.fn()
-      d(".u2").on("click", handler)
-      d("#bar").trigger("click", "test")
+      on("click", handler)(el(".u2"))
+      trigger("click", "test")(el("#bar"))
       expect(handler).toHaveBeenCalled()
       expect(handler.mock.calls[0][1]).toEqual("test")
 
       // 支持其它数据-对象测试
       const handler1 = vi.fn()
-      d(".u2").on("click", handler1)
-      d("#bar").trigger("click", { foo: 123 })
+      on("click", handler1)(el(".u2"))
+      trigger("click", { foo: 123 })(el("#bar"))
       expect(handler1.mock.calls[0][1]).toEqual({ foo: 123 })
     })
 
     it("如果传递的是数组接收时可以分开单独接收", () => {
       const handler = vi.fn()
-      d(".u2").on("click", handler)
-      d("#bar").trigger("click", ["test", "test2"])
+      on("click", handler)(el(".u2"))
+      trigger("click", ["test", "test2"])(el("#bar"))
       expect(handler).toHaveBeenCalled()
       expect(handler.mock.calls[0][1]).toEqual("test")
       expect(handler.mock.calls[0][2]).toEqual("test2")
@@ -545,13 +563,13 @@ describe("event", () => {
     it("给事件对象上绑定自定义属性", () => {
       const handler = vi.fn()
 
-      d(".u2").on("click", handler)
+      on("click", handler)(el(".u2"))
       const handler2 = vi.fn(function () {
         this.foo = "foo"
         this.bar = "bar"
         return ["test", "test2"]
       })
-      d("#bar").trigger("click", handler2)
+      trigger("click", handler2)(el("#bar"))
       expect(handler).toHaveBeenCalled()
       expect(handler.mock.calls[0][1]).toEqual("test")
       expect(handler.mock.calls[0][2]).toEqual("test2")
@@ -568,14 +586,17 @@ describe("event", () => {
       const handler2 = vi.fn()
       const handler3 = vi.fn()
 
-      d(".u2").on("click", handler0)
-      d("#bar").on("click.ns2", handler1)
-      d("#bar").on("click.ns1", handler2)
-      d("#bar").on("click.ns1.a.b.c", handler3)
+      on("click", handler0)(el(".u2"))
 
-      d("#bar").trigger("click", {
+      const barEl = el("#bar")
+
+      on("click.ns2", handler1)(barEl)
+      on("click.ns1", handler2)(barEl)
+      on("click.ns1.a.b.c", handler3)(barEl)
+
+      trigger("click", {
         bubbles: false,
-      })
+      })(barEl)
 
       expect(handler0).not.toHaveBeenCalled()
       expect(handler1).toHaveBeenCalled()
@@ -598,13 +619,13 @@ describe("event", () => {
       const handle0 = vi.fn()
       const handle1 = vi.fn()
       const handle2 = vi.fn()
-
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off()
+      off()(u2El)
 
       // 触发事件
       document.querySelector("li").click()
@@ -619,12 +640,14 @@ describe("event", () => {
       const handle1 = vi.fn()
       const handle2 = vi.fn()
 
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off("click")
+      off("click")(u2El)
 
       // 触发事件
       const liEl = document.querySelector("li")
@@ -641,12 +664,14 @@ describe("event", () => {
       const handle1 = vi.fn()
       const handle2 = vi.fn()
 
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off("click.ns1 click.ns2")
+      off("click.ns1 click.ns2")(u2El)
 
       // 触发事件
       const liEl = document.querySelector("li")
@@ -666,20 +691,22 @@ describe("event", () => {
       const handle4 = vi.fn()
       const handle5 = vi.fn()
 
-      d(".u2").on("click.ns1.a.t", handle0)
-      d(".u2").on("click.ns1.a.t", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
-      d(".u2").on("click.ns1.a.t", handle3)
-      d(".u2").on("click.ns1.a.t", handle4)
-      d(".u2").on("click.ns1.a.t", handle5)
+      const u2El = el(".u2")
+
+      on("click.ns1.a.t", handle0)(u2El)
+      on("click.ns1.a.t", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
+      on("click.ns1.a.t", handle3)(u2El)
+      on("click.ns1.a.t", handle4)(u2El)
+      on("click.ns1.a.t", handle5)(u2El)
 
       // 解绑
-      d(".u2").off(".ns1.a.t")
-      d(".u2").off(".a")
-      d(".u2").off(".ns1")
-      d(".u2").off(".t")
-      d(".u2").off(".a.t")
-      d(".u2").off(".t.a")
+      off(".ns1.a.t")(u2El)
+      off(".a")(u2El)
+      off(".ns1")(u2El)
+      off(".t")(u2El)
+      off(".a.t")(u2El)
+      off(".t.a")(u2El)
 
       // 触发
       document.querySelector("li").click()
@@ -697,12 +724,14 @@ describe("event", () => {
       const handle1 = vi.fn()
       const handle2 = vi.fn()
 
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off("click", handle2)
+      off("click", handle2)(u2El)
 
       // 触发事件
       const liEl = document.querySelector("li")
@@ -719,12 +748,14 @@ describe("event", () => {
       const handle1 = vi.fn()
       const handle2 = vi.fn()
 
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off({ click: handle2, "mousedown.ns": handle0 })
+      off({ click: handle2, "mousedown.ns": handle0 })(u2El)
 
       // 触发事件
       const liEl = document.querySelector("li")
@@ -741,12 +772,14 @@ describe("event", () => {
       const handle1 = vi.fn()
       const handle2 = vi.fn()
 
-      d(".u2").on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)
-      d(".u2").on("click.ns1.a.t", "li", handle1)
-      d(".u2").on("click.ns1.a.t", handle2)
+      const u2El = el(".u2")
+
+      on("click.ns click.ns1 click.ns2 mousedown.ns", "li", handle0)(u2El)
+      on("click.ns1.a.t", "li", handle1)(u2El)
+      on("click.ns1.a.t", handle2)(u2El)
 
       // 解绑
-      d(".u2").off(handle0)
+      off(handle0)(u2El)
 
       // 触发事件
       const liEl = document.querySelector("li")

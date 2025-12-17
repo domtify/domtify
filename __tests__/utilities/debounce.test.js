@@ -1,11 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/toArray.js"
-import "@/utilities/debounce.js"
+import { debounce } from "@/utilities/debounce.js"
 
 describe("debounce", () => {
   beforeEach(() => {
@@ -18,7 +13,7 @@ describe("debounce", () => {
 
   it("基本防抖: 连续调用只执行一次 (trailing)", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 500)
+    const debounced = debounce(fn, 500)
 
     debounced()
     debounced()
@@ -33,7 +28,7 @@ describe("debounce", () => {
 
   it("leading: 第一次立即执行", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 500, { leading: true })
+    const debounced = debounce(fn, 500, { leading: true })
 
     debounced()
     expect(fn).toHaveBeenCalledTimes(1) // 立即执行
@@ -46,7 +41,7 @@ describe("debounce", () => {
 
   it("trailing = false: 只执行 leading", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 500, { leading: true, trailing: false })
+    const debounced = debounce(fn, 500, { leading: true, trailing: false })
 
     debounced()
     expect(fn).toHaveBeenCalledTimes(1)
@@ -58,7 +53,7 @@ describe("debounce", () => {
 
   it("cancel: 调用后被取消", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 500)
+    const debounced = debounce(fn, 500)
 
     debounced()
     debounced.cancel()
@@ -69,7 +64,7 @@ describe("debounce", () => {
 
   it("flush: 立即执行剩余的调用", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 500)
+    const debounced = debounce(fn, 500)
 
     debounced()
     debounced.flush()
@@ -82,7 +77,7 @@ describe("debounce", () => {
   it("maxWait: 即使持续调用也会被强制执行", () => {
     // 对照组
     const fn2 = vi.fn()
-    const debounced2 = d.debounce(fn2, 1000)
+    const debounced2 = debounce(fn2, 1000)
     for (let i = 0; i < 5; i++) {
       debounced2()
       vi.advanceTimersByTime(300) // 时间流逝300毫秒，300小于1000所以它会永远被重置。
@@ -91,7 +86,7 @@ describe("debounce", () => {
 
     // 强制使用maxWait选项后,函数至少每 3 秒会被强制执行一次。
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 1000, { maxWait: 3000 })
+    const debounced = debounce(fn, 1000, { maxWait: 3000 })
 
     for (let i = 0; i < 15; i++) {
       debounced()
@@ -103,7 +98,7 @@ describe("debounce", () => {
 
   it("leading + maxWait: 第一次立即执行 + 后续受 maxWait 限制", () => {
     const fn = vi.fn()
-    const debounced = d.debounce(fn, 1000, { leading: true, maxWait: 3000 })
+    const debounced = debounce(fn, 1000, { leading: true, maxWait: 3000 })
 
     debounced()
     expect(fn).toHaveBeenCalledTimes(1)

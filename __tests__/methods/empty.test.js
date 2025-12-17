@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/empty.js"
+import { el } from "@/core.js"
+import { empty } from "@/methods/empty.js"
 
 describe("empty", () => {
   beforeEach(() => {
@@ -22,7 +19,7 @@ describe("empty", () => {
     // 之前
     expect(helloEl.childNodes.length).toBeGreaterThan(0) // 有文本节点 "Hello"
 
-    d(".hello").empty()
+    empty()(el(".hello"))
 
     // 之后
     expect(helloEl.childNodes.length).toBe(0)
@@ -34,7 +31,7 @@ describe("empty", () => {
     goodbyeEl.innerHTML = "" // 本来就空
     expect(goodbyeEl.childNodes.length).toBe(0)
 
-    d(".goodbye").empty() // 不报错
+    empty()(el(".goodbye")) // 不报错
     expect(goodbyeEl.childNodes.length).toBe(0)
   })
 })

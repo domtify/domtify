@@ -1,7 +1,7 @@
 import { isFunction, isInstanceOf } from "is-what"
 import { flatElements } from "./flatElements.js"
 import Constants from "@/constants/index.js"
-import { isHtmlString } from "./parseHtml.js"
+import { isHtmlString } from "./isHtmlString.js"
 
 /**
  * 通用 DOM 插入助手函数
@@ -10,7 +10,7 @@ import { isHtmlString } from "./parseHtml.js"
  * @param {"beforebegin"|"afterbegin"|"beforeend"|"afterend"} position 插入位置
  * @param {boolean} [reverse=true] 是否反转节点顺序（默认为 true）
  */
-function insertNode(targets, content, position, reverse = true) {
+export const insertNode = (targets, content, position, reverse = true) => {
   const firstArg = content.at(0)
   const cache = new Map()
 
@@ -58,5 +58,3 @@ function insertNode(targets, content, position, reverse = true) {
 
   return targets
 }
-
-export { insertNode }

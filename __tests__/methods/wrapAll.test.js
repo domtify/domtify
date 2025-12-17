@@ -1,11 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/wrapAll.js"
-import "@/methods/get.js"
+import { el } from "@/core.js"
+import { wrapAll } from "@/methods/wrapAll.js"
 
 describe("wrapAll", () => {
   let container
@@ -21,80 +17,80 @@ describe("wrapAll", () => {
   })
 
   it("用选择器包装元素", () => {
-    const inners = d(".inner")
-    inners.wrapAll(".double")
+    const inners = el(".inner")
+    wrapAll(".double")(inners)
 
     const wrapper = container.querySelector(".double")
     expect(wrapper).not.toBeNull()
-    expect(wrapper.contains(inners.get(0))).toBe(true)
-    expect(wrapper.contains(inners.get(1))).toBe(true)
+    expect(wrapper.contains(inners[0])).toBe(true)
+    expect(wrapper.contains(inners[1])).toBe(true)
   })
 
   it("用 HTML 字符串包装元素", () => {
-    const inners = d(".inner")
-    inners.wrapAll("<div class='new'></div>")
+    const inners = el(".inner")
+    wrapAll("<div class='new'></div>")(inners)
 
     const wrapper = container.querySelector(".new")
     expect(wrapper).not.toBeNull()
     expect(wrapper.children.length).toBe(2)
-    expect(wrapper.contains(inners.get(0))).toBe(true)
-    expect(wrapper.contains(inners.get(1))).toBe(true)
+    expect(wrapper.contains(inners[0])).toBe(true)
+    expect(wrapper.contains(inners[1])).toBe(true)
   })
 
   it("用元素包装元素", () => {
-    const inners = d(".inner")
+    const inners = el(".inner")
     const existing = container.querySelector(".double")
-    inners.wrapAll(existing)
+    wrapAll(existing)(inners)
 
     const wrapper = container.querySelector(".double")
     expect(wrapper).not.toBeNull()
-    expect(wrapper.contains(inners.get(0))).toBe(true)
-    expect(wrapper.contains(inners.get(1))).toBe(true)
+    expect(wrapper.contains(inners[0])).toBe(true)
+    expect(wrapper.contains(inners[1])).toBe(true)
   })
 
-  it("集合对象", () => {
-    const inners = d(".inner").wrapAll(d(".double"))
+  it("元素数组", () => {
+    const inners = wrapAll(el(".double"))(el(".inner"))
 
-    const existing = d(".double")
-    inners.wrapAll(existing)
+    const existing = el(".double")
+    wrapAll(existing)(inners)
 
     const wrapper = container.querySelector(".double")
     expect(wrapper).not.toBeNull()
-    expect(wrapper.contains(inners.get(0))).toBe(true)
-    expect(wrapper.contains(inners.get(1))).toBe(true)
+    expect(wrapper.contains(inners[0])).toBe(true)
+    expect(wrapper.contains(inners[1])).toBe(true)
   })
 
   it("数字边缘情况", () => {
-    expect(() => d(".inner").wrapAll(10)).not.throw()
+    expect(() => wrapAll(10)(el(".inner"))).not.throw()
   })
 
   it("函数返回包装元素", () => {
-    const inners = d(".inner")
-    inners.wrapAll(function () {
+    const inners = el(".inner")
+    wrapAll(function () {
       return "<div class='new'></div>"
-    })
+    })(inners)
 
     const wrapper = container.querySelector(".new")
     expect(wrapper).not.toBeNull()
     expect(wrapper.children.length).toBe(2)
-    expect(wrapper.contains(inners.get(0))).toBe(true)
-    expect(wrapper.contains(inners.get(1))).toBe(true)
+    expect(wrapper.contains(inners[0])).toBe(true)
+    expect(wrapper.contains(inners[1])).toBe(true)
   })
 
   it("没有父元素时不会报错", () => {
     // 移除 container
-    const inners = d(".inner")
+    const inners = el(".inner")
     const parent = container.querySelector(".container")
     parent.remove()
 
-    const res = inners.wrapAll("<div class='new'></div>")
+    const res = wrapAll("<div class='new'></div>")(inners)
     expect(res).toBe(inners)
   })
 
   it("如果没找到元素,则不进行任何操作提前返回this", () => {
-    const instance = d("p")
-    const returned = instance.wrapAll(".no-exist")
-    expect(returned).toBe(instance)
+    const res = el("p")
+    const res2 = wrapAll(".no-exist")(res)
+    expect(res2).toBe(res)
   })
 
   it("没有父级节点也应该提前返回this", () => {
@@ -102,10 +98,10 @@ describe("wrapAll", () => {
     const detached = document.createElement("div")
     detached.className = "inner"
 
-    const collection = d([detached]) // 使用集合对象包装
+    const collection = el([detached]) // 使用集合对象包装
 
     // 传入任何包装元素都可以
-    const res = collection.wrapAll("<div class='wrapper'></div>")
+    const res = wrapAll("<div class='wrapper'></div>")(collection)
 
     // 应该直接返回原集合对象，不报错
     expect(res).toBe(collection)

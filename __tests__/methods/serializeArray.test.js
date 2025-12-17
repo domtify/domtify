@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/serializeArray.js"
+import { el } from "@/core.js"
+import { serializeArray } from "@/methods/serializeArray.js"
 
 describe("serializeArray", () => {
   beforeEach(() => {
@@ -79,7 +76,7 @@ describe("serializeArray", () => {
   })
 
   it("得到序列化数据", () => {
-    const res = d("form").serializeArray()
+    const res = serializeArray()(el("form"))
 
     expect(res).toEqual([
       {

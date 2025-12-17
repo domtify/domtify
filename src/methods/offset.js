@@ -1,13 +1,11 @@
 import { isFunction, isUndefined, isNull, isInstanceOf } from "is-what"
-import { fn, domtify } from "@/core.js"
 import { cssInt } from "@/utils/cssInt.js"
+import { el } from "@/core.js"
 
-import "./toArray.js"
-
-fn.offset = function (coordinates) {
+export const offset = (coordinates) => (els) => {
   if (isUndefined(coordinates)) {
     // getter
-    const element = this.toArray().at(0)
+    const element = els.at(0)
     if (!isInstanceOf(element, Element)) return undefined
     const rect = element.getBoundingClientRect()
 
@@ -16,12 +14,12 @@ fn.offset = function (coordinates) {
       left: rect.left + window.scrollX,
     }
   } else {
-    for (const [index, element] of this.toArray().entries()) {
-      const offset = domtify(element).offset()
+    for (const [index, element] of els.entries()) {
+      const offsetRes = offset()(el(element))
 
       // setter
-      let newCoordinates = isFunction(coordinates)
-        ? Reflect.apply(coordinates, element, [index, offset])
+      const newCoordinates = isFunction(coordinates)
+        ? coordinates.call(element, index, offsetRes)
         : coordinates
 
       const style = window.getComputedStyle(element)
@@ -31,8 +29,8 @@ fn.offset = function (coordinates) {
         element.style.position = "relative"
       }
 
-      const topDelta = newCoordinates.top - offset.top
-      const leftDelta = newCoordinates.left - offset.left
+      const topDelta = newCoordinates.top - offsetRes.top
+      const leftDelta = newCoordinates.left - offsetRes.left
 
       const curTopCSS = cssInt(style, "top")
       const curLeftCSS = cssInt(style, "left")
@@ -45,6 +43,6 @@ fn.offset = function (coordinates) {
         element.style.left = curLeftCSS + leftDelta + "px"
       }
     }
-    return this
+    return els
   }
 }

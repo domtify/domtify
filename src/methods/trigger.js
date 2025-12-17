@@ -1,9 +1,8 @@
-import { fn } from "@/core.js"
-import Event from "@/event.js"
+import Event from "@/event/event.js"
 
-import "./toArray.js"
-
-fn.trigger = function (...args) {
-  new Event(this.toArray()).trigger(...args)
-  return this
-}
+export const trigger =
+  (...args) =>
+  (els) => {
+    new Event(els).trigger(...args)
+    return els
+  }

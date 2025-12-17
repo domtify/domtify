@@ -1,31 +1,26 @@
 import { isPlainObject, isUndefined, isFunction } from "is-what"
-import { fn, domtify } from "@/core.js"
+import { el } from "@/core.js"
 
-import "./toArray.js"
-
-fn.prop = function (propertyName, value) {
+export const prop = (propertyName, value) => (els) => {
   if (isUndefined(value) && !isPlainObject(propertyName)) {
     //getter
-    const el = this.toArray().at(0)
+    const el = els.at(0)
     if (!el) return undefined
     return el[propertyName]
   } else {
     // setter
     if (isPlainObject(propertyName)) {
       // 批量设置
-      for (const el of this.toArray()) {
+      for (const element of els) {
         for (const [property, val] of Object.entries(propertyName)) {
-          domtify(el).prop(property, val)
+          prop(property, val)(el(element))
         }
       }
     } else {
       // 单个设置
-      for (const [index, element] of this.toArray().entries()) {
-        let newValue = isFunction(value)
-          ? Reflect.apply(value, element, [
-              index,
-              domtify(element).prop(propertyName),
-            ])
+      for (const [index, element] of els.entries()) {
+        const newValue = isFunction(value)
+          ? value.call(element, index, prop(propertyName)(el(element)))
           : value
 
         if (!isUndefined(newValue)) {
@@ -33,6 +28,6 @@ fn.prop = function (propertyName, value) {
         }
       }
     }
-    return this
+    return els
   }
 }

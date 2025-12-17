@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/insertAfter.js"
+import { el } from "@/core.js"
+import { insertAfter } from "@/methods/insertAfter.js"
 
 describe("insertAfter", () => {
   beforeEach(() => {
@@ -18,19 +15,19 @@ describe("insertAfter", () => {
   })
 
   it("支持选择器", () => {
-    d("<p>Test</p>").insertAfter(".inner")
+    insertAfter(".inner")(el("<p>Test</p>"))
     const inners = document.querySelectorAll(".inner")
     expect(inners[0].nextElementSibling.tagName).toBe("P")
     expect(inners[1].nextElementSibling.tagName).toBe("P")
   })
 
   it("支持字符串(字符串实际上不会有任何反应,还是原来的dom结构)", () => {
-    d("<p>Invalid</p>").insertAfter("<div>Fake</div>")
+    insertAfter("<div>Fake</div>")(el("<p>Invalid</p>"))
     expect(document.body.innerHTML).not.toContain("Invalid")
   })
 
   it("支持元素", () => {
-    d("<p>After h2</p>").insertAfter(document.querySelector("h2"))
+    insertAfter(document.querySelector("h2"))(el("<p>After h2</p>"))
     expect(document.querySelector("h2").nextElementSibling.textContent).toBe(
       "After h2",
     )
@@ -41,18 +38,19 @@ describe("insertAfter", () => {
       document.querySelector("h2"),
       document.querySelectorAll(".inner"),
     ]
-    d("<span>Multi</span>").insertAfter(targets)
+    insertAfter(targets)(el("<span>Multi</span>"))
     const spans = document.querySelectorAll("span")
     expect(spans.length).toBe(3) // h2 + 2个 inner
   })
 
   it("空集合: 不报错", () => {
-    expect(() => d("<p>xx</p>").insertAfter(".not-exist")).not.toThrow()
+    expect(() => insertAfter(".not-exist")(el("<p>xx</p>"))).not.toThrow()
   })
 
   it("链式调用", () => {
-    const el = d("<p>Chain</p>")
-    const res = el.insertAfter("h2")
-    expect(res).toBe(el)
+    const p = el("<p>Chain</p>")
+    const res = insertAfter("h2")(p)
+
+    expect(Array.isArray(res)).toBe(true)
   })
 })

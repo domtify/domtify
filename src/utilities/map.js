@@ -1,8 +1,7 @@
-import { domtify } from "@/core.js"
 import { isNull, isAnyObject } from "is-what"
 import { isArrayLike } from "@/utils/isArrayLike.js"
 
-domtify.map = (array, callback) => {
+export const map = (array, callback) => {
   const result = []
 
   if (isArrayLike(array)) {

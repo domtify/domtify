@@ -1,9 +1,5 @@
-import { fn, domtify } from "@/core.js"
-import { uniqueArray } from "@/utils/uniqueArray.js"
-import "./get.js"
+import { el } from "@/core.js"
+import { unique } from "@/utils/unique.js"
 
-fn.add = function (selector, context) {
-  return domtify(
-    uniqueArray([...this.get(), ...domtify(selector, context).get()]),
-  )
-}
+export const add = (selector, context) => (els) =>
+  unique([...els, ...el(selector, context)])

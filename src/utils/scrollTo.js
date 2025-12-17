@@ -1,49 +1,43 @@
 import { isFunction, isUndefined } from "is-what"
 
-function scrollTo(ctx, value, direction) {
-  const isTop = direction === "top"
-  const prop = isTop ? "scrollTop" : "scrollLeft"
+const getScrollValue = (el, prop, isTop) => {
+  if (el === window) return isTop ? window.scrollY : window.scrollX
+  if (el.nodeType === Node.DOCUMENT_NODE) return el.scrollingElement[prop]
+  return el[prop]
+}
 
-  if (isUndefined(value)) {
-    //  getter
-    const element = ctx.toArray().at(0)
-    if (!element) return undefined
-    if (element === window) return isTop ? window.scrollY : window.scrollX
-    if (element.nodeType === Node.DOCUMENT_NODE) {
-      return element.scrollingElement[prop]
-    }
-    return element[prop]
+const setScrollValue = (el, prop, isTop, value) => {
+  if (el === window) {
+    window.scrollTo(
+      isTop ? window.scrollX : value,
+      isTop ? value : window.scrollY,
+    )
+  } else if (el.nodeType === Node.DOCUMENT_NODE) {
+    el.scrollingElement[prop] = value
   } else {
-    // setter
-    for (const [index, element] of ctx.toArray().entries()) {
-      let newValue = value
-
-      if (isFunction(value)) {
-        // 如果是函数
-        let oldValue
-        if (element === window) {
-          oldValue = isTop ? window.scrollY : window.scrollX
-        } else if (element.nodeType === Node.DOCUMENT_NODE) {
-          oldValue = element.scrollingElement[prop]
-        } else {
-          oldValue = element[prop]
-        }
-        newValue = Reflect.apply(value, element, [index, oldValue])
-      }
-
-      if (element === window) {
-        window.scrollTo(
-          isTop ? window.scrollX : newValue,
-          isTop ? newValue : window.scrollY,
-        )
-      } else if (element.nodeType === Node.DOCUMENT_NODE) {
-        element.scrollingElement[prop] = newValue
-      } else {
-        element[prop] = newValue
-      }
-    }
-    return ctx
+    el[prop] = value
   }
 }
 
-export { scrollTo }
+export const scrollTo = (els, value, direction) => {
+  const isTop = direction === "top"
+  const prop = isTop ? "scrollTop" : "scrollLeft"
+
+  // getter
+  if (isUndefined(value)) {
+    const el = els.at(0)
+    return el ? getScrollValue(el, prop, isTop) : undefined
+  }
+
+  // setter
+  for (const [index, element] of els.entries()) {
+    const oldValue = getScrollValue(element, prop, isTop)
+    const newValue = isFunction(value)
+      ? value.call(element, index, oldValue)
+      : value
+
+    setScrollValue(element, prop, isTop, newValue)
+  }
+
+  return els
+}

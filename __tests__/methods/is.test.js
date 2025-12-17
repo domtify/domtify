@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/is.js"
+import { el } from "@/core.js"
+import { is } from "@/methods/is.js"
 
 describe("is", () => {
   beforeEach(() => {
@@ -19,40 +16,40 @@ describe("is", () => {
   })
 
   it("判断是否包含满足选择器的元素", () => {
-    const res = d("li").is(".special")
+    const res = is(".special")(el("li"))
     expect(res).toBe(true)
   })
 
   it("选择器不匹配时返回 false", () => {
-    const res = d("li").is(".not-exist")
+    const res = is(".not-exist")(el("li"))
     expect(res).toBe(false)
   })
 
   it("支持函数回调作为过滤条件", () => {
-    const res = d("li").is((i) => i === 2) // 第三个 li（索引为2）
+    const res = is((i) => i === 2)(el("li")) // 第三个 li（索引为2）
     expect(res).toBe(true)
   })
 
   it("函数未命中任何项时返回 false", () => {
-    const res = d("li").is(() => false)
+    const res = is(() => false)(el("li"))
     expect(res).toBe(false)
   })
 
   it("支持 DOM 元素作为参数", () => {
     const target = document.querySelector(".special")
-    const res = d("li").is(target)
+    const res = is(target)(el("li"))
     expect(res).toBe(true)
   })
 
-  it("支持 domtify 对象作为参数", () => {
-    const target = d(".special")
-    const res = d("li").is(target)
+  it("支持元素数组作为参数", () => {
+    const target = el(".special")
+    const res = is(target)(el("li"))
     expect(res).toBe(true)
   })
 
   it("传入无关 DOM 元素应返回 false", () => {
     const other = document.createElement("div")
-    const res = d("li").is(other)
+    const res = is(other)(el("li"))
     expect(res).toBe(false)
   })
 })

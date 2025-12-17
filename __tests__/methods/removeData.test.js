@@ -1,11 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/removeData.js"
-import "@/methods/data.js"
+import { el } from "@/core.js"
+import { removeData } from "@/methods/removeData.js"
+import { data } from "@/methods/data.js"
 
 describe("removeData", () => {
   beforeEach(() => {
@@ -15,80 +12,80 @@ describe("removeData", () => {
   })
 
   it("不传参数时应当删除全部数据", () => {
-    d("div").data({
+    data({
       test1: "VALUE-1",
       test2: "VALUE-2",
-    })
+    })(el("div"))
 
     // 确认设置成功
-    expect(d("div").data("test1")).toBe("VALUE-1")
-    expect(d("div").data("test2")).toBe("VALUE-2")
+    expect(data("test1")(el("div"))).toBe("VALUE-1")
+    expect(data("test2")(el("div"))).toBe("VALUE-2")
 
     // 删除所有
-    d("div").removeData()
+    removeData()(el("div"))
 
     // 再次读取应该 undefined
-    expect(d("div").data("test1")).toBeUndefined()
-    expect(d("div").data("test2")).toBeUndefined()
-    expect(d("div").data("count")).toBe(10)
+    expect(data("test1")(el("div"))).toBeUndefined()
+    expect(data("test2")(el("div"))).toBeUndefined()
+    expect(data("count")(el("div"))).toBe(10)
   })
 
   it("删除一个不存在的key,它没有任何影响", () => {
-    d("div").removeData(123)
-    expect(d("div").data(123)).toBeUndefined()
+    removeData(123)(el("div"))
+    expect(data(123)(el("div"))).toBeUndefined()
   })
 
   it("删除指定的key", () => {
-    d("div").data({
+    data({
       test1: "VALUE-1",
       test2: "VALUE-2",
-    })
+    })(el("div"))
 
-    d("div").removeData("test1")
+    removeData("test1")(el("div"))
 
-    expect(d("div").data("test1")).toBeUndefined()
-    expect(d("div").data("test2")).toBe("VALUE-2")
+    expect(data("test1")(el("div"))).toBeUndefined()
+    expect(data("test2")(el("div"))).toBe("VALUE-2")
   })
 
   it("同时删除多个空格分隔的key", () => {
-    d("div").data({
+    data({
       test1: "VALUE-1",
       test2: "VALUE-2",
       test3: "VALUE-3",
-    })
+    })(el("div"))
 
-    d("div").removeData("test1 test2")
+    removeData("test1 test2")(el("div"))
 
-    expect(d("div").data("test1")).toBeUndefined()
-    expect(d("div").data("test2")).toBeUndefined()
-    expect(d("div").data("test3")).toBe("VALUE-3")
+    expect(data("test1")(el("div"))).toBeUndefined()
+    expect(data("test2")(el("div"))).toBeUndefined()
+    expect(data("test3")(el("div"))).toBe("VALUE-3")
   })
 
   it("如果同时删除掉所有的key,再取时则为Undefined", () => {
-    d("div").data({
+    data({
       test1: "VALUE-1",
       test2: "VALUE-2",
       test3: "VALUE-3",
-    })
+    })(el("div"))
 
-    d("div").removeData("test1 test2 test3")
+    removeData("test1 test2 test3")(el("div"))
 
-    expect(d("div").data("test1")).toBeUndefined()
-    expect(d("div").data("test2")).toBeUndefined()
-    expect(d("div").data("test3")).toBeUndefined()
+    expect(data("test1")(el("div"))).toBeUndefined()
+    expect(data("test2")(el("div"))).toBeUndefined()
+    expect(data("test3")(el("div"))).toBeUndefined()
   })
 
   it("通过数组删除多个 key", () => {
-    d("div").data({
+    data({
       foo: 123,
       bar: 456,
       baz: 789,
-    })
+    })(el("div"))
 
-    d("div").removeData(["foo", "baz"])
+    removeData(["foo", "baz"])(el("div"))
 
-    expect(d("div").data("foo")).toBeUndefined()
-    expect(d("div").data("baz")).toBeUndefined()
-    expect(d("div").data("bar")).toBe(456)
+    expect(data("foo")(el("div"))).toBeUndefined()
+    expect(data("baz")(el("div"))).toBeUndefined()
+    expect(data("bar")(el("div"))).toBe(456)
   })
 })

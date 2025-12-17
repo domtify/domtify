@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/resize.js"
+import { el } from "@/core.js"
+import { resize } from "@/methods/resize.js"
 
 // 这个应该用端到端的测试才能测试
 
@@ -43,8 +40,8 @@ describe("resize", () => {
 
   it("immediate为false时不会立即触发", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: false })
+    const elements = el(".resizable")
+    resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
       {
@@ -58,8 +55,8 @@ describe("resize", () => {
 
   it("type both时宽度发生变化的情况", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: false })
+    const elements = el(".resizable")
+    resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
       {
@@ -83,8 +80,8 @@ describe("resize", () => {
 
   it("type both时高度发生变化的情况", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: false })
+    const elements = el(".resizable")
+    resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
       {
@@ -108,15 +105,15 @@ describe("resize", () => {
 
   it("取消尺寸改变的回调行为", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback)
+    const elements = el(".resizable")
+    resize(callback)(elements)
 
     // 保存 observer 实例
     // const observer = ResizeObserverMock.instances[0]
     expect(ResizeObserverMock.instances.length).toBe(2)
 
     // 调用取消监听
-    elements.resize(null)
+    resize(null)(elements)
 
     expect(ResizeObserverMock.instances[0].disconnected).toBe(true)
     expect(ResizeObserverMock.instances[0].elements.size).toBe(0)
@@ -127,8 +124,8 @@ describe("resize", () => {
 
   it("类型选项测试", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: true, type: "width" })
+    const elements = el(".resizable")
+    resize(callback, { immediate: true, type: "width" })(elements)
 
     // 手动模拟元素被拖动触发事件,模拟entry对象的target和contentRect属性
     ResizeObserverMock.instances[0].trigger([
@@ -144,8 +141,8 @@ describe("resize", () => {
 
   it("选项-immediate-首次不触发", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: false })
+    const elements = el(".resizable")
+    resize(callback, { immediate: false })(elements)
 
     // 模拟触发回调
     for (const observer of ResizeObserverMock.instances) {
@@ -165,8 +162,8 @@ describe("resize", () => {
 
   it("type height 只触发高度变化", () => {
     const callback = vi.fn()
-    const elements = d(".resizable")
-    elements.resize(callback, { immediate: true, type: "height" })
+    const elements = el(".resizable")
+    resize(callback, { immediate: true, type: "height" })(elements)
 
     ResizeObserverMock.instances[0].trigger([
       {

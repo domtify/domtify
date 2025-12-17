@@ -1,13 +1,9 @@
-import { fn } from "@/core.js"
-import { uniqueArray } from "@/utils/uniqueArray.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { unique } from "@/utils/unique.js"
 
-import "./toArray.js"
+export const offsetParent = () => (els) => {
+  const result = []
 
-fn.offsetParent = function () {
-  let result = []
-
-  for (const [, element] of this.toArray().entries()) {
+  for (const element of els) {
     if (element && element.offsetParent) {
       result.push(element.offsetParent)
     } else {
@@ -16,7 +12,5 @@ fn.offsetParent = function () {
     }
   }
 
-  result = uniqueArray(result)
-
-  return pushStack(this, result)
+  return unique(result)
 }

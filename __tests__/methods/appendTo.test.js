@@ -1,10 +1,8 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/appendTo.js"
+import { el } from "@/core.js"
+import { appendTo } from "@/methods/appendTo.js"
+import jQuery from "jquery"
 
 describe("appendTo", () => {
   beforeEach(() => {
@@ -21,7 +19,7 @@ describe("appendTo", () => {
   })
 
   it("支持选择器", () => {
-    d(".inner").appendTo("h2")
+    appendTo("h2")(el(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
@@ -29,22 +27,21 @@ describe("appendTo", () => {
   })
 
   it("支持 HTML 字符串", () => {
-    d(".inner").appendTo("<p>Test</p>")
-    const p = document.querySelector("p")
+    appendTo("<p>Test</p>")(el(".inner"))
 
     expect(document.querySelector(".container .inner")).toBe(null)
   })
 
   it("支持单个 DOM 元素", () => {
     const h2 = document.querySelector("h2")
-    d(".inner").appendTo(h2)
+    appendTo(h2)(el(".inner"))
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("支持 HTMLCollection", () => {
     const ps = document.getElementsByTagName("p")
-    d(".inner").appendTo([ps])
+    appendTo([ps])(el(".inner"))
 
     for (const p of ps) {
       expect(p.firstElementChild.classList.contains("inner")).toBe(true)
@@ -52,10 +49,9 @@ describe("appendTo", () => {
   })
 
   it("支持数组 (多个目标)", () => {
-    d(".inner").appendTo([
-      document.querySelector("h2"),
-      document.querySelector("h3"),
-    ])
+    appendTo([document.querySelector("h2"), document.querySelector("h3")])(
+      el(".inner"),
+    )
 
     const h2 = document.querySelector("h2")
     const h3 = document.querySelector("h3")
@@ -64,17 +60,18 @@ describe("appendTo", () => {
     expect(h3.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
-  it("支持 domtify 对象", () => {
-    d(".inner").appendTo(d("h2"))
+  it("支持元素对象", () => {
+    appendTo(el("h2"))(el(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("返回被插入的元素本身", () => {
-    const res = d(".inner").appendTo("h2")
+    const res = appendTo("h2")(el(".inner"))
+    const res2 = jQuery(".inner").appendTo("h2")
 
-    expect(res).toBeInstanceOf(d) // 保持链式调用
     expect(res.length).toBe(2)
+    expect(res2.length).toBe(2)
   })
 })

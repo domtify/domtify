@@ -1,10 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest"
+import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/position.js"
+import { el } from "@/core.js"
+import { position } from "@/methods/position.js"
 
 describe("position", () => {
   beforeEach(() => {
@@ -75,18 +72,18 @@ describe("position", () => {
   it("不存在的集合", () => {
     let res
     expect(() => {
-      res = d(".not-exist").position()
+      res = position()(el(".not-exist"))
     }).not.toThrow()
     expect(res).toBeUndefined()
   })
 
   it("边缘情况数字", () => {
-    const result = d(10).position()
+    const result = position()(el(10))
     expect(result).toBeUndefined()
   })
 
   it("元素不可见", () => {
-    const res = d(".container0 .child").position()
+    const res = position()(el(".container0 .child"))
     expect(res).toEqual({
       top: 0,
       left: 0,
@@ -94,7 +91,7 @@ describe("position", () => {
   })
 
   it("不会考虑html标签上的 margin", () => {
-    const res = d("html").position()
+    const res = position()(el("html"))
     expect(res).toEqual({
       top: 0,
       left: 0,
@@ -102,7 +99,7 @@ describe("position", () => {
   })
 
   it("子元素相对 static 父容器,会自动找到顶级doc", () => {
-    const res = d(".container1 .child").position()
+    const res = position()(el(".container1 .child"))
     expect(res).toEqual({
       top: 120,
       left: 120,
@@ -110,7 +107,7 @@ describe("position", () => {
   })
 
   it("子元素相对 relative 父容器", () => {
-    const res = d(".container2 .child").position()
+    const res = position()(el(".container2 .child"))
     expect(res).toEqual({
       top: 20,
       left: 10,
@@ -118,14 +115,14 @@ describe("position", () => {
   })
 
   it("父容器有边框", () => {
-    const { top, left } = d(".container5 .child").position()
+    const { top, left } = position()(el(".container5 .child"))
 
     expectPixelEqual(top, 0.000006103515630684342)
     expectPixelEqual(left, -0.0000015258789005656581)
   })
 
   it("固定定位", () => {
-    const res = d(".container3 .child").position()
+    const res = position()(el(".container3 .child"))
     expect(res).toEqual({
       top: 20,
       left: 10,
@@ -133,7 +130,7 @@ describe("position", () => {
   })
 
   it("绝对定位", () => {
-    const res = d(".container4 .child").position()
+    const res = position()(el(".container4 .child"))
     expect(res).toEqual({
       top: 20,
       left: 10,
@@ -145,7 +142,7 @@ describe("position", () => {
     parent.scrollTop = 60
     parent.scrollLeft = 32
 
-    const res = d(".container6 .child").position()
+    const res = position()(el(".container6 .child"))
     expect(res).toEqual({
       top: -10,
       left: 18,

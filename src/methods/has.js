@@ -1,13 +1,5 @@
-import { domtify, fn } from "@/core.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { el } from "@/core.js"
+import { find } from "./find.js"
 
-import "./find.js"
-import "./toArray.js"
-
-fn.has = function (selector) {
-  let result = this.toArray().filter((element) => {
-    return domtify(element).find(selector).length //能找到后代就保留
-  })
-
-  return pushStack(this, result)
-}
+export const has = (selector) => (els) =>
+  els.filter((element) => find(selector)(el(element)).length)

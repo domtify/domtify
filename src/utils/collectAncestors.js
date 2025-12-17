@@ -1,7 +1,10 @@
 import { isUndefined } from "is-what"
-import { uniqueArray } from "@/utils/uniqueArray.js"
+import { unique } from "./unique.js"
 
-function parents(elements, { until = [], filter, selector } = {}) {
+export const collectAncestors = (
+  elements,
+  { until = [], filter, selector } = {},
+) => {
   let result = []
 
   for (const el of elements) {
@@ -25,7 +28,5 @@ function parents(elements, { until = [], filter, selector } = {}) {
     result = result.filter((el) => el.matches(filter))
   }
 
-  return uniqueArray(result)
+  return unique(result)
 }
-
-export { parents }

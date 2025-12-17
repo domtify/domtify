@@ -4,7 +4,7 @@ import globals from "globals"
 import eslintPluginUnicorn from "eslint-plugin-unicorn"
 import eslintParser from "@babel/eslint-parser"
 
-const ignores = ["configs/**", "dist/**"]
+const ignores = ["configs/**", "dist/**", "__tests__/**"]
 
 export default defineConfig([
   //继承eslint的推荐规则

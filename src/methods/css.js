@@ -5,58 +5,71 @@ import {
   isString,
   isUndefined,
 } from "is-what"
-import { fn } from "@/core.js"
 
-import "./toArray.js"
+function getCss(el, property) {
+  const computed = getComputedStyle(el)
 
-fn.css = function (property, value, priority) {
-  if (isUndefined(value) && !isPlainObject(property)) {
-    //getter
-    const el = this.toArray().at(0)
-    if (!el) return undefined
+  if (isString(property)) {
+    const val = computed.getPropertyValue(property)
+    return val ? val.trim() : undefined
+  }
 
-    // 获取单个属性
-    if (isString(property)) {
-      let propertyValue = getComputedStyle(el).getPropertyValue(property)
-      return propertyValue ? propertyValue : undefined
-    } else if (isArray(property)) {
-      // 是数组的方式应该直接返回对象
-      const computed = getComputedStyle(el)
-      const result = {}
-
-      for (const prop of property) {
-        let propertyValue = computed?.getPropertyValue(prop)
-        result[prop] = propertyValue ? propertyValue : undefined
-      }
-      return result
+  if (isArray(property)) {
+    const result = {}
+    for (const prop of property) {
+      const val = computed.getPropertyValue(prop)
+      result[prop] = val ? val.trim() : undefined
     }
-  } else {
-    //setter
+    return result
+  }
+}
 
-    for (const [index, element] of this.toArray().entries()) {
-      if (isString(property)) {
-        // 设置单个属性
-        let newValue = value
-        if (isFunction(value)) {
-          const oldValue = getComputedStyle(element).getPropertyValue(property)
-          newValue = Reflect.apply(value, element, [index, oldValue.trim()])
-        }
-        element.style.setProperty(property, newValue, priority)
-      } else if (isPlainObject(property)) {
-        // 字面量对象直接批量设置
-        for (const [key, val] of Object.entries(property)) {
-          let value = val
-          let priority = ""
-
-          if (val?.endsWith("!important")) {
-            // 提取出 value 和 priority
-            value = val.replace(/\s*!important\s*$/, "") // 去掉后缀的 !important（兼容空格）
-            priority = "important"
-          }
-          element.style.setProperty(key, value, priority)
-        }
-      }
+function normalizeValue(val) {
+  if (isString(val) && val.endsWith("!important")) {
+    return {
+      value: val.replace(/\s*!important\s*$/, ""),
+      priority: "important",
     }
   }
-  return this
+  return { value: val, priority: "" }
+}
+
+function setCss(el, index, property, value, priority) {
+  if (isString(property)) {
+    let newValue = value
+
+    if (isFunction(value)) {
+      const oldValue = getComputedStyle(el).getPropertyValue(property).trim()
+      newValue = value.call(el, index, oldValue)
+    }
+
+    el.style.setProperty(property, newValue, priority)
+  } else if (isPlainObject(property)) {
+    const computed = getComputedStyle(el)
+
+    for (const [key, val] of Object.entries(property)) {
+      let finalValue = val
+
+      if (isFunction(val)) {
+        const oldValue = computed.getPropertyValue(key).trim()
+        finalValue = val.call(el, index, oldValue)
+      }
+
+      const normalized = normalizeValue(finalValue)
+      el.style.setProperty(key, normalized.value, normalized.priority)
+    }
+  }
+}
+
+export const css = (property, value, priority) => (els) => {
+  if (isUndefined(value) && !isPlainObject(property)) {
+    const el = els[0]
+    if (!el) return undefined
+    return getCss(el, property)
+  }
+
+  for (const [index, el] of els.entries()) {
+    setCss(el, index, property, value, priority)
+  }
+  return els
 }

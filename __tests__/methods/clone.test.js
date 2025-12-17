@@ -1,13 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/clone.js"
-import "@/methods/on.js"
-import "@/methods/append.js"
-import "@/methods/trigger.js"
+import { el } from "@/core.js"
+import { clone } from "@/methods/clone.js"
+import { data } from "@/methods/data.js"
+import { on } from "@/methods/on.js"
+import { append } from "@/methods/append.js"
+import { trigger } from "@/methods/trigger.js"
 
 describe("clone", () => {
   beforeEach(() => {
@@ -21,58 +19,58 @@ describe("clone", () => {
   })
 
   it("clone(false) 只克隆DOM，不复制事件和data", () => {
-    d("#btn").data("info", { count: 1 })
+    data("info", { count: 1 })(el("#btn"))
     const handler = vi.fn()
-    d("#btn").on("click", handler)
+    on("click", handler)(el("#btn"))
 
-    const cloneBtn = d("#btn").clone(false)
-    d("#result").append(cloneBtn)
+    const cloneBtn = clone(false)(el("#btn"))
+    append(cloneBtn)(el("#result"))
 
     // 克隆的DOM存在
     expect(document.querySelector("#result #btn")).not.toBeNull()
     // data 没被复制
-    expect(d("#result #btn").data("info")).toBeUndefined()
+    expect(data("info")(el("#result #btn"))).toBeUndefined()
     // 事件没被复制
-    d("#result #btn").trigger("click")
+    trigger("click")(el("#result #btn"))
     expect(handler).toHaveBeenCalledTimes(0)
   })
 
   it("clone(true) 克隆DOM + 自身事件和data，不复制子元素事件和data", () => {
-    d("#btn").data("info", { count: 1 })
+    data("info", { count: 1 })(el("#btn"))
     const handler = vi.fn()
-    d("#btn").on("click", handler)
+    on("click", handler)(el("#btn"))
 
-    const cloneBtn = d("#btn").clone(true)
-    d("#result").append(cloneBtn)
+    const cloneBtn = clone(true)(el("#btn"))
+    append(cloneBtn)(el("#result"))
 
     // data 被复制
-    expect(d("#result #btn").data("info")).toEqual({ count: 1 })
+    expect(data("info")(el("#result #btn"))).toEqual({ count: 1 })
 
     // 事件被复制
-    d("#result #btn").trigger("click")
+    trigger("click")(el("#result #btn"))
     expect(handler).toHaveBeenCalledTimes(1)
   })
 
   it("clone(true, true) 克隆DOM + 自身事件和data + 子元素事件和data", () => {
     // 给 parent 和 btn 都加 data & event
-    d("#parent").data("parent-info", { count: 2 })
+    data("parent-info", { count: 2 })(el("#parent"))
     const parentHandler = vi.fn()
-    d("#parent").on("click", parentHandler)
+    on("click", parentHandler)(el("#parent"))
 
-    d("#btn").data("info", { count: 1 })
+    data("info", { count: 1 })(el("#btn"))
     const btnHandler = vi.fn()
-    d("#btn").on("click", btnHandler)
+    on("click", btnHandler)(el("#btn"))
 
-    const cloneParent = d("#parent").clone(true, true)
-    d("#result").append(cloneParent)
+    const cloneParent = clone(true, true)(el("#parent"))
+    append(cloneParent)(el("#result"))
 
     // data 复制成功
-    expect(d("#result #parent").data("parent-info")).toEqual({ count: 2 })
-    expect(d("#result #btn").data("info")).toEqual({ count: 1 })
+    expect(data("parent-info")(el("#result #parent"))).toEqual({ count: 2 })
+    expect(data("info")(el("#result #btn"))).toEqual({ count: 1 })
 
     // 事件复制成功
-    d("#result #parent").trigger("click")
-    d("#result #btn").trigger("click")
+    trigger("click")(el("#result #parent"))
+    trigger("click")(el("#result #btn"))
     expect(parentHandler).toHaveBeenCalledTimes(2)
     expect(btnHandler).toHaveBeenCalledTimes(1)
   })

@@ -1,12 +1,10 @@
 import { isUndefined, isFunction, isArray } from "is-what"
-import { fn, domtify } from "@/core.js"
+import { el } from "@/core.js"
 
-import "./toArray.js"
-
-fn.val = function (value) {
+export const val = (value) => (els) => {
   if (isUndefined(value)) {
     // getter
-    const element = this.toArray().at(0)
+    const element = els.at(0)
 
     if (element.tagName === "SELECT" && element.multiple) {
       // 多选 select特殊情况
@@ -16,16 +14,16 @@ fn.val = function (value) {
     return element?.value //undefined情况处理
   } else {
     // setter
-    for (const [index, element] of this.toArray().entries()) {
+    for (const [index, element] of els.entries()) {
       let setVal = isFunction(value)
-        ? Reflect.apply(value, element, [index, domtify(element).val()])
+        ? value.call(element, index, val()(el(element)))
         : value
 
       if (element.tagName == "SELECT") {
         // 下拉框(SELECT)处理逻辑
 
         // 无论如何都转换成数组
-        setVal = isArray(setVal) ? [...setVal] : [setVal]
+        setVal = isArray(setVal) ? setVal : [setVal]
 
         for (const option of element.options) {
           option.selected = setVal.includes(option.value)
@@ -47,6 +45,6 @@ fn.val = function (value) {
       }
     }
 
-    return this
+    return els
   }
 }

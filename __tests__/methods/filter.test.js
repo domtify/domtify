@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/filter.js"
-import "@/methods/get.js"
+import { el } from "@/core.js"
+import { filter } from "@/methods/filter.js"
 
 describe("filter", () => {
   beforeEach(() => {
@@ -23,7 +19,7 @@ describe("filter", () => {
   })
 
   it("支持字符串选择器", () => {
-    const res = d("li").filter(":nth-child(2n)").get()
+    const res = filter(":nth-child(2n)")(el("li"))
     expect(res.length).toBe(3)
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "list item 2",
@@ -33,9 +29,8 @@ describe("filter", () => {
   })
 
   it("支持函数过滤", () => {
-    const res = d("li")
-      .filter((i) => i % 2 === 0)
-      .get()
+    const res = filter((i) => i % 2 === 0)(el("li"))
+
     expect(res.length).toBe(3)
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "list item 1",
@@ -46,24 +41,22 @@ describe("filter", () => {
 
   it("支持传入 DOM 元素集合", () => {
     const domList = document.querySelectorAll(".item")
-    const res = d("li").filter(domList).get()
+    const res = filter(domList)(el("li"))
     expect(res.length).toBe(2)
     expect(res[0].classList.contains("item3")).toBe(true)
     expect(res[1].classList.contains("item4")).toBe(true)
   })
 
-  it("支持传入 domtify 实例", () => {
-    const items = d(".item")
-    const res = d("li").filter(items).get()
+  it("支持传入元素数组", () => {
+    const items = el(".item")
+    const res = filter(items)(el("li"))
     expect(res.length).toBe(2)
     expect(res[0].classList.contains("item3")).toBe(true)
     expect(res[1].classList.contains("item4")).toBe(true)
   })
 
   it("传入函数但不返回任何内容则为空", () => {
-    const res = d("li")
-      .filter(() => {})
-      .get()
+    const res = filter(() => {})(el("li"))
     expect(res.length).toBe(0)
   })
 })

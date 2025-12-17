@@ -1,11 +1,7 @@
-import { fn } from "@/core.js"
-
-import "./toArray.js"
-
-fn.each = function (callback) {
-  for (const [index, element] of this.toArray().entries()) {
-    const res = Reflect.apply(callback, element, [index, element])
+export const each = (callback) => (els) => {
+  for (const [index, element] of els.entries()) {
+    const res = callback.call(element, index, element)
     if (res === false) break
   }
-  return this
+  return els
 }

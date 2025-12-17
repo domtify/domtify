@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/toArray.js"
-import "@/methods/contents.js"
+import { el } from "@/core.js"
+import { contents } from "@/methods/contents.js"
 
 describe("contents", () => {
   beforeEach(() => {
@@ -19,19 +15,13 @@ describe("contents", () => {
   })
 
   it("应返回所有子节点（包括文本、注释和元素）", () => {
-    const nodes = d(".container").contents()
+    const res = contents()(el(".container"))
 
-    expect(nodes.length).toBeGreaterThanOrEqual(2)
+    expect(res.length).toBeGreaterThanOrEqual(2)
 
-    const hasTextNode = nodes
-      .toArray()
-      .some((n) => n.nodeType === Node.TEXT_NODE)
-    const hasElementNode = nodes
-      .toArray()
-      .some((n) => n.nodeType === Node.ELEMENT_NODE)
-    const hasCommentNode = nodes
-      .toArray()
-      .some((n) => n.nodeType === Node.COMMENT_NODE)
+    const hasTextNode = res.some((n) => n.nodeType === Node.TEXT_NODE)
+    const hasElementNode = res.some((n) => n.nodeType === Node.ELEMENT_NODE)
+    const hasCommentNode = res.some((n) => n.nodeType === Node.COMMENT_NODE)
 
     expect(hasTextNode).toBe(true)
     expect(hasElementNode).toBe(true)
@@ -46,7 +36,7 @@ describe("contents", () => {
       value: document.implementation.createHTMLDocument("mock"),
     })
 
-    const result = d([mockIframe]).contents()
+    const result = contents()(el([mockIframe]))
     expect(result[0]).toBeInstanceOf(Document) // 证明访问到了返回doc
   })
 
@@ -64,10 +54,10 @@ describe("contents", () => {
       },
     })
 
-    const fn = () => d(mockIframe).contents() // 不应抛出
+    const fn = () => contents()(el(mockIframe)) // 不应抛出
     expect(fn).not.toThrow()
 
-    const result = d(mockIframe).contents()
+    const result = contents()(el(mockIframe))
     expect(result.length).toEqual(0) // 因为没能获取内容文档
   })
 })

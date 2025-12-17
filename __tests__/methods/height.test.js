@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/height.js"
+import { el } from "@/core.js"
+import { height } from "@/methods/height.js"
 
 describe("height", () => {
   let borderBoxEl
@@ -40,54 +37,54 @@ describe("height", () => {
       value: 800,
       configurable: true,
     })
-    expect(d(window).height()).toBe(800)
+    expect(height()(el(window))).toBe(800)
 
     Object.defineProperty(window, "innerHeight", {
       value: 600,
       configurable: true,
     })
-    expect(d(window).height()).toBe(600)
+    expect(height()(el(window))).toBe(600)
   })
 
   it("获取 document 高度", () => {
     document.body.style.height = "1000px"
     document.documentElement.style.height = "980px"
-    expect(d(document).height()).toBe(1000)
+    expect(height()(el(document))).toBe(1000)
   })
 
   it("border-box 元素", () => {
-    const resule = d(".border-box").height()
+    const resule = height()(el(".border-box"))
     // expect(resule).toBeCloseTo(30.8, 3)
 
     expectPixelEqual(resule, 30.8)
   })
 
   it("content-box 元素", () => {
-    const resule = d(".content-box").height()
+    const resule = height()(el(".content-box"))
     expect(resule).toBe(50)
   })
 
   it("设置高度", () => {
-    d("div").height(100)
+    height(100)(el("div"))
 
     expectPixelEqual(borderBoxEl.style.height, "119.2px")
     expectPixelEqual(contentBoxEl.style.height, "100px")
   })
 
   it("设置高度-数字字符串", () => {
-    d("div").height("100.1")
+    height("100.1")(el("div"))
     expectPixelEqual(borderBoxEl.style.height, "119.3px")
     expectPixelEqual(contentBoxEl.style.height, "100.1px")
   })
 
   it("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    d("div").height("10em")
+    height("10em")(el("div"))
     expectPixelEqual(borderBoxEl.style.height, "179.2px")
     expectPixelEqual(contentBoxEl.style.height, "10em")
   })
 
   it("设置高度-带错误单位的字符串", () => {
-    d(".box").height("10pq")
+    height("10pq")(el(".box"))
     expectPixelEqual(borderBoxEl.style.height, "69.2px")
     expect(contentBoxEl.style.height).toBe("")
   })
@@ -95,7 +92,7 @@ describe("height", () => {
   it("设置高度-函数", () => {
     const fn = vi.fn(() => "100")
 
-    d(".box").height(fn)
+    height(fn)(el(".box"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expectPixelEqual(fn.mock.calls[0][1], 30.8)

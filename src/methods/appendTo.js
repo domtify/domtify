@@ -1,10 +1,8 @@
-import { domtify, fn } from "@/core.js"
-
 import { flatElements } from "@/utils/flatElements.js"
+import { el } from "@/core.js"
+import { append } from "./append.js"
 
-import "./append.js"
-
-fn.appendTo = function (target) {
-  domtify(flatElements(domtify(target))).append(this)
-  return this
+export const appendTo = (target) => (els) => {
+  append(els)(flatElements(el(target)))
+  return els
 }

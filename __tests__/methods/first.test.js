@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/first.js"
+import { el } from "@/core.js"
+import { first } from "@/methods/first.js"
 
 describe("first", () => {
   beforeEach(() => {
@@ -21,7 +18,7 @@ describe("first", () => {
   })
 
   it("获取第一个元素", () => {
-    const res = d("li").first()
+    const res = first()(el("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 1")
   })

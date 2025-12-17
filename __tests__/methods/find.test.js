@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/get.js"
-import "@/methods/find.js"
+import { el } from "@/core.js"
+import { find } from "@/methods/find.js"
 
 describe("find", () => {
   beforeEach(() => {
@@ -33,30 +29,30 @@ describe("find", () => {
   })
 
   it("字符串选择器", () => {
-    const result = d("li.item-ii").find(".item").get()
+    const result = find(".item")(el("li.item-ii"))
     expect(result).toHaveLength(3)
     expect(result[0].classList.contains("item-1")).toBe(true)
   })
 
   it("使用element", () => {
-    const el = document.querySelector(".item-1")
-    const result = d("li.item-ii").find(el).get()
+    const res = document.querySelector(".item-1")
+    const result = find(res)(el("li.item-ii"))
     expect(result).toHaveLength(1)
-    expect(result[0]).toBe(el)
+    expect(result[0]).toBe(res)
   })
 
   it("使用domtify对象", () => {
-    const result = d("li.item-ii").find(d(".item")).get()
+    const result = find(el(".item"))(el("li.item-ii"))
     expect(result).toHaveLength(3)
   })
 
   it("返回结果中不能自己", () => {
-    const result = d(".item").find(".item").get()
+    const result = find(".item")(el(".item"))
     expect(result).toHaveLength(0)
   })
 
   it("禁止出现重复的结果", () => {
-    const result = d(".level-1").find(".item").get()
+    const result = find(".item")(el(".level-1"))
     const unique = [...new Set(result)]
     expect(result.length).toBe(unique.length)
   })

@@ -1,19 +1,34 @@
-import { isUndefined, isPlainObject, isString } from "is-what"
-import { fn } from "@/core.js"
-import { parseDataValue, toCamel } from "@/utils/data.js"
+import {
+  isUndefined,
+  isPlainObject,
+  isString,
+  isNull,
+  isFullString,
+} from "is-what"
 import Constants from "@/constants/index.js"
+import { toCamel } from "@/utils/toCamel.js"
 
-import "./toArray.js"
+const parseDataValue = (val) => {
+  if (val === "true") return true
+  if (val === "false") return false
+  if (isNull(val)) return null
+  if (isFullString(val) && !isNaN(val)) return Number(val)
+  try {
+    return JSON.parse(val)
+  } catch {
+    return val
+  }
+}
 
-fn.data = function (key, value) {
-  const firstEl = this.toArray().at(0)
+export const data = (key, value) => (els) => {
+  const firstEl = els.at(0)
   if (!firstEl) return
 
   // 如果元素还没有专属 map，就给它创建一个
   let store = Reflect.get(firstEl, Constants.DATA_KEY)
   if (!store) {
     store = new Map()
-    for (const el of this.toArray()) {
+    for (const el of els) {
       Reflect.set(el, Constants.DATA_KEY, store)
     }
   }
@@ -45,6 +60,6 @@ fn.data = function (key, value) {
       store.set(toCamel(key), value)
     }
 
-    return this
+    return els
   }
 }

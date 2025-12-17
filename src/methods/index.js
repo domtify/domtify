@@ -1,23 +1,22 @@
 import { isString, isUndefined } from "is-what"
-import { fn, domtify } from "@/core.js"
 
-import "./toArray.js"
+import { el } from "@/core.js"
 
-fn.index = function (selector) {
+export const index = (selector) => (els) => {
   let collection
   let find
 
   if (isUndefined(selector)) {
-    find = this.toArray().at(0)
+    find = els.at(0)
     // 没传递参数
     collection = Array.from(find?.parentElement?.children)
   } else {
     if (isString(selector)) {
-      collection = domtify(selector).toArray()
-      find = this.toArray().at(0)
+      collection = el(selector)
+      find = els.at(0)
     } else {
-      collection = this.toArray()
-      find = domtify(selector).toArray().at(0)
+      collection = els
+      find = el(selector).at(0)
     }
   }
 

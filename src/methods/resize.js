@@ -1,7 +1,4 @@
 import { isFunction, isNull, isPlainObject } from "is-what"
-import { fn } from "@/core.js"
-
-import "./toArray.js"
 
 const Default = {
   // 立即运行
@@ -12,59 +9,51 @@ const Default = {
 
 const SYM_OBSERVER_KEY = Symbol("observer")
 
-fn.resize = function (callback, options) {
+export const resize = (callback, options) => (els) => {
   if (isFunction(callback)) {
-    // setter
-
     const config = { ...Default, ...(isPlainObject(options) ? options : {}) }
     const lastSize = new WeakMap()
 
-    for (const [index, element] of this.toArray().entries()) {
-      // 创建ResizeObserver对象
+    for (const [index, element] of els.entries()) {
       const observer = new ResizeObserver((entries) => {
         for (const entry of entries) {
           const { width, height } = entry.contentRect
-          const prev = lastSize.get(element) || {
-            width: 0,
-            height: 0,
-            first: true,
-          }
+          const prev = lastSize.get(element)
+          const first = !prev
 
-          if (!config.immediate && prev.first) {
-            lastSize.set(element, { width, height, first: false })
+          if (!config.immediate && first) {
+            lastSize.set(element, { width, height })
             continue
           }
 
-          const widthChanged = width !== prev.width
-          const heightChanged = height !== prev.height
-
           if (
-            (config.type === "width" && widthChanged) ||
-            (config.type === "height" && heightChanged) ||
-            (config.type === "both" && (widthChanged || heightChanged))
+            !prev ||
+            (config.type === "width" && width !== prev.width) ||
+            (config.type === "height" && height !== prev.height) ||
+            (config.type === "both" &&
+              (width !== prev.width || height !== prev.height))
           ) {
-            Reflect.apply(callback, element, [index, entry])
+            callback.call(element, index, entry)
           }
 
-          lastSize.set(element, { width, height, first: false })
+          lastSize.set(element, { width, height })
         }
       })
 
-      // 开始监听
       observer.observe(element)
-
-      // 保存一份到dom对象
       Reflect.set(element, SYM_OBSERVER_KEY, observer)
-    }
-  } else if (isNull(callback)) {
-    // clear
-    for (const element of this.toArray()) {
-      const observer = Reflect.get(element, SYM_OBSERVER_KEY)
-      observer.disconnect()
-      // 删除
-      Reflect.deleteProperty(element, SYM_OBSERVER_KEY)
     }
   }
 
-  return this
+  if (isNull(callback)) {
+    for (const element of els) {
+      const observer = Reflect.get(element, SYM_OBSERVER_KEY)
+      if (observer) {
+        observer.disconnect()
+        Reflect.deleteProperty(element, SYM_OBSERVER_KEY)
+      }
+    }
+  }
+
+  return els
 }

@@ -1,6 +1,9 @@
-import { fn } from "@/core.js"
-import { classList } from "@/utils/classList.js"
+import { resolveClasses } from "@/utils/resolveClasses.js"
 
-import "./toArray.js"
-
-fn.removeClass = classList("remove")
+export const removeClass = (className) => (els) => {
+  for (const [index, element] of els.entries()) {
+    const classes = resolveClasses(element, index, className)
+    element?.classList?.remove(...classes)
+  }
+  return els
+}

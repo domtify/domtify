@@ -1,19 +1,14 @@
-import { isInstanceOf } from "is-what"
-import { domtify, fn } from "@/core.js"
-import { uniqueArray } from "@/utils/uniqueArray.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { el } from "@/core.js"
+import { unique } from "@/utils/unique.js"
 
-import "./toArray.js"
-
-fn.closest = function (selector, context) {
-  let result = []
+export const closest = (selector, context) => (els) => {
+  const result = []
 
   // 先获取到所有的候选集合数组
-  const candidates = isInstanceOf(context, Element)
-    ? domtify(selector, context).toArray()
-    : domtify(selector).toArray()
+  const candidates =
+    context instanceof Element ? el(selector, context) : el(selector)
 
-  for (const el of this.toArray()) {
+  for (const el of els) {
     let current = el
     while (current) {
       // 实际上这整个while就是在模拟原生的api的closest的行为
@@ -25,7 +20,5 @@ fn.closest = function (selector, context) {
     }
   }
 
-  result = uniqueArray(result)
-
-  return pushStack(this, result)
+  return unique(result)
 }

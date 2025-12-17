@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/get.js"
-import "@/methods/add.js"
+import { el } from "@/core.js"
+import { add } from "@/methods/add.js"
 
 describe("add", () => {
   beforeEach(() => {
@@ -23,43 +19,43 @@ describe("add", () => {
   })
 
   it("css选择器", () => {
-    const result = d("li").add("p")
-    expect(result.get().length).toBe(5) // 3 li + 2 p
-    expect(result.get(3).tagName).toBe("P")
-    expect(result.get(4).tagName).toBe("P")
+    const result = add("p")(el("li"))
+    expect(result.length).toBe(5) // 3 li + 2 p
+    expect(result[3].tagName).toBe("P")
+    expect(result[4].tagName).toBe("P")
   })
 
   it("element", () => {
-    const el = document.querySelector("p")
-    const result = d("li").add(el)
-    expect(result.get().length).toBe(4)
-    expect(result.get().at(-1)).toBe(el)
+    const p = document.querySelector("p")
+    const result = add(p)(el("li"))
+    expect(result.length).toBe(4)
+    expect(result.at(-1)).toBe(p)
   })
 
   it("html代码片段", () => {
-    const result = d("li").add("<p id='new'>new paragraph</p>")
-    const nodes = result.get()
-    expect(nodes.length).toBe(4)
-    expect(nodes.at(-1).id).toBe("new")
+    const result = add("<p id='new'>new paragraph</p>")(el("li"))
+
+    expect(result.length).toBe(4)
+    expect(result.at(-1).id).toBe("new")
   })
 
-  it("domtify对象", () => {
-    const result = d("li").add(d("p"))
-    expect(result.get().length).toBe(5)
-    expect(result.get().some((el) => el.tagName === "P")).toBe(true)
+  it("支持元素数组", () => {
+    const result = add(el("p"))(el("li"))
+    expect(result.length).toBe(5)
+    expect(result.some((el) => el.tagName === "P")).toBe(true)
   })
 
   it("context参数限制范围", () => {
     const context = document.querySelector(".empty")
-    const result = d("li").add("p", context)
-    const addedP = result.get().filter((el) => el.tagName === "P")
+    const result = add("p", context)(el("li"))
+    const addedP = result.filter((el) => el.tagName === "P")
     expect(addedP.length).toBe(1)
     expect(addedP[0].textContent).toBe("this is empty p")
   })
 
-  it("返回一个新的domtify实例", () => {
-    const li = d("li")
-    const result = li.add("p")
+  it("返回一个新的元素数组", () => {
+    const li = el("li")
+    const result = add("p")(li)
     expect(result).not.toBe(li) // 浅比较
   })
 })

@@ -1,11 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/toArray.js"
-import "@/utilities/throttle.js"
+import { throttle } from "@/utilities/throttle.js"
 
 describe("throttle", () => {
   beforeEach(() => {
@@ -18,7 +13,7 @@ describe("throttle", () => {
 
   it("leading:true 应立即调用前沿函数", () => {
     const fn = vi.fn()
-    const throttled = d.throttle(fn, 1000, { leading: true, trailing: false })
+    const throttled = throttle(fn, 1000, { leading: true, trailing: false })
 
     throttled() // 第一次调用
     expect(fn).toHaveBeenCalledTimes(1)
@@ -31,7 +26,7 @@ describe("throttle", () => {
 
   it("trailing:true 应在等待时间后调用尾部函数", () => {
     const fn = vi.fn()
-    const throttled = d.throttle(fn, 1000, { leading: false, trailing: true })
+    const throttled = throttle(fn, 1000, { leading: false, trailing: true })
 
     throttled() // 第一次调用，不立即触发
     expect(fn).toHaveBeenCalledTimes(0)
@@ -44,7 +39,7 @@ describe("throttle", () => {
 
   it("leading + trailing都为true的情况", () => {
     const fn = vi.fn()
-    const throttled = d.throttle(fn, 1000, { leading: true, trailing: true })
+    const throttled = throttle(fn, 1000, { leading: true, trailing: true })
 
     throttled() // 立即触发
     expect(fn).toHaveBeenCalledTimes(1)
@@ -57,7 +52,7 @@ describe("throttle", () => {
 
   it("cancel: 调用后被取消", () => {
     const fn = vi.fn()
-    const throttled = d.throttle(fn, 1000, { leading: false, trailing: true })
+    const throttled = throttle(fn, 1000, { leading: false, trailing: true })
 
     throttled()
     throttled.cancel()
@@ -67,7 +62,7 @@ describe("throttle", () => {
 
   it("flush:立即执行节流函数", () => {
     const fn = vi.fn()
-    const throttled = d.throttle(fn, 1000, { leading: false, trailing: true })
+    const throttled = throttle(fn, 1000, { leading: false, trailing: true })
 
     throttled()
     throttled()
@@ -78,12 +73,12 @@ describe("throttle", () => {
 
   it("非函数参数应抛出 TypeError", () => {
     // 非函数参数：字符串
-    expect(() => d.throttle("not a function", 1000)).toThrow(TypeError)
-    expect(() => d.throttle("not a function", 1000)).toThrow(
+    expect(() => throttle("not a function", 1000)).toThrow(TypeError)
+    expect(() => throttle("not a function", 1000)).toThrow(
       "Expected a function",
     )
 
     // 非函数参数：对象
-    expect(() => d.throttle({})).toThrow(TypeError)
+    expect(() => throttle({})).toThrow(TypeError)
   })
 })

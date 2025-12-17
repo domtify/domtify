@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d, Domtify } from "@/core.js"
-
-// 按需导入
-import "@/methods/html.js"
+import { el } from "@/core.js"
+import { html } from "@/methods/html.js"
 
 describe("html", () => {
   beforeEach(() => {
@@ -16,19 +13,19 @@ describe("html", () => {
   })
 
   it("获取 innerHTML", () => {
-    const html = d(".demo-container").html()
-    expect(html.trim()).toBe('<div class="demo-box">Demonstration Box</div>')
+    const res = html()(el(".demo-container"))
+    expect(res.trim()).toBe('<div class="demo-box">Demonstration Box</div>')
   })
 
   it("设置html-字符串", () => {
-    d(".demo-container").html("<p>Hello <strong>World</strong></p>")
-    const html = d(".demo-container").html()
-    expect(html).toBe("<p>Hello <strong>World</strong></p>")
+    html("<p>Hello <strong>World</strong></p>")(el(".demo-container"))
+    const res = html()(el(".demo-container"))
+    expect(res).toBe("<p>Hello <strong>World</strong></p>")
   })
 
   it("设置 innerHTML-函数", () => {
     const fn = vi.fn(() => "foo bar")
-    const result = d(".demo-container").html(fn)
+    const result = html(fn)(el(".demo-container"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1].trim()).toBe(
@@ -38,11 +35,11 @@ describe("html", () => {
     const container = document.querySelector(".demo-container")
     expect(ctx).toBe(container)
     expect(container.innerHTML).toBe("foo bar")
-    expect(result instanceof Domtify).toBe(true) // 保证链式调用
+    expect(Array.isArray(result)).toBe(true)
   })
 
   it("当匹配不到元素时返回 undefined", () => {
-    const html = d(".non-existent").html()
-    expect(html).toBeUndefined()
+    const res = html()(el(".non-existent"))
+    expect(res).toBeUndefined()
   })
 })

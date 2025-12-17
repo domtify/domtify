@@ -1,26 +1,16 @@
-import { fn } from "@/core.js"
 import { isFunction, isInstanceOf } from "is-what"
 import { flatElements } from "@/utils/flatElements.js"
 
-import "./toArray.js"
+export const replaceWith = (newContent) => (els) => {
+  for (const [index, element] of els.entries()) {
+    if (!isInstanceOf(element, Element)) continue
 
-fn.replaceWith = function (newContent) {
-  for (const [index, element] of this.toArray().entries()) {
-    let result
-    if (isFunction(newContent)) {
-      const currentText = isInstanceOf(element, Element)
-        ? element.textContent
-        : ""
-      result = Reflect.apply(newContent, element, [index, currentText])
-    } else {
-      result = newContent
-    }
+    const value = isFunction(newContent)
+      ? newContent.call(element, index, element.textContent ?? "")
+      : newContent
 
-    if (isInstanceOf(element, Element)) {
-      result = flatElements(result, false)
-
-      element.replaceWith(...result)
-    }
+    element.replaceWith(...flatElements(value, false))
   }
-  return this
+
+  return els
 }

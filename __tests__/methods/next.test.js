@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d, Domtify } from "@/core.js"
-
-// 按需导入
-import "@/methods/next.js"
+import { el } from "@/core.js"
+import { next } from "@/methods/next.js"
 
 describe("next", () => {
   beforeEach(() => {
@@ -19,27 +16,27 @@ describe("next", () => {
     `
   })
   it("获取每个元素的下一个兄弟元素", () => {
-    const res = d("li").next()
+    const res = next()(el("li"))
     expect(res.length).toBe(4) // 最后一个 li 没有 nextElementSibling
     expect(res[0].textContent).toBe("list item 2")
   })
 
   it("过滤掉 null/undefined", () => {
-    const res = d("li:last-child").next()
+    const res = next()(el("li:last-child"))
     expect(res.length).toBe(0)
   })
 
   it("支持选择器过滤", () => {
-    const res = d("li").next(".third-item")
+    const res = next(".third-item")(el("li"))
     expect(res.length).toBe(1)
     expect(res[0].classList.contains("third-item")).toBe(true)
   })
 
-  it("返回 this 以支持链式调用", () => {
-    const instance = d("li")
-    const returned = instance.next()
+  it("返回元素数组", () => {
+    const res = el("li")
+    const nextRes = next()(res)
 
-    expect(instance instanceof Domtify).toBe(true)
-    expect(returned instanceof Domtify).toBe(true)
+    expect(Array.isArray(res)).toBe(true)
+    expect(Array.isArray(nextRes)).toBe(true)
   })
 })

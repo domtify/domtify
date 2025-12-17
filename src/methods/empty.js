@@ -1,10 +1,6 @@
-import { fn } from "@/core.js"
-
-import "./toArray.js"
-
-fn.empty = function () {
-  for (const element of this.toArray()) {
+export const empty = () => (els) => {
+  for (const element of els) {
     element.replaceChildren()
   }
-  return this
+  return els
 }

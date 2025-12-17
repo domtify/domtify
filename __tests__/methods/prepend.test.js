@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/prepend.js"
+import { el } from "@/core.js"
+import { prepend } from "@/methods/prepend.js"
 
 describe("prepend", () => {
   beforeEach(() => {
@@ -19,55 +16,55 @@ describe("prepend", () => {
   })
 
   it("支持 HTML 字符串", () => {
-    d(".inner").prepend("<span>Test</span>")
+    prepend("<span>Test</span>")(el(".inner"))
     const html = document.querySelector(".container").innerHTML
     expect(html).toContain("<span>Test</span>")
   })
 
   it("HTMLCollection集合", () => {
     const ps = document.getElementsByTagName("p")
-    d(".inner").prepend(ps)
+    prepend(ps)(el(".inner"))
     expect(document.querySelectorAll(".inner p").length).toBe(2)
   })
 
   it("元素", () => {
     const h2 = document.querySelector("h2")
-    d(".inner").prepend(h2)
+    prepend(h2)(el(".inner"))
     expect(document.querySelectorAll("h2").length).toBe(2) // 被 clone 了一份
   })
 
   it("文本节点", () => {
-    d(".inner").prepend("TEXT")
+    prepend("TEXT")(el(".inner"))
     expect(document.querySelector(".inner").textContent).toContain("TEXT")
   })
 
   it("数组", () => {
     const h2 = document.querySelector("h2")
-    d(".inner").prepend([h2, "X", "<i>italic</i>"])
+    prepend([h2, "X", "<i>italic</i>"])(el(".inner"))
     const inner = document.querySelector(".inner")
     expect(inner.innerHTML).toMatch(/h2-1|X|<i>italic<\/i>/)
   })
 
-  it("domtify对象", () => {
-    const h2s = d("h2")
-    d(".inner").prepend(h2s)
+  it("元素数组", () => {
+    const h2s = el("h2")
+    prepend(h2s)(el(".inner"))
     expect(document.querySelectorAll("h2").length).toBe(2)
   })
 
   it("支持函数返回字符串", () => {
-    d(".inner").prepend((i, html) => `<b>idx-${i}</b>`)
+    prepend((i, html) => `<b>idx-${i}</b>`)(el(".inner"))
     const bolds = document.querySelectorAll(".inner b")
     expect(bolds.length).toBe(2)
     expect(bolds[0].textContent).toBe("idx-0")
   })
 
   it("函数返回HTMLCollection集合", () => {
-    d(".inner").prepend(() => document.getElementsByTagName("p"))
+    prepend(() => document.getElementsByTagName("p"))(el(".inner"))
     expect(document.querySelectorAll(".inner p").length).toBe(2)
   })
 
   it("支持函数返回数组", () => {
-    d(".inner").prepend(() => ["123", "<em>456</em>"])
+    prepend(() => ["123", "<em>456</em>"])(el(".inner"))
     const inner = document.querySelector(".inner")
     expect(inner.textContent).toContain("123")
     expect(inner.innerHTML).toContain("<em>456</em>")

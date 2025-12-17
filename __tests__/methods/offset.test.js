@@ -1,11 +1,8 @@
 import { isNumber } from "is-what"
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/offset.js"
+import { el } from "@/core.js"
+import { offset } from "@/methods/offset.js"
 
 describe("offset", () => {
   beforeEach(() => {
@@ -28,19 +25,19 @@ describe("offset", () => {
   })
 
   it("getter 返回 top/left", () => {
-    const { top, left } = d(".box1").offset()
+    const { top, left } = offset()(el(".box1"))
     expect(isNumber(top)).toBe(true)
     expect(isNumber(left)).toBe(true)
   })
 
   it("getter 无元素时返回 undefined", () => {
-    expect(d(".not-found").offset()).toBeUndefined()
+    expect(offset()(el(".not-found"))).toBeUndefined()
   })
 
   it("常规元素不会受滚动条高度影响", () => {
     document.documentElement.style.padding = "10px"
 
-    const { top, left } = d(".box1").offset()
+    const { top, left } = offset()(el(".box1"))
     expect(left).toBe(10)
     expect(top).toBe(10)
   })
@@ -51,17 +48,17 @@ describe("offset", () => {
       top: 100,
     })
 
-    const { top, left } = d(".box2").offset()
+    const { top, left } = offset()(el(".box2"))
     // 此时再获取
     expectPixelEqual(top, 129.2)
     expect(left).toBe(10)
   })
 
   it("普通对象的方式设置", () => {
-    const res = d("div").offset({
+    offset({
       top: 30,
       left: 20,
-    })
+    })(el("div"))
 
     const box1 = document.querySelector(".box1")
     expect(box1.style.position).toBe("relative")
@@ -82,7 +79,7 @@ describe("offset", () => {
   it("函数", () => {
     const fn = vi.fn(() => ({ top: 30, left: 20 }))
 
-    d("div").offset(fn)
+    offset(fn)(el("div"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1]).toBeTypeOf("object")

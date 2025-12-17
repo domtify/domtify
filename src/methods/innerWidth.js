@@ -1,8 +1,4 @@
-import { fn } from "@/core.js"
 import { dimension } from "@/utils/dimension.js"
 
-import "./toArray.js"
-
-fn.innerWidth = function (value) {
-  return dimension(this, "width", { mode: "inner" }, value)
-}
+export const innerWidth = (value) => (els) =>
+  dimension(els, "width", { mode: "inner" }, value)

@@ -1,12 +1,7 @@
-import { fn } from "@/core.js"
-import { pushStack } from "@/utils/pushStack.js"
-
-import "./toArray.js"
-
-fn.contents = function () {
+export const contents = () => (els) => {
   const result = []
 
-  for (const el of this.toArray()) {
+  for (const el of els) {
     if (el.tagName === "IFRAME") {
       try {
         const doc = el.contentDocument
@@ -19,5 +14,5 @@ fn.contents = function () {
     }
   }
 
-  return pushStack(this, result)
+  return result
 }

@@ -1,15 +1,13 @@
-import { fn, domtify } from "@/core.js"
 import { isFunction, isInstanceOf } from "is-what"
+import { el } from "@/core.js"
 
-import "./toArray.js"
-
-fn.wrapInner = function (wrappingElement) {
-  for (const [index, element] of this.toArray().entries()) {
+export const wrapInner = (wrappingElement) => (els) => {
+  for (const [index, element] of els.entries()) {
     let wrapperEl = wrappingElement
     if (isFunction(wrappingElement)) {
-      wrapperEl = Reflect.apply(wrappingElement, element, [index])
+      wrapperEl = wrappingElement.call(element, index)
     }
-    wrapperEl = domtify(wrapperEl).toArray().at(0)
+    wrapperEl = el(wrapperEl).at(0)
     if (!isInstanceOf(wrapperEl, Element)) continue
 
     // 克隆 wrapper 避免重复插入
@@ -29,5 +27,5 @@ fn.wrapInner = function (wrappingElement) {
     // 将 wrapper 插入到原元素内部
     element.appendChild(wrapperEl)
   }
-  return this
+  return els
 }

@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/data.js"
+import { el } from "@/core.js"
+import { data } from "@/methods/data.js"
 
 describe("data", () => {
   beforeEach(() => {
@@ -18,13 +15,13 @@ describe("data", () => {
 
   it("在没有元素时返回 undefined", () => {
     // 选择一个不存在的元素，result 会是空数组
-    const res = d(".not-exist").data()
+    const res = data()(el(".not-exist"))
 
     expect(res).toBeUndefined()
   })
 
   it("读取元素上的所有数据", () => {
-    const res = d("li").data()
+    const res = data()(el("li"))
 
     expect(res).toEqual({
       roleName: "page",
@@ -35,52 +32,51 @@ describe("data", () => {
   })
 
   it("读取单个属性", () => {
-    const res = d("li").data("role-name")
-
+    const res = data("role-name")(el("li"))
     expect(res).toBe("page")
   })
 
   it("取不存在的属性返回underfined", () => {
-    const res = d("li").data("foo-bar")
+    const res = data("foo-bar")(el("li"))
 
     expect(res).toBeUndefined()
   })
 
   // 这在jQuery中会报错
   it("取不存在的属性非字符串的属性返回underfined", () => {
-    const res = d("li").data(123)
+    const res = data(123)(el("li"))
 
     expect(res).toBeUndefined()
   })
 
   it("通过键值对的方式设置数据", () => {
-    d("li").data("foo", 52)
-    d("li").data("bar", { isManual: true })
+    data("foo", 52)(el("li"))
+    data("bar", { isManual: true })(el("li"))
 
-    expect(d("li").data("foo")).toBe(52)
-    expect(d("li").data("bar")).toEqual({ isManual: true })
+    expect(data("foo")(el("li"))).toBe(52)
+    expect(data("bar")(el("li"))).toEqual({ isManual: true })
   })
 
   it("设置数据应该返回domtify支持链式调用", () => {
-    const instance = d("li")
-    const returned = instance.data("foo", 52)
+    const instance = el("li")
+    const returned = data("foo", 52)(instance)
     expect(returned).toBe(instance)
   })
 
   it("通过对象的方式设置数据", () => {
-    d("li").data({ foo: 53, bar: "test" })
+    data({ foo: 53, bar: "test" })(el("li"))
 
-    const fooRes = d("li").data("foo")
-    const barRes = d("li").data("bar")
+    const fooRes = data("foo")(el("li"))
+    const barRes = data("bar")(el("li"))
 
     expect(fooRes).toBe(53)
     expect(barRes).toBe("test")
   })
 
   it("覆盖DOM上已存在的data数据", () => {
-    d("li").data("role-name", 20)
-    d("li").data("count", "abc")
-    const res = d("li").data()
+    data("role-name", 20)(el("li"))
+    data("count", "abc")(el("li"))
+    const res = data()(el("li"))
 
     expect(res).toEqual({
       roleName: 20,
@@ -91,8 +87,8 @@ describe("data", () => {
   })
 
   it("设置数据时键会小驼峰的方式存储", () => {
-    d("li").data("role-name", "ajiho")
+    data("role-name", "ajiho")(el("li"))
 
-    expect(d("li").data("roleName")).toBe("ajiho")
+    expect(data("roleName")(el("li"))).toBe("ajiho")
   })
 })

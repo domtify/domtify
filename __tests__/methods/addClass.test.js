@@ -1,14 +1,10 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/addClass.js"
+import { el } from "@/core.js"
+import { addClass } from "@/methods/addClass.js"
 
 describe("addClass", () => {
   beforeEach(() => {
-    // 添加初始 DOM，用于测试
     document.body.innerHTML = `
       <ul>
         <li></li>
@@ -19,15 +15,14 @@ describe("addClass", () => {
   })
 
   it("添加单个字符串类名", () => {
-    d("li").addClass("foo")
-
+    addClass("foo")(el("li"))
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
     }
   })
 
   it("添加多个类名（空格分隔字符串）", () => {
-    d("li").addClass("foo bar")
+    addClass("foo bar")(el("li"))
 
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
@@ -36,7 +31,7 @@ describe("addClass", () => {
   })
 
   it("添加多个类名（数组，元素中有空格）", () => {
-    d("li").addClass(["foo bar", "baz"])
+    addClass(["foo bar", "baz"])(el("li"))
 
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
@@ -46,9 +41,9 @@ describe("addClass", () => {
   })
 
   it("添加类名（回调函数返回字符串）", () => {
-    d("li").addClass(function (index) {
+    addClass(function (index) {
       return "item-" + index
-    })
+    })(el("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -56,9 +51,9 @@ describe("addClass", () => {
   })
 
   it("添加类名（回调函数返回数组）", () => {
-    d("li").addClass(function (index) {
+    addClass(function (index) {
       return ["item-" + index, "common", "hello world"]
-    })
+    })(el("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -69,9 +64,9 @@ describe("addClass", () => {
   })
 
   it("添加类名（回调函数返回数组）", () => {
-    d("li").addClass(function (index) {
+    addClass(function (index) {
       return ["item-" + index, "common", "hello world"]
-    })
+    })(el("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -82,9 +77,9 @@ describe("addClass", () => {
   })
 
   it("addClass 忽略 null 类型输入", () => {
-    const el = document.createElement("div")
-    el.className = "a"
-    d(el).addClass(null)
-    expect(el.className).toBe("a")
+    const div = document.createElement("div")
+    div.className = "a"
+    addClass(null)(el(div))
+    expect(div.className).toBe("a")
   })
 })

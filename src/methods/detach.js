@@ -1,18 +1,13 @@
 import { isUndefined } from "is-what"
-import { fn } from "@/core.js"
 
-import "./toArray.js"
+export const detach = (selector) => (els) => {
+  const targets = isUndefined(selector)
+    ? els
+    : els.filter((el) => el.matches(selector))
 
-fn.detach = function (selector) {
-  let elements = this.toArray()
-
-  if (!isUndefined(selector)) {
-    elements = elements.filter((el) => el.matches(selector))
-  }
-
-  for (const element of elements) {
+  for (const element of targets) {
     element.remove() // 直接从 DOM 删除
   }
 
-  return this
+  return els
 }

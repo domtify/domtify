@@ -1,17 +1,14 @@
-import { domtify, fn } from "@/core.js"
-import { uniqueArray } from "@/utils/uniqueArray.js"
-import { pushStack } from "@/utils/pushStack.js"
+import { el } from "@/core.js"
+import { unique } from "@/utils/unique.js"
 
-import "./toArray.js"
-
-fn.find = function (selector) {
+export const find = (selector) => (els) => {
   let result = []
 
   // 获取所有候选节点（可能是 selector 匹配的、或者传入的元素/domtify 对象）
-  const candidates = domtify(selector).toArray()
+  const candidates = el(selector)
 
   // 遍历元素
-  for (const el of this.toArray()) {
+  for (const el of els) {
     for (const node of candidates) {
       if (el !== node && el.contains(node)) {
         result.push(node)
@@ -19,7 +16,7 @@ fn.find = function (selector) {
     }
   }
 
-  result = uniqueArray(result)
+  result = unique(result)
 
-  return pushStack(this, result)
+  return result
 }

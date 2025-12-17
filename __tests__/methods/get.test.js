@@ -1,10 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/get.js"
+import { el } from "@/core.js"
+import { get } from "@/methods/get.js"
 
 describe("get", () => {
   beforeEach(() => {
@@ -17,39 +14,39 @@ describe("get", () => {
   })
 
   it("应返回指定索引处的元素", () => {
-    const el = d(".item").get(0)
-    expect(el).toBeInstanceOf(HTMLElement)
-    expect(el.textContent).toBe("A")
+    const res = get(0)(el(".item"))
+    expect(res).toBeInstanceOf(HTMLElement)
+    expect(res.textContent).toBe("A")
   })
 
   it("应返回最后一个索引为负的元素", () => {
-    const el = d(".item").get(-1)
-    expect(el).toBeInstanceOf(HTMLElement)
-    expect(el.textContent).toBe("C")
+    const res = get(-1)(el(".item"))
+    expect(res).toBeInstanceOf(HTMLElement)
+    expect(res.textContent).toBe("C")
   })
 
   it("当没有提供索引时，应返回完整的结果数组", () => {
-    const all = d(".item").get()
-    expect(Array.isArray(all)).toBe(true)
-    expect(all.length).toBe(3)
-    expect(all.map((el) => el.textContent)).toEqual(["A", "B", "C"])
+    const res = get()(el(".item"))
+    expect(Array.isArray(res)).toBe(true)
+    expect(res.length).toBe(3)
+    expect(res.map((el) => el.textContent)).toEqual(["A", "B", "C"])
   })
 
   it("为null时应该也返回result", () => {
-    const all = d(".item").get(null)
-    expect(Array.isArray(all)).toBe(true)
-    expect(all.length).toBe(3)
-    expect(all.map((el) => el.textContent)).toEqual(["A", "B", "C"])
+    const res = get(null)(el(".item"))
+    expect(Array.isArray(res)).toBe(true)
+    expect(res.length).toBe(3)
+    expect(res.map((el) => el.textContent)).toEqual(["A", "B", "C"])
   })
 
   it("数字字符串也支持", () => {
-    const el = d(".item").get("-1")
-    expect(el).toBeInstanceOf(HTMLElement)
-    expect(el.textContent).toBe("C")
+    const res = get("-1")(el(".item"))
+    expect(res).toBeInstanceOf(HTMLElement)
+    expect(res.textContent).toBe("C")
   })
 
   it("其它字符串都返回undefined", () => {
-    const el = d(".item").get("abc")
-    expect(el).toBeUndefined()
+    const res = get("abc")(el(".item"))
+    expect(res).toBeUndefined()
   })
 })

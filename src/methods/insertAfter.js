@@ -1,9 +1,6 @@
-import { domtify, fn } from "@/core.js"
 import { flatElements } from "@/utils/flatElements.js"
+import { el } from "@/core.js"
+import { after } from "./after.js"
 
-import "./after.js"
-
-fn.insertAfter = function (target) {
-  domtify(flatElements(domtify(target))).after(this)
-  return this
-}
+export const insertAfter = (target) => (els) =>
+  after(els)(flatElements(el(target)))

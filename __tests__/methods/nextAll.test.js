@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-// 导入核心
-import { domtify as d } from "@/core.js"
-
-// 按需导入
-import "@/methods/toArray.js"
-import "@/methods/nextAll.js"
+import { el } from "@/core.js"
+import { nextAll } from "@/methods/nextAll.js"
 
 describe("nextAll", () => {
   beforeEach(() => {
@@ -21,19 +17,17 @@ describe("nextAll", () => {
   })
 
   it("应当获取所有后续兄弟节点", () => {
-    const res = d("li.third-item").nextAll()
+    const res = nextAll()(el("li.third-item"))
 
-    expect(res.toArray().map((li) => li.textContent.trim())).toEqual([
+    expect(res.map((li) => li.textContent.trim())).toEqual([
       "list item 4",
       "list item 5",
     ])
   })
 
   it("应当按选择器过滤结果", () => {
-    const res = d("li:first-child").nextAll(".third-item")
+    const res = nextAll(".third-item")(el("li:first-child"))
 
-    expect(res.toArray().map((li) => li.textContent.trim())).toEqual([
-      "list item 3",
-    ])
+    expect(res.map((li) => li.textContent.trim())).toEqual(["list item 3"])
   })
 })

@@ -1,11 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-// 导入核心
-import { domtify as d, Domtify } from "@/core.js"
-
-// 按需导入
-import "@/methods/get.js"
-import "@/methods/wrapInner.js"
+import { el } from "@/core.js"
+import { wrapInner } from "@/methods/wrapInner.js"
 
 describe("wrapInner", () => {
   beforeEach(() => {
@@ -24,10 +20,10 @@ describe("wrapInner", () => {
   })
 
   it("html字符串", () => {
-    const inner = d(".inner")
-    inner.wrapInner("<span class='wrap'></span>")
+    const inner = el(".inner")
+    wrapInner("<span class='wrap'></span>")(inner)
 
-    inner.get().forEach((el) => {
+    inner.forEach((el) => {
       const wrap = el.querySelector(".wrap")
       expect(wrap).not.toBeNull()
       // 原内容移动到 wrapper 内部
@@ -36,39 +32,40 @@ describe("wrapInner", () => {
   })
 
   it("选择器", () => {
-    const res = d(".inner").wrapInner(".double")
+    const res = wrapInner(".double")(el(".inner"))
 
-    expect(res.get(0).firstElementChild.classList.contains("double")).toBe(true)
-    expect(res.get(1).firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
-  it("集合对象", () => {
-    const res = d(".inner").wrapInner(d(".double"))
+  it("元素数组", () => {
+    const res = wrapInner(el(".double"))(el(".inner"))
 
-    expect(res.get(0).firstElementChild.classList.contains("double")).toBe(true)
-    expect(res.get(1).firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("元素", () => {
-    const res = d(".inner").wrapInner(document.querySelector(".double"))
+    const res = wrapInner(document.querySelector(".double"))(el(".inner"))
 
-    expect(res.get(0).firstElementChild.classList.contains("double")).toBe(true)
-    expect(res.get(1).firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
+    expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("函数-返回字符串", () => {
-    const res = d(".inner").wrapInner(function (index) {
+    const res = wrapInner(function (index) {
       expect(Number.isInteger(index) && index >= 0).toBe(true)
       return "<div class='new'></div>"
-    })
+    })(el(".inner"))
 
-    expect(res.get(0).firstElementChild.classList.contains("new")).toBe(true)
-    expect(res.get(1).firstElementChild.classList.contains("new")).toBe(true)
+    expect(res[0].firstElementChild.classList.contains("new")).toBe(true)
+    expect(res[1].firstElementChild.classList.contains("new")).toBe(true)
   })
 
   it("边缘情况测试数字", () => {
-    const res = d(".inner").wrapInner(123)
+    const res = wrapInner(123)(el(".inner"))
     expect(res.length).toBe(2)
-    expect(res instanceof Domtify).toBe(true)
+
+    expect(Array.isArray(res)).toBe(true)
   })
 })
