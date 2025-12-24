@@ -1,18 +1,27 @@
 import fs from "fs"
+import path from "path"
 
-const files = fs.readdirSync("./src/methods")
+function generateIndex({ dir, outFile, ext = ".js" }) {
+  const absDir = path.resolve(dir)
 
-const code = files
-  .filter((f) => f.endsWith(".js"))
-  .map((f) => `export * from './methods/${f}'`)
-  .join("\n")
+  const code = fs
+    .readdirSync(absDir)
+    .filter((f) => f.endsWith(ext))
+    .sort()
+    .map((f) => `export * from './${dir.replace(`./src/`, "")}/${f}'`)
+    .join("\n")
 
-fs.writeFileSync("./src/methods.js", code)
+  fs.writeFileSync(path.resolve(outFile), code + "\n")
+}
 
-const files2 = fs.readdirSync("./src/utilities")
-const code2 = files2
-  .filter((f) => f.endsWith(".js"))
-  .map((f) => `export * from './utilities/${f}'`)
-  .join("\n")
+// methods
+generateIndex({
+  dir: "./src/methods",
+  outFile: "./src/methods.js",
+})
 
-fs.writeFileSync("./src/utilities.js", code2)
+// utilities
+generateIndex({
+  dir: "./src/utilities",
+  outFile: "./src/utilities.js",
+})

@@ -1,6 +1,0 @@
-{
-  "framework": null,
-  "buildCommand": "",
-  "outputDirectory": "docs/.vitepress/dist",
-  "cleanUrls": true
-}

@@ -24,8 +24,6 @@ function dimension(els, prop, options, value) {
   let { mode = "content", includeMargin = false } = options
 
   if (isUndefined(value) || (mode === "outer" && isBoolean(value))) {
-    includeMargin = value
-    value = undefined
     // getter
     const el = els.at(0)
     if (!el) return undefined

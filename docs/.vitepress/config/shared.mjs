@@ -4,6 +4,7 @@ import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from "vitepress-plugin-group-icons"
+import markDownItLivecodes from "markdown-it-livecodes"
 
 import { search as zhSearch } from "./zh.mjs"
 
@@ -29,6 +30,7 @@ export const shared = defineConfig({
     config(md) {
       md.use(tabsMarkdownPlugin)
       md.use(groupIconMdPlugin)
+      md.use(markDownItLivecodes, {})
     },
     container: {
       tipLabel: "提示",
