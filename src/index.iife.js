@@ -2,31 +2,26 @@ import { el } from "./core.js"
 import * as methods from "./methods.js"
 import * as utilities from "./utilities.js"
 
-const $ = (selector, cxt) => {
-  const state = { els: el(selector, cxt) }
-
-  return new Proxy(() => {}, {
-    get(_, prop) {
-      return (...args) => {
-        const fn = methods[prop]
-
-        if (!fn) {
-          throw new Error(`Unknown method: ${prop}`)
-        }
-
-        const result = fn(...args)(state.els)
-
-        if (prop === "get") return result
-        if (!Array.isArray(result)) return result
-
-        state.els = result
-        return $(result)
-      }
-    },
-  })
+class Domtify {
+  constructor(elements) {
+    this.elements = elements
+    this.length = elements.length
+  }
 }
 
-// 注册助手
+for (const key in methods) {
+  Domtify.prototype[key] = function (...args) {
+    const result = methods[key](...args)(this.elements)
+
+    if (key === "get") return result
+    if (!Array.isArray(result)) return result
+
+    this.elements = result
+    return this
+  }
+}
+const $ = (selector, cxt) => new Domtify(el(selector, cxt))
+
 Object.assign($, utilities)
 
 export default $

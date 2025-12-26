@@ -27,7 +27,8 @@
     "coverage": "vitest --config configs/vitest.config.mjs run --coverage",
     "docs:dev": "vitepress dev docs --open",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "example": "browser-sync start --config configs/bs-config.cjs"
   },
   "main": "dist/esm/index.js",
   "module": "dist/cjs/index.js",
@@ -67,6 +68,7 @@
     "@vitest/browser-playwright": "^4.0.15",
     "@vitest/coverage-v8": "^4.0.15",
     "@vitest/ui": "^4.0.15",
+    "browser-sync": "^3.0.4",
     "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
     "eslint-plugin-unicorn": "^62.0.0",

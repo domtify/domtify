@@ -54,7 +54,6 @@ describe("height", () => {
 
   it("border-box 元素", () => {
     const resule = height()(el(".border-box"))
-    // expect(resule).toBeCloseTo(30.8, 3)
 
     expectPixelEqual(resule, 30.8)
   })
@@ -66,7 +65,6 @@ describe("height", () => {
 
   it("设置高度", () => {
     height(100)(el("div"))
-
     expectPixelEqual(borderBoxEl.style.height, "119.2px")
     expectPixelEqual(contentBoxEl.style.height, "100px")
   })
@@ -77,8 +75,9 @@ describe("height", () => {
     expectPixelEqual(contentBoxEl.style.height, "100.1px")
   })
 
-  it("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
+  it.only("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
     height("10em")(el("div"))
+
     expectPixelEqual(borderBoxEl.style.height, "179.2px")
     expectPixelEqual(contentBoxEl.style.height, "10em")
   })

@@ -5,7 +5,7 @@ import {
   isNull,
   isFullString,
 } from "is-what"
-import Constants from "@/constants/index.js"
+import { DATA_KEY } from "@/constants/index.js"
 import { toCamel } from "@/utils/toCamel.js"
 
 const parseDataValue = (val) => {
@@ -25,11 +25,11 @@ export const data = (key, value) => (els) => {
   if (!firstEl) return
 
   // 如果元素还没有专属 map，就给它创建一个
-  let store = Reflect.get(firstEl, Constants.DATA_KEY)
+  let store = Reflect.get(firstEl, DATA_KEY)
   if (!store) {
     store = new Map()
     for (const el of els) {
-      Reflect.set(el, Constants.DATA_KEY, store)
+      Reflect.set(el, DATA_KEY, store)
     }
   }
 

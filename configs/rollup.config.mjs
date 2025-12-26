@@ -28,9 +28,9 @@ const plugins = [
     exclude: ["node_modules/**"],
     configFile: "./configs/babel.config.mjs",
   }),
-  cleanup(),
-  strip(),
-  terser(),
+  // cleanup(),
+  // strip(),
+  // terser(),
 ]
 
 const esmDir = "dist/esm"

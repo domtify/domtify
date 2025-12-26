@@ -128,7 +128,10 @@ function dimension(els, prop, options, value) {
             )
           }
         }
+
+        console.log("-----------------------------")
         element.style[prop] = finalVal
+        console.log(finalVal)
       }
     }
     return els

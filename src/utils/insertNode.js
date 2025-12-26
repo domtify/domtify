@@ -1,6 +1,6 @@
 import { isFunction, isInstanceOf } from "is-what"
 import { flatElements } from "./flatElements.js"
-import Constants from "@/constants/index.js"
+import { CACHE_INSERT_STATIC_KEY } from "@/constants/index.js"
 import { isHtmlString } from "./isHtmlString.js"
 
 /**
@@ -26,10 +26,7 @@ export const insertNode = (targets, content, position, reverse = true) => {
     }
   } else {
     const nodes = flatElements(content)
-    cache.set(
-      Constants.CACHE_INSERT_STATIC_KEY,
-      reverse ? nodes.reverse() : nodes,
-    )
+    cache.set(CACHE_INSERT_STATIC_KEY, reverse ? nodes.reverse() : nodes)
   }
 
   // 第二次遍历，真正插入
@@ -38,7 +35,7 @@ export const insertNode = (targets, content, position, reverse = true) => {
 
     const nodes = isFunction(firstArg)
       ? cache.get(index)
-      : cache.get(Constants.CACHE_INSERT_STATIC_KEY)
+      : cache.get(CACHE_INSERT_STATIC_KEY)
 
     for (const node of nodes) {
       if (isHtmlString(node)) {

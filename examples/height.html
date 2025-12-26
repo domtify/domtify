@@ -26,6 +26,13 @@
     <script src="jquery.js"></script>
 
     <script>
+      let border = document.querySelector(".border-box")
+      let content = document.querySelector(".content-box")
+
+      border.style["height"] = "10em"
+      content.style["height"] = "10em"
+      content.style["height"] = "160"
+
       let res
 
       // window对象
@@ -52,7 +59,7 @@
 
       // 设置高度-数字
       // res = $(".box").height(100)
-      // res = d(".box").height(100)
+      res = d(".box").height(100)
 
       // 设置高度-数字字符串
       // res = $(".box").height("100.1")
@@ -81,7 +88,7 @@
 
       // 数字测试
       // res = $(window).height("100")
-      res = d(10).height("100")
+      // res = d(10).height("100")
       console.log(res)
     </script>
   </body>
