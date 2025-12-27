@@ -6,8 +6,11 @@
     <title>innerHeight演示</title>
     <style>
       .box {
+        height: 200px;
+        width: 200px;
+        padding: 10px;
         border: 10px solid red;
-        height: 50px;
+        margin: 20px;
       }
       .border-box {
         box-sizing: border-box;
@@ -29,15 +32,15 @@
       let res
 
       // window对象
-      // res = $(window).innerHeight()
-      // res = d(window).innerHeight()
+      res = $(window).innerHeight()
+      res = d(window).innerHeight()
 
       // document
       // res = $(document).innerHeight()
       // res = d(document).innerHeight()
 
       // border-box 元素
-      // res = $(".border-box").innerHeight()
+      res = $(".border-box").innerHeight()
       // res = d(".border-box").innerHeight()
 
       // content-box 元素

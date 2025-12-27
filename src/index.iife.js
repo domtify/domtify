@@ -3,20 +3,22 @@ import * as methods from "./methods.js"
 import * as utilities from "./utilities.js"
 
 class Domtify {
-  constructor(elements) {
-    this.elements = elements
-    this.length = elements.length
+  constructor(els) {
+    this.results = els
+  }
+  get length() {
+    return this.results.length
   }
 }
 
 for (const key in methods) {
   Domtify.prototype[key] = function (...args) {
-    const result = methods[key](...args)(this.elements)
+    const result = methods[key](...args)(this.results)
 
     if (key === "get") return result
     if (!Array.isArray(result)) return result
 
-    this.elements = result
+    this.results = result
     return this
   }
 }

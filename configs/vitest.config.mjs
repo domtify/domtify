@@ -4,7 +4,7 @@ import { playwright } from "@vitest/browser-playwright"
 export default defineConfig({
   test: {
     globals: false,
-    setupFiles: ["./configs/vitest.setup.mjs"],
+    setupFiles: [],
     name: "browser",
     include: ["__tests__/**/*.test.js"],
     coverage: {

@@ -6,8 +6,11 @@
     <title>height演示</title>
     <style>
       .box {
+        height: 200px;
+        width: 200px;
+        padding: 10px;
+        margin: 20px;
         border: 10px solid red;
-        height: 50px;
       }
       .border-box {
         box-sizing: border-box;
@@ -29,10 +32,17 @@
       let border = document.querySelector(".border-box")
       let content = document.querySelector(".content-box")
 
-      border.style["height"] = "10em"
-      content.style["height"] = "10em"
-      content.style["height"] = "160"
+      // console.log($(border).height())
+      // console.log($(content).height())
 
+      // console.log($(border).innerHeight())
+      // console.log($(content).innerHeight())
+
+      // console.log($(border).outerHeight())
+      // console.log($(content).outerHeight())
+
+      // console.log($(border).outerHeight(true))
+      // console.log($(content).outerHeight(true))
       let res
 
       // window对象
@@ -45,7 +55,7 @@
 
       // border-box 元素
       // res = $(".border-box").height()
-      // res = d(".border-box").height()
+      res = d(".border-box").height()
 
       // content-box 元素
       // res = $(".content-box").height()
@@ -59,7 +69,7 @@
 
       // 设置高度-数字
       // res = $(".box").height(100)
-      res = d(".box").height(100)
+      // res = d(".box").height(100)
 
       // 设置高度-数字字符串
       // res = $(".box").height("100.1")

@@ -1,17 +1,23 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { d } from "@/core.js"
 import { innerHeight } from "@/methods/innerHeight.js"
+import { mockViewport } from "../helpers/viewport.js"
+import $ from "jquery"
 
 describe("innerHeight", () => {
   let borderBoxEl
   let contentBoxEl
+
   beforeEach(() => {
     const style = document.createElement("style")
     style.textContent = `
       .box {
+        height: 200px;
+        width: 200px;
+        padding: 10px;
+        margin: 20px;
         border: 10px solid red;
-        height: 50px;
       }
       .border-box {
         box-sizing: border-box;
@@ -31,70 +37,118 @@ describe("innerHeight", () => {
     contentBoxEl = document.querySelector(".content-box")
   })
 
-  it("获取 window 高度", () => {
-    // 直接修改 document.body 高度
-    Object.defineProperty(window, "innerHeight", {
-      value: 800,
-      configurable: true,
-    })
-    expect(innerHeight()(el(window))).toBe(800)
-
-    Object.defineProperty(window, "innerHeight", {
-      value: 600,
-      configurable: true,
-    })
-    expect(innerHeight()(el(window))).toBe(600)
+  it("jquery:获取 window 高度", () => {
+    mockViewport({ height: 800 })
+    expect($(window).innerHeight()).toBe(800)
+    mockViewport({ height: 600 })
+    expect($(window).innerHeight()).toBe(600)
   })
 
-  it("获取 document 高度", () => {
-    document.body.style.height = "1000px"
+  it("domtify:获取 window 高度", () => {
+    mockViewport({ height: 800 })
+    expect(innerHeight()(d(window))).toBe(800)
+    mockViewport({ height: 600 })
+    expect(innerHeight()(d(window))).toBe(600)
+  })
+
+  it("jquery:获取 document 高度", () => {
     document.documentElement.style.height = "980px"
-    expect(innerHeight()(el(document))).toBe(1000)
+    document.body.style.height = "1000px"
+
+    expect($(document).innerHeight()).toBe(1020)
   })
 
-  it("border-box 元素", () => {
-    const result = innerHeight()(el(".border-box"))
-    expectPixelEqual(result, 30.8)
+  it("domtify:获取 document 高度", () => {
+    document.documentElement.style.height = "980px"
+    document.body.style.height = "1000px"
+
+    expect(innerHeight()(d(document))).toBe(1020)
   })
 
-  it("content-box 元素", () => {
-    const result = innerHeight()(el(".content-box"))
-    expect(result).toBe(50)
+  it("jquery:border-box 元素", () => {
+    expect($(".border-box").innerHeight()).toBe(180.8)
   })
 
-  it("设置高度", () => {
-    innerHeight(100)(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "119.2px")
-    expectPixelEqual(contentBoxEl.style.height, "100px")
+  it("domtify:border-box 元素", () => {
+    expect(innerHeight()(d(".border-box"))).toBe(180.8)
   })
 
-  it("设置高度-数字字符串", () => {
-    innerHeight("100.1")(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "119.3px")
-    expectPixelEqual(contentBoxEl.style.height, "100.1px")
+  it("jquery:content-box 元素", () => {
+    expect($(".content-box").innerHeight()).toBe(220)
   })
 
-  it("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    innerHeight("10em")(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "179.2px")
-    expectPixelEqual(contentBoxEl.style.height, "10em")
+  it("domtify:content-box 元素", () => {
+    expect(innerHeight()(d(".content-box"))).toBe(220)
   })
 
-  it("设置高度-带错误单位的字符串", () => {
-    innerHeight("10pq")(el(".box"))
-    expectPixelEqual(borderBoxEl.style.height, "69.2px")
-    expect(contentBoxEl.style.height).toBe("")
+  it("jquery:setter-数字", () => {
+    $(".box").innerHeight(100)
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
   })
 
-  it("设置高度-函数", () => {
+  it("domtify:setter-数字", () => {
+    innerHeight(100)(d(".box"))
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
+  })
+
+  it("jquery:setter-数字字符串", () => {
+    $(".box").innerHeight("100")
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
+  })
+
+  it("domtify:setter-数字字符串", () => {
+    innerHeight("100")(d(".box"))
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
+  })
+
+  it("jquery:setter-带单位的字符串 如“em”、“％”、“rem”等", () => {
+    $(".box").innerHeight("10em")
+    expect(borderBoxEl.style.height).toBe("179.2px")
+    expect(contentBoxEl.style.height).toBe("140px")
+  })
+
+  it("domtify:setter-带单位的字符串 如“em”、“％”、“rem”等", () => {
+    innerHeight("10em")(d(".box"))
+    expect(borderBoxEl.style.height).toBe("179.2px")
+    expect(contentBoxEl.style.height).toBe("140px")
+  })
+
+  it("jquery:setter-带错误单位的字符串", () => {
+    $(".box").innerHeight("10pq")
+    expect(borderBoxEl.style.height).toBe("219.2px")
+    expect(contentBoxEl.style.height).toBe("180px")
+  })
+
+  it("setter-带错误单位的字符串", () => {
+    innerHeight("10pq")(d(".box"))
+    expect(borderBoxEl.style.height).toBe("219.2px")
+    expect(contentBoxEl.style.height).toBe("180px")
+  })
+
+  it("jquery:setter-函数", () => {
+    const fn = vi.fn(() => "100")
+    $(".box").innerHeight(fn)
+    expect(fn.mock.calls[0][0]).toBe(0)
+    expect(fn.mock.calls[0][1]).toBe(180.8)
+    expect(fn.mock.calls[1][0]).toBe(1)
+    expect(fn.mock.calls[1][1]).toBe(220)
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
+  })
+
+  it("domtify:setter-函数", () => {
     const fn = vi.fn(() => "100")
 
-    innerHeight(fn)(el(".box"))
+    innerHeight(fn)(d(".box"))
     expect(fn.mock.calls[0][0]).toBe(0)
-    expectPixelEqual(fn.mock.calls[0][1], 30.8)
+    expect(fn.mock.calls[0][1]).toBe(180.8)
     expect(fn.mock.calls[1][0]).toBe(1)
-    expectPixelEqual(fn.mock.calls[1][1], 50)
-    expectPixelEqual(borderBoxEl.style.height, "119.2px")
-    expectPixelEqual(contentBoxEl.style.height, "100px")
+    expect(fn.mock.calls[1][1]).toBe(220)
+    expect(borderBoxEl.style.height).toBe("119.2px")
+    expect(contentBoxEl.style.height).toBe("80px")
   })
 })

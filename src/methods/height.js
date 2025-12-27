@@ -1,4 +1,3 @@
-import { dimension } from "@/utils/dimension.js"
+import { contentSize } from "@/utils/contentSize.js"
 
-export const height = (value) => (els) =>
-  dimension(els, "height", { mode: "content" }, value)
+export const height = contentSize("height")

@@ -10,17 +10,6 @@ export function ucfirst(str) {
   return str[0].toUpperCase() + str.slice(1)
 }
 
-export function getContentSize(el, prop) {
-  const style = getComputedStyle(el)
-  let size = parseFloat(style[prop])
-
-  if (isBorderBox(el)) {
-    size -= getContentExtra(el, prop)
-  }
-
-  return size
-}
-
 export function getWindowSize(prop) {
   return window[`inner${ucfirst(prop)}`]
 }
@@ -36,56 +25,76 @@ export function getDocumentSize(doc, prop) {
   )
 }
 
-// 获取最终的值
-export function getFinalVal(el, prop, value, index, oldVal) {
+export function resolveSizeValue(el, value, index, oldVal) {
   if (isFunction(value)) {
     return value.call(el, index, oldVal)
   }
-
-  if (isNumber(value)) {
-    return value
-  }
-
-  if (isString(value)) {
-    // 是数字字符串(没有单位的)
-    if (/^-?\d+(\.\d+)?$/.test(value)) {
-      return parseFloat(value)
-    }
-
-    // 带单位的字符串
-    if (!value.endsWith("px")) {
-      // 如果不是px结尾的就直接设置给它
-      el.style[prop] = value
-    }
-    // 再次读取可以得到单位为px的尺寸
-    return parseFloat(getComputedStyle(el)[prop])
-  }
-
-  return undefined
+  return value
 }
 
-function sumStyle(el, keys) {
+export function sumStyle(el, keys) {
   const style = getComputedStyle(el)
   return keys.reduce((sum, key) => sum + cssInt(style, key), 0)
 }
 
-function resolveToPx(el, prop, value) {
-  const prev = el.style[prop]
-  el.style[prop] = value
+// export function resolveToPx(el, prop, value) {
+//   const prev = el.style[prop]
+//   el.style[prop] = value
+//   const px = parseFloat(getComputedStyle(el)[prop])
+//   el.style[prop] = prev
+//   return px
+// }
+
+export function resolveToPx(el, prop, value) {
+  const style = el.style
+  const hadInline = style.getPropertyValue(prop) !== ""
+
+  const prev = style.getPropertyValue(prop)
+
+  style.setProperty(prop, value)
+
   const px = parseFloat(getComputedStyle(el)[prop])
-  el.style[prop] = prev
+
+  if (hadInline) {
+    style.setProperty(prop, prev)
+  } else {
+    style.removeProperty(prop)
+  }
+
   return px
 }
 
-function getContentExtra(el, prop) {
-  return prop === "height"
-    ? sumStyle(el, [...BOX_PROPS.BORDER_Y, ...BOX_PROPS.PADDING_Y])
-    : sumStyle(el, [...BOX_PROPS.BORDER_X, ...BOX_PROPS.PADDING_X])
+export function getComputedSize(el, property) {
+  return parseFloat(getComputedStyle(el).getPropertyValue(property))
 }
 
-export function setContentSize(el, prop, value) {
-  if (isBorderBox(el)) {
-    value += getContentExtra(el, prop)
+export function isPxValue(value) {
+  if (isNumber(value)) {
+    return true
   }
-  el.style[prop] = `${value}px`
+
+  if (isString(value)) {
+    // 纯数字 或 数字 + px
+    return /^\s*-?\d+(\.\d+)?\s*(px)?\s*$/.test(value)
+  }
+
+  return false
+}
+
+export const border = (el, prop) => {
+  return prop === "height"
+    ? sumStyle(el, BOX_PROPS.BORDER_Y)
+    : sumStyle(el, BOX_PROPS.BORDER_X)
+}
+
+export const padding = (el, prop) => {
+  return prop === "height"
+    ? sumStyle(el, BOX_PROPS.PADDING_Y)
+    : sumStyle(el, BOX_PROPS.PADDING_X)
+}
+
+export const margin = (el, prop) => {
+  return prop === "height"
+    ? sumStyle(el, BOX_PROPS.MARGIN_Y)
+    : sumStyle(el, BOX_PROPS.MARGIN_X)
 }

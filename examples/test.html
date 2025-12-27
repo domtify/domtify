@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>height演示</title>
+    <style>
+      .test {
+        width: 200px;
+        height: 150px;
+        padding: 10px;
+        border: 5px solid red;
+        margin: 20px;
+        background: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="test"></div>
+
+    <!-- <script src="domtify.js"></script> -->
+    <script src="jquery.js"></script>
+
+    <script>
+      var div = $(".test")
+      var width = div.width() // 200 px
+      var innerWidth = div.innerWidth() // 200px
+      var outerWidth = div.outerWidth() // 200px
+
+      console.log(width, innerWidth, outerWidth)
+
+      var height = div.height() // 150 px
+      var innerHeight = div.innerHeight() // 150 px
+      var outerHeight = div.outerHeight() // 150 px
+    </script>
+  </body>
+</html>
