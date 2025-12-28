@@ -36,7 +36,7 @@ export const createInnerSize = (prop) => (value) => (els) => {
       element,
       value,
       index,
-      innerHeight()(query(element)),
+      createInnerSize(prop)()(query(element)),
     )
 
     if (!isPxValue(originVal)) {

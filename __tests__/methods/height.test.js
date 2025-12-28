@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { d } from "@/core.js"
+import { query } from "@/core.js"
 import { height } from "@/methods/height.js"
 import $ from "jquery"
 import { mockViewport } from "../helpers/viewport.js"
@@ -50,11 +50,11 @@ describe("height", () => {
   it("domtify:获取 window 高度", () => {
     mockViewport({ height: 800 })
 
-    expect(height()(d(window))).toBe(800)
+    expect(height()(query(window))).toBe(800)
 
     mockViewport({ height: 600 })
 
-    expect(height()(d(window))).toBe(600)
+    expect(height()(query(window))).toBe(600)
   })
 
   it("jquery:获取 document 高度", () => {
@@ -67,14 +67,14 @@ describe("height", () => {
     document.documentElement.style.height = "980px"
     document.body.style.height = "1000px"
 
-    expect(height()(d(document))).toBe(1020)
+    expect(height()(query(document))).toBe(1020)
   })
 
   it("jquery:border-box 元素", () => {
     expect($(".border-box").height()).toBe(160.8)
   })
   it("domtify:border-box 元素", () => {
-    expect(height()(d(".border-box"))).toBe(160.8)
+    expect(height()(query(".border-box"))).toBe(160.8)
   })
 
   it("jquery:content-box 元素", () => {
@@ -82,7 +82,7 @@ describe("height", () => {
   })
 
   it("domtify:content-box 元素", () => {
-    expect(height()(d(".content-box"))).toBe(200)
+    expect(height()(query(".content-box"))).toBe(200)
   })
 
   it("jquery:setter:number", () => {
@@ -92,7 +92,7 @@ describe("height", () => {
   })
 
   it("domtify:setter:number", () => {
-    height(100)(d(".box"))
+    height(100)(query(".box"))
     expect(borderBoxEl.style.height).toBe("139.2px")
     expect(contentBoxEl.style.height).toBe("100px")
   })
@@ -104,7 +104,7 @@ describe("height", () => {
   })
 
   it("domtify:setter: 数字字符串", () => {
-    height("100")(d(".box"))
+    height("100")(query(".box"))
     expect(borderBoxEl.style.height).toBe("139.2px")
     expect(contentBoxEl.style.height).toBe("100px")
   })
@@ -117,7 +117,7 @@ describe("height", () => {
   })
 
   it("domtify:设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    height("10em")(d(".box"))
+    height("10em")(query(".box"))
 
     expect(borderBoxEl.style.height).toBe("199.2px")
     expect(contentBoxEl.style.height).toBe("10em")
@@ -130,7 +130,7 @@ describe("height", () => {
   })
 
   it("domtify:设置高度-带错误单位的字符串", () => {
-    height("10pq")(d(".box"))
+    height("10pq")(query(".box"))
     expect(borderBoxEl.style.height).toBe("239.2px")
     expect(contentBoxEl.style.height).toBe("")
   })
@@ -153,7 +153,7 @@ describe("height", () => {
   it("domtify:设置高度-函数", () => {
     const fn = vi.fn(() => "100")
 
-    height(fn)(d(".box"))
+    height(fn)(query(".box"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1]).toBe(160.8)

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { d } from "@/core.js"
+import { query } from "@/core.js"
 import { innerHeight } from "@/methods/innerHeight.js"
 import { mockViewport } from "../helpers/viewport.js"
 import $ from "jquery"
@@ -46,9 +46,9 @@ describe("innerHeight", () => {
 
   it("domtify:获取 window 高度", () => {
     mockViewport({ height: 800 })
-    expect(innerHeight()(d(window))).toBe(800)
+    expect(innerHeight()(query(window))).toBe(800)
     mockViewport({ height: 600 })
-    expect(innerHeight()(d(window))).toBe(600)
+    expect(innerHeight()(query(window))).toBe(600)
   })
 
   it("jquery:获取 document 高度", () => {
@@ -62,7 +62,7 @@ describe("innerHeight", () => {
     document.documentElement.style.height = "980px"
     document.body.style.height = "1000px"
 
-    expect(innerHeight()(d(document))).toBe(1020)
+    expect(innerHeight()(query(document))).toBe(1020)
   })
 
   it("jquery:border-box 元素", () => {
@@ -70,7 +70,7 @@ describe("innerHeight", () => {
   })
 
   it("domtify:border-box 元素", () => {
-    expect(innerHeight()(d(".border-box"))).toBe(180.8)
+    expect(innerHeight()(query(".border-box"))).toBe(180.8)
   })
 
   it("jquery:content-box 元素", () => {
@@ -78,7 +78,7 @@ describe("innerHeight", () => {
   })
 
   it("domtify:content-box 元素", () => {
-    expect(innerHeight()(d(".content-box"))).toBe(220)
+    expect(innerHeight()(query(".content-box"))).toBe(220)
   })
 
   it("jquery:setter-数字", () => {
@@ -88,7 +88,7 @@ describe("innerHeight", () => {
   })
 
   it("domtify:setter-数字", () => {
-    innerHeight(100)(d(".box"))
+    innerHeight(100)(query(".box"))
     expect(borderBoxEl.style.height).toBe("119.2px")
     expect(contentBoxEl.style.height).toBe("80px")
   })
@@ -100,7 +100,7 @@ describe("innerHeight", () => {
   })
 
   it("domtify:setter-数字字符串", () => {
-    innerHeight("100")(d(".box"))
+    innerHeight("100")(query(".box"))
     expect(borderBoxEl.style.height).toBe("119.2px")
     expect(contentBoxEl.style.height).toBe("80px")
   })
@@ -112,7 +112,7 @@ describe("innerHeight", () => {
   })
 
   it("domtify:setter-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    innerHeight("10em")(d(".box"))
+    innerHeight("10em")(query(".box"))
     expect(borderBoxEl.style.height).toBe("179.2px")
     expect(contentBoxEl.style.height).toBe("140px")
   })
@@ -124,7 +124,7 @@ describe("innerHeight", () => {
   })
 
   it("setter-带错误单位的字符串", () => {
-    innerHeight("10pq")(d(".box"))
+    innerHeight("10pq")(query(".box"))
     expect(borderBoxEl.style.height).toBe("219.2px")
     expect(contentBoxEl.style.height).toBe("180px")
   })
@@ -143,7 +143,7 @@ describe("innerHeight", () => {
   it("domtify:setter-函数", () => {
     const fn = vi.fn(() => "100")
 
-    innerHeight(fn)(d(".box"))
+    innerHeight(fn)(query(".box"))
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1]).toBe(180.8)
     expect(fn.mock.calls[1][0]).toBe(1)

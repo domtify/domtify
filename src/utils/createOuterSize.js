@@ -39,7 +39,7 @@ export const createOuterSize =
         element,
         value,
         index,
-        outerHeight(includeMargin)(query(element)),
+        createOuterSize(prop)(includeMargin)(query(element)),
       )
 
       const isPx = isPxValue(originVal)
