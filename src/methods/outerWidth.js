@@ -1,6 +1,3 @@
-import { dimension } from "@/utils/dimension.js"
+import { createOuterSize } from "@/utils/createOuterSize.js"
 
-export const outerWidth =
-  (value, includeMargin = false) =>
-  (els) =>
-    dimension(els, "width", { mode: "outer", includeMargin }, value)
+export const outerWidth = createOuterSize("width")

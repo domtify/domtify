@@ -1,4 +1,3 @@
-import { dimension } from "@/utils/dimension.js"
+import { createInnerSize } from "@/utils/createInnerSize.js"
 
-export const innerWidth = (value) => (els) =>
-  dimension(els, "width", { mode: "inner" }, value)
+export const innerWidth = createInnerSize("width")

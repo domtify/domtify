@@ -1,5 +1,5 @@
 import { isUndefined } from "is-what"
-import { d } from "@/core.js"
+import { query } from "@/core.js"
 import {
   getWindowSize,
   getDocumentSize,
@@ -12,7 +12,7 @@ import {
   padding,
 } from "@/utils/size.js"
 
-export const contentSize = (prop) => (value) => (els) => {
+export const createContentSize = (prop) => (value) => (els) => {
   if (isUndefined(value)) {
     const el = els.at(0)
     if (!el) return undefined
@@ -33,7 +33,7 @@ export const contentSize = (prop) => (value) => (els) => {
       element,
       value,
       index,
-      contentSize(prop)()(d(element)),
+      createContentSize(prop)()(query(element)),
     )
 
     const isPx = isPxValue(originVal)

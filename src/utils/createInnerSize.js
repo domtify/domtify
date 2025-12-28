@@ -3,12 +3,15 @@ import {
   getDocumentSize,
   resolveSizeValue,
   isBorderBox,
-  getContentExtra,
   getComputedSize,
-  parsePxValue,
   resolveToPx,
+  border,
+  isPxValue,
+  padding,
 } from "@/utils/size.js"
-import { isNull, isUndefined } from "is-what"
+import { isUndefined } from "is-what"
+import { query } from "@/core.js"
+
 export const createInnerSize = (prop) => (value) => (els) => {
   if (isUndefined(value)) {
     const first = els.at(0)
@@ -20,38 +23,33 @@ export const createInnerSize = (prop) => (value) => (els) => {
     let height = getComputedSize(first, prop)
 
     if (isBorderBox(first)) {
-      height -= getContentExtra(first, prop)
+      // 减去border
+      height -= border(first, prop)
+    } else {
+      height += padding(first, prop)
     }
 
     return height
   }
   for (const [index, element] of els.entries()) {
-    const originVal = resolveSizeValue(
+    let originVal = resolveSizeValue(
       element,
       value,
       index,
-      createInnerSize(prop)()([element]),
+      innerHeight()(query(element)),
     )
 
-    const px = parsePxValue(originVal)
-    const borderBox = isBorderBox(element)
-
-    if (!borderBox && isNull(px)) {
-      element.style.setProperty(prop, originVal)
-      continue
+    if (!isPxValue(originVal)) {
+      originVal = resolveToPx(element, prop, originVal)
+    }
+    originVal = parseFloat(originVal)
+    if (isBorderBox(element)) {
+      originVal += border(element, prop)
+    } else {
+      originVal -= padding(element, prop)
     }
 
-    let resolvedPx = px
-
-    if (isNull(resolvedPx)) {
-      resolvedPx = resolveToPx(element, prop, originVal)
-    }
-
-    if (borderBox) {
-      resolvedPx += getContentExtra(element, prop)
-    }
-
-    element.style.setProperty(prop, `${resolvedPx}px`)
+    element.style.setProperty(prop, `${originVal}px`)
   }
 
   return els

@@ -1,3 +1,3 @@
-import { contentSize } from "@/utils/contentSize.js"
+import { createContentSize } from "@/utils/createContentSize.js"
 
-export const height = contentSize("height")
+export const height = createContentSize("height")
