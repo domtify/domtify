@@ -1,10 +1,10 @@
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { data } from "./data.js"
 import Event from "@/event/event.js"
 
 const copyEventsAndData = (source, target) => {
   // 复制data属性
-  data(data()(el(source)))(el(target))
+  data(data()(query(source)))(query(target))
 
   // 复制事件
   new Event(source).cloneTo(target)

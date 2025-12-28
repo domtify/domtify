@@ -1,12 +1,12 @@
 import { isFunction } from "is-what"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 export const wrap = (wrappingElement) => (els) => {
   for (const [index, element] of els.entries()) {
     let wrapper = isFunction(wrappingElement)
       ? wrappingElement.call(element, index)
       : wrappingElement
-    wrapper = el(wrapper).at(0)
+    wrapper = query(wrapper).at(0)
 
     if (!wrapper) return els
 

@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from "is-what"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 export const wrapAll = (wrappingElement) => (els) => {
   if (!els.length) return els
@@ -11,7 +11,7 @@ export const wrapAll = (wrappingElement) => (els) => {
     wrapperEl = wrappingElement.call(firstEl)
   }
 
-  wrapperEl = el(wrapperEl).at(0)
+  wrapperEl = query(wrapperEl).at(0)
   if (!isInstanceOf(wrapperEl, Element)) return els
   wrapperEl = wrapperEl.cloneNode(true)
 

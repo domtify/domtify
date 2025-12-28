@@ -1,5 +1,5 @@
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { unique } from "@/utils/unique.js"
 
 export const add = (selector, context) => (els) =>
-  unique([...els, ...el(selector, context)])
+  unique([...els, ...query(selector, context)])

@@ -1,5 +1,5 @@
 import { isPlainObject, isUndefined, isFunction } from "is-what"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 export const prop = (propertyName, value) => (els) => {
   if (isUndefined(value) && !isPlainObject(propertyName)) {
@@ -13,14 +13,14 @@ export const prop = (propertyName, value) => (els) => {
       // 批量设置
       for (const element of els) {
         for (const [property, val] of Object.entries(propertyName)) {
-          prop(property, val)(el(element))
+          prop(property, val)(query(element))
         }
       }
     } else {
       // 单个设置
       for (const [index, element] of els.entries()) {
         const newValue = isFunction(value)
-          ? value.call(element, index, prop(propertyName)(el(element)))
+          ? value.call(element, index, prop(propertyName)(query(element)))
           : value
 
         if (!isUndefined(newValue)) {

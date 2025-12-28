@@ -1,5 +1,5 @@
 import { isUndefined, isFunction, isArray } from "is-what"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 export const val = (value) => (els) => {
   if (isUndefined(value)) {
@@ -16,7 +16,7 @@ export const val = (value) => (els) => {
     // setter
     for (const [index, element] of els.entries()) {
       let setVal = isFunction(value)
-        ? value.call(element, index, val()(el(element)))
+        ? value.call(element, index, val()(query(element)))
         : value
 
       if (element.tagName == "SELECT") {

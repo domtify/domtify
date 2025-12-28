@@ -1,8 +1,8 @@
 import { flatElements } from "@/utils/flatElements.js"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { prepend } from "./prepend.js"
 
 export const prependTo = (target) => (els) => {
-  prepend(els)(flatElements(el(target)))
+  prepend(els)(flatElements(query(target)))
   return els
 }
