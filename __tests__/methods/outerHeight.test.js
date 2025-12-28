@@ -1,7 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { outerHeight } from "@/methods/outerHeight.js"
+import { mockViewport } from "../helpers/viewport.js"
+import $ from "jquery"
 
 describe("outerHeight", () => {
   let borderBoxEl
@@ -9,11 +11,12 @@ describe("outerHeight", () => {
   beforeEach(() => {
     const style = document.createElement("style")
     style.textContent = `
-    
       .box {
-        border: 10px solid red;
-        height: 50px;
+        height: 200px;
+        width: 200px;
+        padding: 10px;
         margin: 20px;
+        border: 10px solid red;
       }
       .border-box {
         box-sizing: border-box;
@@ -33,80 +36,204 @@ describe("outerHeight", () => {
     contentBoxEl = document.querySelector(".content-box")
   })
 
-  it("获取 window 高度", () => {
-    Object.defineProperty(window, "innerHeight", {
-      value: 800,
-      configurable: true,
+  describe("获取window高度", () => {
+    it("jquery ", () => {
+      mockViewport({ height: 800 })
+      expect($(window).outerHeight()).toBe(800)
+      mockViewport({ height: 600 })
+      expect($(window).outerHeight()).toBe(600)
     })
 
-    expect(outerHeight()(el(window))).toBe(800)
-
-    Object.defineProperty(window, "innerHeight", {
-      value: 600,
-      configurable: true,
+    it("domtify ", () => {
+      mockViewport({ height: 800 })
+      expect(outerHeight()(query(window))).toBe(800)
+      mockViewport({ height: 600 })
+      expect(outerHeight()(query(window))).toBe(600)
     })
-    expect(outerHeight()(el(window))).toBe(600)
   })
 
-  it("获取 document 高度", () => {
-    document.body.style.height = "1000px"
-    expect(outerHeight()(el(document))).toBe(1020)
+  describe("获取 document 高度", () => {
+    it("jquery", () => {
+      document.body.style.height = "1000px"
+      expect($(document).outerHeight()).toBe(1020)
+      document.body.style.height = "2000px"
+      expect($(document).outerHeight()).toBe(2020)
+    })
 
-    document.body.style.height = "2000px"
-    expect(outerHeight()(el(document))).toBe(2020)
-  })
-  it("border-box 元素", () => {
-    const result = outerHeight()(el(".border-box"))
-    expectPixelEqual(result, 50)
-  })
-
-  it("content-box 元素", () => {
-    const result = outerHeight()(el(".content-box"))
-    expectPixelEqual(result, 69.2)
-  })
-
-  it("设置高度", () => {
-    outerHeight(100)(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "100px")
-    expectPixelEqual(contentBoxEl.style.height, "80.8px")
+    it("domtify", () => {
+      document.body.style.height = "1000px"
+      expect(outerHeight()(query(document))).toBe(1020)
+      document.body.style.height = "2000px"
+      expect(outerHeight()(query(document))).toBe(2020)
+    })
   })
 
-  it("设置高度-数字字符串", () => {
-    outerHeight("100.1")(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "100.1px")
-    expectPixelEqual(contentBoxEl.style.height, "80.9px")
+  describe("border-box 元素", () => {
+    it("jquery", () => {
+      expect($(".border-box").outerHeight()).toBe(200)
+    })
+
+    it("domtify", () => {
+      expect(outerHeight()(query(".border-box"))).toBe(200)
+    })
   })
 
-  it("设置高度-带单位的字符串 如“em”、“％”、“rem”等", () => {
-    outerHeight("10em")(el("div"))
-    expectPixelEqual(borderBoxEl.style.height, "10em")
-    expectPixelEqual(contentBoxEl.style.height, "140.8px")
+  describe("border-box 元素,includeMargin=true", () => {
+    it("jquery", () => {
+      expect($(".border-box").outerHeight(true)).toBe(240)
+    })
+
+    it("domtify", () => {
+      expect(outerHeight(true)(query(".border-box"))).toBe(240)
+    })
   })
 
-  it("设置高度-带错误单位的字符串", () => {
-    outerHeight("10pq")(el(".box"))
-    expect(borderBoxEl.style.height).toBe("")
-    expectPixelEqual(contentBoxEl.style.height, "30.8px")
+  describe("content-box 元素", () => {
+    it("jquery", () => {
+      expect($(".content-box").outerHeight()).toBe(239.2)
+    })
+
+    it("domtify", () => {
+      expect(outerHeight()(query(".content-box"))).toBe(239.2)
+    })
   })
 
-  it("设置值时包括margin", () => {
-    outerHeight(100, true)(el(".box"))
-    expectPixelEqual(borderBoxEl.style.height, "60px")
-    expectPixelEqual(contentBoxEl.style.height, "40.8px")
+  describe("content-box 元素,includeMargin=true", () => {
+    it("jquery", () => {
+      expect($(".content-box").outerHeight(true)).toBe(279.2)
+    })
+
+    it("domtify", () => {
+      expect(outerHeight(true)(query(".content-box"))).toBe(279.2)
+    })
   })
 
-  it("设置高度-函数", () => {
-    const fn = vi.fn(() => "100")
+  describe("setter:数字", () => {
+    it("jquery", () => {
+      $(".box").outerHeight(100)
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
 
-    outerHeight(fn)(el(".box"))
+    it("domtify", () => {
+      outerHeight(100)(query(".box"))
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
+  })
 
-    expect(fn.mock.calls[0][0]).toBe(0)
-    expectPixelEqual(fn.mock.calls[0][1], 50)
+  describe("setter-数字字符串", () => {
+    it("jquery", () => {
+      $(".box").outerHeight("100")
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
 
-    expect(fn.mock.calls[1][0]).toBe(1)
-    expectPixelEqual(fn.mock.calls[1][1], 69.2)
+    it("domtify", () => {
+      outerHeight("100")(query(".box"))
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
+  })
 
-    expectPixelEqual(borderBoxEl.style.height, "100px")
-    expectPixelEqual(contentBoxEl.style.height, "80.8px")
+  describe("非px单位的情况(em,rem,％)", () => {
+    it("jquery", () => {
+      $(".box").outerHeight("10em")
+      expect(borderBoxEl.style.height).toBe("10em")
+      expect(contentBoxEl.style.height).toBe("120.8px")
+    })
+    it("domtify", () => {
+      outerHeight("10em")(query(".box"))
+      expect(borderBoxEl.style.height).toBe("10em")
+      expect(contentBoxEl.style.height).toBe("120.8px")
+    })
+  })
+
+  describe("非px单位的情况(em,rem,％),includeMargin=true", () => {
+    it("jquery", () => {
+      $(".box").outerHeight("10em", true)
+      expect(borderBoxEl.style.height).toBe("120px")
+      expect(contentBoxEl.style.height).toBe("80.8px")
+    })
+    it("domtify", () => {
+      outerHeight("10em", true)(query(".box"))
+      expect(borderBoxEl.style.height).toBe("120px")
+      expect(contentBoxEl.style.height).toBe("80.8px")
+    })
+  })
+
+  describe("setter-带错误单位的字符串", () => {
+    it("jquery", () => {
+      $(".box").outerHeight("10pq")
+      expect(borderBoxEl.style.height).toBe("")
+      expect(contentBoxEl.style.height).toBe("160.8px")
+    })
+
+    it("domtify", () => {
+      outerHeight("10pq")(query(".box"))
+      expect(borderBoxEl.style.height).toBe("")
+      expect(contentBoxEl.style.height).toBe("160.8px")
+    })
+  })
+
+  describe("设置值时包括margin", () => {
+    it("jquery", () => {
+      $(".box").outerHeight(100, true)
+      expect(borderBoxEl.style.height).toBe("60px")
+      expect(contentBoxEl.style.height).toBe("20.8px")
+    })
+    it("domtify", () => {
+      outerHeight(100, true)(query(".box"))
+      expect(borderBoxEl.style.height).toBe("60px")
+      expect(contentBoxEl.style.height).toBe("20.8px")
+    })
+  })
+
+  describe("setter-函数", () => {
+    it("jquery", () => {
+      const fn = vi.fn(() => "100")
+      $(".box").outerHeight(fn)
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(200)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(239.2)
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
+
+    it("domtify", () => {
+      const fn = vi.fn(() => "100")
+      outerHeight(fn)(query(".box"))
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(200)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(239.2)
+      expect(borderBoxEl.style.height).toBe("100px")
+      expect(contentBoxEl.style.height).toBe("60.8px")
+    })
+  })
+
+  describe("setter-函数,includeMargin=true", () => {
+    it("jquery", () => {
+      const fn = vi.fn(() => "100")
+      $(".box").outerHeight(fn, true)
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(240)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(279.2)
+      expect(borderBoxEl.style.height).toBe("60px")
+      expect(contentBoxEl.style.height).toBe("20.8px")
+    })
+
+    it("domtify", () => {
+      const fn = vi.fn(() => "100")
+      outerHeight(fn, true)(query(".box"))
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(240)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(279.2)
+      expect(borderBoxEl.style.height).toBe("60px")
+      expect(contentBoxEl.style.height).toBe("20.8px")
+    })
   })
 })

@@ -3,7 +3,7 @@ import { isHtmlString } from "./utils/isHtmlString.js"
 import { parseHTML } from "./utilities/parseHTML.js"
 import { onDOMContentLoaded } from "./utils/onDOMContentLoaded.js"
 
-export const d = (selector, context = document) => {
+export const query = (selector, context = document) => {
   let elements = []
 
   if (isString(selector)) {
