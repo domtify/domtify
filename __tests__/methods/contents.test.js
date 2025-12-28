@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { contents } from "@/methods/contents.js"
 
 describe("contents", () => {
@@ -15,7 +15,7 @@ describe("contents", () => {
   })
 
   it("应返回所有子节点（包括文本、注释和元素）", () => {
-    const res = contents()(el(".container"))
+    const res = contents()(query(".container"))
 
     expect(res.length).toBeGreaterThanOrEqual(2)
 
@@ -36,7 +36,7 @@ describe("contents", () => {
       value: document.implementation.createHTMLDocument("mock"),
     })
 
-    const result = contents()(el([mockIframe]))
+    const result = contents()(query([mockIframe]))
     expect(result[0]).toBeInstanceOf(Document) // 证明访问到了返回doc
   })
 
@@ -54,10 +54,10 @@ describe("contents", () => {
       },
     })
 
-    const fn = () => contents()(el(mockIframe)) // 不应抛出
+    const fn = () => contents()(query(mockIframe)) // 不应抛出
     expect(fn).not.toThrow()
 
-    const result = contents()(el(mockIframe))
+    const result = contents()(query(mockIframe))
     expect(result.length).toEqual(0) // 因为没能获取内容文档
   })
 })

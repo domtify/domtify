@@ -1,7 +1,7 @@
 import { isInstanceOf } from "is-what"
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { prevUntil } from "@/methods/prevUntil.js"
 
 describe("prevUntil", () => {
@@ -25,7 +25,7 @@ describe("prevUntil", () => {
   })
 
   it("选择器参数: 从 term-2 到上一个 dt 之间的所有兄弟节点", () => {
-    const res = prevUntil("dt")(el("#term-2"))
+    const res = prevUntil("dt")(query("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 1-d",
       "definition 1-c",
@@ -36,7 +36,7 @@ describe("prevUntil", () => {
 
   it("Element 参数: 从 term-2 到 term-1 之间", () => {
     const target = document.querySelector("#term-1")
-    const res = prevUntil(target)(el("#term-2"))
+    const res = prevUntil(target)(query("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 1-d",
       "definition 1-c",
@@ -46,12 +46,12 @@ describe("prevUntil", () => {
   })
 
   it("过滤器参数: 只匹配 .b", () => {
-    const res = prevUntil("dt", ".a")(el("#term-2"))
+    const res = prevUntil("dt", ".a")(query("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual(["definition 1-b"])
   })
 
   it("传入数组元素作为until", () => {
-    const res = prevUntil(el("dt"))(el("#term-2"))
+    const res = prevUntil(query("dt"))(query("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 1-d",
       "definition 1-c",
@@ -61,13 +61,13 @@ describe("prevUntil", () => {
   })
 
   it("当没有匹配时返回空数组", () => {
-    const res = prevUntil("dt")(el(".not-exist"))
+    const res = prevUntil("dt")(query(".not-exist"))
     expect(res).toEqual([])
   })
 
   it("返回元素数组", () => {
-    const res1 = el("#term-2")
-    const res2 = prevUntil(el("dt"))(res1)
+    const res1 = query("#term-2")
+    const res2 = prevUntil(query("dt"))(res1)
     expect(Array.isArray(res1)).toBe(true)
     expect(Array.isArray(res2)).toBe(true)
   })

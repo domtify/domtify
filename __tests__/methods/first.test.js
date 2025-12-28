@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { first } from "@/methods/first.js"
 
 describe("first", () => {
@@ -18,7 +18,7 @@ describe("first", () => {
   })
 
   it("获取第一个元素", () => {
-    const res = first()(el("li"))
+    const res = first()(query("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 1")
   })

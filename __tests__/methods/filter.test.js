@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { filter } from "@/methods/filter.js"
 
 describe("filter", () => {
@@ -19,7 +19,7 @@ describe("filter", () => {
   })
 
   it("支持字符串选择器", () => {
-    const res = filter(":nth-child(2n)")(el("li"))
+    const res = filter(":nth-child(2n)")(query("li"))
     expect(res.length).toBe(3)
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "list item 2",
@@ -29,7 +29,7 @@ describe("filter", () => {
   })
 
   it("支持函数过滤", () => {
-    const res = filter((i) => i % 2 === 0)(el("li"))
+    const res = filter((i) => i % 2 === 0)(query("li"))
 
     expect(res.length).toBe(3)
     expect(res.map((el) => el.textContent.trim())).toEqual([
@@ -41,22 +41,22 @@ describe("filter", () => {
 
   it("支持传入 DOM 元素集合", () => {
     const domList = document.querySelectorAll(".item")
-    const res = filter(domList)(el("li"))
+    const res = filter(domList)(query("li"))
     expect(res.length).toBe(2)
     expect(res[0].classList.contains("item3")).toBe(true)
     expect(res[1].classList.contains("item4")).toBe(true)
   })
 
   it("支持传入元素数组", () => {
-    const items = el(".item")
-    const res = filter(items)(el("li"))
+    const items = query(".item")
+    const res = filter(items)(query("li"))
     expect(res.length).toBe(2)
     expect(res[0].classList.contains("item3")).toBe(true)
     expect(res[1].classList.contains("item4")).toBe(true)
   })
 
   it("传入函数但不返回任何内容则为空", () => {
-    const res = filter(() => {})(el("li"))
+    const res = filter(() => {})(query("li"))
     expect(res.length).toBe(0)
   })
 })

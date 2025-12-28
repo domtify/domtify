@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { replaceWith } from "@/methods/replaceWith.js"
 
 describe("replaceWith", () => {
@@ -17,33 +17,33 @@ describe("replaceWith", () => {
     `
   })
   it("可以用 HTML 字符串替换元素", () => {
-    replaceWith("<h2>New heading</h2>")(el("div.second"))
+    replaceWith("<h2>New heading</h2>")(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.querySelector("h2").textContent).toBe("this is h2")
   })
 
   it("可以用 Element 替换元素", () => {
     const p = document.querySelector("p")
-    replaceWith(p)(el("div.second"))
+    replaceWith(p)(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.querySelector("p")).not.toBeNull()
   })
 
   it("可以用 TextNode 替换元素", () => {
-    replaceWith(document.createTextNode("TextNode"))(el("div.second"))
+    replaceWith(document.createTextNode("TextNode"))(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.body.textContent).toContain("TextNode")
   })
 
   it("可以用数组替换元素（包含 Element 和 HTML 字符串）", () => {
     const p = document.querySelector("p")
-    replaceWith([p, "<h2>Array heading</h2>"])(el("div.second"))
+    replaceWith([p, "<h2>Array heading</h2>"])(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.querySelector("h2").textContent).toBe("this is h2")
   })
 
   it("可以用集合对象替换元素", () => {
-    replaceWith(el("p"))(el("div.second"))
+    replaceWith(query("p"))(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.querySelector("p")).not.toBeNull()
   })
@@ -52,7 +52,7 @@ describe("replaceWith", () => {
     const fn = vi.fn(() => `<span>Fn span</span>`)
 
     const secondEl = document.querySelector(".inner.second")
-    replaceWith(fn)(el("div.second"))
+    replaceWith(fn)(query("div.second"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1]).toBe("And")
@@ -65,20 +65,20 @@ describe("replaceWith", () => {
   })
 
   it("函数形式可以返回集合对象", () => {
-    replaceWith(() => el("p"))(el("div.second"))
+    replaceWith(() => query("p"))(query("div.second"))
     expect(document.querySelector(".inner.second")).toBeNull()
     expect(document.querySelector("p")).not.toBeNull()
   })
 
   it("非 Element 节点会被跳过（比如数字）", () => {
     replaceWith(() => "<b>ok</b>")(
-      el([10, document.querySelector("div.second")]),
+      query([10, document.querySelector("div.second")]),
     )
     expect(document.querySelector("b").textContent).toBe("ok")
   })
 
   it("空集合调用时不会报错", () => {
-    const res = replaceWith("<span>noop</span>")(el([]))
+    const res = replaceWith("<span>noop</span>")(query([]))
     expect(res.length).toBe(0)
   })
 })

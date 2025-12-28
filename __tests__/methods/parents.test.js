@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { parents } from "@/methods/parents.js"
 
 describe("parents", () => {
@@ -29,7 +29,7 @@ describe("parents", () => {
   })
 
   it("不携带选择器时返回所有祖先", () => {
-    const result = parents()(el("li.item-a"))
+    const result = parents()(query("li.item-a"))
     const classList = result.map((el) => el.className).filter(Boolean) // 只过滤出有className的
 
     expect(result.length).toBeGreaterThan(0)
@@ -39,13 +39,13 @@ describe("parents", () => {
   })
 
   it("携带选择器时过滤祖先", () => {
-    const result = parents(".item-ii")(el("li.item-a"))
+    const result = parents(".item-ii")(query("li.item-a"))
     expect(result.length).toBe(1)
     expect(result[0].classList.contains("item-ii")).toBe(true)
   })
 
   it("多个元素共享祖先时去重", () => {
-    const result = parents()(el("li.item-1, li.item-2, li.item-3"))
+    const result = parents()(query("li.item-1, li.item-2, li.item-3"))
 
     // 只过滤出携带.level-3类名的层级
     const level3Parents = result.filter((el) =>
@@ -55,7 +55,7 @@ describe("parents", () => {
   })
 
   it("html元素应返回空集合", () => {
-    const result = parents()(el("html"))
+    const result = parents()(query("html"))
     expect(result.length).toBe(0)
   })
 })

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { replaceAll } from "@/methods/replaceAll.js"
 
 describe("replaceAll", () => {
@@ -21,7 +21,7 @@ describe("replaceAll", () => {
   })
 
   it("选择器", () => {
-    const result = replaceAll("p")(el(".second"))
+    const result = replaceAll("p")(query(".second"))
     expect(document.querySelector("p")).toBeNull()
     expect(container.firstElementChild.textContent).toBe("And")
 
@@ -30,7 +30,7 @@ describe("replaceAll", () => {
   })
 
   it("集合对象", () => {
-    const result = replaceAll(el("p"))(el(".second"))
+    const result = replaceAll(query("p"))(query(".second"))
 
     expect(result.length).toBe(1)
     expect(container.childElementCount).toBe(5)
@@ -39,7 +39,9 @@ describe("replaceAll", () => {
   })
 
   it("数组- 元素都是真实的在页面时存在的dom", () => {
-    const result = replaceAll([el("p"), el("h1"), el("h2")])(el(".second"))
+    const result = replaceAll([query("p"), query("h1"), query("h2")])(
+      query(".second"),
+    )
     expect(result.length).toBe(3)
     expect(container.childElementCount).toBe(5)
     expect(container.querySelector("p")).toBeNull()
@@ -51,10 +53,10 @@ describe("replaceAll", () => {
   })
   it("数组- 有的不是页面上存在的dom", () => {
     const result = replaceAll([
-      el("p"),
+      query("p"),
       `<p>New P</p>`,
       [`<p>New P</p>`, [`<p>New P</p>`]],
-    ])(el(".second"))
+    ])(query(".second"))
 
     // 只会返回页面上存在的元素
     expect(result.length).toBe(1)
@@ -63,8 +65,8 @@ describe("replaceAll", () => {
   })
 
   it("非元素集合不会报错", () => {
-    const result = replaceAll(el("p"))(
-      el([10, 20, document.createTextNode("txt")]),
+    const result = replaceAll(query("p"))(
+      query([10, 20, document.createTextNode("txt")]),
     )
     // 页面 p 被替换为 TextNode
     expect(document.querySelector("p")).toBeNull()
@@ -74,7 +76,7 @@ describe("replaceAll", () => {
   })
 
   it("空集合调用时不会报错", () => {
-    const result = replaceAll(el("p"))(el([]))
+    const result = replaceAll(query("p"))(query([]))
     expect(result.length).toBe(0)
   })
 })

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { innerWidth } from "@/methods/innerWidth.js"
 
 describe("innerWidth", () => {
@@ -37,51 +37,51 @@ describe("innerWidth", () => {
       value: 800,
       configurable: true,
     })
-    expect(innerWidth()(el(window))).toBe(800)
+    expect(innerWidth()(query(window))).toBe(800)
 
     Object.defineProperty(window, "innerWidth", {
       value: 600,
       configurable: true,
     })
-    expect(innerWidth()(el(window))).toBe(600)
+    expect(innerWidth()(query(window))).toBe(600)
   })
 
   it("获取 document 高度", () => {
     document.body.style.width = "1000px"
     document.documentElement.style.width = "980px"
-    expect(innerWidth()(el(document))).toBe(1000)
+    expect(innerWidth()(query(document))).toBe(1000)
   })
 
   it("border-box 元素", () => {
-    const result = innerWidth()(el(".border-box"))
+    const result = innerWidth()(query(".border-box"))
     expectPixelEqual(result, 180.8)
   })
 
   it("content-box 元素", () => {
-    const result = innerWidth()(el(".content-box"))
+    const result = innerWidth()(query(".content-box"))
     expectPixelEqual(result, 200)
   })
 
   it("数字", () => {
-    innerWidth(100)(el("div"))
+    innerWidth(100)(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "119.2px")
     expectPixelEqual(contentBoxEl.style.width, "100px")
   })
 
   it("数字字符串", () => {
-    innerWidth("100.1")(el("div"))
+    innerWidth("100.1")(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "119.3px")
     expectPixelEqual(contentBoxEl.style.width, "100.1px")
   })
 
   it("带单位的字符串 如“em”、“％”、“rem”等", () => {
-    innerWidth("10em")(el("div"))
+    innerWidth("10em")(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "179.2px")
     expectPixelEqual(contentBoxEl.style.width, "10em")
   })
 
   it("带错误单位的字符串", () => {
-    innerWidth("10pq")(el(".box"))
+    innerWidth("10pq")(query(".box"))
     expectPixelEqual(borderBoxEl.style.width, "219.2px")
     expect(contentBoxEl.style.width).toBe("")
   })
@@ -89,7 +89,7 @@ describe("innerWidth", () => {
   it("函数", () => {
     const fn = vi.fn(() => "100")
 
-    innerWidth(fn)(el(".box"))
+    innerWidth(fn)(query(".box"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expectPixelEqual(fn.mock.calls[0][1], 180.8)

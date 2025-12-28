@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { siblings } from "@/methods/siblings.js"
 
 describe("siblings", () => {
@@ -17,7 +17,7 @@ describe("siblings", () => {
   })
 
   it("返回除了自己的所有的兄弟节点", () => {
-    const res = siblings()(el("li.third-item"))
+    const res = siblings()(query("li.third-item"))
     const texts = res.map((li) => li.textContent.trim())
 
     expect(texts).toEqual([
@@ -29,7 +29,7 @@ describe("siblings", () => {
   })
 
   it("传递选择器过滤", () => {
-    const res = siblings(".item")(el("li.third-item"))
+    const res = siblings(".item")(query("li.third-item"))
     const texts = res.map((li) => li.textContent.trim())
 
     expect(texts).toEqual(["list item 2", "list item 4"])

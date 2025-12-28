@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { last } from "@/methods/last.js"
 
 describe("last", () => {
@@ -18,7 +18,7 @@ describe("last", () => {
   })
 
   it("获取最后一个元素", () => {
-    const res = last()(el("li"))
+    const res = last()(query("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 5")
   })

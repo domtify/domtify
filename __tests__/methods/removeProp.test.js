@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { removeProp } from "@/methods/removeProp.js"
 import { prop } from "@/methods/prop.js"
 
@@ -12,7 +12,7 @@ describe("removeProp", () => {
   })
 
   it("删除后应返回undefined", () => {
-    let result = prop("foo", "bar")(el("p"))
+    let result = prop("foo", "bar")(query("p"))
     result = removeProp("foo")(result)
     result = prop("foo")(result)
     expect(result).toBeUndefined()

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { scrollTop } from "@/methods/scrollTop.js"
 
 describe("scrollTop", () => {
@@ -23,25 +23,25 @@ describe("scrollTop", () => {
 
   it("无参数时应该返回", () => {
     div.scrollTop = 123
-    const res = scrollTop()(el(div))
+    const res = scrollTop()(query(div))
     expectPixelEqual(res, 123.19999694824219)
   })
 
   it("数值", () => {
-    scrollTop(200)(el(div))
+    scrollTop(200)(query(div))
     expect(div.scrollTop).toBe(200)
   })
 
   it("函数", () => {
     div.scrollTop = 100
     const fn = vi.fn(() => 60 + 40)
-    scrollTop(fn)(el(div))
+    scrollTop(fn)(query(div))
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1]).toBe(100)
     expect(div.scrollTop).toBe(100)
   })
 
   it("没有元素时返回 undefined", () => {
-    expect(scrollTop()(el())).toBeUndefined()
+    expect(scrollTop()(query())).toBeUndefined()
   })
 })

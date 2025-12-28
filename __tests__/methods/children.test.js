@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { children } from "@/methods/children.js"
 
 describe("children", () => {
@@ -29,7 +29,7 @@ describe("children", () => {
   })
 
   it("无过滤选择器", () => {
-    const res = children()(el("ul.level-2"))
+    const res = children()(query("ul.level-2"))
     expect(res.length).toBe(3)
     expect(res[0].classList.contains("item-a")).toBe(true)
     expect(res[1].classList.contains("item-b")).toBe(true)
@@ -37,23 +37,23 @@ describe("children", () => {
   })
 
   it("有选择器", () => {
-    const res = children(".item-a")(el("ul.level-2"))
+    const res = children(".item-a")(query("ul.level-2"))
     expect(res.length).toBe(1)
     expect(res[0].classList.contains("item-a")).toBe(true)
   })
 
   it("选择器没有匹配：返回空集合", () => {
-    const res = children(".not-exist")(el("ul.level-2"))
+    const res = children(".not-exist")(query("ul.level-2"))
     expect(res.length).toBe(0)
   })
 
   it("空集合调用：不报错", () => {
-    const res = children()(el(".not-exist"))
+    const res = children()(query(".not-exist"))
     expect(res.length).toBe(0)
   })
 
   it("返回元素数组", () => {
-    const res = children()(el("ul.level-2"))
+    const res = children()(query("ul.level-2"))
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(3)
   })

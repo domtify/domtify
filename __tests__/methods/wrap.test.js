@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { wrap } from "@/methods/wrap.js"
 
 describe("wrap", () => {
@@ -13,7 +13,7 @@ describe("wrap", () => {
     `
   })
   it("用选择器包裹", () => {
-    wrap(".doublediv")(el("p"))
+    wrap(".doublediv")(query("p"))
     const wrappers = document.querySelectorAll(".doublediv:not(:last-of-type)")
     expect(wrappers).toHaveLength(3)
     wrappers.forEach((wrapper, i) => {
@@ -26,7 +26,7 @@ describe("wrap", () => {
   })
 
   it("用 HTML 字符串包裹", () => {
-    wrap("<div class='wrapper'><b></b></div>")(el("p"))
+    wrap("<div class='wrapper'><b></b></div>")(query("p"))
     const wrappers = document.querySelectorAll(".wrapper")
     expect(wrappers).toHaveLength(3)
     wrappers.forEach((wrapper) => {
@@ -38,13 +38,13 @@ describe("wrap", () => {
 
   it("用单个 DOM 元素包裹", () => {
     const res = document.querySelector(".doublediv")
-    wrap(res)(el("p"))
+    wrap(res)(query("p"))
     const wrappers = document.querySelectorAll(".doublediv:not(:last-of-type)")
     expect(wrappers).toHaveLength(3)
   })
 
   it("元素数组", () => {
-    wrap(el(".doublediv"))(el("p"))
+    wrap(query(".doublediv"))(query("p"))
     const wrappers = document.querySelectorAll(".doublediv:not(:last-of-type)")
     expect(wrappers).toHaveLength(3)
   })
@@ -52,7 +52,7 @@ describe("wrap", () => {
   it("用函数返回 HTML 字符串包裹", () => {
     wrap(function (index) {
       return `<div class="wrap-${index}"></div>`
-    })(el("p"))
+    })(query("p"))
     const wrappers = document.querySelectorAll("[class^=wrap-]")
     expect(wrappers).toHaveLength(3)
     wrappers.forEach((w, i) => {
@@ -63,14 +63,14 @@ describe("wrap", () => {
 
   it("用函数返回元素数组", () => {
     wrap(function () {
-      return el(".doublediv")
-    })(el("p"))
+      return query(".doublediv")
+    })(query("p"))
     const wrappers = document.querySelectorAll(".doublediv:not(:last-of-type)")
     expect(wrappers).toHaveLength(3)
   })
 
   it("如果没找到元素,则不进行任何操作提前返回传入的元素数组", () => {
-    const res = el("p")
+    const res = query("p")
     const res2 = wrap(".no-exist")(res)
     expect(res2).toBe(res)
   })

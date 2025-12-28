@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { even } from "@/methods/even.js"
 
 describe("even", () => {
@@ -18,7 +18,7 @@ describe("even", () => {
   })
 
   it("应该返回索引为奇数的元素", () => {
-    const items = even()(el("li"))
+    const items = even()(query("li"))
     expect(items.length).toBe(3)
     expect(items[0].textContent).toBe("list item 0")
     expect(items[1].textContent).toBe("list item 2")

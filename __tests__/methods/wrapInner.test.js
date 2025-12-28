@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { wrapInner } from "@/methods/wrapInner.js"
 
 describe("wrapInner", () => {
@@ -20,7 +20,7 @@ describe("wrapInner", () => {
   })
 
   it("html字符串", () => {
-    const inner = el(".inner")
+    const inner = query(".inner")
     wrapInner("<span class='wrap'></span>")(inner)
 
     inner.forEach((el) => {
@@ -32,21 +32,21 @@ describe("wrapInner", () => {
   })
 
   it("选择器", () => {
-    const res = wrapInner(".double")(el(".inner"))
+    const res = wrapInner(".double")(query(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("元素数组", () => {
-    const res = wrapInner(el(".double"))(el(".inner"))
+    const res = wrapInner(query(".double"))(query(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("元素", () => {
-    const res = wrapInner(document.querySelector(".double"))(el(".inner"))
+    const res = wrapInner(document.querySelector(".double"))(query(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
@@ -56,14 +56,14 @@ describe("wrapInner", () => {
     const res = wrapInner(function (index) {
       expect(Number.isInteger(index) && index >= 0).toBe(true)
       return "<div class='new'></div>"
-    })(el(".inner"))
+    })(query(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("new")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("new")).toBe(true)
   })
 
   it("边缘情况测试数字", () => {
-    const res = wrapInner(123)(el(".inner"))
+    const res = wrapInner(123)(query(".inner"))
     expect(res.length).toBe(2)
 
     expect(Array.isArray(res)).toBe(true)

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 import { isNumber } from "is-what"
 import { each } from "@/utilities.js"
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 describe("each", () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("each", () => {
   })
 
   it("元素数组", () => {
-    const param = el("div")
+    const param = query("div")
 
     const elements = document.querySelectorAll("div")
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { nextAll } from "@/methods/nextAll.js"
 
 describe("nextAll", () => {
@@ -17,7 +17,7 @@ describe("nextAll", () => {
   })
 
   it("应当获取所有后续兄弟节点", () => {
-    const res = nextAll()(el("li.third-item"))
+    const res = nextAll()(query("li.third-item"))
 
     expect(res.map((li) => li.textContent.trim())).toEqual([
       "list item 4",
@@ -26,7 +26,7 @@ describe("nextAll", () => {
   })
 
   it("应当按选择器过滤结果", () => {
-    const res = nextAll(".third-item")(el("li:first-child"))
+    const res = nextAll(".third-item")(query("li:first-child"))
 
     expect(res.map((li) => li.textContent.trim())).toEqual(["list item 3"])
   })

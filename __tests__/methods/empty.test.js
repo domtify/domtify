@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { empty } from "@/methods/empty.js"
 
 describe("empty", () => {
@@ -19,7 +19,7 @@ describe("empty", () => {
     // 之前
     expect(helloEl.childNodes.length).toBeGreaterThan(0) // 有文本节点 "Hello"
 
-    empty()(el(".hello"))
+    empty()(query(".hello"))
 
     // 之后
     expect(helloEl.childNodes.length).toBe(0)
@@ -31,7 +31,7 @@ describe("empty", () => {
     goodbyeEl.innerHTML = "" // 本来就空
     expect(goodbyeEl.childNodes.length).toBe(0)
 
-    empty()(el(".goodbye")) // 不报错
+    empty()(query(".goodbye")) // 不报错
     expect(goodbyeEl.childNodes.length).toBe(0)
   })
 })

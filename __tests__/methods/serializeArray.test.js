@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { serializeArray } from "@/methods/serializeArray.js"
 
 describe("serializeArray", () => {
@@ -76,7 +76,7 @@ describe("serializeArray", () => {
   })
 
   it("得到序列化数据", () => {
-    const res = serializeArray()(el("form"))
+    const res = serializeArray()(query("form"))
 
     expect(res).toEqual([
       {

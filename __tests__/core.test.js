@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 
 describe("core", () => {
   beforeEach(() => {
@@ -14,75 +14,75 @@ describe("core", () => {
 
   it("支持直接传入element", () => {
     const elApp = document.getElementById("app")
-    const res = el(elApp)
+    const res = query(elApp)
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(1)
     expect(res[0]).toBe(elApp)
   })
 
   it("支持传入选择器", () => {
-    const res = el(".item")
+    const res = query(".item")
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(2)
     expect(res[0].textContent).toBe("hello")
   })
 
   it("支持HTML字符串", () => {
-    const res = el("<div class='new'>test</div>")
+    const res = query("<div class='new'>test</div>")
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(1)
     expect(res[0].className).toBe("new")
   })
 
   it("不支持jQuery中的特殊选择器", () => {
-    const res = el(":checkbox")
+    const res = query(":checkbox")
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(0)
   })
 
   it("支持NodeList/HTMLCollection", () => {
     const nodeList = document.querySelectorAll(".item")
-    const res = el(nodeList)
+    const res = query(nodeList)
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(2)
   })
 
   it("支持包含元素的数组", () => {
     const arr = [document.createElement("a"), document.createElement("b")]
-    const res = el(arr)
+    const res = query(arr)
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(2)
   })
 
   it("支持解析元素数组", () => {
-    const d1 = el(".item")
-    const res = el(d1)
+    const d1 = query(".item")
+    const res = query(d1)
     expect(Array.isArray(res)).toBe(true)
   })
 
   it("传递函数表示页面加载完成后触发回调", () => {
     const fn = vi.fn()
-    el(fn)
+    query(fn)
     // 这里需要手动触发 DOMContentLoaded，因为 Vitest 的 jsdom 不会自然触发
     document.dispatchEvent(new Event("DOMContentLoaded"))
     expect(fn).toHaveBeenCalled()
   })
 
   it("null或者undefined", () => {
-    const res = el(null)
+    const res = query(null)
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(0)
   })
 
   it("字符串非id选择器和html字符串都会绑定prevObject属性", () => {
-    const res = el(".item", document.querySelector("#app"))
+    const res = query(".item", document.querySelector("#app"))
 
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(2)
   })
 
   it("非假的其它值,比如转换为boolean非假的数字", () => {
-    const res = el(1)
+    const res = query(1)
 
     expect(Array.isArray(res)).toBe(true)
     expect(res.length).toBe(1)

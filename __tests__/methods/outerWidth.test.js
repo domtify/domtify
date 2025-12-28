@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { outerWidth } from "@/methods/outerWidth.js"
 
 describe("outerWidth", () => {
@@ -37,64 +37,64 @@ describe("outerWidth", () => {
       value: 800,
       configurable: true,
     })
-    expect(outerWidth()(el(window))).toBe(800)
+    expect(outerWidth()(query(window))).toBe(800)
 
     Object.defineProperty(window, "innerWidth", {
       value: 600,
       configurable: true,
     })
-    expect(outerWidth()(el(window))).toBe(600)
+    expect(outerWidth()(query(window))).toBe(600)
   })
 
   it("获取 document 高度", () => {
     document.body.style.width = "1000px"
     document.documentElement.style.width = "980px"
-    expect(outerWidth()(el(document))).toBe(1000)
+    expect(outerWidth()(query(document))).toBe(1000)
   })
 
   it("border-box 元素", () => {
-    const result = outerWidth()(el(".border-box"))
+    const result = outerWidth()(query(".border-box"))
     expectPixelEqual(result, 200)
   })
 
   it("content-box 元素", () => {
-    const result = outerWidth()(el(".content-box"))
+    const result = outerWidth()(query(".content-box"))
     expectPixelEqual(result, 219.2)
   })
 
   it("数字", () => {
-    outerWidth(100)(el("div"))
+    outerWidth(100)(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "100px")
     expectPixelEqual(contentBoxEl.style.width, "80.8px")
   })
 
   it("数字字符串", () => {
-    outerWidth("100.1")(el("div"))
+    outerWidth("100.1")(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "100.1px")
     expectPixelEqual(contentBoxEl.style.width, "80.9px")
   })
 
   it("带单位的字符串 如“em”、“％”、“rem”等", () => {
-    outerWidth("10em")(el("div"))
+    outerWidth("10em")(query("div"))
     expectPixelEqual(borderBoxEl.style.width, "10em")
     expectPixelEqual(contentBoxEl.style.width, "140.8px")
   })
 
   it("带错误单位的字符串", () => {
-    outerWidth("10pq")(el(".box"))
+    outerWidth("10pq")(query(".box"))
     expect(borderBoxEl.style.width).toBe("")
     expectPixelEqual(contentBoxEl.style.width, "180.8px")
   })
 
   it("设置值时包括margin", () => {
-    outerWidth(100, true)(el(".box"))
+    outerWidth(100, true)(query(".box"))
     expectPixelEqual(borderBoxEl.style.width, "100px")
     expectPixelEqual(contentBoxEl.style.width, "80.8px")
   })
 
   it("函数", () => {
     const fn = vi.fn(() => "100")
-    outerWidth(fn)(el(".box"))
+    outerWidth(fn)(query(".box"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expectPixelEqual(fn.mock.calls[0][1], 200)

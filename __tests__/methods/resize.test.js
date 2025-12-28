@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { resize } from "@/methods/resize.js"
 
 // 这个应该用端到端的测试才能测试
@@ -40,7 +40,7 @@ describe("resize", () => {
 
   it("immediate为false时不会立即触发", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
@@ -55,7 +55,7 @@ describe("resize", () => {
 
   it("type both时宽度发生变化的情况", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
@@ -80,7 +80,7 @@ describe("resize", () => {
 
   it("type both时高度发生变化的情况", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: false })(elements)
 
     ResizeObserverMock.instances[0].trigger([
@@ -105,7 +105,7 @@ describe("resize", () => {
 
   it("取消尺寸改变的回调行为", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback)(elements)
 
     // 保存 observer 实例
@@ -124,7 +124,7 @@ describe("resize", () => {
 
   it("类型选项测试", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: true, type: "width" })(elements)
 
     // 手动模拟元素被拖动触发事件,模拟entry对象的target和contentRect属性
@@ -141,7 +141,7 @@ describe("resize", () => {
 
   it("选项-immediate-首次不触发", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: false })(elements)
 
     // 模拟触发回调
@@ -162,7 +162,7 @@ describe("resize", () => {
 
   it("type height 只触发高度变化", () => {
     const callback = vi.fn()
-    const elements = el(".resizable")
+    const elements = query(".resizable")
     resize(callback, { immediate: true, type: "height" })(elements)
 
     ResizeObserverMock.instances[0].trigger([

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { remove } from "@/methods/remove.js"
 import { on } from "@/methods/on.js"
 import { data } from "@/methods/data.js"
@@ -17,13 +17,13 @@ describe("remove", () => {
   })
 
   it("删除选中的元素", () => {
-    remove()(el(".hello"))
+    remove()(query(".hello"))
 
     expect(document.querySelectorAll(".hello").length).toBe(0)
   })
 
   it("选择器进一步过滤", () => {
-    remove(".goodbye")(el(".hello"))
+    remove(".goodbye")(query(".hello"))
 
     expect(document.querySelectorAll(".hello").length).toBe(2) // 应该保留1个
     expect(document.querySelectorAll(".goodbye").length).toBe(0) // .goodbye 应该被移除
@@ -39,17 +39,17 @@ describe("remove", () => {
 
     const handler = vi.fn()
 
-    const res = on("click", handler)(el(".goodbye"))
-    data("foo", "bar")(el(".goodbye"))
+    const res = on("click", handler)(query(".goodbye"))
+    data("foo", "bar")(query(".goodbye"))
 
     res[0].click()
-    const removedElement = remove()(el(".goodbye"))[0]
+    const removedElement = remove()(query(".goodbye"))[0]
     document.querySelector(".container").appendChild(removedElement)
 
     removedElement.click()
 
     // 再次点击，事件应该丢失,所以最终应该只触发一次
     expect(handler).toHaveBeenCalledTimes(1)
-    expect(data("foo")(el(".goodbye"))).toBeUndefined()
+    expect(data("foo")(query(".goodbye"))).toBeUndefined()
   })
 })

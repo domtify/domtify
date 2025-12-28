@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { el } from "@/core.js"
+import { query } from "@/core.js"
 import { html } from "@/methods/html.js"
 
 describe("html", () => {
@@ -13,19 +13,19 @@ describe("html", () => {
   })
 
   it("获取 innerHTML", () => {
-    const res = html()(el(".demo-container"))
+    const res = html()(query(".demo-container"))
     expect(res.trim()).toBe('<div class="demo-box">Demonstration Box</div>')
   })
 
   it("设置html-字符串", () => {
-    html("<p>Hello <strong>World</strong></p>")(el(".demo-container"))
-    const res = html()(el(".demo-container"))
+    html("<p>Hello <strong>World</strong></p>")(query(".demo-container"))
+    const res = html()(query(".demo-container"))
     expect(res).toBe("<p>Hello <strong>World</strong></p>")
   })
 
   it("设置 innerHTML-函数", () => {
     const fn = vi.fn(() => "foo bar")
-    const result = html(fn)(el(".demo-container"))
+    const result = html(fn)(query(".demo-container"))
 
     expect(fn.mock.calls[0][0]).toBe(0)
     expect(fn.mock.calls[0][1].trim()).toBe(
@@ -39,7 +39,7 @@ describe("html", () => {
   })
 
   it("当匹配不到元素时返回 undefined", () => {
-    const res = html()(el(".non-existent"))
+    const res = html()(query(".non-existent"))
     expect(res).toBeUndefined()
   })
 })
