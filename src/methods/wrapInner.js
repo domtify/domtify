@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from "is-what"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const wrapInner = (wrappingElement) => (els) => {
   for (const [index, element] of els.entries()) {
@@ -7,7 +7,7 @@ export const wrapInner = (wrappingElement) => (els) => {
     if (isFunction(wrappingElement)) {
       wrapperEl = wrappingElement.call(element, index)
     }
-    wrapperEl = query(wrapperEl).at(0)
+    wrapperEl = dom(wrapperEl).at(0)
     if (!isInstanceOf(wrapperEl, Element)) continue
 
     // 克隆 wrapper 避免重复插入

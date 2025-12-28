@@ -1,4 +1,4 @@
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { unique } from "@/utils/unique.js"
 
 export const closest = (selector, context) => (els) => {
@@ -6,7 +6,7 @@ export const closest = (selector, context) => (els) => {
 
   // 先获取到所有的候选集合数组
   const candidates =
-    context instanceof Element ? query(selector, context) : query(selector)
+    context instanceof Element ? dom(selector, context) : dom(selector)
 
   for (const el of els) {
     let current = el

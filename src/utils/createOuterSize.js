@@ -11,7 +11,7 @@ import {
   margin,
 } from "@/utils/size.js"
 import { isBoolean, isUndefined } from "is-what"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const createOuterSize =
   (prop) =>
@@ -39,7 +39,7 @@ export const createOuterSize =
         element,
         value,
         index,
-        createOuterSize(prop)(includeMargin)(query(element)),
+        createOuterSize(prop)(includeMargin)(dom(element)),
       )
 
       const isPx = isPxValue(originVal)

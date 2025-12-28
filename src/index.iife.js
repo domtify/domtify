@@ -1,4 +1,4 @@
-import { el } from "./core.js"
+import { dom } from "./core.js"
 import * as methods from "./methods.js"
 import * as utilities from "./utilities.js"
 
@@ -22,7 +22,7 @@ for (const key in methods) {
     return this
   }
 }
-const $ = (selector, cxt) => new Domtify(el(selector, cxt))
+const $ = (selector, cxt) => new Domtify(dom(selector, cxt))
 
 Object.assign($, utilities)
 

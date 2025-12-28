@@ -1,6 +1,6 @@
 import { isInstanceOf } from "is-what"
 import { flatElements } from "@/utils/flatElements.js"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 // 检查元素是否在页面上
 const isInPage = (node) => {
@@ -15,7 +15,7 @@ export const replaceAll = (target) => (els) => {
   const result = []
 
   //过滤出元素且真实存在在页面上的
-  const targets = flatElements(query(target), false).filter((target) =>
+  const targets = flatElements(dom(target), false).filter((target) =>
     isInPage(target),
   )
 

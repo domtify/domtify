@@ -1,6 +1,6 @@
 import { isFunction, isUndefined, isNull, isInstanceOf } from "is-what"
 import { cssInt } from "@/utils/cssInt.js"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const offset = (coordinates) => (els) => {
   if (isUndefined(coordinates)) {
@@ -15,7 +15,7 @@ export const offset = (coordinates) => (els) => {
     }
   } else {
     for (const [index, element] of els.entries()) {
-      const offsetRes = offset()(query(element))
+      const offsetRes = offset()(dom(element))
 
       // setter
       const newCoordinates = isFunction(coordinates)

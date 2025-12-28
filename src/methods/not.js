@@ -1,5 +1,5 @@
 import { isFunction } from "is-what"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const not = (selector) => (els) => {
   // 情况 1：函数形式
@@ -10,7 +10,7 @@ export const not = (selector) => (els) => {
   }
 
   // 情况 2：选择器 / 元素 / 集合
-  const notElements = query(selector)
+  const notElements = dom(selector)
   const notSet = new Set(notElements)
 
   return els.filter((element) => !notSet.has(element))

@@ -1,6 +1,6 @@
 import { isUndefined } from "is-what"
 import { unique } from "./unique.js"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 /**
  * 通用的兄弟节点获取方法
@@ -15,7 +15,7 @@ export const dirSibling = (elements, direction, options = {}) => {
   const { all = false, until, filter } = options
 
   let result = []
-  const untilElements = !isUndefined(until) ? query(until) : []
+  const untilElements = !isUndefined(until) ? dom(until) : []
 
   for (const el of elements) {
     let sibling = el[`${direction}ElementSibling`]

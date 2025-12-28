@@ -1,6 +1,6 @@
 import { isString, isUndefined } from "is-what"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const index = (selector) => (els) => {
   let collection
@@ -12,11 +12,11 @@ export const index = (selector) => (els) => {
     collection = Array.from(find?.parentElement?.children)
   } else {
     if (isString(selector)) {
-      collection = query(selector)
+      collection = dom(selector)
       find = els.at(0)
     } else {
       collection = els
-      find = query(selector).at(0)
+      find = dom(selector).at(0)
     }
   }
 

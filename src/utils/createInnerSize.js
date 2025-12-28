@@ -10,7 +10,7 @@ import {
   padding,
 } from "@/utils/size.js"
 import { isUndefined } from "is-what"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 
 export const createInnerSize = (prop) => (value) => (els) => {
   if (isUndefined(value)) {
@@ -36,7 +36,7 @@ export const createInnerSize = (prop) => (value) => (els) => {
       element,
       value,
       index,
-      createInnerSize(prop)()(query(element)),
+      createInnerSize(prop)()(dom(element)),
     )
 
     if (!isPxValue(originVal)) {

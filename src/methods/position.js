@@ -1,5 +1,5 @@
 import { cssInt } from "@/utils/cssInt.js"
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { offset } from "./offset.js"
 import { isInstanceOf } from "is-what"
 
@@ -32,13 +32,13 @@ export const position = () => (els) => {
     const rect = element.getBoundingClientRect()
     offsetRes = { top: rect.top, left: rect.left }
   } else {
-    offsetRes = offset()(query(element))
+    offsetRes = offset()(dom(element))
 
     const offsetParent = getEffectiveOffsetParent(element)
 
     if (offsetParent instanceof Element) {
       // 一定要过滤否则可能是返回的顶级的doc
-      const parentOffset = offset()(query(offsetParent))
+      const parentOffset = offset()(dom(offsetParent))
       const parentStyle = getComputedStyle(offsetParent)
       offsetRes.top -= parentOffset.top + cssInt(parentStyle, "borderTopWidth")
       offsetRes.left -=
