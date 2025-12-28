@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest"
 
 import { query } from "@/core.js"
 import { position } from "@/methods/position.js"
+import $ from "jquery"
 
 describe("position", () => {
   beforeEach(() => {
@@ -69,83 +70,169 @@ describe("position", () => {
     `
   })
 
-  it("不存在的集合", () => {
-    let res
-    expect(() => {
-      res = position()(query(".not-exist"))
-    }).not.toThrow()
-    expect(res).toBeUndefined()
-  })
-
-  it("边缘情况数字", () => {
-    const result = position()(query(10))
-    expect(result).toBeUndefined()
-  })
-
-  it("元素不可见", () => {
-    const res = position()(query(".container0 .child"))
-    expect(res).toEqual({
-      top: 0,
-      left: 0,
+  describe("不存在的集合", () => {
+    it("jquery", () => {
+      let res
+      expect(() => {
+        res = $(".not-exist").position()
+      }).not.toThrow()
+      expect(res).toBeUndefined()
+    })
+    it("domtify", () => {
+      let res
+      expect(() => {
+        res = position()(query(".not-exist"))
+      }).not.toThrow()
+      expect(res).toBeUndefined()
     })
   })
 
-  it("不会考虑html标签上的 margin", () => {
-    const res = position()(query("html"))
-    expect(res).toEqual({
-      top: 0,
-      left: 0,
+  describe("边缘情况数字", () => {
+    // jquery会报错
+    it("jquery", () => {
+      expect(() => $(10).position()).toThrow(
+        "Cannot read properties of undefined (reading 'defaultView')",
+      )
+    })
+    it("domtify", () => {
+      const result = position()(query(10))
+      expect(result).toBeUndefined()
     })
   })
 
-  it("子元素相对 static 父容器,会自动找到顶级doc", () => {
-    const res = position()(query(".container1 .child"))
-    expect(res).toEqual({
-      top: 120,
-      left: 120,
+  describe("元素不可见", () => {
+    it("jquery", () => {
+      expect($(".container0 .child").position()).toEqual({
+        top: 0,
+        left: 0,
+      })
+    })
+    it("domtify", () => {
+      expect(position()(query(".container0 .child"))).toEqual({
+        top: 0,
+        left: 0,
+      })
     })
   })
 
-  it("子元素相对 relative 父容器", () => {
-    const res = position()(query(".container2 .child"))
-    expect(res).toEqual({
-      top: 20,
-      left: 10,
+  describe("不会考虑html标签上的 margin", () => {
+    it("jquery", () => {
+      expect($("html").position()).toEqual({
+        top: 0,
+        left: 0,
+      })
+    })
+    it("domtify", () => {
+      expect(position()(query("html"))).toEqual({
+        top: 0,
+        left: 0,
+      })
     })
   })
 
-  it("父容器有边框", () => {
-    const { top, left } = position()(query(".container5 .child"))
-
-    expectPixelEqual(top, 0.000006103515630684342)
-    expectPixelEqual(left, -0.0000015258789005656581)
-  })
-
-  it("固定定位", () => {
-    const res = position()(query(".container3 .child"))
-    expect(res).toEqual({
-      top: 20,
-      left: 10,
+  describe("子元素相对 static 父容器,会自动找到顶级doc", () => {
+    it("jquery", () => {
+      expect($(".container1 .child").position()).toEqual({
+        top: 120,
+        left: 120,
+      })
+    })
+    it("domtify", () => {
+      expect(position()(query(".container1 .child"))).toEqual({
+        top: 120,
+        left: 120,
+      })
     })
   })
 
-  it("绝对定位", () => {
-    const res = position()(query(".container4 .child"))
-    expect(res).toEqual({
-      top: 20,
-      left: 10,
+  describe("子元素相对 relative 父容器", () => {
+    it("jquery", () => {
+      const res = $(".container2 .child").position()
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
+    })
+    it("domtify", () => {
+      const res = position()(query(".container2 .child"))
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
     })
   })
 
-  it("父元素有滚动条", () => {
-    const parent = document.querySelector(".container6")
-    parent.scrollTop = 60
-    parent.scrollLeft = 32
+  describe("父容器有边框", () => {
+    it("jquery", () => {
+      const { top, left } = $(".container5 .child").position()
 
-    const res = position()(query(".container6 .child"))
-    expect(res).toEqual({
-      top: -10,
-      left: 18,
+      expect(top).toBe(0.000006103515630684342)
+      expect(left).toBe(-0.0000015258789005656581)
+    })
+    it("domtify", () => {
+      const { top, left } = position()(query(".container5 .child"))
+
+      expect(top).toBe(0.000006103515630684342)
+      expect(left).toBe(-0.0000015258789005656581)
+    })
+  })
+
+  describe("固定定位", () => {
+    it("jquery", () => {
+      const res = $(".container3 .child").position()
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
+    })
+    it("domtify", () => {
+      const res = position()(query(".container3 .child"))
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
+    })
+  })
+
+  describe("绝对定位", () => {
+    it("jquery", () => {
+      const res = $(".container4 .child").position()
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
+    })
+    it("domtify", () => {
+      const res = position()(query(".container4 .child"))
+      expect(res).toEqual({
+        top: 20,
+        left: 10,
+      })
+    })
+  })
+
+  describe("父元素有滚动条", () => {
+    it("jquery", () => {
+      const parent = document.querySelector(".container6")
+      parent.scrollTop = 60
+      parent.scrollLeft = 32
+
+      const res = $(".container6 .child").position()
+      expect(res).toEqual({
+        top: -10,
+        left: 18,
+      })
+    })
+    it("domtify", () => {
+      const parent = document.querySelector(".container6")
+      parent.scrollTop = 60
+      parent.scrollLeft = 32
+
+      const res = position()(query(".container6 .child"))
+      expect(res).toEqual({
+        top: -10,
+        left: 18,
+      })
     })
   })
 })
