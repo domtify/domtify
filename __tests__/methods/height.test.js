@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { height } from "@/methods/height.js"
 import $ from "jquery"
 import { mockViewport } from "../helpers/viewport.js"
@@ -47,9 +47,9 @@ describe("height", () => {
 
     it("domtify", () => {
       mockViewport({ height: 800 })
-      expect(height()(query(window))).toBe(800)
+      expect(height()(dom(window))).toBe(800)
       mockViewport({ height: 600 })
-      expect(height()(query(window))).toBe(600)
+      expect(height()(dom(window))).toBe(600)
     })
   })
 
@@ -62,7 +62,7 @@ describe("height", () => {
     it("domtify", () => {
       document.documentElement.style.height = "980px"
       document.body.style.height = "1000px"
-      expect(height()(query(document))).toBe(1020)
+      expect(height()(dom(document))).toBe(1020)
     })
   })
 
@@ -71,7 +71,7 @@ describe("height", () => {
       expect($(".border-box").height()).toBe(160.8)
     })
     it("domtify", () => {
-      expect(height()(query(".border-box"))).toBe(160.8)
+      expect(height()(dom(".border-box"))).toBe(160.8)
     })
   })
 
@@ -81,7 +81,7 @@ describe("height", () => {
     })
 
     it("domtify", () => {
-      expect(height()(query(".content-box"))).toBe(200)
+      expect(height()(dom(".content-box"))).toBe(200)
     })
   })
 
@@ -93,7 +93,7 @@ describe("height", () => {
     })
 
     it("domtify", () => {
-      height(100)(query(".box"))
+      height(100)(dom(".box"))
       expect(borderBoxEl.style.height).toBe("139.2px")
       expect(contentBoxEl.style.height).toBe("100px")
     })
@@ -107,7 +107,7 @@ describe("height", () => {
     })
 
     it("domtify", () => {
-      height("100")(query(".box"))
+      height("100")(dom(".box"))
       expect(borderBoxEl.style.height).toBe("139.2px")
       expect(contentBoxEl.style.height).toBe("100px")
     })
@@ -122,7 +122,7 @@ describe("height", () => {
     })
 
     it("domtify", () => {
-      height("10em")(query(".box"))
+      height("10em")(dom(".box"))
 
       expect(borderBoxEl.style.height).toBe("199.2px")
       expect(contentBoxEl.style.height).toBe("10em")
@@ -137,7 +137,7 @@ describe("height", () => {
     })
 
     it("domtify", () => {
-      height("10pq")(query(".box"))
+      height("10pq")(dom(".box"))
       expect(borderBoxEl.style.height).toBe("239.2px")
       expect(contentBoxEl.style.height).toBe("")
     })
@@ -162,7 +162,7 @@ describe("height", () => {
     it("domtify", () => {
       const fn = vi.fn(() => "100")
 
-      height(fn)(query(".box"))
+      height(fn)(dom(".box"))
 
       expect(fn.mock.calls[0][0]).toBe(0)
       expect(fn.mock.calls[0][1]).toBe(160.8)

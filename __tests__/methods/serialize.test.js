@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { serialize } from "@/methods/serialize.js"
 
 describe("serialize", () => {
@@ -77,7 +77,7 @@ describe("serialize", () => {
   })
 
   it("遍历所有元素", () => {
-    const result = serialize()(query("form"))
+    const result = serialize()(dom("form"))
     expect(result).toBe(
       "email=123%40qq.com&single=Single&multiple=Multiple&multiple=Multiple3&check=check2&radio=radio1",
     )

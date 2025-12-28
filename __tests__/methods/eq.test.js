@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { eq } from "@/methods/eq.js"
 
 describe("eq", () => {
@@ -18,35 +18,35 @@ describe("eq", () => {
   })
 
   it("应按索引获取正确的元素", () => {
-    const res = eq(2)(query("li"))
+    const res = eq(2)(dom("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 3")
   })
 
   it("支持负数从后往前数", () => {
-    const res = eq(-2)(query("li"))
+    const res = eq(-2)(dom("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 4")
   })
 
   it("如果超出了范围", () => {
-    const res = eq(10)(query("li"))
+    const res = eq(10)(dom("li"))
     expect(res.length).toBe(0)
   })
 
   it("倒着查找索引也超出范围", () => {
-    const res = eq(-10)(query("li"))
+    const res = eq(-10)(dom("li"))
     expect(res.length).toEqual(0)
   })
 
   it("支持字符串数字", () => {
-    const res = eq("-2")(query("li"))
+    const res = eq("-2")(dom("li"))
     expect(res.length).toBe(1)
     expect(res[0].textContent).toBe("item 4")
   })
 
   it("其它非数字字符串", () => {
-    const res = eq("abcd")(query("li"))
+    const res = eq("abcd")(dom("li"))
     expect(res.length).toEqual(0)
   })
 })

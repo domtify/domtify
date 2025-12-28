@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { addClass } from "@/methods/addClass.js"
 
 describe("addClass", () => {
@@ -15,14 +15,14 @@ describe("addClass", () => {
   })
 
   it("添加单个字符串类名", () => {
-    addClass("foo")(query("li"))
+    addClass("foo")(dom("li"))
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
     }
   })
 
   it("添加多个类名（空格分隔字符串）", () => {
-    addClass("foo bar")(query("li"))
+    addClass("foo bar")(dom("li"))
 
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
@@ -31,7 +31,7 @@ describe("addClass", () => {
   })
 
   it("添加多个类名（数组，元素中有空格）", () => {
-    addClass(["foo bar", "baz"])(query("li"))
+    addClass(["foo bar", "baz"])(dom("li"))
 
     for (const element of document.querySelectorAll("li")) {
       expect(element.classList.contains("foo")).toBe(true)
@@ -43,7 +43,7 @@ describe("addClass", () => {
   it("添加类名（回调函数返回字符串）", () => {
     addClass(function (index) {
       return "item-" + index
-    })(query("li"))
+    })(dom("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -53,7 +53,7 @@ describe("addClass", () => {
   it("添加类名（回调函数返回数组）", () => {
     addClass(function (index) {
       return ["item-" + index, "common", "hello world"]
-    })(query("li"))
+    })(dom("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -66,7 +66,7 @@ describe("addClass", () => {
   it("添加类名（回调函数返回数组）", () => {
     addClass(function (index) {
       return ["item-" + index, "common", "hello world"]
-    })(query("li"))
+    })(dom("li"))
 
     for (const [index, element] of document.querySelectorAll("li").entries()) {
       expect(element.classList.contains("item-" + index)).toBe(true)
@@ -79,7 +79,7 @@ describe("addClass", () => {
   it("addClass 忽略 null 类型输入", () => {
     const div = document.createElement("div")
     div.className = "a"
-    addClass(null)(query(div))
+    addClass(null)(dom(div))
     expect(div.className).toBe("a")
   })
 })

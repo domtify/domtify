@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { prop } from "@/methods/prop.js"
 
 describe("prop", () => {
@@ -12,30 +12,30 @@ describe("prop", () => {
   })
 
   it("getter: 获取元素属性", () => {
-    const checked = prop("checked")(query("#check1"))
+    const checked = prop("checked")(dom("#check1"))
     expect(checked).toBe(true)
   })
 
   it("getter: 空集合返回 undefined", () => {
-    const result = prop("checked")(query(".not-exist"))
+    const result = prop("checked")(dom(".not-exist"))
     expect(result).toBeUndefined()
   })
 
   it("setter: 单个设置属性", () => {
-    prop("disabled", true)(query("#check1"))
-    expect(prop("disabled")(query("#check1"))).toBe(true)
+    prop("disabled", true)(dom("#check1"))
+    expect(prop("disabled")(dom("#check1"))).toBe(true)
   })
 
   it("setter: 批量设置属性", () => {
     prop({
       disabled: true,
       checked: false,
-    })(query("input[type='checkbox']"))
+    })(dom("input[type='checkbox']"))
 
-    expect(prop("disabled")(query("#check1"))).toBe(true)
-    expect(prop("checked")(query("#check1"))).toBe(false)
-    expect(prop("disabled")(query("#check2"))).toBe(true)
-    expect(prop("checked")(query("#check2"))).toBe(false)
+    expect(prop("disabled")(dom("#check1"))).toBe(true)
+    expect(prop("checked")(dom("#check1"))).toBe(false)
+    expect(prop("disabled")(dom("#check2"))).toBe(true)
+    expect(prop("checked")(dom("#check2"))).toBe(false)
   })
 
   it("setter: 使用函数动态设置", () => {
@@ -45,16 +45,16 @@ describe("prop", () => {
       expect(typeof i).toBe("number")
       expect(typeof val).toBe("boolean")
       return !val
-    })(query("input"))
+    })(dom("input"))
 
     // 原来 check1 是 true，check2 是 false，现在取反
-    expect(prop("checked")(query("#check1"))).toBe(false)
-    expect(prop("checked")(query("#check2"))).toBe(true)
+    expect(prop("checked")(dom("#check1"))).toBe(false)
+    expect(prop("checked")(dom("#check2"))).toBe(true)
   })
 
   it("setter: 函数返回 undefined 时不修改值", () => {
-    prop("checked", () => undefined)(query("#check1"))
+    prop("checked", () => undefined)(dom("#check1"))
     // 应该保持原值
-    expect(prop("checked")(query("#check1"))).toBe(true)
+    expect(prop("checked")(dom("#check1"))).toBe(true)
   })
 })

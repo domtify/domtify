@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { scrollLeft } from "@/methods/scrollLeft.js"
 import $ from "jquery"
 
@@ -29,7 +29,7 @@ describe("scrollLeft", () => {
     })
     it("domtify", () => {
       div.scrollLeft = 123
-      expect(scrollLeft()(query(div))).toBe(123.19999694824219)
+      expect(scrollLeft()(dom(div))).toBe(123.19999694824219)
     })
   })
 
@@ -38,7 +38,7 @@ describe("scrollLeft", () => {
       expect($().scrollLeft()).toBeUndefined()
     })
     it("domtify", () => {
-      expect(scrollLeft()(query())).toBeUndefined()
+      expect(scrollLeft()(dom())).toBeUndefined()
     })
   })
 
@@ -48,7 +48,7 @@ describe("scrollLeft", () => {
       expect(div.scrollLeft).toBe(200)
     })
     it("domtify", () => {
-      scrollLeft(200)(query(div))
+      scrollLeft(200)(dom(div))
       expect(div.scrollLeft).toBe(200)
     })
   })
@@ -71,7 +71,7 @@ describe("scrollLeft", () => {
 
       const fn = vi.fn(() => 50 + 25)
 
-      scrollLeft(fn)(query(div))
+      scrollLeft(fn)(dom(div))
       expect(fn.mock.calls[0][0]).toBe(0)
 
       expect(fn.mock.calls[0][1]).toBe(50.400001525878906)

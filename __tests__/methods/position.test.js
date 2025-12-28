@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { position } from "@/methods/position.js"
 import $ from "jquery"
 
@@ -81,7 +81,7 @@ describe("position", () => {
     it("domtify", () => {
       let res
       expect(() => {
-        res = position()(query(".not-exist"))
+        res = position()(dom(".not-exist"))
       }).not.toThrow()
       expect(res).toBeUndefined()
     })
@@ -95,7 +95,7 @@ describe("position", () => {
       )
     })
     it("domtify", () => {
-      const result = position()(query(10))
+      const result = position()(dom(10))
       expect(result).toBeUndefined()
     })
   })
@@ -108,7 +108,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      expect(position()(query(".container0 .child"))).toEqual({
+      expect(position()(dom(".container0 .child"))).toEqual({
         top: 0,
         left: 0,
       })
@@ -123,7 +123,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      expect(position()(query("html"))).toEqual({
+      expect(position()(dom("html"))).toEqual({
         top: 0,
         left: 0,
       })
@@ -138,7 +138,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      expect(position()(query(".container1 .child"))).toEqual({
+      expect(position()(dom(".container1 .child"))).toEqual({
         top: 120,
         left: 120,
       })
@@ -154,7 +154,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      const res = position()(query(".container2 .child"))
+      const res = position()(dom(".container2 .child"))
       expect(res).toEqual({
         top: 20,
         left: 10,
@@ -170,7 +170,7 @@ describe("position", () => {
       expect(left).toBe(-0.0000015258789005656581)
     })
     it("domtify", () => {
-      const { top, left } = position()(query(".container5 .child"))
+      const { top, left } = position()(dom(".container5 .child"))
 
       expect(top).toBe(0.000006103515630684342)
       expect(left).toBe(-0.0000015258789005656581)
@@ -186,7 +186,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      const res = position()(query(".container3 .child"))
+      const res = position()(dom(".container3 .child"))
       expect(res).toEqual({
         top: 20,
         left: 10,
@@ -203,7 +203,7 @@ describe("position", () => {
       })
     })
     it("domtify", () => {
-      const res = position()(query(".container4 .child"))
+      const res = position()(dom(".container4 .child"))
       expect(res).toEqual({
         top: 20,
         left: 10,
@@ -228,7 +228,7 @@ describe("position", () => {
       parent.scrollTop = 60
       parent.scrollLeft = 32
 
-      const res = position()(query(".container6 .child"))
+      const res = position()(dom(".container6 .child"))
       expect(res).toEqual({
         top: -10,
         left: 18,

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { wrapAll } from "@/methods/wrapAll.js"
 
 describe("wrapAll", () => {
@@ -17,7 +17,7 @@ describe("wrapAll", () => {
   })
 
   it("用选择器包装元素", () => {
-    const inners = query(".inner")
+    const inners = dom(".inner")
     wrapAll(".double")(inners)
 
     const wrapper = container.querySelector(".double")
@@ -27,7 +27,7 @@ describe("wrapAll", () => {
   })
 
   it("用 HTML 字符串包装元素", () => {
-    const inners = query(".inner")
+    const inners = dom(".inner")
     wrapAll("<div class='new'></div>")(inners)
 
     const wrapper = container.querySelector(".new")
@@ -38,7 +38,7 @@ describe("wrapAll", () => {
   })
 
   it("用元素包装元素", () => {
-    const inners = query(".inner")
+    const inners = dom(".inner")
     const existing = container.querySelector(".double")
     wrapAll(existing)(inners)
 
@@ -49,9 +49,9 @@ describe("wrapAll", () => {
   })
 
   it("元素数组", () => {
-    const inners = wrapAll(query(".double"))(query(".inner"))
+    const inners = wrapAll(dom(".double"))(dom(".inner"))
 
-    const existing = query(".double")
+    const existing = dom(".double")
     wrapAll(existing)(inners)
 
     const wrapper = container.querySelector(".double")
@@ -61,11 +61,11 @@ describe("wrapAll", () => {
   })
 
   it("数字边缘情况", () => {
-    expect(() => wrapAll(10)(query(".inner"))).not.throw()
+    expect(() => wrapAll(10)(dom(".inner"))).not.throw()
   })
 
   it("函数返回包装元素", () => {
-    const inners = query(".inner")
+    const inners = dom(".inner")
     wrapAll(function () {
       return "<div class='new'></div>"
     })(inners)
@@ -79,7 +79,7 @@ describe("wrapAll", () => {
 
   it("没有父元素时不会报错", () => {
     // 移除 container
-    const inners = query(".inner")
+    const inners = dom(".inner")
     const parent = container.querySelector(".container")
     parent.remove()
 
@@ -88,7 +88,7 @@ describe("wrapAll", () => {
   })
 
   it("如果没找到元素,则不进行任何操作提前返回this", () => {
-    const res = query("p")
+    const res = dom("p")
     const res2 = wrapAll(".no-exist")(res)
     expect(res2).toBe(res)
   })
@@ -98,7 +98,7 @@ describe("wrapAll", () => {
     const detached = document.createElement("div")
     detached.className = "inner"
 
-    const collection = query([detached]) // 使用集合对象包装
+    const collection = dom([detached]) // 使用集合对象包装
 
     // 传入任何包装元素都可以
     const res = wrapAll("<div class='wrapper'></div>")(collection)

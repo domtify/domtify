@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { has } from "@/methods/has.js"
 
 describe("has", () => {
@@ -21,26 +21,26 @@ describe("has", () => {
     `
   })
   it("支持使用 CSS 选择器字符串作为参数", () => {
-    const result = has(".ul")(query("li"))
+    const result = has(".ul")(dom("li"))
     expect(result.length).toBe(1)
     expect(result[0].textContent).toContain("list item 2")
   })
 
   it("支持使用 DOM 元素作为参数", () => {
     const ulElement = document.querySelector(".ul")
-    const result = has(ulElement)(query("li"))
+    const result = has(ulElement)(dom("li"))
     expect(result.length).toBe(1)
     expect(result[0].textContent).toContain("list item 2")
   })
 
   it("支持使用 domtify 对象作为参数", () => {
-    const result = has(query(".ul"))(query("li"))
+    const result = has(dom(".ul"))(dom("li"))
     expect(result.length).toBe(1)
     expect(result[0].textContent).toContain("list item 2")
   })
 
   it("没有匹配的后代应返回空数组", () => {
-    const result = has(".not-exist")(query("li"))
+    const result = has(".not-exist")(dom("li"))
     expect(result.length).toBe(0)
   })
 })

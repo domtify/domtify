@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { replaceClass } from "@/methods/replaceClass.js"
 
 describe("replaceClass", () => {
@@ -14,7 +14,7 @@ describe("replaceClass", () => {
   })
 
   it("支持字符串替换", () => {
-    replaceClass("foo", "new-foo")(query("li"))
+    replaceClass("foo", "new-foo")(dom("li"))
 
     const foo = document.getElementById("foo")
     expect(foo.classList.contains("new-foo")).toBe(true)
@@ -26,7 +26,7 @@ describe("replaceClass", () => {
       expect(this).toBeInstanceOf(HTMLElement) // this 绑定正确
       expect(typeof currClass).toBe("string")
       return "foo-" + i
-    })(query("li"))
+    })(dom("li"))
 
     const foo = document.getElementById("foo")
     const bar = document.getElementById("bar")
@@ -38,7 +38,7 @@ describe("replaceClass", () => {
     replaceClass({
       foo: "x-foo",
       bar: "x-bar",
-    })(query("li"))
+    })(dom("li"))
 
     const foo = document.getElementById("foo")
     expect(foo.classList.contains("x-foo")).toBe(true)
@@ -53,7 +53,7 @@ describe("replaceClass", () => {
         foo: "foo-" + i,
         bar: "bar-" + i,
       }
-    })(query("li"))
+    })(dom("li"))
 
     const foo = document.getElementById("foo")
     expect(foo.classList.contains("foo-0")).toBe(true)
@@ -61,7 +61,7 @@ describe("replaceClass", () => {
   })
 
   it("不包含要替换的 class 时不报错", () => {
-    replaceClass("not-exist", "new-class")(query("li"))
+    replaceClass("not-exist", "new-class")(dom("li"))
 
     const foo = document.getElementById("foo")
     expect(foo.classList.contains("not-exist")).toBe(false)
@@ -69,7 +69,7 @@ describe("replaceClass", () => {
   })
 
   it("返回数组", () => {
-    const res = replaceClass("foo", "replaced")(query("li"))
+    const res = replaceClass("foo", "replaced")(dom("li"))
     expect(res.length).toBe(2)
   })
   it("边缘情况数字测试,函数第二个参数应该是空字符串", () => {
@@ -77,7 +77,7 @@ describe("replaceClass", () => {
       expect(index).toBeTypeOf("number") // 确认 index 是数字
       expect([0, 1]).toContain(index) // 确认 index 是 0 或 1
       expect(currClass).toEqual("")
-    })(query([10, 20]))
+    })(dom([10, 20]))
     expect(res.length).toBe(2)
   })
 })

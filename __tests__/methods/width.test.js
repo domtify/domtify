@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { width } from "@/methods/width.js"
 import $ from "jquery"
 import { mockViewport } from "../helpers/viewport.js"
@@ -47,9 +47,9 @@ describe("width", () => {
 
     it("domtify", () => {
       mockViewport({ width: 800 })
-      expect(width()(query(window))).toBe(800)
+      expect(width()(dom(window))).toBe(800)
       mockViewport({ width: 600 })
-      expect(width()(query(window))).toBe(600)
+      expect(width()(dom(window))).toBe(600)
     })
   })
 
@@ -62,7 +62,7 @@ describe("width", () => {
     it("domtify", () => {
       document.documentElement.style.width = "980px"
       document.body.style.width = "1000px"
-      expect(width()(query(document))).toBe(1000)
+      expect(width()(dom(document))).toBe(1000)
     })
   })
 
@@ -71,7 +71,7 @@ describe("width", () => {
       expect($(".border-box").width()).toBe(160.8)
     })
     it("domtify", () => {
-      expect(width()(query(".border-box"))).toBe(160.8)
+      expect(width()(dom(".border-box"))).toBe(160.8)
     })
   })
 
@@ -81,7 +81,7 @@ describe("width", () => {
     })
 
     it("domtify", () => {
-      expect(width()(query(".content-box"))).toBe(200)
+      expect(width()(dom(".content-box"))).toBe(200)
     })
   })
 
@@ -93,7 +93,7 @@ describe("width", () => {
     })
 
     it("domtify", () => {
-      width(100)(query(".box"))
+      width(100)(dom(".box"))
       expect(borderBoxEl.style.width).toBe("139.2px")
       expect(contentBoxEl.style.width).toBe("100px")
     })
@@ -107,7 +107,7 @@ describe("width", () => {
     })
 
     it("domtify", () => {
-      width("100")(query(".box"))
+      width("100")(dom(".box"))
       expect(borderBoxEl.style.width).toBe("139.2px")
       expect(contentBoxEl.style.width).toBe("100px")
     })
@@ -122,7 +122,7 @@ describe("width", () => {
     })
 
     it("domtify", () => {
-      width("10em")(query(".box"))
+      width("10em")(dom(".box"))
 
       expect(borderBoxEl.style.width).toBe("199.2px")
       expect(contentBoxEl.style.width).toBe("10em")
@@ -137,7 +137,7 @@ describe("width", () => {
     })
 
     it("domtify", () => {
-      width("10pq")(query(".box"))
+      width("10pq")(dom(".box"))
       expect(borderBoxEl.style.width).toBe("239.2px")
       expect(contentBoxEl.style.width).toBe("")
     })
@@ -162,7 +162,7 @@ describe("width", () => {
     it("domtify", () => {
       const fn = vi.fn(() => "100")
 
-      width(fn)(query(".box"))
+      width(fn)(dom(".box"))
 
       expect(fn.mock.calls[0][0]).toBe(0)
       expect(fn.mock.calls[0][1]).toBe(160.8)

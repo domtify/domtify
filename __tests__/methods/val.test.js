@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { val } from "@/methods/val.js"
 
 describe("val", () => {
@@ -26,15 +26,15 @@ describe("val", () => {
   })
 
   it("获取input框的值", () => {
-    expect(val()(query("input"))).toBe("some text")
+    expect(val()(dom("input"))).toBe("some text")
   })
 
   it("单选下拉框", () => {
-    expect(val()(query("#single"))).toBe("option1")
+    expect(val()(dom("#single"))).toBe("option1")
   })
 
   it("多选下拉框", () => {
-    expect(val()(query("#multiple"))).toEqual(["option1", "option3"])
+    expect(val()(dom("#multiple"))).toEqual(["option1", "option3"])
   })
 
   // ---- Setter ----
@@ -44,7 +44,7 @@ describe("val", () => {
     const check2 = document.querySelector('input[value="check2"]')
     const radio2 = document.querySelector('input[value="radio2"]')
 
-    val("foo bar")(query("input"))
+    val("foo bar")(dom("input"))
 
     expect(textInput.value).toBe("foo bar")
     // 其它的输入框不受影响
@@ -59,7 +59,7 @@ describe("val", () => {
     const check2 = document.querySelector('input[value="check2"]')
     const radio2 = document.querySelector('input[value="radio2"]')
 
-    val(100)(query("input"))
+    val(100)(dom("input"))
 
     expect(textInput.value).toBe("100")
     // 其它的输入框不受影响
@@ -75,7 +75,7 @@ describe("val", () => {
     const radio1 = document.querySelector('input[value="radio1"]')
     const radio2 = document.querySelector('input[value="radio2"]')
 
-    val(["check1", "check2", "radio1"])(query("input"))
+    val(["check1", "check2", "radio1"])(dom("input"))
 
     expect(textInput.value).toBe("check1,check2,radio1")
     // 其它的输入框不受影响
@@ -99,7 +99,7 @@ describe("val", () => {
       }
       expect(oldVal).toBe(expected[index]) // 可选：验证 oldVal 是正确的
       return "foo"
-    })(query("input"))
+    })(dom("input"))
 
     expect(textInput.value).toBe("foo")
     expect(check1.checked).toBe(false)
@@ -110,7 +110,7 @@ describe("val", () => {
   })
 
   it("select-字符串", () => {
-    val("option2")(query("select"))
+    val("option2")(dom("select"))
     const selects = document.querySelectorAll("select")
 
     for (const sel of selects) {
@@ -119,7 +119,7 @@ describe("val", () => {
   })
 
   it("select-数组", () => {
-    val(["option2", "option3"])(query("select"))
+    val(["option2", "option3"])(dom("select"))
     const multi = document.querySelector("#multiple")
     const selected = Array.from(multi.selectedOptions).map((o) => o.value)
     expect(selected).toEqual(["option2", "option3"])
@@ -129,7 +129,7 @@ describe("val", () => {
     val((index, oldVal) => {
       if (index === 0) return "option1"
       else return ["option2", "option3"]
-    })(query("select"))
+    })(dom("select"))
     expect(document.querySelector("#single").value).toBe("option1")
     const multi = document.querySelector("#multiple")
     const selected = Array.from(multi.selectedOptions).map((o) => o.value)

@@ -1,7 +1,7 @@
 import { isNumber } from "is-what"
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { offset } from "@/methods/offset.js"
 import $ from "jquery"
 
@@ -33,7 +33,7 @@ describe("offset", () => {
     })
 
     it("domtify", () => {
-      const { top, left } = offset()(query(".box1"))
+      const { top, left } = offset()(dom(".box1"))
       expect(isNumber(top)).toBe(true)
       expect(isNumber(left)).toBe(true)
     })
@@ -45,7 +45,7 @@ describe("offset", () => {
     })
 
     it("domtify", () => {
-      expect(offset()(query(".not-found"))).toBeUndefined()
+      expect(offset()(dom(".not-found"))).toBeUndefined()
     })
   })
 
@@ -60,7 +60,7 @@ describe("offset", () => {
     it("domtify", () => {
       document.documentElement.style.padding = "10px"
 
-      const { top, left } = offset()(query(".box1"))
+      const { top, left } = offset()(dom(".box1"))
       expect(left).toBe(10)
       expect(top).toBe(10)
     })
@@ -84,7 +84,7 @@ describe("offset", () => {
         top: 100,
       })
 
-      const { top, left } = offset()(query(".box2"))
+      const { top, left } = offset()(dom(".box2"))
       expect(top, 129.2)
       expect(left, 10)
     })
@@ -119,7 +119,7 @@ describe("offset", () => {
       offset({
         top: 30,
         left: 20,
-      })(query("div"))
+      })(dom("div"))
 
       const box1 = document.querySelector(".box1")
       expect(box1.style.position).toBe("relative")
@@ -175,7 +175,7 @@ describe("offset", () => {
     it("domtify", () => {
       const fn = vi.fn(() => ({ top: 30, left: 20 }))
 
-      offset(fn)(query("div"))
+      offset(fn)(dom("div"))
 
       expect(fn.mock.calls[0][0]).toBe(0)
       expect(fn.mock.calls[0][1]).toBeTypeOf("object")

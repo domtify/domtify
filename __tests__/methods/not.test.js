@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { not } from "@/methods/not.js"
 
 describe("not", () => {
@@ -17,7 +17,7 @@ describe("not", () => {
   })
 
   it("过滤：选择器字符串", () => {
-    const res = not(":nth-child(2n)")(query("li"))
+    const res = not(":nth-child(2n)")(dom("li"))
     expect(res).toHaveLength(3)
     expect(res.map((el) => el.textContent)).toEqual([
       "list item 1",
@@ -28,7 +28,7 @@ describe("not", () => {
 
   it("过滤：单个 DOM 元素", () => {
     const item3El = document.querySelector(".item3")
-    const res = not(item3El)(query("li"))
+    const res = not(item3El)(dom("li"))
     expect(res).toHaveLength(4)
     expect(res.some((li) => li.classList.contains("item3"))).toBe(false)
   })
@@ -38,15 +38,15 @@ describe("not", () => {
       document.querySelector(".item3"),
       document.querySelector(".item4"),
     ]
-    const res = not(arr)(query("li"))
+    const res = not(arr)(dom("li"))
     expect(res).toHaveLength(3)
     expect(res.some((li) => li.classList.contains("item3"))).toBe(false)
     expect(res.some((li) => li.classList.contains("item4"))).toBe(false)
   })
 
   it("过滤：元素数组", () => {
-    const domArr = query(".item")
-    const res = not(domArr)(query("li"))
+    const domArr = dom(".item")
+    const res = not(domArr)(dom("li"))
     expect(res).toHaveLength(3)
     expect(res.some((li) => li.classList.contains("item"))).toBe(false)
   })
@@ -55,7 +55,7 @@ describe("not", () => {
     const res = not(function (index, el) {
       // 排除索引 3 的元素
       return index === 3
-    })(query("li"))
+    })(dom("li"))
     expect(res).toHaveLength(4)
     expect(res[3].textContent).toBe("list item 5")
   })

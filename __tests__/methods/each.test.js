@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { each } from "@/methods/each.js"
 
 describe("each", () => {
@@ -21,7 +21,7 @@ describe("each", () => {
 
       expect(this).toBe(el) // 检查 this 是否是当前元素
       result.push(el.id)
-    })(query("div"))
+    })(dom("div"))
     expect(result).toEqual(["d1", "d2", "d3", "d4"])
   })
 
@@ -30,12 +30,12 @@ describe("each", () => {
     each(function (index, el) {
       result.push(el.id)
       if (el.id === "d2") return false
-    })(query("div"))
+    })(dom("div"))
     expect(result).toEqual(["d1", "d2"]) // 应该在 d2 时终止
   })
 
   it("遍历后应该还继续返回原来的对象", () => {
-    const $items = query("div")
+    const $items = dom("div")
     const fn = vi.fn()
     const res = each(fn)($items)
     expect($items).toBe(res)

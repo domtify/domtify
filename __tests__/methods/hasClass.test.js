@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { hasClass } from "@/methods/hasClass.js"
 
 describe("hasClass", () => {
@@ -14,28 +14,28 @@ describe("hasClass", () => {
   })
 
   it("类存在返回true", () => {
-    const res = hasClass("foo")(query("li"))
+    const res = hasClass("foo")(dom("li"))
     expect(res).toBe(true)
-    const res2 = hasClass("bar")(query("li"))
+    const res2 = hasClass("bar")(dom("li"))
     expect(res2).toBe(true)
   })
 
   it("类不存在返回false", () => {
-    const res = hasClass("quux")(query("li"))
+    const res = hasClass("quux")(dom("li"))
     expect(res).toBe(false)
   })
 
   it("元素集合为空时,也返回false", () => {
-    const res = hasClass("foo")(query(".not-exist"))
+    const res = hasClass("foo")(dom(".not-exist"))
     expect(res).toBe(false)
   })
 
   it("数字不报错", () => {
-    expect(() => hasClass("foo")(query(1))).not.toThrow()
+    expect(() => hasClass("foo")(dom(1))).not.toThrow()
   })
 
   it("如果只有集合中的某个元素包含某个类,就都返回为真", () => {
-    const res = hasClass("zoo")(query("li"))
+    const res = hasClass("zoo")(dom("li"))
     expect(res).toBe(true)
   })
 })

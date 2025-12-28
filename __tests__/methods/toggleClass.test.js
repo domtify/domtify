@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { toggleClass } from "@/methods/toggleClass.js"
 
 describe("toggleClass", () => {
@@ -19,13 +19,13 @@ describe("toggleClass", () => {
   })
 
   it("字符串切换", () => {
-    toggleClass("foo")(query("li"))
+    toggleClass("foo")(dom("li"))
     expect(ul[0].classList.contains("foo")).toBe(false)
     expect(ul[1].classList.contains("foo")).toBe(true)
   })
 
   it("空格分割的字符串", () => {
-    toggleClass("foo bar")(query("li"))
+    toggleClass("foo bar")(dom("li"))
     expect(ul[0].classList.contains("foo")).toBe(false)
     expect(ul[0].classList.contains("bar")).toBe(false)
     expect(ul[1].classList.contains("foo")).toBe(true)
@@ -33,18 +33,18 @@ describe("toggleClass", () => {
   })
 
   it("字符串,第二个参数状态true(强制添加)", () => {
-    toggleClass("foo", true)(query("li"))
+    toggleClass("foo", true)(dom("li"))
     expect(ul[0].classList.contains("foo")).toBe(true)
     expect(ul[1].classList.contains("foo")).toBe(true)
   })
 
   it("字符串,第二个参数状态false(强制移除class)", () => {
-    toggleClass("bar", false)(query("li"))
+    toggleClass("bar", false)(dom("li"))
     expect(ul[0].classList.contains("bar")).toBe(false)
   })
 
   it("数组", () => {
-    toggleClass(["foo bar", "test"])(query("li"))
+    toggleClass(["foo bar", "test"])(dom("li"))
     expect(ul[0].classList.contains("foo")).toBe(false)
     expect(ul[0].classList.contains("bar")).toBe(false)
     expect(ul[0].classList.contains("test")).toBe(true)
@@ -53,7 +53,7 @@ describe("toggleClass", () => {
   it("函数,第二个参数强制移除", () => {
     toggleClass(function (index) {
       return [`item-${index}`]
-    }, false)(query("li"))
+    }, false)(dom("li"))
 
     expect(ul[0].classList.contains("item-0")).toBe(false)
   })
@@ -65,13 +65,13 @@ describe("toggleClass", () => {
       expect(this.valueOf()).toBe(1)
       expect(className).toBe("")
       return 1
-    })(query(1))
+    })(dom(1))
   })
 
   it("函数-state传递时形参应该和它保持相同", () => {
     toggleClass(function (index, className, state) {
       expect(state).toBe(true)
       return "foo"
-    }, true)(query("li"))
+    }, true)(dom("li"))
   })
 })

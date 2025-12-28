@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { add } from "@/methods/add.js"
 
 describe("add", () => {
@@ -19,7 +19,7 @@ describe("add", () => {
   })
 
   it("css选择器", () => {
-    const result = add("p")(query("li"))
+    const result = add("p")(dom("li"))
     expect(result.length).toBe(5) // 3 li + 2 p
     expect(result[3].tagName).toBe("P")
     expect(result[4].tagName).toBe("P")
@@ -27,34 +27,34 @@ describe("add", () => {
 
   it("element", () => {
     const p = document.querySelector("p")
-    const result = add(p)(query("li"))
+    const result = add(p)(dom("li"))
     expect(result.length).toBe(4)
     expect(result.at(-1)).toBe(p)
   })
 
   it("html代码片段", () => {
-    const result = add("<p id='new'>new paragraph</p>")(query("li"))
+    const result = add("<p id='new'>new paragraph</p>")(dom("li"))
 
     expect(result.length).toBe(4)
     expect(result.at(-1).id).toBe("new")
   })
 
   it("支持元素数组", () => {
-    const result = add(query("p"))(query("li"))
+    const result = add(dom("p"))(dom("li"))
     expect(result.length).toBe(5)
     expect(result.some((el) => el.tagName === "P")).toBe(true)
   })
 
   it("context参数限制范围", () => {
     const context = document.querySelector(".empty")
-    const result = add("p", context)(query("li"))
+    const result = add("p", context)(dom("li"))
     const addedP = result.filter((el) => el.tagName === "P")
     expect(addedP.length).toBe(1)
     expect(addedP[0].textContent).toBe("this is empty p")
   })
 
   it("返回一个新的元素数组", () => {
-    const li = query("li")
+    const li = dom("li")
     const result = add("p")(li)
     expect(result).not.toBe(li) // 浅比较
   })

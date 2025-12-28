@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { innerHeight } from "@/methods/innerHeight.js"
 import { mockViewport } from "../helpers/viewport.js"
 import $ from "jquery"
@@ -47,9 +47,9 @@ describe("innerHeight", () => {
 
     it("domtify", () => {
       mockViewport({ height: 800 })
-      expect(innerHeight()(query(window))).toBe(800)
+      expect(innerHeight()(dom(window))).toBe(800)
       mockViewport({ height: 600 })
-      expect(innerHeight()(query(window))).toBe(600)
+      expect(innerHeight()(dom(window))).toBe(600)
     })
   })
 
@@ -65,7 +65,7 @@ describe("innerHeight", () => {
       document.documentElement.style.height = "980px"
       document.body.style.height = "1000px"
 
-      expect(innerHeight()(query(document))).toBe(1020)
+      expect(innerHeight()(dom(document))).toBe(1020)
     })
   })
 
@@ -75,7 +75,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      expect(innerHeight()(query(".border-box"))).toBe(180.8)
+      expect(innerHeight()(dom(".border-box"))).toBe(180.8)
     })
   })
 
@@ -85,7 +85,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      expect(innerHeight()(query(".content-box"))).toBe(220)
+      expect(innerHeight()(dom(".content-box"))).toBe(220)
     })
   })
 
@@ -97,7 +97,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      innerHeight(100)(query(".box"))
+      innerHeight(100)(dom(".box"))
       expect(borderBoxEl.style.height).toBe("119.2px")
       expect(contentBoxEl.style.height).toBe("80px")
     })
@@ -111,7 +111,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      innerHeight("100")(query(".box"))
+      innerHeight("100")(dom(".box"))
       expect(borderBoxEl.style.height).toBe("119.2px")
       expect(contentBoxEl.style.height).toBe("80px")
     })
@@ -125,7 +125,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      innerHeight("10em")(query(".box"))
+      innerHeight("10em")(dom(".box"))
       expect(borderBoxEl.style.height).toBe("179.2px")
       expect(contentBoxEl.style.height).toBe("140px")
     })
@@ -139,7 +139,7 @@ describe("innerHeight", () => {
     })
 
     it("domtify", () => {
-      innerHeight("10pq")(query(".box"))
+      innerHeight("10pq")(dom(".box"))
       expect(borderBoxEl.style.height).toBe("219.2px")
       expect(contentBoxEl.style.height).toBe("180px")
     })
@@ -160,7 +160,7 @@ describe("innerHeight", () => {
     it("domtify", () => {
       const fn = vi.fn(() => "100")
 
-      innerHeight(fn)(query(".box"))
+      innerHeight(fn)(dom(".box"))
       expect(fn.mock.calls[0][0]).toBe(0)
       expect(fn.mock.calls[0][1]).toBe(180.8)
       expect(fn.mock.calls[1][0]).toBe(1)

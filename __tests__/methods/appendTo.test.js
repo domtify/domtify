@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { appendTo } from "@/methods/appendTo.js"
 import jQuery from "jquery"
 
@@ -19,7 +19,7 @@ describe("appendTo", () => {
   })
 
   it("支持选择器", () => {
-    appendTo("h2")(query(".inner"))
+    appendTo("h2")(dom(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
@@ -27,21 +27,21 @@ describe("appendTo", () => {
   })
 
   it("支持 HTML 字符串", () => {
-    appendTo("<p>Test</p>")(query(".inner"))
+    appendTo("<p>Test</p>")(dom(".inner"))
 
     expect(document.querySelector(".container .inner")).toBe(null)
   })
 
   it("支持单个 DOM 元素", () => {
     const h2 = document.querySelector("h2")
-    appendTo(h2)(query(".inner"))
+    appendTo(h2)(dom(".inner"))
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("支持 HTMLCollection", () => {
     const ps = document.getElementsByTagName("p")
-    appendTo([ps])(query(".inner"))
+    appendTo([ps])(dom(".inner"))
 
     for (const p of ps) {
       expect(p.firstElementChild.classList.contains("inner")).toBe(true)
@@ -50,7 +50,7 @@ describe("appendTo", () => {
 
   it("支持数组 (多个目标)", () => {
     appendTo([document.querySelector("h2"), document.querySelector("h3")])(
-      query(".inner"),
+      dom(".inner"),
     )
 
     const h2 = document.querySelector("h2")
@@ -61,14 +61,14 @@ describe("appendTo", () => {
   })
 
   it("支持元素对象", () => {
-    appendTo(query("h2"))(query(".inner"))
+    appendTo(dom("h2"))(dom(".inner"))
     const h2 = document.querySelector("h2")
 
     expect(h2.firstElementChild.classList.contains("inner")).toBe(true)
   })
 
   it("返回被插入的元素本身", () => {
-    const res = appendTo("h2")(query(".inner"))
+    const res = appendTo("h2")(dom(".inner"))
     const res2 = jQuery(".inner").appendTo("h2")
 
     expect(res.length).toBe(2)

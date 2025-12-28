@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { wrapInner } from "@/methods/wrapInner.js"
 
 describe("wrapInner", () => {
@@ -20,7 +20,7 @@ describe("wrapInner", () => {
   })
 
   it("html字符串", () => {
-    const inner = query(".inner")
+    const inner = dom(".inner")
     wrapInner("<span class='wrap'></span>")(inner)
 
     inner.forEach((el) => {
@@ -32,21 +32,21 @@ describe("wrapInner", () => {
   })
 
   it("选择器", () => {
-    const res = wrapInner(".double")(query(".inner"))
+    const res = wrapInner(".double")(dom(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("元素数组", () => {
-    const res = wrapInner(query(".double"))(query(".inner"))
+    const res = wrapInner(dom(".double"))(dom(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
   })
 
   it("元素", () => {
-    const res = wrapInner(document.querySelector(".double"))(query(".inner"))
+    const res = wrapInner(document.querySelector(".double"))(dom(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("double")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("double")).toBe(true)
@@ -56,14 +56,14 @@ describe("wrapInner", () => {
     const res = wrapInner(function (index) {
       expect(Number.isInteger(index) && index >= 0).toBe(true)
       return "<div class='new'></div>"
-    })(query(".inner"))
+    })(dom(".inner"))
 
     expect(res[0].firstElementChild.classList.contains("new")).toBe(true)
     expect(res[1].firstElementChild.classList.contains("new")).toBe(true)
   })
 
   it("边缘情况测试数字", () => {
-    const res = wrapInner(123)(query(".inner"))
+    const res = wrapInner(123)(dom(".inner"))
     expect(res.length).toBe(2)
 
     expect(Array.isArray(res)).toBe(true)

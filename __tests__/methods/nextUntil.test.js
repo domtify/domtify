@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest"
 
-import { query } from "@/core.js"
+import { dom } from "@/core.js"
 import { nextUntil } from "@/methods/nextUntil.js"
 
 describe("nextUntil", () => {
@@ -24,7 +24,7 @@ describe("nextUntil", () => {
   })
 
   it("选择器参数: 从 term-2 到下一个 dt 之间的所有兄弟节点", () => {
-    const res = nextUntil("dt")(query("#term-2"))
+    const res = nextUntil("dt")(dom("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
@@ -34,7 +34,7 @@ describe("nextUntil", () => {
 
   it("Element 参数: 从 term-2 到 term-3 之间", () => {
     const target = document.querySelector("#term-3")
-    const res = nextUntil(target)(query("#term-2"))
+    const res = nextUntil(target)(dom("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
@@ -43,12 +43,12 @@ describe("nextUntil", () => {
   })
 
   it("过滤器参数: 只匹配 .b", () => {
-    const res = nextUntil("dt", ".b")(query("#term-2"))
+    const res = nextUntil("dt", ".b")(dom("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual(["definition 2-b"])
   })
 
   it("传入 domtify 对象作为 until 元素", () => {
-    const res = nextUntil(query("dt"))(query("#term-2"))
+    const res = nextUntil(dom("dt"))(dom("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",
       "definition 2-b",
@@ -57,13 +57,13 @@ describe("nextUntil", () => {
   })
 
   it("当没有匹配时返回空数组", () => {
-    const res = nextUntil("dt")(query(".not-exist"))
+    const res = nextUntil("dt")(dom(".not-exist"))
     expect(res).toEqual([])
   })
 
   it("返回元素数组", () => {
-    const res = query("#term-2")
-    const nextUntilRes = nextUntil(query("dt"))(res)
+    const res = dom("#term-2")
+    const nextUntilRes = nextUntil(dom("dt"))(res)
 
     expect(Array.isArray(res)).toBe(true)
     expect(Array.isArray(nextUntilRes)).toBe(true)
