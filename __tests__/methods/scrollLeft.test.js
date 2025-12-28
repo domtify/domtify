@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from "vitest"
 
 import { query } from "@/core.js"
 import { scrollLeft } from "@/methods/scrollLeft.js"
+import $ from "jquery"
 
 describe("scrollLeft", () => {
   let div
@@ -21,29 +22,60 @@ describe("scrollLeft", () => {
     document.body.appendChild(div)
   })
 
-  it("无参数时应该返回", () => {
-    div.scrollLeft = 123
-
-    expectPixelEqual(scrollLeft()(query(div)), 123.19999694824219)
+  describe("getter:返回左侧滚动偏移量", () => {
+    it("jquery", () => {
+      div.scrollLeft = 123
+      expect($(div).scrollLeft()).toBe(123.19999694824219)
+    })
+    it("domtify", () => {
+      div.scrollLeft = 123
+      expect(scrollLeft()(query(div))).toBe(123.19999694824219)
+    })
   })
 
-  it("数值", () => {
-    scrollLeft(200)(query(div))
-    expect(div.scrollLeft).toBe(200)
+  describe("getter:没有元素时返回 undefined", () => {
+    it("jquery", () => {
+      expect($().scrollLeft()).toBeUndefined()
+    })
+    it("domtify", () => {
+      expect(scrollLeft()(query())).toBeUndefined()
+    })
   })
 
-  it("函数", () => {
-    div.scrollLeft = 50
-
-    const fn = vi.fn(() => 50 + 25)
-
-    scrollLeft(fn)(query(div))
-    expect(fn.mock.calls[0][0]).toBe(0)
-    expectPixelEqual(fn.mock.calls[0][1], 50.400001525878906)
-    expectPixelEqual(div.scrollLeft, 75.19999694824219)
+  describe("setter:数值", () => {
+    it("jquery", () => {
+      $(div).scrollLeft(200)
+      expect(div.scrollLeft).toBe(200)
+    })
+    it("domtify", () => {
+      scrollLeft(200)(query(div))
+      expect(div.scrollLeft).toBe(200)
+    })
   })
 
-  it("没有元素时返回 undefined", () => {
-    expect(scrollLeft()(query())).toBeUndefined()
+  describe("setter:函数", () => {
+    it("jquery", () => {
+      div.scrollLeft = 50
+
+      const fn = vi.fn(() => 50 + 25)
+
+      $(div).scrollLeft(fn)
+      expect(fn.mock.calls[0][0]).toBe(0)
+
+      expect(fn.mock.calls[0][1]).toBe(50.400001525878906)
+      expect(div.scrollLeft).toBe(75.19999694824219)
+    })
+
+    it("domtify", () => {
+      div.scrollLeft = 50
+
+      const fn = vi.fn(() => 50 + 25)
+
+      scrollLeft(fn)(query(div))
+      expect(fn.mock.calls[0][0]).toBe(0)
+
+      expect(fn.mock.calls[0][1]).toBe(50.400001525878906)
+      expect(div.scrollLeft).toBe(75.19999694824219)
+    })
   })
 })
