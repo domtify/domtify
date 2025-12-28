@@ -2,17 +2,22 @@ import { describe, it, expect, beforeEach, vi } from "vitest"
 
 import { query } from "@/core.js"
 import { innerWidth } from "@/methods/innerWidth.js"
+import { mockViewport } from "../helpers/viewport.js"
+import $ from "jquery"
 
 describe("innerWidth", () => {
   let borderBoxEl
   let contentBoxEl
+
   beforeEach(() => {
     const style = document.createElement("style")
     style.textContent = `
       .box {
-        border: 10px solid red;
-        height: 50px;
+        height: 200px;
         width: 200px;
+        padding: 10px;
+        margin: 20px;
+        border: 10px solid red;
       }
       .border-box {
         box-sizing: border-box;
@@ -32,70 +37,136 @@ describe("innerWidth", () => {
     contentBoxEl = document.querySelector(".content-box")
   })
 
-  it("获取 window 高度", () => {
-    Object.defineProperty(window, "innerWidth", {
-      value: 800,
-      configurable: true,
+  describe("获取 window 宽度", () => {
+    it("jquery", () => {
+      mockViewport({ width: 800 })
+      expect($(window).innerWidth()).toBe(800)
+      mockViewport({ width: 600 })
+      expect($(window).innerWidth()).toBe(600)
     })
-    expect(innerWidth()(query(window))).toBe(800)
 
-    Object.defineProperty(window, "innerWidth", {
-      value: 600,
-      configurable: true,
+    it("domtify", () => {
+      mockViewport({ width: 800 })
+      expect(innerWidth()(query(window))).toBe(800)
+      mockViewport({ width: 600 })
+      expect(innerWidth()(query(window))).toBe(600)
     })
-    expect(innerWidth()(query(window))).toBe(600)
   })
 
-  it("获取 document 高度", () => {
-    document.body.style.width = "1000px"
-    document.documentElement.style.width = "980px"
-    expect(innerWidth()(query(document))).toBe(1000)
+  describe("获取 document 宽度", () => {
+    it("jquery", () => {
+      document.documentElement.style.width = "980px"
+      document.body.style.width = "1000px"
+
+      expect($(document).innerWidth()).toBe(1000)
+    })
+
+    it("domtify", () => {
+      document.documentElement.style.width = "980px"
+      document.body.style.width = "1000px"
+
+      expect(innerWidth()(query(document))).toBe(1000)
+    })
   })
 
-  it("border-box 元素", () => {
-    const result = innerWidth()(query(".border-box"))
-    expectPixelEqual(result, 180.8)
+  describe("border-box 元素", () => {
+    it("jquery", () => {
+      expect($(".border-box").innerWidth()).toBe(180.8)
+    })
+
+    it("domtify", () => {
+      expect(innerWidth()(query(".border-box"))).toBe(180.8)
+    })
   })
 
-  it("content-box 元素", () => {
-    const result = innerWidth()(query(".content-box"))
-    expectPixelEqual(result, 200)
+  describe("content-box 元素", () => {
+    it("jquery", () => {
+      expect($(".content-box").innerWidth()).toBe(220)
+    })
+
+    it("domtify", () => {
+      expect(innerWidth()(query(".content-box"))).toBe(220)
+    })
   })
 
-  it("数字", () => {
-    innerWidth(100)(query("div"))
-    expectPixelEqual(borderBoxEl.style.width, "119.2px")
-    expectPixelEqual(contentBoxEl.style.width, "100px")
+  describe("setter-数字", () => {
+    it("jquery", () => {
+      $(".box").innerWidth(100)
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
+
+    it("domtify", () => {
+      innerWidth(100)(query(".box"))
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
   })
 
-  it("数字字符串", () => {
-    innerWidth("100.1")(query("div"))
-    expectPixelEqual(borderBoxEl.style.width, "119.3px")
-    expectPixelEqual(contentBoxEl.style.width, "100.1px")
+  describe("setter-数字字符串", () => {
+    it("jquery", () => {
+      $(".box").innerWidth("100")
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
+
+    it("domtify", () => {
+      innerWidth("100")(query(".box"))
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
   })
 
-  it("带单位的字符串 如“em”、“％”、“rem”等", () => {
-    innerWidth("10em")(query("div"))
-    expectPixelEqual(borderBoxEl.style.width, "179.2px")
-    expectPixelEqual(contentBoxEl.style.width, "10em")
+  describe("setter-带单位的字符串 如“em”、“％”、“rem”等", () => {
+    it("jquery", () => {
+      $(".box").innerWidth("10em")
+      expect(borderBoxEl.style.width).toBe("179.2px")
+      expect(contentBoxEl.style.width).toBe("140px")
+    })
+
+    it("domtify", () => {
+      innerWidth("10em")(query(".box"))
+      expect(borderBoxEl.style.width).toBe("179.2px")
+      expect(contentBoxEl.style.width).toBe("140px")
+    })
   })
 
-  it("带错误单位的字符串", () => {
-    innerWidth("10pq")(query(".box"))
-    expectPixelEqual(borderBoxEl.style.width, "219.2px")
-    expect(contentBoxEl.style.width).toBe("")
+  describe("setter-带错误单位的字符串", () => {
+    it("jquery", () => {
+      $(".box").innerWidth("10pq")
+      expect(borderBoxEl.style.width).toBe("219.2px")
+      expect(contentBoxEl.style.width).toBe("180px")
+    })
+
+    it("domtify", () => {
+      innerWidth("10pq")(query(".box"))
+      expect(borderBoxEl.style.width).toBe("219.2px")
+      expect(contentBoxEl.style.width).toBe("180px")
+    })
   })
 
-  it("函数", () => {
-    const fn = vi.fn(() => "100")
+  describe("setter-函数", () => {
+    it("jquery", () => {
+      const fn = vi.fn(() => "100")
+      $(".box").innerWidth(fn)
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(180.8)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(220)
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
 
-    innerWidth(fn)(query(".box"))
+    it("domtify", () => {
+      const fn = vi.fn(() => "100")
 
-    expect(fn.mock.calls[0][0]).toBe(0)
-    expectPixelEqual(fn.mock.calls[0][1], 180.8)
-    expect(fn.mock.calls[1][0]).toBe(1)
-    expectPixelEqual(fn.mock.calls[1][1], 200)
-    expectPixelEqual(borderBoxEl.style.width, "119.2px")
-    expectPixelEqual(contentBoxEl.style.width, "100px")
+      innerWidth(fn)(query(".box"))
+      expect(fn.mock.calls[0][0]).toBe(0)
+      expect(fn.mock.calls[0][1]).toBe(180.8)
+      expect(fn.mock.calls[1][0]).toBe(1)
+      expect(fn.mock.calls[1][1]).toBe(220)
+      expect(borderBoxEl.style.width).toBe("119.2px")
+      expect(contentBoxEl.style.width).toBe("80px")
+    })
   })
 })
