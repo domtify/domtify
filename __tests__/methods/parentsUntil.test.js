@@ -51,7 +51,7 @@ describe("parentsUntil", () => {
     expect(res).not.toContain(stop)
   })
 
-  it("传递 selector，为 domtify 对象", () => {
+  it("selector为元素数组", () => {
     const stop = dom(".level-1")
     const res = parentsUntil(stop)(dom("li.item-a"))
     expect(res).not.toContain(stop[0])

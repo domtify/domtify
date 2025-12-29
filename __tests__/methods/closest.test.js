@@ -47,7 +47,7 @@ describe("closest", () => {
     expect(result.length).toBe(0)
   })
 
-  it("支持使用 domtify 对象作为 selector", () => {
+  it("支持使用元素数组作为 selector", () => {
     const result = closest(dom("li"))(dom("li.item-a"))
     expect(result.length).toBe(1)
     expect(result[0].classList.contains("item-a")).toBe(true)

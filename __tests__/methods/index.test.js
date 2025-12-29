@@ -25,7 +25,7 @@ describe("index", () => {
     expect(index(document.getElementById("bar"))(dom("li"))).toBe(1)
   })
 
-  it("domtify对象: 表示id为foo的元素在$('li')这个集合中的位置", () => {
+  it("数组元素: 表示id为foo的元素在$('li')这个集合中的位置", () => {
     expect(index(dom("#foo"))(dom("li"))).toBe(0)
   })
 

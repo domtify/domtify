@@ -2,9 +2,9 @@ import { dom } from "@/core.js"
 import { unique } from "@/utils/unique.js"
 
 export const find = (selector) => (els) => {
-  let result = []
+  const result = []
 
-  // 获取所有候选节点（可能是 selector 匹配的、或者传入的元素/domtify 对象）
+  // 获取所有候选节点
   const candidates = dom(selector)
 
   // 遍历元素
@@ -16,7 +16,5 @@ export const find = (selector) => (els) => {
     }
   }
 
-  result = unique(result)
-
-  return result
+  return unique(result)
 }

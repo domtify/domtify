@@ -22,10 +22,8 @@ export const attr = (name, value) => (els) => {
         // 如果是null或者是非ARIA 属性的通过传递false来删除
         element.removeAttribute(name)
       } else if (isFunction(value)) {
-        const newVal = Reflect.apply(value, element, [
-          index,
-          attr(name)(dom(element)),
-        ])
+        const newVal = value.call(element, index, attr(name)(dom(element)))
+
         if (!isNull(newVal)) {
           element.setAttribute(name, newVal)
         }

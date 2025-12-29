@@ -47,7 +47,7 @@ describe("nextUntil", () => {
     expect(res.map((el) => el.textContent.trim())).toEqual(["definition 2-b"])
   })
 
-  it("传入 domtify 对象作为 until 元素", () => {
+  it("传入元素数组作为 until 元素", () => {
     const res = nextUntil(dom("dt"))(dom("#term-2"))
     expect(res.map((el) => el.textContent.trim())).toEqual([
       "definition 2-a",

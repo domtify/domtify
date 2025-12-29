@@ -33,7 +33,7 @@ describe("has", () => {
     expect(result[0].textContent).toContain("list item 2")
   })
 
-  it("支持使用 domtify 对象作为参数", () => {
+  it("支持使用元素数组作为参数", () => {
     const result = has(dom(".ul"))(dom("li"))
     expect(result.length).toBe(1)
     expect(result[0].textContent).toContain("list item 2")

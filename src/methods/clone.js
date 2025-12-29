@@ -1,6 +1,6 @@
 import { dom } from "@/core.js"
 import { data } from "./data.js"
-import Event from "@/event/event.js"
+import Event from "@/event/Event.js"
 
 const copyEventsAndData = (source, target) => {
   // 复制data属性

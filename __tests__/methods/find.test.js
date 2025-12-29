@@ -41,12 +41,12 @@ describe("find", () => {
     expect(result[0]).toBe(res)
   })
 
-  it("使用domtify对象", () => {
+  it("元素数组", () => {
     const result = find(dom(".item"))(dom("li.item-ii"))
     expect(result).toHaveLength(3)
   })
 
-  it("返回结果中不能自己", () => {
+  it("返回结果中排除自身", () => {
     const result = find(".item")(dom(".item"))
     expect(result).toHaveLength(0)
   })
