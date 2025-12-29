@@ -1,20 +1,21 @@
 import { dom } from "@/core.js"
-import { unique } from "@/utils/unique.js"
 
 export const find = (selector) => (els) => {
+  const candidates = dom(selector)
+  const roots = new Set(els)
   const result = []
 
-  // 获取所有候选节点
-  const candidates = dom(selector)
+  for (const node of candidates) {
+    let cur = node.parentNode
 
-  // 遍历元素
-  for (const el of els) {
-    for (const node of candidates) {
-      if (el !== node && el.contains(node)) {
+    while (cur) {
+      if (roots.has(cur)) {
         result.push(node)
+        break
       }
+      cur = cur.parentNode
     }
   }
 
-  return unique(result)
+  return result
 }
