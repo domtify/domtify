@@ -20,7 +20,6 @@
     "check": "run-s style lint",
     "fix": "run-s *:fix",
     "clean": "rimraf dist",
-    "gen-exports": "node scripts/exports.js",
     "rollup": "rollup --config configs/rollup.config.mjs",
     "build": "run-s clean gen-exports rollup sizelint",
     "test": "vitest --config configs/vitest.config.mjs --coverage --ui",
