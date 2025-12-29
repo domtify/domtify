@@ -63,7 +63,7 @@ function nav() {
   return [
     {
       text: "指南",
-      link: "/guide/getting-started",
+      link: "/guide/introduction",
       activeMatch: "/guide/",
     },
     {
@@ -79,9 +79,11 @@ function sidebarGuide() {
     {
       text: "指南",
       items: [
-        { text: "介绍", link: "introduce" },
-        { text: "快速开始", link: "getting-started" },
+        { text: "介绍", link: "introduction" },
+        { text: "安装", link: "installation" },
+        { text: "快速入门", link: "quick-start" },
         { text: "迁移指南", link: "migration" },
+        { text: "拓展", link: "extension" },
       ],
     },
   ]

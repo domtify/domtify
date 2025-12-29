@@ -20,7 +20,7 @@
       let res
 
       d.fn.highlight = function (color = "yellow") {
-        this.get().forEach((el) => {
+        this.each((index, el) => {
           el.style.backgroundColor = color
         })
         return this

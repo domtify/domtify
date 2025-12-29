@@ -11,11 +11,8 @@ hero:
   tagline: 极简 · 现代 · 模块化 DOM 工具库
   actions:
     - theme: brand
-      text: 什么是domtify?
-      link: /guide/introduce
-    - theme: alt
       text: 快速开始
-      link: /guide/getting-started
+      link: /guide/introduction
     - theme: alt
       text: GitHub
       link: https://github.com/domtify/domtify
