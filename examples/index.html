@@ -19,6 +19,15 @@
     <script>
       let res
 
+      d.fn.highlight = function (color = "yellow") {
+        this.get().forEach((el) => {
+          el.style.backgroundColor = color
+        })
+        return this
+      }
+
+      const res222 = d("li").highlight("blue")
+
       // 不传递参数,表示获取当前元素在兄弟中的位置
       // res = $("li").index()
       // res = d("li").index()

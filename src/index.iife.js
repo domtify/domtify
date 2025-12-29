@@ -23,7 +23,7 @@ for (const key in methods) {
   }
 }
 const $ = (selector, cxt) => new Domtify(dom(selector, cxt))
-
+$.fn = $.prototype = Domtify.prototype
 Object.assign($, utilities)
 
 export default $
