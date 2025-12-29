@@ -9,10 +9,28 @@ import { search as zhSearch } from "./zh.mjs"
 
 export const shared = defineConfig({
   // 标题
-  title: "domtify",
-
+  title: `domtify`,
+  titleTemplate: `:title - 现代的DOM操作库`,
+  description:
+    "domtify一个一个极简、独立的 DOM 操作 JavaScript 库,让 DOM 操作变得高效而优雅",
+  head: [
+    ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
+    [
+      "meta",
+      {
+        name: "keywords",
+        content: `domtify,jquery,browser,javascript,library`,
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "google",
+        content: `notranslate`,
+      },
+    ],
+  ],
   outDir: "./.vitepress/dist",
-
   rewrites: {
     "zh/:rest*": ":rest*",
   },
@@ -41,10 +59,6 @@ export const shared = defineConfig({
   vite: {
     plugins: [groupIconVitePlugin()],
   },
-
-  head: [
-    ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
-  ],
 
   themeConfig: {
     logo: { src: "/logo-mini.svg", width: 24, height: 24 },

@@ -98,32 +98,27 @@ function sidebarAPI() {
         },
         {
           text: "方法",
+          collapsed: false,
           items: [
             {
               text: "get",
               link: "method-get",
             },
             {
-              text: "事件系统",
-              collapsed: false,
-              items: [
-                {
-                  text: "on",
-                  link: "method-on",
-                },
-                {
-                  text: "off",
-                  link: "method-off",
-                },
-                {
-                  text: "one",
-                  link: "method-one",
-                },
-                {
-                  text: "trigger",
-                  link: "method-trigger",
-                },
-              ],
+              text: "on",
+              link: "method-on",
+            },
+            {
+              text: "off",
+              link: "method-off",
+            },
+            {
+              text: "one",
+              link: "method-one",
+            },
+            {
+              text: "trigger",
+              link: "method-trigger",
             },
             {
               text: "eq",
@@ -334,18 +329,7 @@ function sidebarAPI() {
               text: "children",
               link: "method-children",
             },
-            {
-              text: "toArray",
-              link: "method-toArray",
-            },
-            {
-              text: "end",
-              link: "method-end",
-            },
-            {
-              text: "addBack",
-              link: "method-addBack",
-            },
+
             {
               text: "clone",
               link: "method-clone",
@@ -442,6 +426,7 @@ function sidebarAPI() {
         },
         {
           text: "助手",
+          collapsed: false,
           items: [
             {
               text: "extend",
@@ -450,10 +435,6 @@ function sidebarAPI() {
             {
               text: "param",
               link: "utilities-param",
-            },
-            {
-              text: "noop",
-              link: "utilities-noop",
             },
             {
               text: "debounce",
@@ -482,155 +463,6 @@ function sidebarAPI() {
             {
               text: "setIn",
               link: "utilities-setIn",
-            },
-
-            {
-              text: "类型判断",
-              collapsed: true,
-              items: [
-                {
-                  text: "isArray",
-                  link: "utilities-isArray",
-                },
-                {
-                  text: "isEmptyArray",
-                  link: "utilities-isEmptyArray",
-                },
-                {
-                  text: "isFullArray",
-                  link: "utilities-isFullArray",
-                },
-                {
-                  text: "isFunction",
-                  link: "utilities-isFunction",
-                },
-
-                {
-                  text: "isPlainObject",
-                  link: "utilities-isPlainObject",
-                },
-                {
-                  text: "isPlainWithProtoObject",
-                  link: "utilities-isPlainWithProtoObject",
-                },
-                {
-                  text: "isEmptyObject",
-                  link: "utilities-isEmptyObject",
-                },
-                {
-                  text: "isFullObject",
-                  link: "utilities-isFullObject",
-                },
-                {
-                  text: "isBoolean",
-                  link: "utilities-isBoolean",
-                },
-                {
-                  text: "isUndefined",
-                  link: "utilities-isUndefined",
-                },
-                {
-                  text: "isNull",
-                  link: "utilities-isNull",
-                },
-                {
-                  text: "isString",
-                  link: "utilities-isString",
-                },
-                {
-                  text: "isEmptyString",
-                  link: "utilities-isEmptyString",
-                },
-                {
-                  text: "isFullString",
-                  link: "utilities-isFullString",
-                },
-                {
-                  text: "isNumber",
-                  link: "utilities-isNumber",
-                },
-                {
-                  text: "isInteger",
-                  link: "utilities-isInteger",
-                },
-                {
-                  text: "isPositiveNumber",
-                  link: "utilities-isPositiveNumber",
-                },
-                {
-                  text: "isNegativeNumber",
-                  link: "utilities-isNegativeNumber",
-                },
-                {
-                  text: "isDate",
-                  link: "utilities-isDate",
-                },
-                {
-                  text: "isMap",
-                  link: "utilities-isMap",
-                },
-                {
-                  text: "isSet",
-                  link: "utilities-isSet",
-                },
-                {
-                  text: "isWeakMap",
-                  link: "utilities-isWeakMap",
-                },
-                {
-                  text: "isWeakSet",
-                  link: "utilities-isWeakSet",
-                },
-                {
-                  text: "isRegExp",
-                  link: "utilities-isRegExp",
-                },
-                {
-                  text: "isSymbol",
-                  link: "utilities-isSymbol",
-                },
-                {
-                  text: "isBlob",
-                  link: "utilities-isBlob",
-                },
-                {
-                  text: "isFile",
-                  link: "utilities-isFile",
-                },
-                {
-                  text: "isError",
-                  link: "utilities-isError",
-                },
-                {
-                  text: "isPromise",
-                  link: "utilities-isPromise",
-                },
-                {
-                  text: "isPrimitive",
-                  link: "utilities-isPrimitive",
-                },
-                {
-                  text: "isIterable",
-                  link: "utilities-isIterable",
-                },
-                {
-                  text: "isInstanceOf",
-                  link: "utilities-isInstanceOf",
-                },
-                {
-                  text: "isNaNValue",
-                  link: "utilities-isNaNValue",
-                },
-
-                {
-                  text: "getType",
-                  link: "utilities-getType",
-                },
-                {
-                  text: "isType",
-                  link: "utilities-isType",
-                },
-              ],
             },
           ],
         },
