@@ -1,14 +1,4 @@
-import { dom } from "@/core.js"
-import { data } from "./data.js"
-import Event from "@/event/Event.js"
-
-const copyEventsAndData = (source, target) => {
-  // 复制data属性
-  data(data()(dom(source)))(dom(target))
-
-  // 复制事件
-  new Event(source).cloneTo(target)
-}
+import { copyEventsAndData } from "@/utils/copyEventsAndData.js"
 
 export const clone =
   (withDataAndEvents = false, deepWithDataAndEvents = false) =>
