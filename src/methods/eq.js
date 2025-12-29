@@ -1,5 +1,12 @@
 import { isUndefined } from "is-what"
 import { get } from "./get.js"
+export const eq = (index) => (els) => {
+  const result = []
 
-export const eq = (index) => (els) =>
-  ((v) => (isUndefined(v) ? [] : [v]))(get(index)(els))
+  if (isUndefined(index)) return result
+
+  const el = get(index)(els)
+
+  !isUndefined(el) && result.push(el)
+  return result
+}
