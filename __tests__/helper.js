@@ -1,3 +1,13 @@
+function testOuterHeight(label, getHeight) {
+  it(label, () => {
+    mockViewport({ height: 800 })
+    expect(getHeight()).toBe(800)
+
+    mockViewport({ height: 600 })
+    expect(getHeight()).toBe(600)
+  })
+}
+
 export function mockViewport({ width = 1024, height = 768 } = {}) {
   Object.defineProperty(window, "innerWidth", {
     value: width,
