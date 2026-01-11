@@ -1,4 +1,4 @@
-import { isBoolean, isFunction, isAnyObject, isNull } from 'is-what'
+import { isAnyObject, isBoolean, isFunction, isNull } from 'is-what'
 
 const merge = (target, src, deep, seen) => {
   // 避免 null/undefined

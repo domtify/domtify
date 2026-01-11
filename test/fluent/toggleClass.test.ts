@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { toggleClass } from '@/methods/toggleClass.js'
+import { dom } from '@/core/dom'
+import { toggleClass } from '@/fluent/toggleClass'
 
 describe('toggleClass', () => {
   let ul

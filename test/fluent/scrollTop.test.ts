@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-
-import { dom } from '@/core.js'
-import { scrollTop } from '@/methods/scrollTop.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { dom } from '@/core/dom'
+import { scrollTop } from '@/fluent/scrollTop'
 
 describe('scrollTop', () => {
   let div

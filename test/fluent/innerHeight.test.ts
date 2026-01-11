@@ -1,9 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-
-import { dom } from '@/core.js'
-import { innerHeight } from '@/methods/innerHeight.js'
-import { mockViewport } from '../helpers/viewport.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { dom } from '@/core/dom'
+import { innerHeight } from '@/fluent/innerHeight'
+import { mockViewport } from '../helper'
 
 describe('innerHeight', () => {
   let borderBoxEl

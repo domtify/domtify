@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { parentsUntil } from '@/methods/parentsUntil.js'
+import { dom } from '@/core/dom'
+import { parentsUntil } from '@/fluent/parentsUntil'
 
 describe('parentsUntil', () => {
   beforeEach(() => {

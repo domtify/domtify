@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { serialize } from '@/methods/serialize.js'
+import { dom } from '@/core/dom'
+import { serialize } from '@/fluent/serialize'
 
 describe('serialize', () => {
   beforeEach(() => {

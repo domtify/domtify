@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { isNumber } from 'is-what'
-import { each } from '@/utilities.js'
-import { dom } from '@/core.js'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { dom } from '@/core/dom'
+import { each } from '@/util/each'
 
 describe('each', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('each', () => {
 
   it('数组', () => {
     const param = [10, 20, 30]
-    const res = each(param, function (index, value) {
+    const res = each(param, (index, value) => {
       expect(isNumber(index) && index >= 0).toBe(true)
       expect(param.includes(value)).toBe(true)
     })
@@ -57,7 +57,7 @@ describe('each', () => {
 
     const param = [1, 2, 3, 4, 5]
 
-    const res = each(param, function (index, value) {
+    const res = each(param, (index, value) => {
       result.push(value)
       if (value === 3) {
         return false // 停止循环
@@ -73,7 +73,7 @@ describe('each', () => {
 
     const param = { a: 10, b: 20, c: 30 }
 
-    const res = each(param, function (key, value) {
+    const res = each(param, (key, value) => {
       result[key] = value
       if (value === 20) {
         return false // 停止循环

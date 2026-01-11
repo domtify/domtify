@@ -1,8 +1,8 @@
 import { isInstanceOf } from 'is-what'
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { prevUntil } from '@/methods/prevUntil.js'
+import { dom } from '@/core/dom'
+import { prevUntil } from '@/fluent/prevUntil'
 
 describe('prevUntil', () => {
   beforeEach(() => {

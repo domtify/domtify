@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { html } from '@/methods/html.js'
+import { dom } from '@/core/dom'
+import { html } from '@/fluent/html'
 
 describe('html', () => {
   beforeEach(() => {

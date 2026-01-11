@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { isNumber } from 'is-what'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { map } from '@/utilities/map.js'
+import { map } from '@/util/map'
 
 describe('map', () => {
   beforeEach(() => {

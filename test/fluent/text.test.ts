@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { text } from '@/methods/text.js'
+import { dom } from '@/core/dom'
+import { text } from '@/fluent/text'
 
 // 辅助函数：清理 HTML 中的标签和多余空格
 const extractText = html =>

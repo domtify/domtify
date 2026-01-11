@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest'
-import { extend } from '@/utilities/extend.js'
+import { describe, expect, it } from 'vitest'
+import { extend } from '@/util/extend'
 
 describe('extend', () => {
   it('应该进行浅拷贝属性', () => {

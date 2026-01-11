@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-
-import { dom } from '@/core.js'
-import { scrollLeft } from '@/methods/scrollLeft.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { dom } from '@/core/dom'
+import { scrollLeft } from '@/fluent/scrollLeft'
 
 describe('scrollLeft', () => {
   let div

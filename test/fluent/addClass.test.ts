@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { addClass } from '@/methods/addClass.js'
+import { dom } from '@/core/dom'
+import { addClass } from '@/fluent/addClass'
 
 describe('addClass', () => {
   beforeEach(() => {

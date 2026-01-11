@@ -1,9 +1,8 @@
 import { isNumber } from 'is-what'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
-
-import { dom } from '@/core.js'
-import { offset } from '@/methods/offset.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { dom } from '@/core/dom'
+import { offset } from '@/fluent/offset'
 
 describe('offset', () => {
   beforeEach(() => {

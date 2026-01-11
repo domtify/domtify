@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { uniqueSort } from '@/methods/uniqueSort.js'
+import { dom } from '@/core/dom'
+import { uniqueSort } from '@/fluent/uniqueSort'
 
 describe('uniqueSort', () => {
   beforeEach(() => {

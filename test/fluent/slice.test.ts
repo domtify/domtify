@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { slice } from '@/methods/slice.js'
-import { pipe } from '@/pipe.js'
+import { dom } from '@/core/dom'
+import { pipe } from '@/core/pipe'
+import { slice } from '@/fluent/slice'
 
 describe('slice', () => {
   beforeEach(() => {

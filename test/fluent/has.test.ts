@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { has } from '@/methods/has.js'
+import { dom } from '@/core/dom'
+import { has } from '@/fluent/has'
 
 describe('has', () => {
   beforeEach(() => {

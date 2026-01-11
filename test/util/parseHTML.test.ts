@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { parseHTML } from '@/utilities/parseHTML.js'
+import { parseHTML } from '@/util/parseHTML'
 
 describe('parseHTML', () => {
   const htmlStr = `hello, <b>my name is</b> <script>alert('xss')</script> <span>ModernJS</span>`

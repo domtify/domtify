@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { clone } from '@/methods/clone.js'
-import { data } from '@/methods/data.js'
-import { on } from '@/methods/on.js'
-import { append } from '@/methods/append.js'
-import { trigger } from '@/methods/trigger.js'
+import { dom } from '@/core/dom'
+import { append } from '@/fluent/append'
+import { clone } from '@/fluent/clone'
+import { data } from '@/fluent/data'
+import { on } from '@/fluent/on'
+import { trigger } from '@/fluent/trigger'
 
 describe('clone', () => {
   beforeEach(() => {

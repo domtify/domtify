@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { closest } from '@/methods/closest.js'
+import { dom } from '@/core/dom'
+import { closest } from '@/fluent/closest'
 
 describe('closest', () => {
   let listItemII

@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { unwrap } from '@/methods/unwrap.js'
+import { dom } from '@/core/dom'
+import { unwrap } from '@/fluent/unwrap'
 
 describe('unwrap', () => {
   beforeEach(() => {

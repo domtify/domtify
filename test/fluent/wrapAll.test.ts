@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { wrapAll } from '@/methods/wrapAll.js'
+import { dom } from '@/core/dom'
+import { wrapAll } from '@/fluent/wrapAll'
 
 describe('wrapAll', () => {
   let container

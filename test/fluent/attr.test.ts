@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-
-import { dom } from '@/core.js'
-import { attr } from '@/methods/attr.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { dom } from '@/core/dom'
+import { attr } from '@/fluent/attr'
 
 describe('attr', () => {
   beforeEach(() => {

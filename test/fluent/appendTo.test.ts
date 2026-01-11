@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-
-import { dom } from '@/core.js'
-import { appendTo } from '@/methods/appendTo.js'
 import jQuery from 'jquery'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { dom } from '@/core/dom'
+import { appendTo } from '@/fluent/appendTo'
 
 describe('appendTo', () => {
   beforeEach(() => {

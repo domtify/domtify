@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
-
-import { dom } from '@/core.js'
-import { eq } from '@/methods/eq.js'
 import $ from 'jquery'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { dom } from '@/core/dom'
+import { eq } from '@/fluent/eq'
 
 describe('eq', () => {
   beforeEach(() => {

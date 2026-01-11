@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { setIn } from '@/utilities/setIn.js'
+import { setIn } from '@/util/setIn'
 
 describe('setIn', () => {
   it('字符串方式设置 "a[0].b.c"', () => {

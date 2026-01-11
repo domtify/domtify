@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { removeAttr } from '@/methods/removeAttr.js'
+import { dom } from '@/core/dom'
+import { removeAttr } from '@/fluent/removeAttr'
 
 describe('removeAttr', () => {
   let input

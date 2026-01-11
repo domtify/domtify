@@ -1,12 +1,10 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
-
-import { dom } from '@/core.js'
-import { on } from '@/methods/on.js'
-import { off } from '@/methods/off.js'
-import { trigger } from '@/methods/trigger.js'
-import { one } from '@/methods/one.js'
-
-import DomtifyEvent from '@/event/DomtifyEvent.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import DomtifyEvent from '@/core/DomtifyEvent'
+import { dom } from '@/core/dom'
+import { off } from '@/fluent/off'
+import { on } from '@/fluent/on'
+import { one } from '@/fluent/one'
+import { trigger } from '@/fluent/trigger'
 
 describe('event', () => {
   describe('on', () => {

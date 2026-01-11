@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { dom } from '@/core.js'
-import { resize } from '@/methods/resize.js'
+import { dom } from '@/core/dom'
+import { resize } from '@/fluent/resize'
 
 // 这个应该用端到端的测试才能测试
 

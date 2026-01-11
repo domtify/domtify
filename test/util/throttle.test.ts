@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { throttle } from '@/utilities/throttle.js'
+import { throttle } from '@/util/throttle'
 
 describe('throttle', () => {
   beforeEach(() => {

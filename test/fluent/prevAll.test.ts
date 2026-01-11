@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { prevAll } from '@/methods/prevAll.js'
+import { dom } from '@/core/dom'
+import { prevAll } from '@/fluent/prevAll'
 
 describe('prevAll', () => {
   beforeEach(() => {

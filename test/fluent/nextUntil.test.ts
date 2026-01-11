@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core.js'
-import { nextUntil } from '@/methods/nextUntil.js'
+import { dom } from '@/core/dom'
+import { nextUntil } from '@/fluent/nextUntil'
 
 describe('nextUntil', () => {
   beforeEach(() => {
