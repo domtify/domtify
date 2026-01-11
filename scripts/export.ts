@@ -18,8 +18,6 @@ function genExport({
 
   files = files.map(f => path.basename(f, '.ts'))
 
-  console.log(files)
-
   const fileCnt = []
   for (const file of files) {
     fileCnt.push(`export * from '${exportName}/${file}'`)
