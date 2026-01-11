@@ -1,51 +1,51 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>find演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>find演示</title>
+	</head>
 
-  <body>
-    <ul class="level-1">
-      <li class="item-i">I</li>
-      <li class="item-ii">
-        II
-        <ul class="level-2">
-          <li class="item-a">A</li>
-          <li class="item-b">
-            B
-            <ul class="level-3">
-              <li class="item item-1">1</li>
-              <li class="item item-2">2</li>
-              <li class="item item-3">3</li>
-            </ul>
-          </li>
-          <li class="item-c">C</li>
-        </ul>
-      </li>
-      <li class="item-iii">III</li>
-    </ul>
+	<body>
+		<ul class="level-1">
+			<li class="item-i">I</li>
+			<li class="item-ii">
+				II
+				<ul class="level-2">
+					<li class="item-a">A</li>
+					<li class="item-b">
+						B
+						<ul class="level-3">
+							<li class="item item-1">1</li>
+							<li class="item item-2">2</li>
+							<li class="item item-3">3</li>
+						</ul>
+					</li>
+					<li class="item-c">C</li>
+				</ul>
+			</li>
+			<li class="item-iii">III</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 字符串选择器
-      //   res = $("li.item-ii").find(".item")
-      //   res = d("li.item-ii").find(".item")
+		// 字符串选择器
+		//   res = $("li.item-ii").find(".item")
+		//   res = d("li.item-ii").find(".item")
 
-      // -- 支持element
-      //   res = $("li.item-ii").find(document.querySelector(".item"))
-      //   res = d("li.item-ii").find(document.querySelector(".item"))
+		// -- 支持element
+		//   res = $("li.item-ii").find(document.querySelector(".item"))
+		//   res = d("li.item-ii").find(document.querySelector(".item"))
 
-      // -- 支持jquery对象
-      //   res = $("li.item-ii").find($(".item"))
-      res = d("li.item-ii").find(d(".item"))
+		// -- 支持jquery对象
+		//   res = $("li.item-ii").find($(".item"))
+		res = d('li.item-ii').find(d('.item'))
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

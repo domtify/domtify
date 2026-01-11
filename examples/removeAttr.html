@@ -1,34 +1,34 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>removeAttr演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>removeAttr演示</title>
+	</head>
 
-  <body>
-    <input type="text" title="hello there" />
+	<body>
+		<input type="text" title="hello there">
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      //    基本测试
-      //   res = $("input").removeAttr("title")
-      //   res = d("input").removeAttr("title")
+		//    基本测试
+		//   res = $("input").removeAttr("title")
+		//   res = d("input").removeAttr("title")
 
-      // 不是字符串不报错
-      // jq不是字符串会报错
-      //   res = $("input").removeAttr(10)
-      //   res = d("input").removeAttr(10)
+		// 不是字符串不报错
+		// jq不是字符串会报错
+		//   res = $("input").removeAttr(10)
+		//   res = d("input").removeAttr(10)
 
-      // 空格字符串分隔
-      //   res = $("input").removeAttr("title type")
-      //   res = d("input").removeAttr("title type")
+		// 空格字符串分隔
+		//   res = $("input").removeAttr("title type")
+		//   res = d("input").removeAttr("title type")
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

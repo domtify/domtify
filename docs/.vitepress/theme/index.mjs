@@ -1,12 +1,12 @@
 // .vitepress/theme/index.js
-import DefaultTheme from "vitepress/theme"
-import { enhanceAppWithTabs } from "vitepress-plugin-tabs/client"
-import { onMounted, watch, nextTick } from "vue"
-import { useRoute } from "vitepress"
-import mediumZoom from "medium-zoom"
-import "virtual:group-icons.css"
+import DefaultTheme from 'vitepress/theme'
+import { enhanceAppWithTabs } from 'vitepress-plugin-tabs/client'
+import { onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vitepress'
+import mediumZoom from 'medium-zoom'
+import 'virtual:group-icons.css'
 
-import "./index.scss"
+import './index.scss'
 
 export default {
   ...DefaultTheme,
@@ -18,8 +18,8 @@ export default {
     const initZoom = () => {
       //   mediumZoom('[data-zoomable]', { background: 'var(--vp-c-bg)' });
       // mediumZoom(".main img", { background: "var(--vp-c-bg)" })
-      mediumZoom(".main img:not(.badge *)", {
-        background: "var(--vp-c-bg)",
+      mediumZoom('.main img:not(.badge *)', {
+        background: 'var(--vp-c-bg)',
       })
     }
     onMounted(() => {

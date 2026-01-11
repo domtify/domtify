@@ -1,83 +1,83 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>innerHeight演示</title>
-    <style>
-      .box {
-        height: 200px;
-        width: 200px;
-        padding: 10px;
-        border: 10px solid red;
-        margin: 20px;
-      }
-      .border-box {
-        box-sizing: border-box;
-      }
-      .content-box {
-        box-sizing: content-box;
-      }
-    </style>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>innerHeight演示</title>
+		<style>
+		.box {
+			height: 200px;
+			width: 200px;
+			padding: 10px;
+			border: 10px solid red;
+			margin: 20px;
+		}
+		.border-box {
+			box-sizing: border-box;
+		}
+		.content-box {
+			box-sizing: content-box;
+		}
+		</style>
+	</head>
 
-  <body>
-    <div class="box border-box">.border-box</div>
-    <div class="box content-box">.content-box</div>
+	<body>
+		<div class="box border-box">.border-box</div>
+		<div class="box content-box">.content-box</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // window对象
-      res = $(window).innerHeight()
-      res = d(window).innerHeight()
+		// window对象
+		res = $(window).innerHeight()
+		res = d(window).innerHeight()
 
-      // document
-      // res = $(document).innerHeight()
-      // res = d(document).innerHeight()
+		// document
+		// res = $(document).innerHeight()
+		// res = d(document).innerHeight()
 
-      // border-box 元素
-      res = $(".border-box").innerHeight()
-      // res = d(".border-box").innerHeight()
+		// border-box 元素
+		res = $('.border-box').innerHeight()
+		// res = d(".border-box").innerHeight()
 
-      // content-box 元素
-      // res = $(".content-box").innerHeight()
-      // res = d(".content-box").innerHeight()
+		// content-box 元素
+		// res = $(".content-box").innerHeight()
+		// res = d(".content-box").innerHeight()
 
-      // --- setter
-      // 数字
-      // res = $(".box").innerHeight(100)
-      // res = d(".box").innerHeight(100)
+		// --- setter
+		// 数字
+		// res = $(".box").innerHeight(100)
+		// res = d(".box").innerHeight(100)
 
-      // 数字字符串
-      // res = $(".box").innerHeight("100.2")
-      // res = d(".box").innerHeight("100.2")
+		// 数字字符串
+		// res = $(".box").innerHeight("100.2")
+		// res = d(".box").innerHeight("100.2")
 
-      // 带单位的字符串 如“em”、“％”、“rem”等
-      // res = $(".box").innerHeight("10em")
-      // res = d(".box").innerHeight("10em")
+		// 带单位的字符串 如“em”、“％”、“rem”等
+		// res = $(".box").innerHeight("10em")
+		// res = d(".box").innerHeight("10em")
 
-      //   带错误单位的字符串
-      // res = $(".box").innerHeight("10qtwx")
-      // res = d(".box").innerHeight("10qtwx")
+		//   带错误单位的字符串
+		// res = $(".box").innerHeight("10qtwx")
+		// res = d(".box").innerHeight("10qtwx")
 
-      // 函数
-      // res = $(".box").innerHeight(function (index, oldHeight) {
-      //   console.log(index)
-      //   console.log(oldHeight)
-      //   return "100"
-      // })
+		// 函数
+		// res = $(".box").innerHeight(function (index, oldHeight) {
+		//   console.log(index)
+		//   console.log(oldHeight)
+		//   return "100"
+		// })
 
-      // res = d(".box").innerHeight(function (index, oldHeight) {
-      //   console.log(index)
-      //   console.log(oldHeight)
-      //   return "100"
-      // })
+		// res = d(".box").innerHeight(function (index, oldHeight) {
+		//   console.log(index)
+		//   console.log(oldHeight)
+		//   return "100"
+		// })
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

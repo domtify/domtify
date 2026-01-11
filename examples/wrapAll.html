@@ -1,59 +1,63 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wrapAll演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>wrapAll演示</title>
+	</head>
 
-  <body>
-    <div class="container">
-      <div class="inner">Hello</div>
-      <div class="inner">Goodbye</div>
-    </div>
-    <div class="double"><div></div></div>
-    <div class="double">
-      <div><div></div></div>
-    </div>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+	<body>
+		<div class="container">
+			<div class="inner">Hello</div>
+			<div class="inner">Goodbye</div>
+		</div>
+		<div class="double">
+			<div></div>
+		</div>
+		<div class="double">
+			<div>
+				<div></div>
+			</div>
+		</div>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 选择器
-      //   res = $(".inner").wrapAll(".double")
-      //   res = d(".inner").wrapAll(".double")
+		// 选择器
+		//   res = $(".inner").wrapAll(".double")
+		//   res = d(".inner").wrapAll(".double")
 
-      // htmlString
-      //   res = $(".inner").wrapAll("<div class='new' />")
-      //   res = d(".inner").wrapAll("<div class='new' />")
+		// htmlString
+		//   res = $(".inner").wrapAll("<div class='new' />")
+		//   res = d(".inner").wrapAll("<div class='new' />")
 
-      // 元素
-      //   res = $(".inner").wrapAll(document.querySelector(".double"))
-      //   res = d(".inner").wrapAll(document.querySelector(".double"))
+		// 元素
+		//   res = $(".inner").wrapAll(document.querySelector(".double"))
+		//   res = d(".inner").wrapAll(document.querySelector(".double"))
 
-      // 集合对象
-      //   res = $(".inner").wrapAll($(".double"))
-      res = d(".inner").wrapAll(d(".double"))
+		// 集合对象
+		//   res = $(".inner").wrapAll($(".double"))
+		res = d('.inner').wrapAll(d('.double'))
 
-      // 数字边缘情况
-      /* jquery会抛出错误 */
-      //   res = $(".inner").wrapAll(10)
-      //   res = d(".inner").wrapAll(10)
+		// 数字边缘情况
+		/* jquery会抛出错误 */
+		//   res = $(".inner").wrapAll(10)
+		//   res = d(".inner").wrapAll(10)
 
-      // 函数的情况
-      //   res = $(".inner").wrapAll(function () {
-      //     console.log(this)
-      //     return "<div class='new' />"
-      //   })
+		// 函数的情况
+		//   res = $(".inner").wrapAll(function () {
+		//     console.log(this)
+		//     return "<div class='new' />"
+		//   })
 
-      // res = d(".inner").wrapAll(function () {
-      //   console.log(this)
-      //   return "<div class='new' />"
-      // })
+		// res = d(".inner").wrapAll(function () {
+		//   console.log(this)
+		//   return "<div class='new' />"
+		// })
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

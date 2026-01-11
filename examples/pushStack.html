@@ -1,37 +1,37 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>pushStack演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>pushStack演示</title>
+	</head>
 
-  <body>
-    <div class="container">
-      <ul>
-        <li id="foo">foo <span>test1</span></li>
-        <li id="bar">bar</li>
-      </ul>
-      <div></div>
-    </div>
+	<body>
+		<div class="container">
+			<ul>
+				<li id="foo">foo <span>test1</span></li>
+				<li id="bar">bar</li>
+			</ul>
+			<div></div>
+		</div>
 
-    <p>p</p>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<p>p</p>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // pushStack将当前元素推送到当前集合
-      // res = $("ul")
-      //   .pushStack(document.getElementsByTagName("div"))
-      //   .pushStack([document.querySelector("p")])
+		// pushStack将当前元素推送到当前集合
+		// res = $("ul")
+		//   .pushStack(document.getElementsByTagName("div"))
+		//   .pushStack([document.querySelector("p")])
 
-      res = d("ul")
-        .pushStack(document.getElementsByTagName("div"))
-        .pushStack([document.querySelector("p")])
+		res = d('ul')
+			.pushStack(document.getElementsByTagName('div'))
+			.pushStack([document.querySelector('p')])
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

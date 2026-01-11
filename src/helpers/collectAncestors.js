@@ -1,5 +1,5 @@
-import { isUndefined } from "is-what"
-import { unique } from "./unique.js"
+import { isUndefined } from 'is-what'
+import { unique } from './unique.js'
 
 export const collectAncestors = (
   elements,
@@ -20,12 +20,12 @@ export const collectAncestors = (
 
   // selector 用于 parents
   if (!isUndefined(selector)) {
-    result = result.filter((el) => el.matches(selector))
+    result = result.filter(el => el.matches(selector))
   }
 
   // filter 用于 parentsUntil
   if (!isUndefined(filter)) {
-    result = result.filter((el) => el.matches(filter))
+    result = result.filter(el => el.matches(filter))
   }
 
   return unique(result)

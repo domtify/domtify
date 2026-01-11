@@ -1,62 +1,62 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>filter演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>filter演示</title>
+	</head>
 
-  <body>
-    <ul>
-      <li>list item 1</li>
-      <li>list item 2</li>
-      <li class="item item3">list item 3</li>
-      <li class="item item4">list item 4</li>
-      <li>list item 5</li>
-      <li>list item 6</li>
-    </ul>
+	<body>
+		<ul>
+			<li>list item 1</li>
+			<li>list item 2</li>
+			<li class="item item3">list item 3</li>
+			<li class="item item4">list item 4</li>
+			<li>list item 5</li>
+			<li>list item 6</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 字符串选择器过滤
-      //   res = $("li").filter(":nth-child(2n)")
-      //   res = d("li").filter(":nth-child(2n)")
+		// 字符串选择器过滤
+		//   res = $("li").filter(":nth-child(2n)")
+		//   res = d("li").filter(":nth-child(2n)")
 
-      // -- 函数,方法内如果不进行任何返回,则结果集合则为空
-      //   res = $("li").filter(function (i, el) {
-      //     console.log(i)
-      //     console.log(el)
-      //     console.log(this)
-      //   })
+		// -- 函数,方法内如果不进行任何返回,则结果集合则为空
+		//   res = $("li").filter(function (i, el) {
+		//     console.log(i)
+		//     console.log(el)
+		//     console.log(this)
+		//   })
 
-      //   res = d("li").filter(function (i, el) {
-      //     console.log(i)
-      //     console.log(el)
-      //     console.log(this)
-      //   })
+		//   res = d("li").filter(function (i, el) {
+		//     console.log(i)
+		//     console.log(el)
+		//     console.log(this)
+		//   })
 
-      // 函数过滤掉索引是偶数的,则只剩下了item 1，3，5
-      //   res = $("li").filter(function (i, el) {
-      //     return i % 2 === 0
-      //   })
+		// 函数过滤掉索引是偶数的,则只剩下了item 1，3，5
+		//   res = $("li").filter(function (i, el) {
+		//     return i % 2 === 0
+		//   })
 
-      //   res = d("li").filter(function (i, el) {
-      //     return i % 2 === 0
-      //   })
+		//   res = d("li").filter(function (i, el) {
+		//     return i % 2 === 0
+		//   })
 
-      // -- 元素
-      //   res = $("li").filter(document.querySelectorAll(".item"))
-      //   res = d("li").filter(document.querySelectorAll(".item"))
+		// -- 元素
+		//   res = $("li").filter(document.querySelectorAll(".item"))
+		//   res = d("li").filter(document.querySelectorAll(".item"))
 
-      // 直接传入集合
-      //   res = $("li").filter($(".item"))
-      res = d("li").filter(d(".item"))
+		// 直接传入集合
+		//   res = $("li").filter($(".item"))
+		res = d('li').filter(d('.item'))
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

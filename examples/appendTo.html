@@ -1,64 +1,64 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>appendTo演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>appendTo演示</title>
+	</head>
 
-  <body>
-    <p>foo</p>
-    <p>bar</p>
-    <h2>Greetings</h2>
-    <h3>Greetings-3</h3>
-    <div class="container">
-      <div class="inner">Hello</div>
-      <div class="inner">Goodbye</div>
-      <span>dsad</span>
-    </div>
+	<body>
+		<p>foo</p>
+		<p>bar</p>
+		<h2>Greetings</h2>
+		<h3>Greetings-3</h3>
+		<div class="container">
+			<div class="inner">Hello</div>
+			<div class="inner">Goodbye</div>
+			<span>dsad</span>
+		</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 支持选择器
-      // res = $(".inner").appendTo("h2")
-      //   res = d(".inner").appendTo("h2")
+		// 支持选择器
+		// res = $(".inner").appendTo("h2")
+		//   res = d(".inner").appendTo("h2")
 
-      // 支持html字符串
-      // res = $(".inner").appendTo("<p>Test</p>")
-      //   res = d(".inner").appendTo("<p>Test</p>")
+		// 支持html字符串
+		// res = $(".inner").appendTo("<p>Test</p>")
+		//   res = d(".inner").appendTo("<p>Test</p>")
 
-      // 元素
-      //   res = $(".inner").appendTo(document.querySelector("h2"))
-      //   res = d(".inner").appendTo(document.querySelector("h2"))
+		// 元素
+		//   res = $(".inner").appendTo(document.querySelector("h2"))
+		//   res = d(".inner").appendTo(document.querySelector("h2"))
 
-      // HTMLCollection集合
-      // res = $(".inner").appendTo([document.getElementsByTagName("p")])
+		// HTMLCollection集合
+		// res = $(".inner").appendTo([document.getElementsByTagName("p")])
 
-      // 数组
-      /* 
+		// 数组
+		/* 
         我觉得这个可能算是一个bug。但是jquery的行为也是这样的。暂时不管它
         如果数组中的最后一个元素是非元素的内容，那么.container内的.inner元素不会被移动
       */
-      // res = $(".inner").appendTo([
-      //   document.querySelector("h2"),
-      //   document.querySelector("h3"),
-      //   document.getElementsByTagName("p"),
-      // ])
-      // res = d(".inner").appendTo([
-      //   document.querySelector("h2"),
-      //   document.querySelector("h3"),
-      //   document.getElementsByTagName("p"),
-      // ])
+		// res = $(".inner").appendTo([
+		//   document.querySelector("h2"),
+		//   document.querySelector("h3"),
+		//   document.getElementsByTagName("p"),
+		// ])
+		// res = d(".inner").appendTo([
+		//   document.querySelector("h2"),
+		//   document.querySelector("h3"),
+		//   document.getElementsByTagName("p"),
+		// ])
 
-      // jQuery对象
-      //   res = $(".inner").appendTo($("h2"))
-      //   res = d(".inner").appendTo(d("h2"))
+		// jQuery对象
+		//   res = $(".inner").appendTo($("h2"))
+		//   res = d(".inner").appendTo(d("h2"))
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

@@ -1,62 +1,62 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>replaceAll演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>replaceAll演示</title>
+	</head>
 
-  <body>
-    <div class="container">
-      <p>this is p</p>
-      <h1>this is h1</h1>
-      <h2>this is h2</h2>
-      <div class="inner first">Hello</div>
-      <div class="inner second">And</div>
-      <div class="inner third">Goodbye</div>
-    </div>
+	<body>
+		<div class="container">
+			<p>this is p</p>
+			<h1>this is h1</h1>
+			<h2>this is h2</h2>
+			<div class="inner first">Hello</div>
+			<div class="inner second">And</div>
+			<div class="inner third">Goodbye</div>
+		</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 选择器
-      //   res = $(".second").replaceAll("p")
-      //   res = d(".second").replaceAll("p")
+		// 选择器
+		//   res = $(".second").replaceAll("p")
+		//   res = d(".second").replaceAll("p")
 
-      // 集合对象
-      res = $(".second").replaceAll($("p"))
-      //   res = d(".second").replaceAll(d("p"))
+		// 集合对象
+		res = $('.second').replaceAll($('p'))
+		//   res = d(".second").replaceAll(d("p"))
 
-      // 数组- 元素都是真实的在页面时存在的dom
-      // res = $(".second").replaceAll([$("p"), $("h1"), $("h2")])
-      // res = d(".second").replaceAll([d("p"), d("h1"), d("h2")])
+		// 数组- 元素都是真实的在页面时存在的dom
+		// res = $(".second").replaceAll([$("p"), $("h1"), $("h2")])
+		// res = d(".second").replaceAll([d("p"), d("h1"), d("h2")])
 
-      // 数组- 有的不是页面上存在的dom
-      /* 
+		// 数组- 有的不是页面上存在的dom
+		/* 
        这在jquery中res返回值它会根据数组的数量返回相同长度的元素
        这里应该只返回页面中真实存在的才对,这是jq中需要优化的地方
       */
-      // res = $(".second").replaceAll([$("p"), `<p>New P</p>`])
-      // res = d(".second").replaceAll([
-      //   d("p"),
-      //   `<p>New P</p>`,
-      //   [`<p>New P</p>`, [`<p>New P</p>`]],
-      // ])
+		// res = $(".second").replaceAll([$("p"), `<p>New P</p>`])
+		// res = d(".second").replaceAll([
+		//   d("p"),
+		//   `<p>New P</p>`,
+		//   [`<p>New P</p>`, [`<p>New P</p>`]],
+		// ])
 
-      // 如果集合中的元素不是真实的元素
-      // res = $([10, 20, document.createTextNode("ewqe")]).replaceAll([
-      //   $("p"),
-      //   `<p>New P</p>`,
-      // ])
-      // res = d([10, 20, document.createTextNode("ewqe")]).replaceAll([
-      //   d("p"),
-      //   `<p>New P</p>`,
-      // ])
+		// 如果集合中的元素不是真实的元素
+		// res = $([10, 20, document.createTextNode("ewqe")]).replaceAll([
+		//   $("p"),
+		//   `<p>New P</p>`,
+		// ])
+		// res = d([10, 20, document.createTextNode("ewqe")]).replaceAll([
+		//   d("p"),
+		//   `<p>New P</p>`,
+		// ])
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

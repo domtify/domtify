@@ -1,90 +1,90 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>clone演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>clone演示</title>
+	</head>
 
-  <body>
-    <div id="parent" class="box">
-      父容器
-      <button id="btn">点击我</button>
-    </div>
-    <div id="result"></div>
+	<body>
+		<div id="parent" class="box">
+			父容器
+			<button id="btn">点击我</button>
+		</div>
+		<div id="result"></div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // clone(false) 只克隆DOM，不复制任何事件和data
-      // $("#btn").data("info", { count: 1 })
-      // $("#btn").on("click", function () {
-      //   console.log("按钮被点击!")
-      // })
-      // res = $("#btn").clone(false)
-      // res = $("#result").append(res)
-      // res = $("#result #btn").data("info") // 应该是undefined
+		// clone(false) 只克隆DOM，不复制任何事件和data
+		// $("#btn").data("info", { count: 1 })
+		// $("#btn").on("click", function () {
+		//   console.log("按钮被点击!")
+		// })
+		// res = $("#btn").clone(false)
+		// res = $("#result").append(res)
+		// res = $("#result #btn").data("info") // 应该是undefined
 
-      // d("#btn").data("info", { count: 1 })
-      // d("#btn").on("click", function () {
-      //   console.log("按钮被点击!")
-      // })
-      // res = d("#btn").clone(false)
-      // res = d("#result").append(res)
-      // res = d("#result #btn").data("info") // 应该是undefined
+		// d("#btn").data("info", { count: 1 })
+		// d("#btn").on("click", function () {
+		//   console.log("按钮被点击!")
+		// })
+		// res = d("#btn").clone(false)
+		// res = d("#result").append(res)
+		// res = d("#result #btn").data("info") // 应该是undefined
 
-      // clone(true) 克隆DOM + 自身事件和data，不复制子元素事件和data
-      // $("#btn").data("info", { count: 1 })
-      // $("#btn").on("click", function () {
-      //   console.log("按钮被点击!")
-      // })
-      // const cloneBtn = $("#btn").clone(true)
-      // res = $("#result").append(cloneBtn)
-      // res = $("#result #btn").data("info")
+		// clone(true) 克隆DOM + 自身事件和data，不复制子元素事件和data
+		// $("#btn").data("info", { count: 1 })
+		// $("#btn").on("click", function () {
+		//   console.log("按钮被点击!")
+		// })
+		// const cloneBtn = $("#btn").clone(true)
+		// res = $("#result").append(cloneBtn)
+		// res = $("#result #btn").data("info")
 
-      // d("#btn").data("info", { count: 1 })
-      // d("#btn").on("click", function () {
-      //   console.log("按钮被点击!")
-      // })
-      // const cloneBtn = d("#btn").clone(true)
-      // res = d("#result").append(cloneBtn)
-      // res = d("#result #btn").data("info")
+		// d("#btn").data("info", { count: 1 })
+		// d("#btn").on("click", function () {
+		//   console.log("按钮被点击!")
+		// })
+		// const cloneBtn = d("#btn").clone(true)
+		// res = d("#result").append(cloneBtn)
+		// res = d("#result #btn").data("info")
 
-      // clone(true, true) 克隆DOM + 自身事件和数组 + 子元素事件和数据
-      // $("#parent").data("parent-info", { count: 2 })
-      // $("#parent").on("click", function () {
-      //   console.log("父容器被点击!")
-      // })
-      // $("#btn").data("info", { count: 1 })
-      // $("#btn").on("click", function () {
-      //   console.log("按钮被点击!")
-      // })
-      // const cloneParent = $("#parent").clone(true, true)
-      // res = $("#result").append(cloneParent)
-      // res = {
-      //   btnData: $("#btn").data("info"),
-      //   parentData: $("#parent").data("parent-info"),
-      // }
+		// clone(true, true) 克隆DOM + 自身事件和数组 + 子元素事件和数据
+		// $("#parent").data("parent-info", { count: 2 })
+		// $("#parent").on("click", function () {
+		//   console.log("父容器被点击!")
+		// })
+		// $("#btn").data("info", { count: 1 })
+		// $("#btn").on("click", function () {
+		//   console.log("按钮被点击!")
+		// })
+		// const cloneParent = $("#parent").clone(true, true)
+		// res = $("#result").append(cloneParent)
+		// res = {
+		//   btnData: $("#btn").data("info"),
+		//   parentData: $("#parent").data("parent-info"),
+		// }
 
-      d("#parent").data("parent-info", { count: 2 })
-      d("#parent").on("click", function () {
-        console.log("父容器被点击!")
-      })
-      d("#btn").data("info", { count: 1 })
-      d("#btn").on("click", function () {
-        console.log("按钮被点击!")
-      })
-      const cloneParent = d("#parent").clone(true, true)
-      res = d("#result").append(cloneParent)
-      res = {
-        btnData: d("#btn").data("info"),
-        parentData: d("#parent").data("parent-info"),
-      }
+		d('#parent').data('parent-info', { count: 2 })
+		d('#parent').on('click', function () {
+			console.log('父容器被点击!')
+		})
+		d('#btn').data('info', { count: 1 })
+		d('#btn').on('click', function () {
+			console.log('按钮被点击!')
+		})
+		const cloneParent = d('#parent').clone(true, true)
+		res = d('#result').append(cloneParent)
+		res = {
+			btnData: d('#btn').data('info'),
+			parentData: d('#parent').data('parent-info'),
+		}
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

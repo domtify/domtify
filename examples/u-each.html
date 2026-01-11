@@ -1,102 +1,104 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-each演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>u-each演示</title>
+	</head>
 
-  <body>
-    <div id="d1"></div>
-    <div id="d2"></div>
-    <div id="d3"></div>
-    <div id="d4"></div>
+	<body>
+		<div id="d1"></div>
+		<div id="d2"></div>
+		<div id="d3"></div>
+		<div id="d4"></div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script>
-      let res
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+		></script>
+		<script>
+		let res
 
-      // 数组
-      //  res =  $.each([10, 20, 30], function (index, value) {
-      //     console.log(index, value)
-      //   })
-      //  res =  d.each([10, 20, 30], function (index, value) {
-      //     console.log(index, value)
-      //   })
-      // 类数组对象
-      //  res =  $.each($("div"), function (index, value) {
-      //     console.log(index, value)
-      //   })
-      //  res =  d.each(d("div"), function (index, value) {
-      //     console.log(index, value)
-      //   })
+		// 数组
+		//  res =  $.each([10, 20, 30], function (index, value) {
+		//     console.log(index, value)
+		//   })
+		//  res =  d.each([10, 20, 30], function (index, value) {
+		//     console.log(index, value)
+		//   })
+		// 类数组对象
+		//  res =  $.each($("div"), function (index, value) {
+		//     console.log(index, value)
+		//   })
+		//  res =  d.each(d("div"), function (index, value) {
+		//     console.log(index, value)
+		//   })
 
-      // 普通对象
-      // const obj = { name: "Alice", age: 25, city: "Paris" }
-      // res = $.each(obj, function (key, value) {
-      //   console.log(key, value)
-      // })
+		// 普通对象
+		// const obj = { name: "Alice", age: 25, city: "Paris" }
+		// res = $.each(obj, function (key, value) {
+		//   console.log(key, value)
+		// })
 
-      const obj = { name: "Alice", age: 25, city: "Paris" }
-      res = d.each(obj, function (key, value) {
-        console.log(key, value)
-      })
+		const obj = { name: 'Alice', age: 25, city: 'Paris' }
+		res = d.each(obj, function (key, value) {
+			console.log(key, value)
+		})
 
-      // return false 循环中途停止
-      //   $.each([1, 2, 3, 4, 5], function (index, value) {
-      //     console.log(index, value)
-      //     if (value === 3) {
-      //       return false // 停止循环
-      //     }
-      //   })
+		// return false 循环中途停止
+		//   $.each([1, 2, 3, 4, 5], function (index, value) {
+		//     console.log(index, value)
+		//     if (value === 3) {
+		//       return false // 停止循环
+		//     }
+		//   })
 
-      //   d.each([1, 2, 3, 4, 5], function (index, value) {
-      //     console.log(index, value)
-      //     if (value === 3) {
-      //       return false // 停止循环
-      //     }
-      //   })
+		//   d.each([1, 2, 3, 4, 5], function (index, value) {
+		//     console.log(index, value)
+		//     if (value === 3) {
+		//       return false // 停止循环
+		//     }
+		//   })
 
-      // 对象 中途停止
+		// 对象 中途停止
 
-      //   res = $.each({ a: 10, b: 20, c: 30 }, function (key, value) {
-      //     console.log(key, value)
-      //     if (value === 20) {
-      //       return false
-      //     }
-      //   })
+		//   res = $.each({ a: 10, b: 20, c: 30 }, function (key, value) {
+		//     console.log(key, value)
+		//     if (value === 20) {
+		//       return false
+		//     }
+		//   })
 
-      // res = d.each({ a: 10, b: 20, c: 30 }, function (key, value) {
-      //   console.log(key, value)
-      //   if (value === 20) {
-      //     return false
-      //   }
-      // })
+		// res = d.each({ a: 10, b: 20, c: 30 }, function (key, value) {
+		//   console.log(key, value)
+		//   if (value === 20) {
+		//     return false
+		//   }
+		// })
 
-      // 特殊对象
-      // res = $.each(
-      //   new Map([
-      //     ["a", 1],
-      //     ["b", 2],
-      //   ]),
-      //   function (key, value) {
-      //     console.log(key, value)
-      //   },
-      // )
+		// 特殊对象
+		// res = $.each(
+		//   new Map([
+		//     ["a", 1],
+		//     ["b", 2],
+		//   ]),
+		//   function (key, value) {
+		//     console.log(key, value)
+		//   },
+		// )
 
-      // res = d.each(
-      //   new Map([
-      //     ["a", 1],
-      //     ["b", 2],
-      //   ]),
-      //   function (key, value) {
-      //     console.log(key, value)
-      //   },
-      // )
+		// res = d.each(
+		//   new Map([
+		//     ["a", 1],
+		//     ["b", 2],
+		//   ]),
+		//   function (key, value) {
+		//     console.log(key, value)
+		//   },
+		// )
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

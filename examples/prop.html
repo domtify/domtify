@@ -1,56 +1,56 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prop演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>prop演示</title>
+	</head>
 
-  <body>
-    <input id="check1" type="checkbox" checked="checked" />
+	<body>
+		<input id="check1" type="checkbox" checked="checked">
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // getter
-      // res = $("input").prop("checked")
-      //   res = d("input").prop("checked")
+		// getter
+		// res = $("input").prop("checked")
+		//   res = d("input").prop("checked")
 
-      // setter
-      //   res = $("input").prop("disabled", true)
-      //   res = d("input").prop("disabled", true)
+		// setter
+		//   res = $("input").prop("disabled", true)
+		//   res = d("input").prop("disabled", true)
 
-      // -- 支持对象批量设置
-      //   res = $("input[type='checkbox']").prop({
-      //     disabled: true,
-      //     checked: false,
-      //   })
+		// -- 支持对象批量设置
+		//   res = $("input[type='checkbox']").prop({
+		//     disabled: true,
+		//     checked: false,
+		//   })
 
-      //   res = d("input[type='checkbox']").prop({
-      //     disabled: true,
-      //     checked: false,
-      //   })
+		//   res = d("input[type='checkbox']").prop({
+		//     disabled: true,
+		//     checked: false,
+		//   })
 
-      // -- 支持函数
-      //   res = $("input").prop("checked", function (i, val) {
-      //     console.log(i)
-      //     console.log(val)
-      //     console.log(this)
-      //     // 取反
-      //     return !val
-      //   })
+		// -- 支持函数
+		//   res = $("input").prop("checked", function (i, val) {
+		//     console.log(i)
+		//     console.log(val)
+		//     console.log(this)
+		//     // 取反
+		//     return !val
+		//   })
 
-      //   res = d("input").prop("checked", function (i, val) {
-      //     console.log(i)
-      //     console.log(val)
-      //     console.log(this)
-      //     // 取反
-      //     return !val
-      //   })
-      console.log(res)
-    </script>
-  </body>
+		//   res = d("input").prop("checked", function (i, val) {
+		//     console.log(i)
+		//     console.log(val)
+		//     console.log(this)
+		//     // 取反
+		//     return !val
+		//   })
+		console.log(res)
+		</script>
+	</body>
 </html>

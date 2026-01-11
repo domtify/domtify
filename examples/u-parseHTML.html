@@ -1,60 +1,60 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-parseHTML演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>u-parseHTML演示</title>
+	</head>
 
-  <body>
-    <p></p>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+	<body>
+		<p></p>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      res = `hello, <b>my name is</b> <script>alert('xss')<\/script> ModernJS.`
+		res = `hello, <b>my name is</b> <script>alert('xss')<\/script> ModernJS.`
 
-      // res = $("<b>hello</b>domtify<span>nice</span>")
-      // res = d("<b>hello</b>domtify<span>nice</span>")
+		// res = $("<b>hello</b>domtify<span>nice</span>")
+		// res = d("<b>hello</b>domtify<span>nice</span>")
 
-      // 默认是新的document
-      //   res = $.parseHTML(res)
-      //   res = res.at(0).ownerDocument === document //false
+		// 默认是新的document
+		//   res = $.parseHTML(res)
+		//   res = res.at(0).ownerDocument === document //false
 
-      // res = d.parseHTML(res)
-      // res = res.at(0).ownerDocument === document //false
+		// res = d.parseHTML(res)
+		// res = res.at(0).ownerDocument === document //false
 
-      // 指定 context 为当前 document
-      //   res = $.parseHTML(res, document)
-      //   res = res.at(0).ownerDocument === document //true
+		// 指定 context 为当前 document
+		//   res = $.parseHTML(res, document)
+		//   res = res.at(0).ownerDocument === document //true
 
-      // res = d.parseHTML(res, document)
-      // res = res.at(0).ownerDocument === document //true
+		// res = d.parseHTML(res, document)
+		// res = res.at(0).ownerDocument === document //true
 
-      // 不过滤掉脚本测试
-      //   res = $.parseHTML(res, document, true)
-      //   res = d.parseHTML(res, document, true)
+		// 不过滤掉脚本测试
+		//   res = $.parseHTML(res, document, true)
+		//   res = d.parseHTML(res, document, true)
 
-      // 上下文可以是普通的子元素
-      /* 
+		// 上下文可以是普通的子元素
+		/* 
        这在jquery中会报错
        */
-      // res = $.parseHTML(res, document.querySelector("p"))
-      // res = res.at(0).ownerDocument === document //true
+		// res = $.parseHTML(res, document.querySelector("p"))
+		// res = res.at(0).ownerDocument === document //true
 
-      // res = d.parseHTML(res, document.querySelector("p"))
-      // res = res.at(0).ownerDocument === document //true
+		// res = d.parseHTML(res, document.querySelector("p"))
+		// res = res.at(0).ownerDocument === document //true
 
-      // 上下文如果是其它数据类型,将使用document
-      // res = $.parseHTML(res, 10)
-      // res = res.at(0).ownerDocument === document //true
+		// 上下文如果是其它数据类型,将使用document
+		// res = $.parseHTML(res, 10)
+		// res = res.at(0).ownerDocument === document //true
 
-      res = d.parseHTML(res, 10)
-      res = res.at(0).ownerDocument === document //true
+		res = d.parseHTML(res, 10)
+		res = res.at(0).ownerDocument === document //true
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

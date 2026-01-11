@@ -1,18 +1,18 @@
-import { isUndefined } from "is-what"
-import { dom } from "@/core.js"
+import { isUndefined } from 'is-what'
+import { dom } from '@/core/dom.js'
 import {
-  getWindowSize,
-  getDocumentSize,
-  resolveSizeValue,
-  isBorderBox,
-  getComputedSize,
-  resolveToPx,
-  isPxValue,
   border,
+  getComputedSize,
+  getDocumentSize,
+  getWindowSize,
+  isBorderBox,
+  isPxValue,
   padding,
-} from "@/utils/size.js"
+  resolveSizeValue,
+  resolveToPx,
+} from '@/helpers/size.js'
 
-export const createContentSize = (prop) => (value) => (els) => {
+export const createContentSize = prop => value => els => {
   if (isUndefined(value)) {
     const el = els.at(0)
     if (!el) return undefined

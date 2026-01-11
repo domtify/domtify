@@ -1,52 +1,52 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>html演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>html演示</title>
+	</head>
 
-  <body>
-    <div class="demo-container">
-      <div class="demo-box">Demonstration Box</div>
-    </div>
+	<body>
+		<div class="demo-container">
+			<div class="demo-box">Demonstration Box</div>
+		</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // getter
-      // 获取html
-      //   res = $("div.demo-container").html() //<div class="demo-box">Demonstration Box</div>
-      //   res = d("div.demo-container").html()
+		// getter
+		// 获取html
+		//   res = $("div.demo-container").html() //<div class="demo-box">Demonstration Box</div>
+		//   res = d("div.demo-container").html()
 
-      //setter
-      // 设置html-- html字符串
-      //   res = $("div.demo-container").html(
-      //     "<p>All new content. <em>You bet!</em></p>",
-      //   )
-      //   res = d("div.demo-container").html(
-      //     "<p>All new content. <em>You bet!</em></p>",
-      //   )
+		//setter
+		// 设置html-- html字符串
+		//   res = $("div.demo-container").html(
+		//     "<p>All new content. <em>You bet!</em></p>",
+		//   )
+		//   res = d("div.demo-container").html(
+		//     "<p>All new content. <em>You bet!</em></p>",
+		//   )
 
-      // 设置HTML -- 函数
-      res = $("div.demo-container").html(function (index, oldHtml) {
-        console.log(index)
-        console.log(oldHtml)
-        console.log(this)
-        return "foo bar"
-      })
+		// 设置HTML -- 函数
+		res = $('div.demo-container').html(function (index, oldHtml) {
+			console.log(index)
+			console.log(oldHtml)
+			console.log(this)
+			return 'foo bar'
+		})
 
-      // res = d("div.demo-container").html(function (index, oldHtml) {
-      //   console.log(index)
-      //   console.log(oldHtml)
-      //   console.log(this)
-      //   return "foo bar"
-      // })
+		// res = d("div.demo-container").html(function (index, oldHtml) {
+		//   console.log(index)
+		//   console.log(oldHtml)
+		//   console.log(this)
+		//   return "foo bar"
+		// })
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

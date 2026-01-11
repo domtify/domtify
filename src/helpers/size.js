@@ -1,9 +1,9 @@
-import { isFunction, isNumber, isString } from "is-what"
-import { cssInt } from "./cssInt.js"
-import { BOX_PROPS } from "@/constants/index.js"
+import { isFunction, isNumber, isString } from 'is-what'
+import { cssInt } from './cssInt.js'
+import { BOX_PROPS } from '@/constants/index.js'
 
 export function isBorderBox(el) {
-  return getComputedStyle(el).boxSizing === "border-box"
+  return getComputedStyle(el).boxSizing === 'border-box'
 }
 
 export function ucfirst(str) {
@@ -47,7 +47,7 @@ export function sumStyle(el, keys) {
 
 export function resolveToPx(el, prop, value) {
   const style = el.style
-  const hadInline = style.getPropertyValue(prop) !== ""
+  const hadInline = style.getPropertyValue(prop) !== ''
 
   const prev = style.getPropertyValue(prop)
 
@@ -82,19 +82,19 @@ export function isPxValue(value) {
 }
 
 export const border = (el, prop) => {
-  return prop === "height"
+  return prop === 'height'
     ? sumStyle(el, BOX_PROPS.BORDER_Y)
     : sumStyle(el, BOX_PROPS.BORDER_X)
 }
 
 export const padding = (el, prop) => {
-  return prop === "height"
+  return prop === 'height'
     ? sumStyle(el, BOX_PROPS.PADDING_Y)
     : sumStyle(el, BOX_PROPS.PADDING_X)
 }
 
 export const margin = (el, prop) => {
-  return prop === "height"
+  return prop === 'height'
     ? sumStyle(el, BOX_PROPS.MARGIN_Y)
     : sumStyle(el, BOX_PROPS.MARGIN_X)
 }

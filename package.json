@@ -2,7 +2,10 @@
   "name": "domtify",
   "version": "1.0.1",
   "description": "Lightweight DOM & event utility with a jQuery-style API.",
-  "repository": "github:ajiho/domtify",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ajiho/domtify.git"
+  },
   "bugs": {
     "url": "https://github.com/ajiho/domtify/issues"
   },
@@ -10,22 +13,25 @@
   "funding": "https://www.lujiahao.com/sponsor",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./util": "./dist/util.mjs"
+  },
   "scripts": {
+    "format": "biome format --write",
+    "lint": "biome lint",
+    "lint:fix": "npm run lint -- --write",
     "sizelint": "size-limit",
-    "clean": "rimraf dist",
-    "rollup": "rollup --config configs/rollup.config.mjs",
-    "build": "run-s clean gen-exports rollup sizelint",
+    "build": "tsdown",
+    "dist": "run-s build sizelint",
     "test": "vitest --coverage --ui",
     "coverage": "vitest run --coverage",
     "docs:dev": "vitepress dev docs --open",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./util/*": "./dist/util/*"
+    "docs:preview": "vitepress preview docs",
+    "demo": "vite --config examples/vite.config.ts"
   },
   "files": [
     "dist/"
@@ -37,6 +43,7 @@
     "library"
   ],
   "devDependencies": {
+    "@biomejs/biome": "^2.3.11",
     "@size-limit/preset-small-lib": "^12.0.0",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
@@ -47,9 +54,12 @@
     "medium-zoom": "^1.1.0",
     "npm-run-all2": "^8.0.4",
     "playwright": "^1.57.0",
-    "prettier": "^3.7.4",
     "sass": "^1.95.1",
     "size-limit": "^12.0.0",
+    "tsdown": "^0.19.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
     "vitepress": "^1.6.4",
     "vitepress-plugin-group-icons": "^1.6.5",
     "vitepress-plugin-tabs": "^0.7.3",

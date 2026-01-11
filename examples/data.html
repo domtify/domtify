@@ -1,87 +1,87 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>data演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>data演示</title>
+	</head>
 
-  <body>
-    <ul>
-      <li
-        class="item-1"
-        data-role-name="page"
-        data-count="10"
-        data-hidden="true"
-        data-options='{"name":"John"}'
-      >
-        li
-      </li>
-      <li
-        class="item-2"
-        data-role-name="page"
-        data-count="12"
-        data-hidden="true"
-        data-options='{"name":"John"}'
-      >
-        li
-      </li>
-    </ul>
+	<body>
+		<ul>
+			<li
+				class="item-1"
+				data-role-name="page"
+				data-count="10"
+				data-hidden="true"
+				data-options='{"name":"John"}'
+			>
+				li
+			</li>
+			<li
+				class="item-2"
+				data-role-name="page"
+				data-count="12"
+				data-hidden="true"
+				data-options='{"name":"John"}'
+			>
+				li
+			</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // getter
-      // 没有参数则读取所有的数据
-      // res = $("li").data()
-      // res = d("li").data()
+		// getter
+		// 没有参数则读取所有的数据
+		// res = $("li").data()
+		// res = d("li").data()
 
-      // 取单个属性
-      // res = $("li").data("role-name")
-      // res = d("li").data("role-name")
+		// 取单个属性
+		// res = $("li").data("role-name")
+		// res = d("li").data("role-name")
 
-      // 取不存在的属性
-      // res = $("li").data("foo-bar")
-      // res = d("li").data("foo-bar")
+		// 取不存在的属性
+		// res = $("li").data("foo-bar")
+		// res = d("li").data("foo-bar")
 
-      // 取不存在的属性非字符串的属性jQuery会报错,在domtify中做进一步的处理,直接返回undefined
-      // res = $("li").data(false)
-      // res = d("li").data(false)
+		// 取不存在的属性非字符串的属性jQuery会报错,在domtify中做进一步的处理,直接返回undefined
+		// res = $("li").data(false)
+		// res = d("li").data(false)
 
-      // setter
-      // 通过键值对的方式设置数据
-      // res = $("li").data("foo", 52)
-      // res = $("li").data("bar", { isManual: true })
-      // res = d("li").data("foo", 52)
-      // res = d("li").data("bar", { isManual: true })
+		// setter
+		// 通过键值对的方式设置数据
+		// res = $("li").data("foo", 52)
+		// res = $("li").data("bar", { isManual: true })
+		// res = d("li").data("foo", 52)
+		// res = d("li").data("bar", { isManual: true })
 
-      // 通过对象的方式设置数据
-      // res = $("li").data({ foo: "test", baz: [1, 2, 3] })
-      // res = d("li").data({ foo: "test", baz: [1, 2, 3] })
+		// 通过对象的方式设置数据
+		// res = $("li").data({ foo: "test", baz: [1, 2, 3] })
+		// res = d("li").data({ foo: "test", baz: [1, 2, 3] })
 
-      // 覆盖DOM上已存在的data数据
-      // res = $("li").data("role-name", 20)
-      // res = $("li").data("count", "abc")
-      // res = $("li").data()
+		// 覆盖DOM上已存在的data数据
+		// res = $("li").data("role-name", 20)
+		// res = $("li").data("count", "abc")
+		// res = $("li").data()
 
-      // res = d("li").data("role-name", 20)
-      // res = d("li").data("count", "abc")
-      // res = d("li").data()
+		// res = d("li").data("role-name", 20)
+		// res = d("li").data("count", "abc")
+		// res = d("li").data()
 
-      // 设置数据时键会小驼峰的方式存储
-      // res = $("li").data("role-name", "ajiho")
-      // res = $("li").data("roleName")
+		// 设置数据时键会小驼峰的方式存储
+		// res = $("li").data("role-name", "ajiho")
+		// res = $("li").data("roleName")
 
-      // res = d("li").data("role-name", "ajiho")
-      // res = d("li").data("roleName")
+		// res = d("li").data("role-name", "ajiho")
+		// res = d("li").data("roleName")
 
-      console.dir(document.querySelector(".item-1"))
-      console.dir(document.querySelector(".item-2"))
+		console.dir(document.querySelector('.item-1'))
+		console.dir(document.querySelector('.item-2'))
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

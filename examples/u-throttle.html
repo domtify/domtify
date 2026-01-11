@@ -1,48 +1,50 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-throttle演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>u-throttle演示</title>
+	</head>
 
-  <body>
-    <div id="d1"></div>
-    <div id="d2"></div>
-    <div id="d3"></div>
-    <div id="d4"></div>
+	<body>
+		<div id="d1"></div>
+		<div id="d2"></div>
+		<div id="d3"></div>
+		<div id="d4"></div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script>
-      // 会立即打印 'hello'，然后每 3000ms 打印一次
-      // const fn1 = d.throttle(() => console.log("hello"), 3000, {
-      //   leading: true,
-      // })
-      // setInterval(fn1, 400)
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+		></script>
+		<script>
+		// 会立即打印 'hello'，然后每 3000ms 打印一次
+		// const fn1 = d.throttle(() => console.log("hello"), 3000, {
+		//   leading: true,
+		// })
+		// setInterval(fn1, 400)
 
-      // 会在 3000ms 后第一次打印 'hello'，然后每 3000ms 打印一次
-      // const fn2 = d.throttle(() => console.log("d_hello"), 3000, {
-      //   leading: false,
-      // })
-      // setInterval(fn2, 400)
+		// 会在 3000ms 后第一次打印 'hello'，然后每 3000ms 打印一次
+		// const fn2 = d.throttle(() => console.log("d_hello"), 3000, {
+		//   leading: false,
+		// })
+		// setInterval(fn2, 400)
 
-      // 在 'hello' 被打印前，取消了函数调用
-      // const fn4 = d.throttle(() => console.log("hello"), 500, {
-      //   leading: false,
-      // })
-      // fn4()
-      // fn4()
-      // fn4()
-      // fn4.cancel()
+		// 在 'hello' 被打印前，取消了函数调用
+		// const fn4 = d.throttle(() => console.log("hello"), 500, {
+		//   leading: false,
+		// })
+		// fn4()
+		// fn4()
+		// fn4()
+		// fn4.cancel()
 
-      // 立即执行节流函数
-      const fn5 = d.throttle(() => console.log("Hello"), 500)
-      fn5()
-      fn5()
-      fn5()
-      fn5.flush()
-    </script>
-  </body>
+		// 立即执行节流函数
+		const fn5 = d.throttle(() => console.log('Hello'), 500)
+		fn5()
+		fn5()
+		fn5()
+		fn5.flush()
+		</script>
+	</body>
 </html>

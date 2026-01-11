@@ -1,148 +1,148 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-param演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>u-param演示</title>
+	</head>
 
-  <body>
-    <form id="myForm">
-      <input class="input1" type="text" name="first" value="Rick" />
-      <input class="input2" type="text" />
-      <input type="text" name="job" value="Rock Star" />
-    </form>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+	<body>
+		<form id="myForm">
+			<input class="input1" type="text" name="first" value="Rick">
+			<input class="input2" type="text">
+			<input type="text" name="job" value="Rock Star">
+		</form>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 普通数组
-      //   res = $.param([2, 3, 4], false)
-      //   res = d.param([2, 3, 4], false)
+		// 普通数组
+		//   res = $.param([2, 3, 4], false)
+		//   res = d.param([2, 3, 4], false)
 
-      // 空数组
-      // res = $.param([])
-      // res = d.param([])
+		// 空数组
+		// res = $.param([])
+		// res = d.param([])
 
-      // 数组的值为null或者undefined
-      // res = $.param([2, 3, 4, null, undefined])
-      // res = $.param([2, 3, 4])
-      // res = d.param([2, 3, 4, null, undefined])
-      // res = d.param([2, 3, 4])
+		// 数组的值为null或者undefined
+		// res = $.param([2, 3, 4, null, undefined])
+		// res = $.param([2, 3, 4])
+		// res = d.param([2, 3, 4, null, undefined])
+		// res = d.param([2, 3, 4])
 
-      // 带有name和value的对象数组
-      //   res = $.param([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name: "job", value: "Rock Star" },
-      //   ])
+		// 带有name和value的对象数组
+		//   res = $.param([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name: "job", value: "Rock Star" },
+		//   ])
 
-      //   res = d.param([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name: "job", value: "Rock Star" },
-      //   ])
+		//   res = d.param([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name: "job", value: "Rock Star" },
+		//   ])
 
-      // 数组 - 带有name和value的对象数组
-      //   res = $.param([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name1: "job", value2: "Rock Star" },
-      //   ])
+		// 数组 - 带有name和value的对象数组
+		//   res = $.param([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name1: "job", value2: "Rock Star" },
+		//   ])
 
-      //   res = d.param([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name1: "job", value2: "Rock Star" },
-      //   ])
+		//   res = d.param([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name1: "job", value2: "Rock Star" },
+		//   ])
 
-      // 对象 - traditional为false的情况
-      //   res = $.param({ a: [2, 3, 4] })
-      //   res = d.param({ a: [2, 3, 4] })
+		// 对象 - traditional为false的情况
+		//   res = $.param({ a: [2, 3, 4] })
+		//   res = d.param({ a: [2, 3, 4] })
 
-      // 对象 - traditional为true的情况
-      //   res = $.param({ a: [2, 3, 4] }, true)
-      //   res = d.param({ a: [2, 3, 4] }, true)
+		// 对象 - traditional为true的情况
+		//   res = $.param({ a: [2, 3, 4] }, true)
+		//   res = d.param({ a: [2, 3, 4] }, true)
 
-      // 对象值为null的情况
-      // res = $.param({ a: null })
-      // res = d.param({ a: null })
+		// 对象值为null的情况
+		// res = $.param({ a: null })
+		// res = d.param({ a: null })
 
-      // 空对象
-      // res = $.param({})
-      // res = d.param({})
+		// 空对象
+		// res = $.param({})
+		// res = d.param({})
 
-      // 集合对象
-      // res = $.param($("#myForm"))
-      // res = d.param(d("#myForm"))
+		// 集合对象
+		// res = $.param($("#myForm"))
+		// res = d.param(d("#myForm"))
 
-      // 集合对象-空集合
-      // res = $.param($("#myFormd"))
-      // res = d.param(d("#myFormd"))
+		// 集合对象-空集合
+		// res = $.param($("#myFormd"))
+		// res = d.param(d("#myFormd"))
 
-      res = d.toType("hello") // "string"
-      res = d.toType(123) // "number"
-      res = d.toType(null) // "null"
-      res = d.toType(undefined) // "undefined"
-      res = d.toType([]) // "object"
-      res = d.toType({}) // "object"
-      res = d.toType(new Date()) // "object"
-      res = d.toType(/abc/) // "object"
-      res = d.toType(new Set()) // "object"
-      res = d.toType(Symbol()) // "symbol"
-      res = d.toType(() => {}) // "function"
+		res = d.toType('hello') // "string"
+		res = d.toType(123) // "number"
+		res = d.toType(null) // "null"
+		res = d.toType(undefined) // "undefined"
+		res = d.toType([]) // "object"
+		res = d.toType({}) // "object"
+		res = d.toType(new Date()) // "object"
+		res = d.toType(/abc/) // "object"
+		res = d.toType(new Set()) // "object"
+		res = d.toType(Symbol()) // "symbol"
+		res = d.toType(() => {}) // "function"
 
-      toType("hello") // "string"
-      toType(123) // "number"
-      toType(null) // "null"
-      toType(undefined) // "undefined"
-      toType([]) // "object"
-      toType({}) // "object"
-      toType(new Date()) // "object"
-      toType(/abc/) // "object"
-      toType(new Set()) // "object"
-      toType(Symbol()) // "symbol"
-      toType(() => {}) // "function"
+		toType('hello') // "string"
+		toType(123) // "number"
+		toType(null) // "null"
+		toType(undefined) // "undefined"
+		toType([]) // "object"
+		toType({}) // "object"
+		toType(new Date()) // "object"
+		toType(/abc/) // "object"
+		toType(new Set()) // "object"
+		toType(Symbol()) // "symbol"
+		toType(() => {}) // "function"
 
-      // 集合对象 - 集合中带有name和value的元素
-      // res = $.param($(".input1"))
-      // res = d.param(d(".input1"))
+		// 集合对象 - 集合中带有name和value的元素
+		// res = $.param($(".input1"))
+		// res = d.param(d(".input1"))
 
-      // 集合对象 - 有元素但是它没有name和value
-      // res = $.param($(".input2"))
-      // res = d.param(d(".input2"))
+		// 集合对象 - 有元素但是它没有name和value
+		// res = $.param($(".input2"))
+		// res = d.param(d(".input2"))
 
-      // 集合对象 - 带有非元素的集合对象
-      // res = $.param(
-      //   $([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name: "job", value: "Rock Star" },
-      //   ]),
-      // )
-      // res = d.param(
-      //   d([
-      //     { name: "first", value: "Rick" },
-      //     { name: "last", value: "Astley" },
-      //     { name: "job", value: "Rock Star" },
-      //   ]),
-      // )
+		// 集合对象 - 带有非元素的集合对象
+		// res = $.param(
+		//   $([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name: "job", value: "Rock Star" },
+		//   ]),
+		// )
+		// res = d.param(
+		//   d([
+		//     { name: "first", value: "Rick" },
+		//     { name: "last", value: "Astley" },
+		//     { name: "job", value: "Rock Star" },
+		//   ]),
+		// )
 
-      // 空字符串
-      // res = $.param(2)
-      // res = d.param(false)
+		// 空字符串
+		// res = $.param(2)
+		// res = d.param(false)
 
-      // null
-      // res = $.param(null)
-      // res = d.param(null)
+		// null
+		// res = $.param(null)
+		// res = d.param(null)
 
-      // undefined
-      // res = $.param(undefined)
-      // res = d.param(undefined)
+		// undefined
+		// res = $.param(undefined)
+		// res = d.param(undefined)
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

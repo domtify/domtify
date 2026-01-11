@@ -1,58 +1,58 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>not演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>not演示</title>
+	</head>
 
-  <body>
-    <ul>
-      <li>list item 1</li>
-      <li>list item 2</li>
-      <li class="item item3">list item 3</li>
-      <li class="item item4">list item 4</li>
-      <li>list item 5</li>
-    </ul>
+	<body>
+		<ul>
+			<li>list item 1</li>
+			<li>list item 2</li>
+			<li class="item item3">list item 3</li>
+			<li class="item item4">list item 4</li>
+			<li>list item 5</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 选择器字符串
-      // res = $("li").not(":nth-child(2n)")
-      // res = d("li").not(":nth-child(2n)")
+		// 选择器字符串
+		// res = $("li").not(":nth-child(2n)")
+		// res = d("li").not(":nth-child(2n)")
 
-      // 元素
-      // res = $("li").not(document.querySelector(".item3"))
-      // res = d("li").not(document.querySelector(".item3"))
+		// 元素
+		// res = $("li").not(document.querySelector(".item3"))
+		// res = d("li").not(document.querySelector(".item3"))
 
-      // 元素数组
-      // res = $("li").not([
-      //   document.querySelector(".item3"),
-      //   document.querySelector(".item4"),
-      // ])
-      // res = d("li").not([
-      //   document.querySelector(".item3"),
-      //   document.querySelector(".item4"),
-      // ])
+		// 元素数组
+		// res = $("li").not([
+		//   document.querySelector(".item3"),
+		//   document.querySelector(".item4"),
+		// ])
+		// res = d("li").not([
+		//   document.querySelector(".item3"),
+		//   document.querySelector(".item4"),
+		// ])
 
-      // jquery对象
-      // res = $("li").not($(".item"))
-      // res = d("li").not(d(".item"))
+		// jquery对象
+		// res = $("li").not($(".item"))
+		// res = d("li").not(d(".item"))
 
-      // 函数
-      // res = $("li").not(function (index, el) {
-      //   return index === 3 //表示index为3的元素不要
-      // })
+		// 函数
+		// res = $("li").not(function (index, el) {
+		//   return index === 3 //表示index为3的元素不要
+		// })
 
-      // res = d("li").not(function (index, el) {
-      //   return index === 3 //表示index为3的元素不要
-      // })
+		// res = d("li").not(function (index, el) {
+		//   return index === 3 //表示index为3的元素不要
+		// })
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

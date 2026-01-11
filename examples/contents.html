@@ -1,34 +1,34 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>contents演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>contents演示</title>
+	</head>
 
-  <body>
-    <div class="container">
-      这是一段测试文本
-      <br />
-      <!-- 这是一个注释节点 -->
-    </div>
+	<body>
+		<div class="container">
+			这是一段测试文本
+			<br>
+			<!-- 这是一个注释节点 -->
+		</div>
 
-    <iframe src="contents-test-iframe.html" frameborder="0"></iframe>
+		<iframe src="contents-test-iframe.html" frameborder="0"></iframe>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 普通元素，返回其所有子节点（包括文本、注释、元素等）
-      //   res = $(".container").contents()
-      //   res = d(".container").contents()
+		// 普通元素，返回其所有子节点（包括文本、注释、元素等）
+		//   res = $(".container").contents()
+		//   res = d(".container").contents()
 
-      // -- 如果同域iframe,则可以获取 iframe 的内容文档
-      //   res = $("iframe").contents()
-      res = d("iframe").contents()
-      console.log(res)
-    </script>
-  </body>
+		// -- 如果同域iframe,则可以获取 iframe 的内容文档
+		//   res = $("iframe").contents()
+		res = d('iframe').contents()
+		console.log(res)
+		</script>
+	</body>
 </html>

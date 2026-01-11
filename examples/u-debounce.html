@@ -1,85 +1,87 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>u-debounce演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>u-debounce演示</title>
+	</head>
 
-  <body>
-    <div id="d1"></div>
-    <div id="d2"></div>
-    <div id="d3"></div>
-    <div id="d4"></div>
+	<body>
+		<div id="d1"></div>
+		<div id="d2"></div>
+		<div id="d3"></div>
+		<div id="d4"></div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-    <script>
-      let res
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+		></script>
+		<script>
+		let res
 
-      // 500 毫秒后只输出一次 'hello'
-      //   const fn1 = d.debounce(() => console.log("Hello"), 500)
-      //   fn1()
-      //   fn1()
-      //   fn1()
+		// 500 毫秒后只输出一次 'hello'
+		//   const fn1 = d.debounce(() => console.log("Hello"), 500)
+		//   fn1()
+		//   fn1()
+		//   fn1()
 
-      // 先立即触发一次,500 毫秒后再输出一次 'hello'
-      //   const fn2 = d.debounce(() => console.log("Hello"), 500, { leading: true })
-      //   fn2()
-      //   fn2()
-      //   fn2()
+		// 先立即触发一次,500 毫秒后再输出一次 'hello'
+		//   const fn2 = d.debounce(() => console.log("Hello"), 500, { leading: true })
+		//   fn2()
+		//   fn2()
+		//   fn2()
 
-      // 在 'hello' 被输出之前，函数已被取消
-      //   const fn3 = d.debounce(() => console.log("Hello"), 500)
-      //   fn3()
-      //   fn3()
-      //   fn3()
-      //   fn3.cancel()
+		// 在 'hello' 被输出之前，函数已被取消
+		//   const fn3 = d.debounce(() => console.log("Hello"), 500)
+		//   fn3()
+		//   fn3()
+		//   fn3()
+		//   fn3.cancel()
 
-      // 立即执行被防抖的函数
-      //   const fn4 = d.debounce(() => console.log("Hello"), 500)
-      //   fn4()
-      //   fn4()
-      //   fn4()
-      //   fn4.flush()
+		// 立即执行被防抖的函数
+		//   const fn4 = d.debounce(() => console.log("Hello"), 500)
+		//   fn4()
+		//   fn4()
+		//   fn4()
+		//   fn4.flush()
 
-      // maxWait选项测试
-      // 对照组没有maxWait选项，所以它会永远被重置
-      // const fn = () => console.log("执行", Date.now())
-      // const debounced = d.debounce(fn, 1000)
+		// maxWait选项测试
+		// 对照组没有maxWait选项，所以它会永远被重置
+		// const fn = () => console.log("执行", Date.now())
+		// const debounced = d.debounce(fn, 1000)
 
-      // setInterval(() => {
-      //   debounced()
-      // }, 300)
+		// setInterval(() => {
+		//   debounced()
+		// }, 300)
 
-      // 加上maxWait后，函数至少每 3 秒会被强制执行一次。
-      // const fn = () => console.log("执行", Date.now())
-      // const fn2 = () => console.log("_执行", Date.now())
-      // const debounced = d.debounce(fn, 1000, { maxWait: 3000 })
-      // const debounced2 = _.debounce(fn2, 1000, { maxWait: 3000 })
+		// 加上maxWait后，函数至少每 3 秒会被强制执行一次。
+		// const fn = () => console.log("执行", Date.now())
+		// const fn2 = () => console.log("_执行", Date.now())
+		// const debounced = d.debounce(fn, 1000, { maxWait: 3000 })
+		// const debounced2 = _.debounce(fn2, 1000, { maxWait: 3000 })
 
-      // setInterval(() => {
-      //   debounced2()
-      //   debounced()
-      // }, 300)
+		// setInterval(() => {
+		//   debounced2()
+		//   debounced()
+		// }, 300)
 
-      // leading + maxWait
-      /* 
+		// leading + maxWait
+		/* 
         效果：
         1. 第一次调用立即执行（leading）
         2. 后续调用不会频繁执行
         3. 即使持续调用，也会在 3 秒内强制执行一次
       */
-      const fn = () => console.log("执行", Date.now())
-      const fn2 = () => console.log("_执行", Date.now())
-      const debounced = d.debounce(fn, 1000, { leading: true, maxWait: 3000 })
-      const debounced2 = _.debounce(fn2, 1000, { leading: true, maxWait: 3000 })
+		const fn = () => console.log('执行', Date.now())
+		const fn2 = () => console.log('_执行', Date.now())
+		const debounced = d.debounce(fn, 1000, { leading: true, maxWait: 3000 })
+		const debounced2 = _.debounce(fn2, 1000, { leading: true, maxWait: 3000 })
 
-      setInterval(() => {
-        debounced2()
-        debounced()
-      }, 300)
-    </script>
-  </body>
+		setInterval(() => {
+			debounced2()
+			debounced()
+		}, 300)
+		</script>
+	</body>
 </html>

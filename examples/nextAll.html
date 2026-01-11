@@ -1,34 +1,34 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nextAll演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>nextAll演示</title>
+	</head>
 
-  <body>
-    <ul>
-      <li>list item 1</li>
-      <li>list item 2</li>
-      <li class="third-item">list item 3</li>
-      <li>list item 4</li>
-      <li>list item 5</li>
-    </ul>
+	<body>
+		<ul>
+			<li>list item 1</li>
+			<li>list item 2</li>
+			<li class="third-item">list item 3</li>
+			<li>list item 4</li>
+			<li>list item 5</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // res = $("li.third-item").nextAll()// item 4和5被选中
-      // res = d("li.third-item").nextAll() // item 4和5被选中
+		// res = $("li.third-item").nextAll()// item 4和5被选中
+		// res = d("li.third-item").nextAll() // item 4和5被选中
 
-      // 携带参数
-      res = $("li:first-child").nextAll(".third-item")
-      res = d("li:first-child").nextAll(".third-item")
+		// 携带参数
+		res = $('li:first-child').nextAll('.third-item')
+		res = d('li:first-child').nextAll('.third-item')
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

@@ -1,76 +1,76 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>before演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>before演示</title>
+	</head>
 
-  <body>
-    <div class="container">
-      <h2>h2-1</h2>
-      <h2>h2-2</h2>
-      <p>ppp</p>
+	<body>
+		<div class="container">
+			<h2>h2-1</h2>
+			<h2>h2-2</h2>
+			<p>ppp</p>
 
-      <div class="inner">Hello</div>
-      <div class="inner">Goodbye</div>
-    </div>
+			<div class="inner">Hello</div>
+			<div class="inner">Goodbye</div>
+		</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // HTML 字符串、DOM 元素、文本节点、元素和文本节点数组或 jQuery 对象，插入到匹配元素集中的每个元素之后。
+		// HTML 字符串、DOM 元素、文本节点、元素和文本节点数组或 jQuery 对象，插入到匹配元素集中的每个元素之后。
 
-      // HTML 字符串
-      // res = $(".inner").before("<p>this is p</p>")
-      // res = d(".inner").before("<p>this is p</p>")
+		// HTML 字符串
+		// res = $(".inner").before("<p>this is p</p>")
+		// res = d(".inner").before("<p>this is p</p>")
 
-      // dom元素
-      // res = $(".inner").before(document.querySelector("h2"))
-      // res = d(".inner").before(document.querySelector("h2"))
+		// dom元素
+		// res = $(".inner").before(document.querySelector("h2"))
+		// res = d(".inner").before(document.querySelector("h2"))
 
-      // HTMLCollection集合
-      // res = $(".inner").before(document.getElementsByTagName("p"))
-      // res = d(".inner").before(document.getElementsByTagName("p"))
+		// HTMLCollection集合
+		// res = $(".inner").before(document.getElementsByTagName("p"))
+		// res = d(".inner").before(document.getElementsByTagName("p"))
 
-      // 文本节点
-      // res = $(".inner").before("TEXT")
-      // res = d(".inner").before("TEXT")
+		// 文本节点
+		// res = $(".inner").before("TEXT")
+		// res = d(".inner").before("TEXT")
 
-      // 元素和文本节点数组
-      // res = $(".inner").before([document.querySelector("h2"), "TEXT"])
-      // res = d(".inner").before([document.querySelector("h2"), "TEXT"])
+		// 元素和文本节点数组
+		// res = $(".inner").before([document.querySelector("h2"), "TEXT"])
+		// res = d(".inner").before([document.querySelector("h2"), "TEXT"])
 
-      // jQuery对象
-      // res = $(".inner").before($("h2"))
-      // res = d(".inner").before(d("h2"))
+		// jQuery对象
+		// res = $(".inner").before($("h2"))
+		// res = d(".inner").before(d("h2"))
 
-      // 函数用法返回字符串
-      // res = $(".inner").before(function (index, html) {
-      //   console.log(index, html)
-      //   return `<b>test${index}</b>`
-      // })
+		// 函数用法返回字符串
+		// res = $(".inner").before(function (index, html) {
+		//   console.log(index, html)
+		//   return `<b>test${index}</b>`
+		// })
 
-      // res = d(".inner").before(function (index, html) {
-      //   console.log(index, html)
-      //   return `<b>test${index}</b>`
-      // })
+		// res = d(".inner").before(function (index, html) {
+		//   console.log(index, html)
+		//   return `<b>test${index}</b>`
+		// })
 
-      // 函数用法返回HTMLCollection集合
-      // res = $(".inner").before(function (index, html) {
-      //   console.log(index, html)
-      //   return document.getElementsByTagName("p")
-      // })
+		// 函数用法返回HTMLCollection集合
+		// res = $(".inner").before(function (index, html) {
+		//   console.log(index, html)
+		//   return document.getElementsByTagName("p")
+		// })
 
-      // res = d(".inner").before(function (index, html) {
-      //   console.log(index, html)
-      //   return document.getElementsByTagName("p")
-      // })
+		// res = d(".inner").before(function (index, html) {
+		//   console.log(index, html)
+		//   return document.getElementsByTagName("p")
+		// })
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

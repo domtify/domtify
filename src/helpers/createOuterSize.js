@@ -1,22 +1,22 @@
+import { isBoolean, isUndefined } from 'is-what'
+import { dom } from '@/core/dom.js'
 import {
-  getWindowSize,
-  getDocumentSize,
-  resolveSizeValue,
-  isBorderBox,
-  getComputedSize,
-  resolveToPx,
   border,
+  getComputedSize,
+  getDocumentSize,
+  getWindowSize,
+  isBorderBox,
   isPxValue,
-  padding,
   margin,
-} from "@/utils/size.js"
-import { isBoolean, isUndefined } from "is-what"
-import { dom } from "@/core.js"
+  padding,
+  resolveSizeValue,
+  resolveToPx,
+} from '@/helpers/size.js'
 
 export const createOuterSize =
-  (prop) =>
+  prop =>
   (value, includeMargin = false) =>
-  (els) => {
+  els => {
     if (isUndefined(value) || isBoolean(value)) {
       const el = els.at(0)
       if (!el) return undefined

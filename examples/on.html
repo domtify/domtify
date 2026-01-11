@@ -1,123 +1,123 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>on演示</title>
-    <style>
-      body {
-        margin-bottom: 1000px;
-      }
-      ul {
-        border: 1px solid red;
-      }
-      li {
-        border: 1px solid green;
-      }
-      .box {
-        background-color: blueviolet;
-      }
-    </style>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>on演示</title>
+		<style>
+		body {
+			margin-bottom: 1000px;
+		}
+		ul {
+			border: 1px solid red;
+		}
+		li {
+			border: 1px solid green;
+		}
+		.box {
+			background-color: blueviolet;
+		}
+		</style>
+	</head>
 
-  <body>
-    <div class="box">
-      <ul>
-        <li id="foo">foo</li>
-        <li id="bar">bar</li>
-        <li id="link"><a href="https://github.com">github</a></li>
-      </ul>
-    </div>
-    <button onclick="addLi()">动态添加li</button>
-    <button onclick="abort()">signal 测试</button>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+	<body>
+		<div class="box">
+			<ul>
+				<li id="foo">foo</li>
+				<li id="bar">bar</li>
+				<li id="link"><a href="https://github.com">github</a></li>
+			</ul>
+		</div>
+		<button onclick="addLi()">动态添加li</button>
+		<button onclick="abort()">signal 测试</button>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // ---直接绑定监听基础用法
-      // res = $("#foo").on("click", function () {
-      //   console.log("clicked!")
-      // })
-      // res = d("#foo").on("click", function () {
-      //   console.log("clicked!")
-      // })
+		// ---直接绑定监听基础用法
+		// res = $("#foo").on("click", function () {
+		//   console.log("clicked!")
+		// })
+		// res = d("#foo").on("click", function () {
+		//   console.log("clicked!")
+		// })
 
-      // ---直接绑定监听时event对象上的属性和this
-      // res = $("#foo").on("click", function (event) {
-      //   // 发现下面三个数据是相等的。
-      //   console.log(event.delegateTarget)
-      //   console.log(event.currentTarget)
-      //   console.log(this)
-      //   console.log("clicked!")
-      // })
+		// ---直接绑定监听时event对象上的属性和this
+		// res = $("#foo").on("click", function (event) {
+		//   // 发现下面三个数据是相等的。
+		//   console.log(event.delegateTarget)
+		//   console.log(event.currentTarget)
+		//   console.log(this)
+		//   console.log("clicked!")
+		// })
 
-      // res = d("#foo").on("click", function (event) {
-      //   console.log(event.delegateTarget)
-      //   console.log(event.currentTarget)
-      //   console.log(this)
-      //   console.log("clicked!")
-      // })
+		// res = d("#foo").on("click", function (event) {
+		//   console.log(event.delegateTarget)
+		//   console.log(event.currentTarget)
+		//   console.log(this)
+		//   console.log("clicked!")
+		// })
 
-      // ---直接绑定监听event.stopPropagation()测试是否生效
-      // res = $("ul").on("click", function (event) {
-      //   console.log("this is ul click!")
-      // })
-      // res = $("li").on("click", function (event) {
-      //   console.log("this is li click!")
-      //   // event.stopPropagation() // 发现ul上的点击事件不会触发了
-      //   // event.stopImmediatePropagation()
-      // })
-      // res = $("li").on("click", function (event) {
-      //   console.log("this is li-2 click!")
-      // })
+		// ---直接绑定监听event.stopPropagation()测试是否生效
+		// res = $("ul").on("click", function (event) {
+		//   console.log("this is ul click!")
+		// })
+		// res = $("li").on("click", function (event) {
+		//   console.log("this is li click!")
+		//   // event.stopPropagation() // 发现ul上的点击事件不会触发了
+		//   // event.stopImmediatePropagation()
+		// })
+		// res = $("li").on("click", function (event) {
+		//   console.log("this is li-2 click!")
+		// })
 
-      // res = d("ul").on("click", function (event) {
-      //   console.log("this is ul click!")
-      // })
-      // res = d("li").on("click", function (event) {
-      //   console.log("this is li click!")
-      //   // event.stopPropagation() // 发现ul上的点击事件不会触发了
-      //   // event.stopImmediatePropagation()
-      // })
-      // res = d("li").on("click", function (event) {
-      //   console.log("this is li-2 click!")
-      // })
+		// res = d("ul").on("click", function (event) {
+		//   console.log("this is ul click!")
+		// })
+		// res = d("li").on("click", function (event) {
+		//   console.log("this is li click!")
+		//   // event.stopPropagation() // 发现ul上的点击事件不会触发了
+		//   // event.stopImmediatePropagation()
+		// })
+		// res = d("li").on("click", function (event) {
+		//   console.log("this is li-2 click!")
+		// })
 
-      // ---委托监听,此时动态增加一个li,它依然能触发
-      // function addLi() {
-      //   document
-      //     .querySelector("ul")
-      //     .insertAdjacentHTML("beforeend", `<li>动态的li-${Date.now()}</li>`)
-      // }
-      // res = $("ul").on("click", "li", function () {
-      //   console.log("clicked!")
-      // })
+		// ---委托监听,此时动态增加一个li,它依然能触发
+		// function addLi() {
+		//   document
+		//     .querySelector("ul")
+		//     .insertAdjacentHTML("beforeend", `<li>动态的li-${Date.now()}</li>`)
+		// }
+		// res = $("ul").on("click", "li", function () {
+		//   console.log("clicked!")
+		// })
 
-      // res = d("ul").on("click", "li", function () {
-      //   console.log("clicked!")
-      // })
+		// res = d("ul").on("click", "li", function () {
+		//   console.log("clicked!")
+		// })
 
-      // ---委托监听时event对象上的属性和this
-      // res = $("ul").on("click", "li", function (event) {
-      //   console.log(event.delegateTarget) //发现该属性是ul元素
-      //   console.log(event.currentTarget)
-      //   console.log(this) //委托选择器对应的元素,也就是li
-      //   console.log("clicked!")
-      // })
+		// ---委托监听时event对象上的属性和this
+		// res = $("ul").on("click", "li", function (event) {
+		//   console.log(event.delegateTarget) //发现该属性是ul元素
+		//   console.log(event.currentTarget)
+		//   console.log(this) //委托选择器对应的元素,也就是li
+		//   console.log("clicked!")
+		// })
 
-      // res = d("ul").on("click", "li", function (event) {
-      //   console.log(event.delegateTarget) //发现该属性是ul元素
-      //   console.log(event.currentTarget)
-      //   console.log(this)
-      //   console.log("clicked!")
-      // })
+		// res = d("ul").on("click", "li", function (event) {
+		//   console.log(event.delegateTarget) //发现该属性是ul元素
+		//   console.log(event.currentTarget)
+		//   console.log(this)
+		//   console.log("clicked!")
+		// })
 
-      // --- 冒泡时它会先触发委托元素的事件
-      // 发现触发打印的顺序如下:
+		// --- 冒泡时它会先触发委托元素的事件
+		// 发现触发打印的顺序如下:
 
-      /*    
+		/*    
         this is ul mousedown.ns1!
         this is li click-1!
         this is li click-2!
@@ -125,200 +125,200 @@
         this is ul click.ns1!
        */
 
-      // res = d("ul").on("click", function (event) {
-      //   console.log("this is ul click!")
-      // })
-      // res = d("ul").on("click.ns1", function (event) {
-      //   console.log("this is ul click.ns1!")
-      // })
-      // res = d("ul").on("mousedown.ns1", function (event) {
-      //   console.log("this is ul mousedown.ns1!")
-      // })
-      // res = d("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-1!")
-      // })
-      // res = d("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-2!")
-      // })
+		// res = d("ul").on("click", function (event) {
+		//   console.log("this is ul click!")
+		// })
+		// res = d("ul").on("click.ns1", function (event) {
+		//   console.log("this is ul click.ns1!")
+		// })
+		// res = d("ul").on("mousedown.ns1", function (event) {
+		//   console.log("this is ul mousedown.ns1!")
+		// })
+		// res = d("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-1!")
+		// })
+		// res = d("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-2!")
+		// })
 
-      // ---事件委托时event.stopPropagation()也能生效测试
-      // res = $("ul").on("click", function (event) {
-      //   console.log("this is ul click!")
-      // })
-      // res = $("ul").on("click.ns1", function (event) {
-      //   console.log("this is ul click.ns1!")
-      // })
-      // res = $("ul").on("mousedown.ns1", function (event) {
-      //   console.log("this is ul mousedown.ns1!")
-      // })
-      // res = $("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-1!")
-      //   // event.stopPropagation()
-      //   // event.stopImmediatePropagation()
-      // })
-      // res = $("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-2!")
-      // })
-      // res = d("ul").on("click", function (event) {
-      //   console.log("this is ul click!")
-      // })
-      // res = d("ul").on("click.ns1", function (event) {
-      //   console.log("this is ul click.ns1!")
-      // })
-      // res = d("ul").on("mousedown.ns1", function (event) {
-      //   console.log("this is ul mousedown.ns1!")
-      // })
-      // res = d("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-1!")
-      //   event.stopPropagation()
-      //   // event.stopImmediatePropagation()
-      // })
-      // res = d("ul").on("click", "li", function (event) {
-      //   console.log("this is li click-2!")
-      // })
+		// ---事件委托时event.stopPropagation()也能生效测试
+		// res = $("ul").on("click", function (event) {
+		//   console.log("this is ul click!")
+		// })
+		// res = $("ul").on("click.ns1", function (event) {
+		//   console.log("this is ul click.ns1!")
+		// })
+		// res = $("ul").on("mousedown.ns1", function (event) {
+		//   console.log("this is ul mousedown.ns1!")
+		// })
+		// res = $("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-1!")
+		//   // event.stopPropagation()
+		//   // event.stopImmediatePropagation()
+		// })
+		// res = $("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-2!")
+		// })
+		// res = d("ul").on("click", function (event) {
+		//   console.log("this is ul click!")
+		// })
+		// res = d("ul").on("click.ns1", function (event) {
+		//   console.log("this is ul click.ns1!")
+		// })
+		// res = d("ul").on("mousedown.ns1", function (event) {
+		//   console.log("this is ul mousedown.ns1!")
+		// })
+		// res = d("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-1!")
+		//   event.stopPropagation()
+		//   // event.stopImmediatePropagation()
+		// })
+		// res = d("ul").on("click", "li", function (event) {
+		//   console.log("this is li click-2!")
+		// })
 
-      // --- 捕获阶段触发顺序测试
-      // 发现触发打印的顺序如下:
+		// --- 捕获阶段触发顺序测试
+		// 发现触发打印的顺序如下:
 
-      /*    
+		/*    
         this is ul mousedown.ns1!
         this is ul click!
         this is ul click.ns1!
         this is li click-1!
         this is li click-2!
        */
-      // res = d("ul").on(
-      //   "click",
-      //   function (event) {
-      //     console.log("this is ul click!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click.ns1",
-      //   function (event) {
-      //     console.log("this is ul click.ns1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "mousedown.ns1",
-      //   function (event) {
-      //     console.log("this is ul mousedown.ns1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click",
-      //   "li",
-      //   function (event) {
-      //     console.log("this is li click-1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click",
-      //   "li",
-      //   function (event) {
-      //     console.log("this is li click-2!")
-      //   },
-      //   true,
-      // )
+		// res = d("ul").on(
+		//   "click",
+		//   function (event) {
+		//     console.log("this is ul click!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click.ns1",
+		//   function (event) {
+		//     console.log("this is ul click.ns1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "mousedown.ns1",
+		//   function (event) {
+		//     console.log("this is ul mousedown.ns1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click",
+		//   "li",
+		//   function (event) {
+		//     console.log("this is li click-1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click",
+		//   "li",
+		//   function (event) {
+		//     console.log("this is li click-2!")
+		//   },
+		//   true,
+		// )
 
-      // --- 捕获阶段的stopPropagation/stopImmediatePropagation测试
-      // res = d("ul").on(
-      //   "click",
-      //   function (event) {
-      //     event.stopPropagation()
-      //     console.log("this is ul click!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click.ns1",
-      //   function (event) {
-      //     console.log("this is ul click.ns1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "mousedown.ns1",
-      //   function (event) {
-      //     console.log("this is ul mousedown.ns1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click",
-      //   "li",
-      //   function (event) {
-      //     console.log("this is li click-1!")
-      //   },
-      //   true,
-      // )
-      // res = d("ul").on(
-      //   "click",
-      //   "li",
-      //   function (event) {
-      //     console.log("this is li click-2!")
-      //   },
-      //   true,
-      // )
+		// --- 捕获阶段的stopPropagation/stopImmediatePropagation测试
+		// res = d("ul").on(
+		//   "click",
+		//   function (event) {
+		//     event.stopPropagation()
+		//     console.log("this is ul click!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click.ns1",
+		//   function (event) {
+		//     console.log("this is ul click.ns1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "mousedown.ns1",
+		//   function (event) {
+		//     console.log("this is ul mousedown.ns1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click",
+		//   "li",
+		//   function (event) {
+		//     console.log("this is li click-1!")
+		//   },
+		//   true,
+		// )
+		// res = d("ul").on(
+		//   "click",
+		//   "li",
+		//   function (event) {
+		//     console.log("this is li click-2!")
+		//   },
+		//   true,
+		// )
 
-      // --- signal选项测试
-      // const controller = new AbortController()
-      // function abort() {
-      //   controller.abort()
-      // }
-      // res = d("ul").on(
-      //   "click",
-      //   function (event) {
-      //     console.log("this is ul click!")
-      //   },
-      //   { signal: controller.signal },
-      // )
+		// --- signal选项测试
+		// const controller = new AbortController()
+		// function abort() {
+		//   controller.abort()
+		// }
+		// res = d("ul").on(
+		//   "click",
+		//   function (event) {
+		//     console.log("this is ul click!")
+		//   },
+		//   { signal: controller.signal },
+		// )
 
-      // --- 选项 passive:true测试
+		// --- 选项 passive:true测试
 
-      // res = d("ul").on(
-      //   "click",
-      //   function (event) {
-      //     console.log("this is ul click!")
-      //     event.preventDefault()
-      //   },
-      //   { passive: true },
-      // )
+		// res = d("ul").on(
+		//   "click",
+		//   function (event) {
+		//     console.log("this is ul click!")
+		//     event.preventDefault()
+		//   },
+		//   { passive: true },
+		// )
 
-      // window对象事件测试
-      // res = $(window).on("resize scroll", function () {
-      //   console.log("rewr")
-      // })
-      // res = d(window).on("click", function () {
-      //   console.log("rewr")
-      // })
+		// window对象事件测试
+		// res = $(window).on("resize scroll", function () {
+		//   console.log("rewr")
+		// })
+		// res = d(window).on("click", function () {
+		//   console.log("rewr")
+		// })
 
-      // window.dispatchEvent(new Event("click"))
+		// window.dispatchEvent(new Event("click"))
 
-      // 非法参数
-      // res = $(10).on("resize scroll", function () {
-      //   console.log("rewr")
-      // })
-      // res = d(10).on("resize scroll", function () {
-      //   console.log("rewr")
-      // })
+		// 非法参数
+		// res = $(10).on("resize scroll", function () {
+		//   console.log("rewr")
+		// })
+		// res = d(10).on("resize scroll", function () {
+		//   console.log("rewr")
+		// })
 
-      // domtify不支持这种情况(实际上也没有必要)
-      // const o = {
-      //   do: function () {
-      //     $(this).trigger("dosomething")
-      //   },
-      // }
-      // $(o).on("dosomething", function () {
-      //   console.log("check bfd")
-      // })
-      // o.do()
+		// domtify不支持这种情况(实际上也没有必要)
+		// const o = {
+		//   do: function () {
+		//     $(this).trigger("dosomething")
+		//   },
+		// }
+		// $(o).on("dosomething", function () {
+		//   console.log("check bfd")
+		// })
+		// o.do()
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

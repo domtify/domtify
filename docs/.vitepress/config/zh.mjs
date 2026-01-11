@@ -1,60 +1,60 @@
-import { defineConfig } from "vitepress"
+import { defineConfig } from 'vitepress'
 
 export const zh = defineConfig({
-  lang: "zh-Hans",
-  description: "vitepress构建文档模板",
+  lang: 'zh-Hans',
+  description: 'vitepress构建文档模板',
 
   themeConfig: {
     nav: nav(),
 
     sidebar: {
-      "/guide/": { base: "/guide/", items: sidebarGuide() },
-      "/reference/": {
-        base: "/reference/",
+      '/guide/': { base: '/guide/', items: sidebarGuide() },
+      '/reference/': {
+        base: '/reference/',
         items: sidebarAPI(),
       },
     },
 
     editLink: {
-      pattern: "https://github.com/domtify/domtify/tree/main/docs/:path",
-      text: "在 GitHub 上编辑此页面",
+      pattern: 'https://github.com/domtify/domtify/tree/main/docs/:path',
+      text: '在 GitHub 上编辑此页面',
     },
 
     footer: {
-      message: "基于 MIT 许可发布",
+      message: '基于 MIT 许可发布',
       copyright: `Copyright © 2025-至今 ajiho`,
     },
 
     docFooter: {
-      prev: "上一页",
-      next: "下一页",
+      prev: '上一页',
+      next: '下一页',
     },
 
     outline: {
-      label: "页面导航",
-      level: "deep",
+      label: '页面导航',
+      level: 'deep',
     },
 
     lastUpdated: {
-      text: "最后更新于",
+      text: '最后更新于',
       formatOptions: {
-        dateStyle: "short",
-        timeStyle: "medium",
+        dateStyle: 'short',
+        timeStyle: 'medium',
       },
     },
 
-    langMenuLabel: "多语言",
-    returnToTopLabel: "回到顶部",
-    sidebarMenuLabel: "菜单",
-    darkModeSwitchLabel: "主题",
-    lightModeSwitchTitle: "切换到浅色模式",
-    darkModeSwitchTitle: "切换到深色模式",
+    langMenuLabel: '多语言',
+    returnToTopLabel: '回到顶部',
+    sidebarMenuLabel: '菜单',
+    darkModeSwitchLabel: '主题',
+    lightModeSwitchTitle: '切换到浅色模式',
+    darkModeSwitchTitle: '切换到深色模式',
 
     notFound: {
-      title: "找不到页面",
-      quote: "如果你不改变方向，并且一直走下去，你最终会到达现在前进的地方",
-      linkLabel: "回到首页",
-      linkText: "带我回家",
+      title: '找不到页面',
+      quote: '如果你不改变方向，并且一直走下去，你最终会到达现在前进的地方',
+      linkLabel: '回到首页',
+      linkText: '带我回家',
     },
   },
 })
@@ -62,14 +62,14 @@ export const zh = defineConfig({
 function nav() {
   return [
     {
-      text: "指南",
-      link: "/guide/introduction",
-      activeMatch: "/guide/",
+      text: '指南',
+      link: '/guide/introduction',
+      activeMatch: '/guide/',
     },
     {
-      text: "参考",
-      link: "/reference/method-get",
-      activeMatch: "/reference/",
+      text: '参考',
+      link: '/reference/method-get',
+      activeMatch: '/reference/',
     },
   ]
 }
@@ -77,13 +77,13 @@ function nav() {
 function sidebarGuide() {
   return [
     {
-      text: "指南",
+      text: '指南',
       items: [
-        { text: "介绍", link: "introduction" },
-        { text: "安装", link: "installation" },
-        { text: "快速入门", link: "quick-start" },
-        { text: "迁移指南", link: "migration" },
-        { text: "拓展", link: "extension" },
+        { text: '介绍', link: 'introduction' },
+        { text: '安装', link: 'installation' },
+        { text: '快速入门', link: 'quick-start' },
+        { text: '迁移指南', link: 'migration' },
+        { text: '拓展', link: 'extension' },
       ],
     },
   ]
@@ -92,379 +92,379 @@ function sidebarGuide() {
 function sidebarAPI() {
   return [
     {
-      text: "参考",
+      text: '参考',
       items: [
         {
-          text: "类型参考",
-          link: "Types",
+          text: '类型参考',
+          link: 'Types',
         },
         {
-          text: "方法",
+          text: '方法',
           collapsed: false,
           items: [
             {
-              text: "get",
-              link: "method-get",
+              text: 'get',
+              link: 'method-get',
             },
             {
-              text: "on",
-              link: "method-on",
+              text: 'on',
+              link: 'method-on',
             },
             {
-              text: "off",
-              link: "method-off",
+              text: 'off',
+              link: 'method-off',
             },
             {
-              text: "one",
-              link: "method-one",
+              text: 'one',
+              link: 'method-one',
             },
             {
-              text: "trigger",
-              link: "method-trigger",
+              text: 'trigger',
+              link: 'method-trigger',
             },
             {
-              text: "eq",
-              link: "method-eq",
+              text: 'eq',
+              link: 'method-eq',
             },
             {
-              text: "first",
-              link: "method-first",
+              text: 'first',
+              link: 'method-first',
             },
             {
-              text: "last",
-              link: "method-last",
+              text: 'last',
+              link: 'method-last',
             },
             {
-              text: "hasClass",
-              link: "method-hasClass",
+              text: 'hasClass',
+              link: 'method-hasClass',
             },
             {
-              text: "addClass",
-              link: "method-addClass",
+              text: 'addClass',
+              link: 'method-addClass',
             },
             {
-              text: "removeClass",
-              link: "method-removeClass",
+              text: 'removeClass',
+              link: 'method-removeClass',
             },
             {
-              text: "toggleClass",
-              link: "method-toggleClass",
+              text: 'toggleClass',
+              link: 'method-toggleClass',
             },
             {
-              text: "replaceClass",
-              link: "method-replaceClass",
+              text: 'replaceClass',
+              link: 'method-replaceClass',
             },
             {
-              text: "each",
-              link: "method-each",
+              text: 'each',
+              link: 'method-each',
             },
             {
-              text: "filter",
-              link: "method-filter",
+              text: 'filter',
+              link: 'method-filter',
             },
             {
-              text: "is",
-              link: "method-is",
+              text: 'is',
+              link: 'method-is',
             },
             {
-              text: "map",
-              link: "method-map",
+              text: 'map',
+              link: 'method-map',
             },
             {
-              text: "parent",
-              link: "method-parent",
+              text: 'parent',
+              link: 'method-parent',
             },
             {
-              text: "parents",
-              link: "method-parents",
+              text: 'parents',
+              link: 'method-parents',
             },
             {
-              text: "closest",
-              link: "method-closest",
+              text: 'closest',
+              link: 'method-closest',
             },
             {
-              text: "siblings",
-              link: "method-siblings",
+              text: 'siblings',
+              link: 'method-siblings',
             },
             {
-              text: "parentsUntil",
-              link: "method-parentsUntil",
+              text: 'parentsUntil',
+              link: 'method-parentsUntil',
             },
             {
-              text: "contents",
-              link: "method-contents",
+              text: 'contents',
+              link: 'method-contents',
             },
             {
-              text: "find",
-              link: "method-find",
+              text: 'find',
+              link: 'method-find',
             },
             {
-              text: "css",
-              link: "method-css",
+              text: 'css',
+              link: 'method-css',
             },
             {
-              text: "text",
-              link: "method-text",
+              text: 'text',
+              link: 'method-text',
             },
             {
-              text: "val",
-              link: "method-val",
+              text: 'val',
+              link: 'method-val',
             },
             {
-              text: "html",
-              link: "method-html",
+              text: 'html',
+              link: 'method-html',
             },
             {
-              text: "add",
-              link: "method-add",
+              text: 'add',
+              link: 'method-add',
             },
             {
-              text: "index",
-              link: "method-index",
+              text: 'index',
+              link: 'method-index',
             },
             {
-              text: "empty",
-              link: "method-empty",
+              text: 'empty',
+              link: 'method-empty',
             },
             {
-              text: "has",
-              link: "method-has",
+              text: 'has',
+              link: 'method-has',
             },
             {
-              text: "height",
-              link: "method-height",
+              text: 'height',
+              link: 'method-height',
             },
             {
-              text: "innerHeight",
-              link: "method-innerHeight",
+              text: 'innerHeight',
+              link: 'method-innerHeight',
             },
             {
-              text: "outerHeight",
-              link: "method-outerHeight",
+              text: 'outerHeight',
+              link: 'method-outerHeight',
             },
             {
-              text: "width",
-              link: "method-width",
+              text: 'width',
+              link: 'method-width',
             },
             {
-              text: "innerWidth",
-              link: "method-innerWidth",
+              text: 'innerWidth',
+              link: 'method-innerWidth',
             },
             {
-              text: "outerWidth",
-              link: "method-outerWidth",
+              text: 'outerWidth',
+              link: 'method-outerWidth',
             },
             {
-              text: "next",
-              link: "method-next",
+              text: 'next',
+              link: 'method-next',
             },
             {
-              text: "nextAll",
-              link: "method-nextAll",
+              text: 'nextAll',
+              link: 'method-nextAll',
             },
             {
-              text: "nextUntil",
-              link: "method-nextUntil",
+              text: 'nextUntil',
+              link: 'method-nextUntil',
             },
             {
-              text: "not",
-              link: "method-not",
-            },
-
-            {
-              text: "slice",
-              link: "method-slice",
-            },
-            {
-              text: "resize",
-              link: "method-resize",
-            },
-            {
-              text: "offset",
-              link: "method-offset",
-            },
-            {
-              text: "prop",
-              link: "method-prop",
-            },
-            {
-              text: "remove",
-              link: "method-remove",
-            },
-            {
-              text: "detach",
-              link: "method-detach",
-            },
-            {
-              text: "data",
-              link: "method-data",
-            },
-            {
-              text: "removeData",
-              link: "method-removeData",
-            },
-            {
-              text: "append",
-              link: "method-append",
-            },
-            {
-              text: "appendTo",
-              link: "method-appendTo",
-            },
-            {
-              text: "before",
-              link: "method-before",
-            },
-            {
-              text: "insertBefore",
-              link: "method-insertBefore",
-            },
-            {
-              text: "after",
-              link: "method-after",
-            },
-            {
-              text: "insertAfter",
-              link: "method-insertAfter",
-            },
-            {
-              text: "children",
-              link: "method-children",
+              text: 'not',
+              link: 'method-not',
             },
 
             {
-              text: "clone",
-              link: "method-clone",
+              text: 'slice',
+              link: 'method-slice',
             },
             {
-              text: "offsetParent",
-              link: "method-offsetParent",
+              text: 'resize',
+              link: 'method-resize',
             },
             {
-              text: "position",
-              link: "method-position",
+              text: 'offset',
+              link: 'method-offset',
             },
             {
-              text: "prepend",
-              link: "method-prepend",
+              text: 'prop',
+              link: 'method-prop',
             },
             {
-              text: "prependTo",
-              link: "method-prependTo",
+              text: 'remove',
+              link: 'method-remove',
             },
             {
-              text: "prev",
-              link: "method-prev",
+              text: 'detach',
+              link: 'method-detach',
             },
             {
-              text: "prevAll",
-              link: "method-prevAll",
+              text: 'data',
+              link: 'method-data',
             },
             {
-              text: "prevUntil",
-              link: "method-prevUntil",
+              text: 'removeData',
+              link: 'method-removeData',
             },
             {
-              text: "serialize",
-              link: "method-serialize",
+              text: 'append',
+              link: 'method-append',
             },
             {
-              text: "serializeArray",
-              link: "method-serializeArray",
+              text: 'appendTo',
+              link: 'method-appendTo',
             },
             {
-              text: "odd",
-              link: "method-odd",
+              text: 'before',
+              link: 'method-before',
             },
             {
-              text: "even",
-              link: "method-even",
+              text: 'insertBefore',
+              link: 'method-insertBefore',
             },
             {
-              text: "removeAttr",
-              link: "method-removeAttr",
+              text: 'after',
+              link: 'method-after',
             },
             {
-              text: "removeProp",
-              link: "method-removeProp",
+              text: 'insertAfter',
+              link: 'method-insertAfter',
             },
             {
-              text: "uniqueSort",
-              link: "method-uniqueSort",
+              text: 'children',
+              link: 'method-children',
+            },
+
+            {
+              text: 'clone',
+              link: 'method-clone',
             },
             {
-              text: "replaceWith",
-              link: "method-replaceWith",
+              text: 'offsetParent',
+              link: 'method-offsetParent',
             },
             {
-              text: "replaceAll",
-              link: "method-replaceAll",
+              text: 'position',
+              link: 'method-position',
             },
             {
-              text: "scrollLeft",
-              link: "method-scrollLeft",
+              text: 'prepend',
+              link: 'method-prepend',
             },
             {
-              text: "scrollTop",
-              link: "method-scrollTop",
+              text: 'prependTo',
+              link: 'method-prependTo',
             },
             {
-              text: "wrap",
-              link: "method-wrap",
+              text: 'prev',
+              link: 'method-prev',
             },
             {
-              text: "unwrap",
-              link: "method-unwrap",
+              text: 'prevAll',
+              link: 'method-prevAll',
             },
             {
-              text: "wrapAll",
-              link: "method-wrapAll",
+              text: 'prevUntil',
+              link: 'method-prevUntil',
             },
             {
-              text: "wrapInner",
-              link: "method-wrapInner",
+              text: 'serialize',
+              link: 'method-serialize',
+            },
+            {
+              text: 'serializeArray',
+              link: 'method-serializeArray',
+            },
+            {
+              text: 'odd',
+              link: 'method-odd',
+            },
+            {
+              text: 'even',
+              link: 'method-even',
+            },
+            {
+              text: 'removeAttr',
+              link: 'method-removeAttr',
+            },
+            {
+              text: 'removeProp',
+              link: 'method-removeProp',
+            },
+            {
+              text: 'uniqueSort',
+              link: 'method-uniqueSort',
+            },
+            {
+              text: 'replaceWith',
+              link: 'method-replaceWith',
+            },
+            {
+              text: 'replaceAll',
+              link: 'method-replaceAll',
+            },
+            {
+              text: 'scrollLeft',
+              link: 'method-scrollLeft',
+            },
+            {
+              text: 'scrollTop',
+              link: 'method-scrollTop',
+            },
+            {
+              text: 'wrap',
+              link: 'method-wrap',
+            },
+            {
+              text: 'unwrap',
+              link: 'method-unwrap',
+            },
+            {
+              text: 'wrapAll',
+              link: 'method-wrapAll',
+            },
+            {
+              text: 'wrapInner',
+              link: 'method-wrapInner',
             },
           ],
         },
         {
-          text: "助手",
+          text: '助手',
           collapsed: false,
           items: [
             {
-              text: "extend",
-              link: "utilities-extend",
+              text: 'extend',
+              link: 'utilities-extend',
             },
             {
-              text: "param",
-              link: "utilities-param",
+              text: 'param',
+              link: 'utilities-param',
             },
             {
-              text: "debounce",
-              link: "utilities-debounce",
+              text: 'debounce',
+              link: 'utilities-debounce',
             },
             {
-              text: "throttle",
-              link: "utilities-throttle",
+              text: 'throttle',
+              link: 'utilities-throttle',
             },
             {
-              text: "parseHTML",
-              link: "utilities-parseHTML",
+              text: 'parseHTML',
+              link: 'utilities-parseHTML',
             },
             {
-              text: "each",
-              link: "utilities-each",
+              text: 'each',
+              link: 'utilities-each',
             },
             {
-              text: "map",
-              link: "utilities-map",
+              text: 'map',
+              link: 'utilities-map',
             },
             {
-              text: "getIn",
-              link: "utilities-getIn",
+              text: 'getIn',
+              link: 'utilities-getIn',
             },
             {
-              text: "setIn",
-              link: "utilities-setIn",
+              text: 'setIn',
+              link: 'utilities-setIn',
             },
           ],
         },
@@ -475,56 +475,56 @@ function sidebarAPI() {
 
 export const markdown = {
   container: {
-    tipLabel: "提示",
-    warningLabel: "警告",
-    dangerLabel: "危险",
-    infoLabel: "信息",
-    detailsLabel: "详细信息",
+    tipLabel: '提示',
+    warningLabel: '警告',
+    dangerLabel: '危险',
+    infoLabel: '信息',
+    detailsLabel: '详细信息',
   },
 }
 
 export const search = {
   zh: {
-    placeholder: "搜索文档",
+    placeholder: '搜索文档',
     translations: {
       button: {
-        buttonText: "搜索文档",
-        buttonAriaLabel: "搜索文档",
+        buttonText: '搜索文档',
+        buttonAriaLabel: '搜索文档',
       },
       modal: {
         searchBox: {
-          resetButtonTitle: "清除查询条件",
-          resetButtonAriaLabel: "清除查询条件",
-          cancelButtonText: "取消",
-          cancelButtonAriaLabel: "取消",
+          resetButtonTitle: '清除查询条件',
+          resetButtonAriaLabel: '清除查询条件',
+          cancelButtonText: '取消',
+          cancelButtonAriaLabel: '取消',
         },
         startScreen: {
-          recentSearchesTitle: "搜索历史",
-          noRecentSearchesText: "没有搜索历史",
-          saveRecentSearchButtonTitle: "保存至搜索历史",
-          removeRecentSearchButtonTitle: "从搜索历史中移除",
-          favoriteSearchesTitle: "收藏",
-          removeFavoriteSearchButtonTitle: "从收藏中移除",
+          recentSearchesTitle: '搜索历史',
+          noRecentSearchesText: '没有搜索历史',
+          saveRecentSearchButtonTitle: '保存至搜索历史',
+          removeRecentSearchButtonTitle: '从搜索历史中移除',
+          favoriteSearchesTitle: '收藏',
+          removeFavoriteSearchButtonTitle: '从收藏中移除',
         },
         errorScreen: {
-          titleText: "无法获取结果",
-          helpText: "你可能需要检查你的网络连接",
+          titleText: '无法获取结果',
+          helpText: '你可能需要检查你的网络连接',
         },
         footer: {
-          selectText: "选择",
-          navigateText: "切换",
-          closeText: "关闭",
-          searchByText: "搜索提供者",
+          selectText: '选择',
+          navigateText: '切换',
+          closeText: '关闭',
+          searchByText: '搜索提供者',
         },
 
-        noResultsText: "无法找到相关结果",
-        resetButtonTitle: "重置搜索",
-        displayDetails: "显示详情视图",
+        noResultsText: '无法找到相关结果',
+        resetButtonTitle: '重置搜索',
+        displayDetails: '显示详情视图',
         noResultsScreen: {
-          noResultsText: "无法找到相关结果",
-          suggestedQueryText: "你可以尝试查询",
-          reportMissingResultsText: "你认为该查询应该有结果？",
-          reportMissingResultsLinkText: "点击反馈",
+          noResultsText: '无法找到相关结果',
+          suggestedQueryText: '你可以尝试查询',
+          reportMissingResultsText: '你认为该查询应该有结果？',
+          reportMissingResultsLinkText: '点击反馈',
         },
       },
     },

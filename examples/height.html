@@ -1,105 +1,105 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>height演示</title>
-    <style>
-      .box {
-        height: 200px;
-        width: 200px;
-        padding: 10px;
-        margin: 20px;
-        border: 10px solid red;
-      }
-      .border-box {
-        box-sizing: border-box;
-      }
-      .content-box {
-        box-sizing: content-box;
-      }
-    </style>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>height演示</title>
+		<style>
+		.box {
+			height: 200px;
+			width: 200px;
+			padding: 10px;
+			margin: 20px;
+			border: 10px solid red;
+		}
+		.border-box {
+			box-sizing: border-box;
+		}
+		.content-box {
+			box-sizing: content-box;
+		}
+		</style>
+	</head>
 
-  <body>
-    <div class="box border-box">.border-box</div>
-    <div class="box content-box">.content-box</div>
+	<body>
+		<div class="box border-box">.border-box</div>
+		<div class="box content-box">.content-box</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let border = document.querySelector(".border-box")
-      let content = document.querySelector(".content-box")
+		<script>
+		let border = document.querySelector('.border-box')
+		let content = document.querySelector('.content-box')
 
-      // console.log($(border).height())
-      // console.log($(content).height())
+		// console.log($(border).height())
+		// console.log($(content).height())
 
-      // console.log($(border).innerHeight())
-      // console.log($(content).innerHeight())
+		// console.log($(border).innerHeight())
+		// console.log($(content).innerHeight())
 
-      // console.log($(border).outerHeight())
-      // console.log($(content).outerHeight())
+		// console.log($(border).outerHeight())
+		// console.log($(content).outerHeight())
 
-      // console.log($(border).outerHeight(true))
-      // console.log($(content).outerHeight(true))
-      let res
+		// console.log($(border).outerHeight(true))
+		// console.log($(content).outerHeight(true))
+		let res
 
-      // window对象
-      // res = $(window).height()
-      // res = d(window).height()
+		// window对象
+		// res = $(window).height()
+		// res = d(window).height()
 
-      // document
-      // res = $(document).height()
-      // res = d(document).height()
+		// document
+		// res = $(document).height()
+		// res = d(document).height()
 
-      // border-box 元素
-      // res = $(".border-box").height()
-      res = d(".border-box").height()
+		// border-box 元素
+		// res = $(".border-box").height()
+		res = d('.border-box').height()
 
-      // content-box 元素
-      // res = $(".content-box").height()
-      // res = d(".content-box").height()
+		// content-box 元素
+		// res = $(".content-box").height()
+		// res = d(".content-box").height()
 
-      // 数字
-      // res = $(10).height()
-      // res = d(0).height()
+		// 数字
+		// res = $(10).height()
+		// res = d(0).height()
 
-      // setter
+		// setter
 
-      // 设置高度-数字
-      // res = $(".box").height(100)
-      // res = d(".box").height(100)
+		// 设置高度-数字
+		// res = $(".box").height(100)
+		// res = d(".box").height(100)
 
-      // 设置高度-数字字符串
-      // res = $(".box").height("100.1")
-      // res = d(".box").height("100.1")
+		// 设置高度-数字字符串
+		// res = $(".box").height("100.1")
+		// res = d(".box").height("100.1")
 
-      // 设置高度-带单位的字符串 如“em”、“％”、“rem”等
-      // res = $(".box").height("10em")
-      // res = d(".box").height("10em")
+		// 设置高度-带单位的字符串 如“em”、“％”、“rem”等
+		// res = $(".box").height("10em")
+		// res = d(".box").height("10em")
 
-      // 设置高度-带错误单位的字符串
-      // res = $(".box").height("10pq")
-      // res = d(".box").height("10pq")
+		// 设置高度-带错误单位的字符串
+		// res = $(".box").height("10pq")
+		// res = d(".box").height("10pq")
 
-      // 设置高度-函数
-      // res = $(".box").height(function (index, oldHeight) {
-      //   console.log(index)
-      //   console.log(oldHeight)
-      //   return "100"
-      // })
+		// 设置高度-函数
+		// res = $(".box").height(function (index, oldHeight) {
+		//   console.log(index)
+		//   console.log(oldHeight)
+		//   return "100"
+		// })
 
-      // res = d(".box").height(function (index, oldHeight) {
-      //   console.log(index)
-      //   console.log(oldHeight)
-      //   return "100"
-      // })
+		// res = d(".box").height(function (index, oldHeight) {
+		//   console.log(index)
+		//   console.log(oldHeight)
+		//   return "100"
+		// })
 
-      // 数字测试
-      // res = $(window).height("100")
-      // res = d(10).height("100")
-      console.log(res)
-    </script>
-  </body>
+		// 数字测试
+		// res = $(window).height("100")
+		// res = d(10).height("100")
+		console.log(res)
+		</script>
+	</body>
 </html>

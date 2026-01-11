@@ -1,32 +1,32 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>unwrap演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>unwrap演示</title>
+	</head>
 
-  <body>
-    <div class="wrapper">
-      <p>Hello</p>
-      <p>World</p>
-    </div>
+	<body>
+		<div class="wrapper">
+			<p>Hello</p>
+			<p>World</p>
+		</div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 无选择器
-      //   res = $(".wrapper p").unwrap()
-      // res = d(".wrapper p").unwrap()
+		// 无选择器
+		//   res = $(".wrapper p").unwrap()
+		// res = d(".wrapper p").unwrap()
 
-      // 携带选择器
-      //   res = $(".wrapper p").unwrap(".no-exist")
-      // res = d(".wrapper p").unwrap(".no-exist")
+		// 携带选择器
+		//   res = $(".wrapper p").unwrap(".no-exist")
+		// res = d(".wrapper p").unwrap(".no-exist")
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

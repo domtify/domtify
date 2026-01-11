@@ -1,6 +1,6 @@
-import { isArray, isNumber } from "is-what"
+import { isArray, isNumber } from 'is-what'
 
-export const isArrayLike = (obj) => {
+export const isArrayLike = obj => {
   const length = !!obj && obj.length
 
   return (

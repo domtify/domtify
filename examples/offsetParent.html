@@ -1,50 +1,50 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>offsetParent演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>offsetParent演示</title>
+	</head>
 
-  <body>
-    <ul class="level-1">
-      <li class="item-i">I</li>
-      <li class="item-ii" style="position: relative">
-        II
-        <ul class="level-2">
-          <li class="item-a">A</li>
-          <li class="item-b" style="display: none">
-            B
-            <ul class="level-3">
-              <li class="item-1">1</li>
-              <li class="item-2">2</li>
-              <li class="item-3">3</li>
-            </ul>
-          </li>
-          <li class="item-c">C</li>
-        </ul>
-      </li>
-      <li class="item-iii">III</li>
-    </ul>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+	<body>
+		<ul class="level-1">
+			<li class="item-i">I</li>
+			<li class="item-ii" style="position: relative">
+				II
+				<ul class="level-2">
+					<li class="item-a">A</li>
+					<li class="item-b" style="display: none">
+						B
+						<ul class="level-3">
+							<li class="item-1">1</li>
+							<li class="item-2">2</li>
+							<li class="item-3">3</li>
+						</ul>
+					</li>
+					<li class="item-c">C</li>
+				</ul>
+			</li>
+			<li class="item-iii">III</li>
+		</ul>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 如果元素不是display:none的
-      // res = $("li.item-a").offsetParent().css("background-color", "red")
-      res = d("li.item-a").offsetParent().css("background-color", "red")
+		// 如果元素不是display:none的
+		// res = $("li.item-a").offsetParent().css("background-color", "red")
+		res = d('li.item-a').offsetParent().css('background-color', 'red')
 
-      console.log(res.get(0) === document.querySelector("li.item-ii"))
+		console.log(res.get(0) === document.querySelector('li.item-ii'))
 
-      // document.querySelector("li.item-ii")
+		// document.querySelector("li.item-ii")
 
-      // 如果元素是display:none的,则是整个documentElement
-      // res = $("li.item-b").offsetParent().css("background-color", "red")
-      // res = d("li.item-b").offsetParent().css("background-color", "red")
+		// 如果元素是display:none的,则是整个documentElement
+		// res = $("li.item-b").offsetParent().css("background-color", "red")
+		// res = d("li.item-b").offsetParent().css("background-color", "red")
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

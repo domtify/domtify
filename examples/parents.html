@@ -1,54 +1,54 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>parents演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>parents演示</title>
+	</head>
 
-  <body>
-    <ul class="level-1">
-      <li class="item-i">I</li>
-      <li class="item-ii">
-        II
-        <ul class="level-2">
-          <li class="item-a">A</li>
-          <li class="item-b">
-            B
-            <ul class="level-3">
-              <li class="item-1">1</li>
-              <li class="item-2">2</li>
-              <li class="item-3">3</li>
-            </ul>
-          </li>
-          <li class="item-c">C</li>
-        </ul>
-      </li>
-      <li class="item-iii">III</li>
-    </ul>
+	<body>
+		<ul class="level-1">
+			<li class="item-i">I</li>
+			<li class="item-ii">
+				II
+				<ul class="level-2">
+					<li class="item-a">A</li>
+					<li class="item-b">
+						B
+						<ul class="level-3">
+							<li class="item-1">1</li>
+							<li class="item-2">2</li>
+							<li class="item-3">3</li>
+						</ul>
+					</li>
+					<li class="item-c">C</li>
+				</ul>
+			</li>
+			<li class="item-iii">III</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 不传递选择器
-      // res = $("li.item-a").parents()
-      // res = d("li.item-a").parents()
+		// 不传递选择器
+		// res = $("li.item-a").parents()
+		// res = d("li.item-a").parents()
 
-      // 过滤只携带.item-ii的父级
-      // res = $("li.item-a").parents(".item-ii")
-      // res = d("li.item-a").parents(".item-ii")
+		// 过滤只携带.item-ii的父级
+		// res = $("li.item-a").parents(".item-ii")
+		// res = d("li.item-a").parents(".item-ii")
 
-      // html选择器则返回一个带空合集的对象
-      // res = $("html").parents()
-      // res = d("html").parents()
+		// html选择器则返回一个带空合集的对象
+		// res = $("html").parents()
+		// res = d("html").parents()
 
-      // res = $("li.item-1, li.item-2, li.item-3")
-      // res = d("li.item-1, li.item-2, li.item-3")
+		// res = $("li.item-1, li.item-2, li.item-3")
+		// res = d("li.item-1, li.item-2, li.item-3")
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

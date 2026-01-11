@@ -1,183 +1,183 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>trigger演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>trigger演示</title>
+	</head>
 
-  <body>
-    <ul class="u1">
-      <li id="foo">foo</li>
-    </ul>
+	<body>
+		<ul class="u1">
+			<li id="foo">foo</li>
+		</ul>
 
-    <ul class="u2">
-      <li id="bar">bar</li>
-    </ul>
+		<ul class="u2">
+			<li id="bar">bar</li>
+		</ul>
 
-    <ul class="u3">
-      <li id="zoo">zoo</li>
-    </ul>
+		<ul class="u3">
+			<li id="zoo">zoo</li>
+		</ul>
 
-    <button onclick="trigger()">触发事件</button>
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<button onclick="trigger()">触发事件</button>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      $(".u1").on("click", function (event) {
-        console.log("jQuery-u1-click")
-        console.log(event)
-      })
+		$('.u1').on('click', function (event) {
+			console.log('jQuery-u1-click')
+			console.log(event)
+		})
 
-      $("#foo").on("click.ns2", function (event, arg1, arg2) {
-        console.log("jQuery-click.ns2 被触发")
-        console.log(event)
-        console.log(arg1)
-        console.log(arg2)
-      })
+		$('#foo').on('click.ns2', function (event, arg1, arg2) {
+			console.log('jQuery-click.ns2 被触发')
+			console.log(event)
+			console.log(arg1)
+			console.log(arg2)
+		})
 
-      $("#foo").on("click.ns1", function (event) {
-        console.log("jQuery-click.ns1 被触发")
-      })
+		$('#foo').on('click.ns1', function (event) {
+			console.log('jQuery-click.ns1 被触发')
+		})
 
-      $("#foo").on("click.ns1.a.b.c", function (event) {
-        console.log("jQuery-click.ns1.a.b.c 被触发")
-      })
+		$('#foo').on('click.ns1.a.b.c', function (event) {
+			console.log('jQuery-click.ns1.a.b.c 被触发')
+		})
 
-      d(".u2").on(
-        "click",
-        function (event) {
-          console.log("domtify-u2-click")
-          console.log(event)
-        },
-        false,
-      )
+		d('.u2').on(
+			'click',
+			function (event) {
+				console.log('domtify-u2-click')
+				console.log(event)
+			},
+			false,
+		)
 
-      d("#bar").on(
-        "click.ns2",
-        function (event, arg1, arg2) {
-          console.log("domtify-click.ns2 被触发")
-          console.log(event)
-          console.log(arg1)
-          console.log(arg2)
-        },
-        false,
-      )
+		d('#bar').on(
+			'click.ns2',
+			function (event, arg1, arg2) {
+				console.log('domtify-click.ns2 被触发')
+				console.log(event)
+				console.log(arg1)
+				console.log(arg2)
+			},
+			false,
+		)
 
-      d("#bar").on(
-        "click.ns1",
-        function (event) {
-          console.log("domtify-click.ns1 被触发")
-        },
-        false,
-      )
+		d('#bar').on(
+			'click.ns1',
+			function (event) {
+				console.log('domtify-click.ns1 被触发')
+			},
+			false,
+		)
 
-      d("#bar").on(
-        "click.ns1.a.b.c",
-        function (event) {
-          console.log("domtify-click.ns1.a.b.c 被触发")
-          console.log(event)
-        },
-        false,
-      )
+		d('#bar').on(
+			'click.ns1.a.b.c',
+			function (event) {
+				console.log('domtify-click.ns1.a.b.c 被触发')
+				console.log(event)
+			},
+			false,
+		)
 
-      document.querySelector(".u3").addEventListener(
-        "click",
-        function (event) {
-          console.log("原生-u3-click")
-          console.log(event)
-        },
-        true,
-      )
+		document.querySelector('.u3').addEventListener(
+			'click',
+			function (event) {
+				console.log('原生-u3-click')
+				console.log(event)
+			},
+			true,
+		)
 
-      document.querySelector("#zoo").addEventListener(
-        "click",
-        function (event, arg1, arg2) {
-          console.log("原生-click.ns2 被触发")
-          console.log(event)
-          console.log(arg1)
-          console.log(arg2)
-        },
-        true,
-      )
+		document.querySelector('#zoo').addEventListener(
+			'click',
+			function (event, arg1, arg2) {
+				console.log('原生-click.ns2 被触发')
+				console.log(event)
+				console.log(arg1)
+				console.log(arg2)
+			},
+			true,
+		)
 
-      document.querySelector("#zoo").addEventListener(
-        "click",
-        function (event) {
-          console.log("原生-click.ns1 被触发")
-        },
-        true,
-      )
+		document.querySelector('#zoo').addEventListener(
+			'click',
+			function (event) {
+				console.log('原生-click.ns1 被触发')
+			},
+			true,
+		)
 
-      document.querySelector("#zoo").addEventListener(
-        "click",
-        function (event) {
-          console.log("原生-click.ns1.a.b.c 被触发")
-          console.log(event)
-        },
-        true,
-      )
+		document.querySelector('#zoo').addEventListener(
+			'click',
+			function (event) {
+				console.log('原生-click.ns1.a.b.c 被触发')
+				console.log(event)
+			},
+			true,
+		)
 
-      function trigger() {
-        // 只触发ns1命名空间的事件
-        // $("#foo").trigger("click.ns1")
-        // d("#bar").trigger("click.ns1")
-        // 触发所有的click类型的事件
-        // $("#foo").trigger("click")
-        // d("#bar").trigger("click")
-        // 触发指定命名空间,同时命名空间可以随意不限制顺序组合
-        // $("#foo").trigger("click.a")
-        // $("#foo").trigger("click.b")
-        // $("#foo").trigger("click.c")
-        // $("#foo").trigger("click.a.b")
-        // $("#foo").trigger("click.a.b.c")
-        // $("#foo").trigger("click.a.c")
-        // $("#foo").trigger("click.a.c.b")
-        // // ---domtify
-        // d("#bar").trigger("click.a")
-        // d("#bar").trigger("click.b")
-        // d("#bar").trigger("click.c")
-        // d("#bar").trigger("click.a.b")
-        // d("#bar").trigger("click.a.b.c")
-        // d("#bar").trigger("click.a.c")
-        // d("#bar").trigger("click.a.c.b")
-        // --无法直接触发命名空间的
-        // $("#foo").trigger(".b")
-        // d("#bar").trigger(".b")
-        // 传递参数
-        // $("#foo").trigger("click.ns2", "test")
-        // d("#bar").trigger("click.ns2", "test")
-        // 传递参数支持数组
-        // $("#foo").trigger("click.ns2", ["test", "test2"])
-        // d("#bar").trigger("click.ns2", ["test", "test2"])
-        // --- 下面是domtify独有支持的
-        // 通过函数的方式额外给事件对象绑定自定义的属性
-        // d("#bar").trigger("click.ns2", function () {
-        //   this.foo = "foo"
-        //   this.bar = "bar"
-        //   return ["test", "test2"]
-        // })
-        // 支持控制是否冒泡
-        // d("#bar").trigger("click", {
-        //   bubbles: false,
-        // })
-        // 捕获情况
-        // d(".u2").trigger("click")
-        // ---原生的事件监听测试
-        /* 
+		function trigger() {
+			// 只触发ns1命名空间的事件
+			// $("#foo").trigger("click.ns1")
+			// d("#bar").trigger("click.ns1")
+			// 触发所有的click类型的事件
+			// $("#foo").trigger("click")
+			// d("#bar").trigger("click")
+			// 触发指定命名空间,同时命名空间可以随意不限制顺序组合
+			// $("#foo").trigger("click.a")
+			// $("#foo").trigger("click.b")
+			// $("#foo").trigger("click.c")
+			// $("#foo").trigger("click.a.b")
+			// $("#foo").trigger("click.a.b.c")
+			// $("#foo").trigger("click.a.c")
+			// $("#foo").trigger("click.a.c.b")
+			// // ---domtify
+			// d("#bar").trigger("click.a")
+			// d("#bar").trigger("click.b")
+			// d("#bar").trigger("click.c")
+			// d("#bar").trigger("click.a.b")
+			// d("#bar").trigger("click.a.b.c")
+			// d("#bar").trigger("click.a.c")
+			// d("#bar").trigger("click.a.c.b")
+			// --无法直接触发命名空间的
+			// $("#foo").trigger(".b")
+			// d("#bar").trigger(".b")
+			// 传递参数
+			// $("#foo").trigger("click.ns2", "test")
+			// d("#bar").trigger("click.ns2", "test")
+			// 传递参数支持数组
+			// $("#foo").trigger("click.ns2", ["test", "test2"])
+			// d("#bar").trigger("click.ns2", ["test", "test2"])
+			// --- 下面是domtify独有支持的
+			// 通过函数的方式额外给事件对象绑定自定义的属性
+			// d("#bar").trigger("click.ns2", function () {
+			//   this.foo = "foo"
+			//   this.bar = "bar"
+			//   return ["test", "test2"]
+			// })
+			// 支持控制是否冒泡
+			// d("#bar").trigger("click", {
+			//   bubbles: false,
+			// })
+			// 捕获情况
+			// d(".u2").trigger("click")
+			// ---原生的事件监听测试
+			/* 
           测试结果：
           捕获时它也总是能触发最外层的 "原生-u3-click"
           冒泡事件,{ bubbles: false } 确实能阻止 "原生-u3-click"
           */
-        // document
-        //   .querySelector("#zoo")
-        //   .dispatchEvent(new CustomEvent("click", { bubbles: true }))
-        // document
-        //   .querySelector(".u3")
-        //   .dispatchEvent(new CustomEvent("click", { bubbles: false }))
-      }
-    </script>
-  </body>
+			// document
+			//   .querySelector("#zoo")
+			//   .dispatchEvent(new CustomEvent("click", { bubbles: true }))
+			// document
+			//   .querySelector(".u3")
+			//   .dispatchEvent(new CustomEvent("click", { bubbles: false }))
+		}
+		</script>
+	</body>
 </html>

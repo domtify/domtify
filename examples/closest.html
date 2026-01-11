@@ -1,64 +1,64 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>closest演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>closest演示</title>
+	</head>
 
-  <body>
-    <ul id="one" class="level-1">
-      <li class="item-i">I</li>
-      <li id="ii" class="item-ii">
-        II
-        <ul class="level-2">
-          <li class="item-a">A</li>
-          <li class="item-b">
-            B
-            <ul class="level-3">
-              <li class="item item-1">1</li>
-              <li class="item item-2">2</li>
-              <li class="item item-3">3</li>
-            </ul>
-          </li>
-          <li class="item-c">C</li>
-        </ul>
-      </li>
-      <li class="item-iii">III</li>
-    </ul>
+	<body>
+		<ul id="one" class="level-1">
+			<li class="item-i">I</li>
+			<li id="ii" class="item-ii">
+				II
+				<ul class="level-2">
+					<li class="item-a">A</li>
+					<li class="item-b">
+						B
+						<ul class="level-3">
+							<li class="item item-1">1</li>
+							<li class="item item-2">2</li>
+							<li class="item item-3">3</li>
+						</ul>
+					</li>
+					<li class="item-c">C</li>
+				</ul>
+			</li>
+			<li class="item-iii">III</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 选择器字符串
-      // res = $("li.item-a").closest("li")
-      // res = d("li.item-a").closest("li")
+		// 选择器字符串
+		// res = $("li.item-a").closest("li")
+		// res = d("li.item-a").closest("li")
 
-      // -- 第二个参数支持上下文,限制范围
-      const listItemII = document.getElementById("ii")
-      // res = $("li.item-a").closest("ul", listItemII)
-      // res = d("li.item-a").closest("ul", listItemII)
+		// -- 第二个参数支持上下文,限制范围
+		const listItemII = document.getElementById('ii')
+		// res = $("li.item-a").closest("ul", listItemII)
+		// res = d("li.item-a").closest("ul", listItemII)
 
-      // 测试一个不在listItemII范围内的，也就是#one在listItemII的外层的情况
-      // res = $("li.item-a").closest("#one", listItemII)
-      // res = d("li.item-a").closest("#one", listItemII)
+		// 测试一个不在listItemII范围内的，也就是#one在listItemII的外层的情况
+		// res = $("li.item-a").closest("#one", listItemII)
+		// res = d("li.item-a").closest("#one", listItemII)
 
-      // -- 支持jquery对象
-      // res = $("li.item-a").closest($("li"))
-      // res = d("li.item-a").closest(d("li"))
+		// -- 支持jquery对象
+		// res = $("li.item-a").closest($("li"))
+		// res = d("li.item-a").closest(d("li"))
 
-      // -- 支持Element/NodeList/HTMLCollection
-      // res = $("li.item-a").closest(document.querySelectorAll("li"))
-      // res = d("li.item-a").closest(document.querySelectorAll("li"))
+		// -- 支持Element/NodeList/HTMLCollection
+		// res = $("li.item-a").closest(document.querySelectorAll("li"))
+		// res = d("li.item-a").closest(document.querySelectorAll("li"))
 
-      // -- 相同元素共同的的父级的情况
-      // res = $(".item").closest("ul")
-      // res = d(".item").closest("ul")
+		// -- 相同元素共同的的父级的情况
+		// res = $(".item").closest("ul")
+		// res = d(".item").closest("ul")
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

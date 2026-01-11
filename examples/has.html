@@ -1,44 +1,44 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>has演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>has演示</title>
+	</head>
 
-  <body>
-    <ul>
-      <li>list item 1</li>
-      <li>
-        list item 2
-        <ul class="ul">
-          <li>list item 2-a</li>
-          <li>list item 2-b</li>
-        </ul>
-      </li>
-      <li>list item 3</li>
-      <li>list item 4</li>
-    </ul>
+	<body>
+		<ul>
+			<li>list item 1</li>
+			<li>
+				list item 2
+				<ul class="ul">
+					<li>list item 2-a</li>
+					<li>list item 2-b</li>
+				</ul>
+			</li>
+			<li>list item 3</li>
+			<li>list item 4</li>
+		</ul>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // css选择器
-      // res = $("li").has(".ul")
-      // res = d("li").has(".ul")
+		// css选择器
+		// res = $("li").has(".ul")
+		// res = d("li").has(".ul")
 
-      // element
-      // res = $("li").has(document.querySelector(".ul"))
-      // res = d("li").has(document.querySelector(".ul"))
+		// element
+		// res = $("li").has(document.querySelector(".ul"))
+		// res = d("li").has(document.querySelector(".ul"))
 
-      // jquery对象
-      // res = $("li").has($("ul"))
-      // res = d("li").has(d("ul"))
+		// jquery对象
+		// res = $("li").has($("ul"))
+		// res = d("li").has(d("ul"))
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

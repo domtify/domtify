@@ -1,65 +1,65 @@
 <!doctype html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>each演示</title>
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>each演示</title>
+	</head>
 
-  <body>
-    <div id="d1"></div>
-    <div id="d2"></div>
-    <div id="d3"></div>
-    <div id="d4"></div>
+	<body>
+		<div id="d1"></div>
+		<div id="d2"></div>
+		<div id="d3"></div>
+		<div id="d4"></div>
 
-    <script src="domtify.js"></script>
-    <script src="jquery.js"></script>
+		<script src="domtify.js"></script>
+		<script src="jquery.js"></script>
 
-    <script>
-      let res
+		<script>
+		let res
 
-      // 基本遍历测试
-      // res = $("div").each(function (index, el) {
-      //   console.log(this)
-      //   console.log(el)
-      //   console.log(index)
-      // })
+		// 基本遍历测试
+		// res = $("div").each(function (index, el) {
+		//   console.log(this)
+		//   console.log(el)
+		//   console.log(index)
+		// })
 
-      //   res = d("div").each(function (index, el) {
-      //     console.log(this)
-      //     console.log(el)
-      //     console.log(index)
-      //   })
+		//   res = d("div").each(function (index, el) {
+		//     console.log(this)
+		//     console.log(el)
+		//     console.log(index)
+		//   })
 
-      // return false 时中断循环
-      // const result = []
-      // res = $("div").each(function (index, el) {
-      //   result.push(el.id)
-      //   if (el.id === "d2") return false
-      // })
-      // res = result
+		// return false 时中断循环
+		// const result = []
+		// res = $("div").each(function (index, el) {
+		//   result.push(el.id)
+		//   if (el.id === "d2") return false
+		// })
+		// res = result
 
-      // const result = []
-      // res = d("div").each(function (index, el) {
-      //   result.push(el.id)
-      //   if (el.id === "d2") return false
-      // })
-      // res = result
+		// const result = []
+		// res = d("div").each(function (index, el) {
+		//   result.push(el.id)
+		//   if (el.id === "d2") return false
+		// })
+		// res = result
 
-      // -- 该方法不会改变实例
-      // const $items = $("li")
-      // res = $items.each(function (index, element) {
-      //   console.log(index, element)
-      // })
-      // console.log($items === res) // true
+		// -- 该方法不会改变实例
+		// const $items = $("li")
+		// res = $items.each(function (index, element) {
+		//   console.log(index, element)
+		// })
+		// console.log($items === res) // true
 
-      //   const $items = d("li")
-      //   res = $items.each(function (index, element) {
-      //     console.log(index, element)
-      //   })
-      //   console.log($items === res) // true
+		//   const $items = d("li")
+		//   res = $items.each(function (index, element) {
+		//     console.log(index, element)
+		//   })
+		//   console.log($items === res) // true
 
-      console.log(res)
-    </script>
-  </body>
+		console.log(res)
+		</script>
+	</body>
 </html>

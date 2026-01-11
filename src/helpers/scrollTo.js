@@ -1,4 +1,4 @@
-import { isFunction, isUndefined } from "is-what"
+import { isFunction, isUndefined } from 'is-what'
 
 const getScrollValue = (el, prop, isTop) => {
   if (el === window) return isTop ? window.scrollY : window.scrollX
@@ -20,8 +20,8 @@ const setScrollValue = (el, prop, isTop, value) => {
 }
 
 export const scrollTo = (els, value, direction) => {
-  const isTop = direction === "top"
-  const prop = isTop ? "scrollTop" : "scrollLeft"
+  const isTop = direction === 'top'
+  const prop = isTop ? 'scrollTop' : 'scrollLeft'
 
   // getter
   if (isUndefined(value)) {

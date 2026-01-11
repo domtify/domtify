@@ -1,6 +1,6 @@
-import { isUndefined } from "is-what"
-import { unique } from "./unique.js"
-import { dom } from "@/core.js"
+import { isUndefined } from 'is-what'
+import { dom } from '@/core/dom.js'
+import { unique } from './unique.js'
 
 /**
  * 通用的兄弟节点获取方法
@@ -37,7 +37,7 @@ export const dirSibling = (elements, direction, options = {}) => {
 
   // filter 过滤
   if (!isUndefined(filter)) {
-    result = result.filter((el) => el.matches(filter))
+    result = result.filter(el => el.matches(filter))
   }
 
   return result
