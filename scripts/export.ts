@@ -16,7 +16,9 @@ function genExport({
 }: ExportOptions) {
   let files = globSync(pattern, { exclude: ignore })
 
-  files = files.map(f => path.basename(f))
+  files = files.map(f => path.basename(f, '.ts'))
+
+  console.log(files)
 
   const fileCnt = []
   for (const file of files) {
@@ -27,11 +29,11 @@ function genExport({
 
 genExport({
   exportName: '@/fluent',
-  pattern: 'src/fluent/*.js',
+  pattern: 'src/fluent/*.ts',
   outFile: 'src/fluent/methods.ts',
 })
 genExport({
   exportName: '@/util',
-  pattern: 'src/util/*.js',
+  pattern: 'src/util/*.ts',
   outFile: 'src/util/index.ts',
 })

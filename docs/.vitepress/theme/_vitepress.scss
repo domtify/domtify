@@ -1,20 +1,29 @@
 :root {
-  --my-brand-color-100: #1697f6;
-  --my-brand-color-200: #1867c0;
-  --my-brand-color-300: #2a73c5;
+  --my-c-brand-1: #5dad2d;
+  --my-c-brand-2: #186327;
+  --my-c-brand-3: #5dad2d;
 
-  // 首页封面hero的大标题的渐变效果
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(
-    120deg,
-    var(--my-brand-color-100) 30%,
-    var(--my-brand-color-200)
+  --vp-home-hero-name-background: linear-gradient(120deg, #5dad2d 30%, #135626);
+
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle at center,
+    rgba(93, 173, 45, 0.85) 0%,
+    rgba(93, 173, 45, 0.6) 16%,
+    rgba(93, 173, 45, 0.35) 36%,
+    rgba(93, 173, 45, 0.18) 56%,
+    rgba(93, 173, 45, 0.08) 70%,
+    transparent 84%
   );
 
-  // 首页封面的brand按钮的背景色鼠标移入的颜色
-  --vp-button-brand-text: var(--vp-c-white);
-  --vp-button-brand-bg: var(--my-brand-color-100);
-  --vp-button-brand-hover-bg: var(--my-brand-color-200);
+  --vp-home-hero-image-filter: blur(68px);
+
+  --vp-button-brand-bg: var(--my-c-brand-1);
+  --vp-button-brand-hover-bg: var(--my-c-brand-2);
+
+  --vp-c-brand-1: var(--my-c-brand-1);
+  --vp-c-brand-2: var(--my-c-brand-2);
+  --vp-c-brand-3: var(--my-c-brand-3);
 
   // 侧边栏的背景色
   --vp-sidebar-bg-color: #fff;
@@ -22,11 +31,6 @@
   // 行内代码的颜色
   --vp-code-bg: #f9f2f4;
   --vp-code-color: #c7254e;
-
-  // 这三个主题色控制这全局的风格(导航栏、侧边栏、链接、上一页、下一页等的颜色)
-  --vp-c-brand-1: var(--my-brand-color-100);
-  --vp-c-brand-2: var(--my-brand-color-200);
-  --vp-c-brand-3: var(--my-brand-color-300);
 }
 
 // 暗黑模式下的侧边栏的背景色

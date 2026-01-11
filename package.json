@@ -24,7 +24,7 @@
     "lint": "biome lint",
     "lint:fix": "npm run lint -- --write",
     "sizelint": "size-limit",
-    "build": "tsdown",
+    "build": "tsx scripts/export.ts && tsdown",
     "dist": "run-s build sizelint",
     "test": "vitest --coverage --ui",
     "coverage": "vitest run --coverage",
