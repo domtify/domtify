@@ -1,6 +1,6 @@
 import { isString, isUndefined } from 'is-what'
 
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const index = selector => els => {
   let collection

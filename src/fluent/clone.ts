@@ -1,4 +1,4 @@
-import { copyEventsAndData } from '@/helpers/copyEventsAndData.js'
+import { copyEventsAndData } from '@/helpers/copyEventsAndData'
 
 export const clone =
   (withDataAndEvents = false, deepWithDataAndEvents = false) =>

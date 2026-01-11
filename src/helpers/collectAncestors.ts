@@ -1,5 +1,5 @@
 import { isUndefined } from 'is-what'
-import { unique } from './unique.js'
+import { unique } from './unique'
 
 export const collectAncestors = (
   elements,

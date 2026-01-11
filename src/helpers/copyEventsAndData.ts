@@ -1,6 +1,6 @@
-import { dom } from '@/core/dom.js'
-import Event from '@/core/Event.js'
-import { data } from '@/fluent/data.js'
+import { dom } from '@/core/dom'
+import Event from '@/core/Event'
+import { data } from '@/fluent/data'
 
 export const copyEventsAndData = (source, target) => {
   // 复制data属性

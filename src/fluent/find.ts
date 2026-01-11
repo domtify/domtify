@@ -1,4 +1,4 @@
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const find = selector => els => {
   const candidates = dom(selector)

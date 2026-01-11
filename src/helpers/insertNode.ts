@@ -1,7 +1,7 @@
 import { isFunction, isInstanceOf } from 'is-what'
-import { flatElements } from './flatElements.js'
-import { CACHE_INSERT_STATIC_KEY } from '@/constants/index.js'
-import { isHtmlString } from './isHtmlString.js'
+import { CACHE_INSERT_STATIC_KEY } from '@/constants/index'
+import { flatElements } from './flatElements'
+import { isHtmlString } from './isHtmlString'
 
 /**
  * 通用 DOM 插入助手函数

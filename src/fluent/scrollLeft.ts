@@ -1,3 +1,3 @@
-import { scrollTo } from '@/helpers/scrollTo.js'
+import { scrollTo } from '@/helpers/scrollTo'
 
 export const scrollLeft = scrollTo('left')

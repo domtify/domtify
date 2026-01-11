@@ -1,5 +1,5 @@
 import { isArray, isFunction, isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const val = value => els => {
   if (isUndefined(value)) {

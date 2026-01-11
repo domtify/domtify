@@ -1,5 +1,5 @@
 import { isUndefined } from 'is-what'
-import { get } from './get.js'
+import { get } from './get'
 export const eq = index => els => {
   const result = []
 

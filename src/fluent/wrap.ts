@@ -1,5 +1,5 @@
 import { isFunction } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const wrap = wrappingElement => els => {
   for (const [index, element] of els.entries()) {

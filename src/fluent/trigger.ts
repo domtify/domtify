@@ -1,4 +1,4 @@
-import Event from '@/core/event.js'
+import Event from '@/core/event'
 
 export const trigger =
   (...args) =>

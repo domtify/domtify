@@ -1,4 +1,4 @@
-import { unique } from '@/helpers/unique.js'
+import { unique } from '@/helpers/unique'
 
 export const offsetParent = () => els => {
   const result = []

@@ -9,7 +9,7 @@ import {
   isUndefined,
 } from 'is-what'
 
-import DomtifyEvent from '@/core/DomtifyEvent.js'
+import DomtifyEvent from '@/core/DomtifyEvent'
 
 const ORDER_DIRECT = 'direct'
 const ORDER_DELEGATE = 'delegate'

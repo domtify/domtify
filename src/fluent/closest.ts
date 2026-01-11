@@ -1,5 +1,5 @@
-import { dom } from '@/core/dom.js'
-import { unique } from '@/helpers/unique.js'
+import { dom } from '@/core/dom'
+import { unique } from '@/helpers/unique'
 
 export const closest = (selector, context) => els => {
   const result = []

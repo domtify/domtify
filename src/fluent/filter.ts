@@ -1,5 +1,5 @@
 import { isFunction, isString } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const filter = selector => els => {
   const callbackFn = isFunction(selector)

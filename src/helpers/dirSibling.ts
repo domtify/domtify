@@ -1,6 +1,6 @@
 import { isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
-import { unique } from './unique.js'
+import { dom } from '@/core/dom'
+import { unique } from './unique'
 
 /**
  * 通用的兄弟节点获取方法

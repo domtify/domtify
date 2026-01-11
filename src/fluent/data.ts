@@ -1,7 +1,7 @@
 import { isPlainObject, isString, isUndefined } from 'is-what'
-import { DATA_KEY } from '@/constants/index.js'
-import { parseDataValue } from '@/helpers/parseDataValue.js'
-import { toCamel } from '@/helpers/toCamel.js'
+import { DATA_KEY } from '@/constants/index'
+import { parseDataValue } from '@/helpers/parseDataValue'
+import { toCamel } from '@/helpers/toCamel'
 
 export const data = (key, value) => els => {
   const firstEl = els.at(0)

@@ -1,6 +1,6 @@
 import { isFunction, isNumber, isString } from 'is-what'
-import { cssInt } from './cssInt.js'
-import { BOX_PROPS } from '@/constants/index.js'
+import { BOX_PROPS } from '@/constants/index'
+import { cssInt } from './cssInt'
 
 export function isBorderBox(el) {
   return getComputedStyle(el).boxSizing === 'border-box'

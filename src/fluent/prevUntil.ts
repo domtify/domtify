@@ -1,4 +1,4 @@
-import { dirSibling } from '@/helpers/dirSibling.js'
+import { dirSibling } from '@/helpers/dirSibling'
 
 export const prevUntil = (selector, filter) => els =>
   dirSibling(els, 'previous', {

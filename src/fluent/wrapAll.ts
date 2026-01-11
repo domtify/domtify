@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const wrapAll = wrappingElement => els => {
   if (!els.length) return els

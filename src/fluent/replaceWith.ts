@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from 'is-what'
-import { flatElements } from '@/helpers/flatElements.js'
+import { flatElements } from '@/helpers/flatElements'
 
 export const replaceWith = newContent => els => {
   for (const [index, element] of els.entries()) {

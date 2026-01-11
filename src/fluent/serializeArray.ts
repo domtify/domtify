@@ -1,4 +1,4 @@
-import { eachFormEntry } from '@/helpers/eachFormEntry.js'
+import { eachFormEntry } from '@/helpers/eachFormEntry'
 
 export const serializeArray = () => els => {
   const params = []

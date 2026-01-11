@@ -1,5 +1,5 @@
 import { isFunction } from 'is-what'
-import { debounce } from './debounce.js'
+import { debounce } from './debounce'
 
 const DEFAULT = {
   leading: true,

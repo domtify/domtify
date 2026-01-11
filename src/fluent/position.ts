@@ -1,7 +1,7 @@
 import { isInstanceOf } from 'is-what'
-import { dom } from '@/core/dom.js'
-import { cssInt } from '@/helpers/cssInt.js'
-import { offset } from './offset.js'
+import { dom } from '@/core/dom'
+import { cssInt } from '@/helpers/cssInt'
+import { offset } from './offset'
 
 const getEffectiveOffsetParent = el => {
   const doc = el.ownerDocument

@@ -1,5 +1,5 @@
 import { isBoolean, isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 import {
   border,
   getComputedSize,
@@ -11,7 +11,7 @@ import {
   padding,
   resolveSizeValue,
   resolveToPx,
-} from '@/helpers/size.js'
+} from '@/helpers/size'
 
 export const createOuterSize =
   prop =>

@@ -1,6 +1,6 @@
 import { isFunction, isInstanceOf, isNull, isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
-import { cssInt } from '@/helpers/cssInt.js'
+import { dom } from '@/core/dom'
+import { cssInt } from '@/helpers/cssInt'
 
 export const offset = coordinates => els => {
   if (isUndefined(coordinates)) {

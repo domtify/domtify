@@ -1,5 +1,5 @@
 import { isFunction, isPlainObject, isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const prop = (propertyName, value) => els => {
   if (isUndefined(value) && !isPlainObject(propertyName)) {

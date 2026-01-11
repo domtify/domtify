@@ -1,3 +1,3 @@
-import { collectAncestors } from '@/helpers/collectAncestors.js'
+import { collectAncestors } from '@/helpers/collectAncestors'
 
 export const parents = selector => els => collectAncestors(els, { selector })

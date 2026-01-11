@@ -1,4 +1,4 @@
-import { isNull, isFullString } from 'is-what'
+import { isFullString, isNull } from 'is-what'
 
 export const parseDataValue = val => {
   if (val === 'true') return true

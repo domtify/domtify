@@ -1,4 +1,4 @@
-import { resolveClasses } from '@/helpers/resolveClasses.js'
+import { resolveClasses } from '@/helpers/resolveClasses'
 
 export const toggleClass = (className, state) => els => {
   for (const [index, element] of els.entries()) {

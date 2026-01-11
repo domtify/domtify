@@ -1,5 +1,5 @@
 import { isUndefined } from 'is-what'
-import { normalizeKeys } from '@/helpers/normalizeKeys.js'
+import { normalizeKeys } from '@/helpers/normalizeKeys'
 
 /**
  * 安全获取对象属性，支持数组索引

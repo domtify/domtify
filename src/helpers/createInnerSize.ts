@@ -1,5 +1,5 @@
 import { isUndefined } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 import {
   border,
@@ -11,7 +11,7 @@ import {
   padding,
   resolveSizeValue,
   resolveToPx,
-} from '@/helpers/size.js'
+} from '@/helpers/size'
 
 export const createInnerSize = prop => value => els => {
   if (isUndefined(value)) {

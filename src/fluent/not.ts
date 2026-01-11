@@ -1,5 +1,5 @@
 import { isFunction } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const not = selector => els => {
   // 情况 1：函数形式

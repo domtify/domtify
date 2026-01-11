@@ -1,6 +1,6 @@
 import { isInstanceOf } from 'is-what'
-import { dom } from '@/core/dom.js'
-import { flatElements } from '@/helpers/flatElements.js'
+import { dom } from '@/core/dom'
+import { flatElements } from '@/helpers/flatElements'
 
 // 检查元素是否在页面上
 const isInPage = node => {

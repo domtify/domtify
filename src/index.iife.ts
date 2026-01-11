@@ -1,5 +1,5 @@
-import Domtify from '@/core/Domtify.js'
-import { dom } from '@/core/dom.js'
+import Domtify from '@/core/Domtify'
+import { dom } from '@/core/dom'
 import * as utils from '@/util/index'
 
 const domtify = (selector, cxt) => new Domtify(dom(selector, cxt))

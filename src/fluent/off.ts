@@ -1,4 +1,4 @@
-import Event from '@/core/Event.js'
+import Event from '@/core/Event'
 
 export const off =
   (...args) =>

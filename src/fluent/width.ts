@@ -1,3 +1,3 @@
-import { createContentSize } from '@/helpers/createContentSize.js'
+import { createContentSize } from '@/helpers/createContentSize'
 
 export const width = createContentSize('width')

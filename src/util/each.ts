@@ -1,5 +1,5 @@
 import { isAnyObject, isNull } from 'is-what'
-import { isArrayLike } from '@/helpers/isArrayLike.js'
+import { isArrayLike } from '@/helpers/isArrayLike'
 
 export const each = (obj, callback) => {
   if (isNull(obj)) return obj

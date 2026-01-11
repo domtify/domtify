@@ -1,6 +1,6 @@
-import { dom } from '@/core/dom.js'
-import { flatElements } from '@/helpers/flatElements.js'
-import { after } from './after.js'
+import { dom } from '@/core/dom'
+import { flatElements } from '@/helpers/flatElements'
+import { after } from './after'
 
 export const insertAfter = target => els =>
   after(els)(flatElements(dom(target)))

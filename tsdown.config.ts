@@ -13,9 +13,8 @@ export default defineConfig([
     format: 'iife',
     minify: true,
     outputOptions: {
-      dir: undefined,
       name: 'd',
-      file: `dist/domtify.js`,
+      file: 'dist/domtify.js',
     },
   },
 ])

@@ -5,7 +5,7 @@ import {
   isString,
   isUndefined,
 } from 'is-what'
-import { dom } from '@/core/dom.js'
+import { dom } from '@/core/dom'
 
 export const attr = (name, value) => els => {
   if (isUndefined(value) && !isPlainObject(name)) {

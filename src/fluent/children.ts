@@ -1,4 +1,4 @@
-import { unique } from '@/helpers/unique.js'
+import { unique } from '@/helpers/unique'
 
 export const children = selector => els => {
   const result = unique(

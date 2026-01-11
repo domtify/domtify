@@ -1,5 +1,5 @@
 import { isInstanceOf } from 'is-what'
-import { unique } from '@/helpers/unique.js'
+import { unique } from '@/helpers/unique'
 
 export const uniqueSort = () => els => {
   const result = unique(els.filter(el => isInstanceOf(el, Element)))
