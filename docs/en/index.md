@@ -7,15 +7,15 @@ hero:
     src: /logo-large.svg
     alt: domtify
   name: domtify
-  text: 让 DOM 操作优雅重生
-  tagline: 极简 · 现代 · 模块化 DOM 工具库
+  text: Let DOM Manipulation Feel Elegant Again
+  tagline: Minimal · Modern · Modular DOM Utility Library
   actions:
     - theme: brand
-      text: 什么是 domtify ?
-      link: /guide/introduction
+      text: What is domtify?
+      link: /en/guide/introduction
     - theme: alt
-      text: 快速开始
-      link: /guide/quick-start
+      text: Quick Start
+      link: /en/guide/quick-start
     - theme: alt
       text: GitHub
       link: https://github.com/domtify/domtify

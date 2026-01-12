@@ -1,60 +1,39 @@
 import { defineConfig } from 'vitepress'
 
-export const zh = defineConfig({
-  lang: 'zh-Hans',
+export const en = defineConfig({
+  lang: 'en-US',
   description: 'vitepress构建文档模板',
 
   themeConfig: {
     nav: nav(),
 
     sidebar: {
-      '/guide/': { base: '/guide/', items: sidebarGuide() },
-      '/reference/': {
-        base: '/reference/',
+      '/en/guide/': { base: '/en/guide/', items: sidebarGuide() },
+      '/en/reference/': {
+        base: '/en/reference/',
         items: sidebarAPI(),
       },
     },
 
     editLink: {
       pattern: 'https://github.com/domtify/domtify/tree/main/docs/:path',
-      text: '在 GitHub 上编辑此页面',
+      text: 'Edit this page on GitHub',
     },
 
     footer: {
-      message: '基于 MIT 许可发布',
-      copyright: `Copyright © 2025-至今 ajiho`,
-    },
-
-    docFooter: {
-      prev: '上一页',
-      next: '下一页',
+      message: 'Released under the MIT License',
+      copyright: `Copyright © 2025-present ajiho`,
     },
 
     outline: {
-      label: '页面导航',
       level: 'deep',
     },
 
     lastUpdated: {
-      text: '最后更新于',
       formatOptions: {
         dateStyle: 'short',
         timeStyle: 'medium',
       },
-    },
-
-    langMenuLabel: '多语言',
-    returnToTopLabel: '回到顶部',
-    sidebarMenuLabel: '菜单',
-    darkModeSwitchLabel: '主题',
-    lightModeSwitchTitle: '切换到浅色模式',
-    darkModeSwitchTitle: '切换到深色模式',
-
-    notFound: {
-      title: '找不到页面',
-      quote: '如果你不改变方向，并且一直走下去，你最终会到达现在前进的地方',
-      linkLabel: '回到首页',
-      linkText: '带我回家',
     },
   },
 })
@@ -62,14 +41,14 @@ export const zh = defineConfig({
 function nav() {
   return [
     {
-      text: '指南',
-      link: '/guide/introduction',
-      activeMatch: '/guide/',
+      text: 'Guide',
+      link: '/en/guide/introduction',
+      activeMatch: '/en/guide/',
     },
     {
-      text: '参考',
-      link: '/reference/method-get',
-      activeMatch: '/reference/',
+      text: 'Reference',
+      link: '/en/reference/method-get',
+      activeMatch: '/en/reference/',
     },
   ]
 }
@@ -77,16 +56,16 @@ function nav() {
 function sidebarGuide() {
   return [
     {
-      text: '指南',
+      text: 'Guide',
       items: [
-        { text: '介绍', link: 'introduction' },
-        { text: '使命与理念', link: 'mission' },
-        { text: '快速入门', link: 'quick-start' },
-        { text: '迁移指南', link: 'migration' },
-        { text: '拓展', link: 'extension' },
+        { text: 'Introduction', link: 'introduction' },
+        { text: 'Mission & Philosophy', link: 'mission' },
+        { text: 'Quick Start', link: 'quick-start' },
+        { text: 'Migration Guide', link: 'migration' },
+        { text: 'Extensions', link: 'extension' },
         {
-          text: 'API 文档',
-          base: '/reference/',
+          text: 'API Reference',
+          base: '/en/reference/',
           link: 'method-get',
         },
       ],

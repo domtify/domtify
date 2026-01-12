@@ -1,10 +1,10 @@
-# 快速入门
+# Quick Start
 
-## 在线尝试
+## Try It Online
 
-可以直接在 StackBlitz 上进行在线尝试。
+You can try domtify directly on StackBlitz.
 
-## 安装
+## Installation
 
 ::: code-group
 
@@ -26,17 +26,16 @@ $ bun add -D domtify
 
 :::
 
-## 基本用法
+## Basic Usage
 
 ```js
-import { dom, pipe, addClass, css, find, text,trace } from "domtify";
+import { dom, pipe, addClass, css, find, text, trace } from "domtify";
 import { debounce } from "domtify/util";
-
 
 const spanText = pipe(
   dom("#box"),
   addClass("active"),
-  trace("addClass之后:"), // trace方法打印管道此处位置的dom数据
+  trace("after addClass:"), // trace logs the DOM data at this point in the pipeline
   css("color", "red"),
   find("span"),
   text()
@@ -44,17 +43,23 @@ const spanText = pipe(
 
 pipe(
   dom(window),
-  on("resize", debounce(()=>{...},300))
+  on(
+    "resize",
+    debounce(() => {
+      // ...
+    }, 300)
+  )
 );
 ```
 
-## 浏览器用户
+## Browser Usage
 
-使用方式非常简单，就像你往常使用 jQuery 一样只是把 $ 替换成 d 就可以了。
+Using domtify in the browser is very straightforward.
+Just like using jQuery — simply replace `$` with `d`.
 
 ```html
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -68,7 +73,7 @@ pipe(
     <script src="https://cdn.jsdelivr.net/npm/domtify@latest/dist/domtify.min.js"></script>
     <script>
       d(() => {
-        // document文档准备就绪
+        // Document is ready
         d("p").text("Hello, domtify!");
       });
     </script>

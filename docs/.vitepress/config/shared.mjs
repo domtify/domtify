@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitepress'
-import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
-
+import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
+import { search as enSearch } from './en.mjs'
 import { search as zhSearch } from './zh.mjs'
 
 export const shared = defineConfig({
@@ -77,6 +77,7 @@ export const shared = defineConfig({
           root: {
             ...zhSearch.zh,
           },
+          ...enSearch,
         },
       },
     },
