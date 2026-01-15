@@ -1,11 +1,9 @@
 import { dom } from '@/core/dom'
 import Event from '@/core/Event'
 import { data } from '@/fluent/data'
+import type { Selector } from '@/types'
 
-export const copyEventsAndData = (source, target) => {
-  // 复制data属性
-  data(data()(dom(source)))(dom(target))
-
+export const copyEventsAndData = (source: Selector, target: Selector) => {
   const sourceEls = dom(source)
   const targetEls = dom(target)
   //  从 source 读取 data

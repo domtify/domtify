@@ -6,4 +6,4 @@ export type Selector =
   | HTMLCollection
   | (() => void)
 
-export type Context = Document | Element
+export type Context = Document | Element | undefined

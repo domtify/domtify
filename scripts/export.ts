@@ -26,9 +26,9 @@ function genExport({
 }
 
 genExport({
-  exportName: '@/fluent',
-  pattern: 'src/fluent/*.ts',
-  outFile: 'src/fluent/methods.ts',
+  exportName: '@/method',
+  pattern: 'src/method/*.ts',
+  outFile: 'src/method/methods.ts',
 })
 genExport({
   exportName: '@/util',

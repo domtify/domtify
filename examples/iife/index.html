@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="box"><span>sapn</span></div>
+
+    <script type="module" src="./app.ts"></script>
+    <script src="/domtify.js"></script>
+    <script>
+      const { dom, pipe, addClass, css, find, text, trace, util, on, from } =
+        domtify;
+
+      const spanText = pipe(
+        dom("#box"),
+        addClass("active"),
+        trace("addClassaa之后:"),
+        css("color", "red"),
+        find("span"),
+        text()
+      );
+      console.log(spanText);
+      from(window)(
+        on(
+          "resize",
+          util.debounce(() => {
+            console.log("rew");
+          }, 300)
+        )
+      );
+    </script>
+  </body>
+</html>

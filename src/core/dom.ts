@@ -1,48 +1,78 @@
-import { isArray, isFunction, isString } from 'is-what'
-import { isHtmlString } from '@/helpers/isHtmlString'
-import { onDOMContentLoaded } from '@/helpers/onDOMContentLoaded'
 import type { Context, Selector } from '@/types'
-import { parseHTML } from '@/util/parseHTML'
+import { type MaybePromise, type PipeFn, pipe, type SyncPipeFn } from './pipe'
+import { query } from './query'
 
-/**
- * 类似轻量版 jQuery 的 DOM 选择函数
- * @param selector CSS选择器、HTML字符串、Node节点、数组/集合或回调函数
- * @param context 可选上下文，默认 document
- * @returns Node[] 选中的节点数组
- */
-export const dom = (
+export type DomElement = Element
+export type DomArray = DomElement[]
+
+// ① 仅 selector
+export function dom(selector: Selector): MaybePromise<DomArray>
+
+/* ================================
+ * ② selector + fns
+ * ================================ */
+
+// ②-1 同步 fns（必须在前）
+export function dom<R = any>(
   selector: Selector,
-  context: Context = document,
-): Node[] => {
-  let elements: Node[] = []
+  fns: SyncPipeFn<DomArray, R>[],
+): R
 
-  if (isString(selector)) {
-    // 字符串处理
-    if (isHtmlString(selector)) {
-      elements = parseHTML(selector, context)
-    } else {
-      try {
-        elements = Array.from(context.querySelectorAll(selector))
-      } catch (_error) {
-        // 错误的选择器,什么操作都不做
-      }
-    }
-  } else if (
-    selector instanceof NodeList ||
-    selector instanceof HTMLCollection
-  ) {
-    // 是直接传递的NodeList或者HTMLCollection集合
-    elements = Array.from(selector)
-  } else if (isFunction(selector)) {
-    // 是函数,就立马进行加载
-    onDOMContentLoaded(selector)
-  } else if (isArray(selector)) {
-    // 是数组直接展开
-    elements = [...selector]
-  } else if (selector) {
-    // 其他单个 Node
-    elements.push(selector)
+// ②-2 可能 async fns
+export function dom<R = any>(
+  selector: Selector,
+  fns: PipeFn<DomArray, R>[],
+): MaybePromise<R>
+
+/* ================================
+ * ③ selector + context
+ * ================================ */
+
+export function dom(
+  selector: Selector,
+  context: Context,
+): MaybePromise<DomArray>
+
+/* ================================
+ * ④ selector + context + fns
+ * ================================ */
+
+// ④-1 同步 fns（必须在前）
+export function dom<R = any>(
+  selector: Selector,
+  context: Context,
+  fns: SyncPipeFn<DomArray, R>[],
+): R
+
+// ④-2 可能 async fns
+export function dom<R = any>(
+  selector: Selector,
+  context: Context,
+  fns: PipeFn<DomArray, R>[],
+): MaybePromise<R>
+
+export function dom(
+  selector: Selector,
+  ctxOrFns?: Context | PipeFn[],
+  maybeFns?: PipeFn[],
+) {
+  let ctx: Context | undefined
+  let fns: PipeFn[] | undefined
+
+  if (Array.isArray(ctxOrFns)) {
+    ctx = undefined
+    fns = ctxOrFns
+  } else {
+    ctx = ctxOrFns
+    fns = maybeFns
   }
 
-  return elements
+  const els = query(selector, ctx)
+
+  // ⭐ 没有 fns，直接返回 query 结果
+  if (!fns || fns.length === 0) {
+    return els
+  }
+
+  return pipe(els, ...fns)
 }

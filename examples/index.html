@@ -1,52 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>index演示</title>
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>index演示</title>
+  </head>
 
-	<body>
-		<ul>
-			<li id="foo">foo</li>
-			<li id="bar">bar</li>
-			<li id="baz">baz</li>
-		</ul>
-
-		<script src="domtify.js"></script>
-		<script src="jquery.js"></script>
-
-		<script>
-		let res
-
-		d.fn.highlight = function (color = 'yellow') {
-			this.each((index, el) => {
-				el.style.backgroundColor = color
-			})
-			return this
-		}
-
-		const res222 = d('li').highlight('blue')
-
-		console.log(d('li').eq())
-
-		// 不传递参数,表示获取当前元素在兄弟中的位置
-		// res = $("li").index()
-		// res = d("li").index()
-
-		// css选择器 表示$("#bar") 在 $('li')这个集合中的位置
-		// res = $("#bar").index("li")
-		// res = d("#bar").index("li")
-
-		// 元素  表示id为baz的元素在$('li')这个集合中的位置
-		// res = $("li").index(document.getElementById("baz"))
-		// res = d("li").index(document.getElementById("baz"))
-
-		// jquery对象和传入元素表示的方法相同
-		// res = $("li").index($("#bar"))
-		// res = d("li").index(d("#bar"))
-
-		console.log(res)
-		</script>
-	</body>
+  <body>
+    <h1>My Request Lib Demos</h1>
+    <ul>
+      <li><a href="/base/index.html">base demo</a></li>
+      <li><a href="/iife/index.html">iife demo</a></li>
+      <li><a href="/parent/index.html">parent demo</a></li>
+    </ul>
+  </body>
 </html>

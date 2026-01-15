@@ -28,6 +28,9 @@ $ bun add -D domtify
 
 ## 基本用法
 
+:::tabs
+== ES Modules
+
 ```js
 import { dom, pipe, addClass, css, find, text,trace } from "domtify";
 import { debounce } from "domtify/util";
@@ -48,30 +51,29 @@ pipe(
 );
 ```
 
-## 浏览器用户
+== IIFE
 
-使用方式非常简单，就像你往常使用 jQuery 一样只是把 $ 替换成 d 就可以了。
+```js
+const { dom, pipe, addClass, css, find, text, trace, util, on } = domtify;
+const { debounce } = util;
+const spanText = pipe(
+  dom("#box"),
+  addClass("active"),
+  trace("addClass之后:"), // trace方法打印管道此处位置的dom数据
+  css("color", "red"),
+  find("span"),
+  text()
+);
 
-```html
-<!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>domtify demo</title>
-  </head>
-  <body>
-    <div id="container">
-      <p>Welcome to domtify!</p>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/domtify@latest/dist/domtify.min.js"></script>
-    <script>
-      d(() => {
-        // document文档准备就绪
-        d("p").text("Hello, domtify!");
-      });
-    </script>
-  </body>
-</html>
+pipe(
+  dom(window),
+  on(
+    "resize",
+    debounce(() => {
+      console.log("rew");
+    }, 300)
+  )
+);
 ```
+
+:::

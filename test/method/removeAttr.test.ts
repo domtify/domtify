@@ -1,0 +1,39 @@
+import { beforeEach, describe, expect, it } from 'vitest'
+
+import { dom } from '@/core/dom'
+import { removeAttr } from '@/method/removeAttr'
+
+describe('removeAttr', () => {
+  let input
+
+  beforeEach(() => {
+    document.body.innerHTML = `
+    <input type="text" title="hello there" />
+    `
+    input = document.querySelector('input')
+  })
+
+  it('基本测试：能移除单个属性', () => {
+    removeAttr('title')(dom('input'))
+    expect(input.hasAttribute('title')).toBe(false)
+    expect(input.hasAttribute('type')).toBe(true)
+  })
+
+  it('能移除多个属性（空格分隔）', () => {
+    removeAttr('title type')(dom('input'))
+    expect(input.hasAttribute('title')).toBe(false)
+    expect(input.hasAttribute('type')).toBe(false)
+  })
+
+  it('传入非字符串时不报错，元素属性不变', () => {
+    expect(() => removeAttr(123)(dom('input'))).not.toThrow()
+    expect(input.hasAttribute('title')).toBe(true)
+    expect(input.hasAttribute('type')).toBe(true)
+  })
+
+  it('传入空字符串时不移除属性', () => {
+    removeAttr(' ')(dom('input'))
+    expect(input.hasAttribute('title')).toBe(true)
+    expect(input.hasAttribute('type')).toBe(true)
+  })
+})
