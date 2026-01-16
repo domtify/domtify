@@ -10,33 +10,36 @@ import { parseHTML } from '@/util/parseHTML'
  * @param context 可选上下文，默认 document
  * @returns Node[] 选中的节点数组
  */
-export function query<T extends Node = Node>(
-  selector: Selector,
-  context: Context = document,
-): T[] {
+export function query(selector: Selector, context: Context = document): Node[] {
   let elements: Node[] = []
 
   if (isString(selector)) {
+    // 字符串处理
     if (isHtmlString(selector)) {
       elements = parseHTML(selector, context)
     } else {
       try {
         elements = Array.from(context.querySelectorAll(selector))
-      } catch {}
+      } catch (_error) {
+        // 错误的选择器,什么操作都不做
+      }
     }
   } else if (
     selector instanceof NodeList ||
     selector instanceof HTMLCollection
   ) {
+    // 是直接传递的NodeList或者HTMLCollection集合
     elements = Array.from(selector)
   } else if (isFunction(selector)) {
+    // 是函数,就立马进行加载
     onDOMContentLoaded(selector)
   } else if (isArray(selector)) {
+    // 是数组直接展开
     elements = [...selector]
   } else if (selector) {
+    // 其他单个 Node
     elements.push(selector)
   }
 
-  // 断言
-  return elements as T[]
+  return elements
 }

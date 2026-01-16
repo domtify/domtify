@@ -9,6 +9,6 @@ import type { Context, Selector } from '@/types'
  * @returns 高阶函数，接收现有元素数组并返回合并去重后的元素数组
  */
 export const add =
-  <T extends Element = Element>(selector: Selector, context?: Context) =>
-  (els: T[]): T[] =>
-    unique([...els, ...query<T>(selector, context)])
+  (selector: Selector, context?: Context) =>
+  (els: HTMLElement[]): HTMLElement[] =>
+    unique([...els, ...query<HTMLElement>(selector, context)])

@@ -1,4 +1,4 @@
-import { isUndefined, isFunction } from 'is-what'
+import { isFunction, isUndefined } from 'is-what'
 
 export const html = html => els => {
   // getter

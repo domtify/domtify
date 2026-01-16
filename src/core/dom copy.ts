@@ -6,11 +6,7 @@ export type DomElement = Element
 export type DomArray = DomElement[]
 
 // ① 仅 selector
-
-export function dom(selector: Selector): DomArray
-
-// ② selector + context
-export function dom(selector: Selector, context: Context): DomArray
+export function dom(selector: Selector): MaybePromise<DomArray>
 
 /* ================================
  * ② selector + fns
