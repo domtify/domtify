@@ -1,6 +1,6 @@
 import { isArray, isFunction, isString, isUndefined } from 'is-what'
 
-type ClassInput =
+export type ClassInput =
   | string
   | string[]
   | ((
