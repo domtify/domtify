@@ -32,6 +32,16 @@
 
 domtify 支持所有现代浏览器（Chrome、Firefox、Safari、Edge）。
 
+## 模型对比
+
+| jQuery      | domtify       |
+| ----------- | ------------- |
+| 隐式 `this` | 显式参数      |
+| 可变对象    | 不可变数据流  |
+| 方法链      | 函数管道      |
+| 面向对象    | 函数式        |
+| JS 友好     | **TS 极友好** |
+
 ## 变更日志
 
 每个版本的详细更改记录在[CHANGELOG.md](https://github.com/domtify/domtify/blob/main/CHANGELOG.md)中.

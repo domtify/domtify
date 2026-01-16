@@ -1,5 +1,5 @@
 export const DATA_KEY = Symbol('data')
-export const CACHE_INSERT_STATIC_KEY = 'static'
+export const CACHE_INSERT_STATIC_KEY = Symbol('static')
 
 export const PADDING_X = ['paddingLeft', 'paddingRight']
 export const PADDING_Y = ['paddingTop', 'paddingBottom']

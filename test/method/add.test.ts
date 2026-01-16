@@ -2,7 +2,6 @@ import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { dom } from '@/core/dom'
 import { add } from '@/method/add'
-import { html } from '@/method/html'
 
 describe('add', () => {
   beforeEach(() => {

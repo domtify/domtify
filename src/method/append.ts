@@ -1,6 +1,6 @@
-import { insertNode } from '@/helpers/insertNode'
+import { type InsertContents, insertNode } from '@/helpers/insertNode'
 
 export const append =
-  (...args) =>
-  els =>
-    insertNode(els, args, 'beforeend')
+  <T extends Element = Element>(...content: InsertContents<T>) =>
+  (els: T[]): T[] =>
+    insertNode(els, content, 'beforeend')

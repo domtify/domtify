@@ -32,12 +32,12 @@ $ bun add -D domtify
 == ES Modules
 
 ```js
-import { dom, pipe, addClass, css, find, text,trace } from "domtify";
+import { query, pipe, addClass, css, find, text,trace } from "domtify";
 import { debounce } from "domtify/util";
 
 
 const spanText = pipe(
-  dom("#box"),
+  query("#box"),
   addClass("active"),
   trace("addClass之后:"), // trace方法打印管道此处位置的dom数据
   css("color", "red"),
@@ -46,18 +46,29 @@ const spanText = pipe(
 );
 
 pipe(
-  dom(window),
+  query(window),
   on("resize", debounce(()=>{...},300))
 );
+
+// 或者您觉得繁琐可以使用dom方法
+const spanText = dom("#box",[
+  addClass("active"),
+  trace("addClass之后:"),
+  css("color", "red"),
+  find("span"),
+  text()
+]);
+
+dom(window,[on("resize", debounce(()=>{...},300))])
 ```
 
 == IIFE
 
 ```js
-const { dom, pipe, addClass, css, find, text, trace, util, on } = domtify;
+const { query, pipe, addClass, css, find, text, trace, util, on } = domtify;
 const { debounce } = util;
 const spanText = pipe(
-  dom("#box"),
+  query("#box"),
   addClass("active"),
   trace("addClass之后:"), // trace方法打印管道此处位置的dom数据
   css("color", "red"),
@@ -66,7 +77,7 @@ const spanText = pipe(
 );
 
 pipe(
-  dom(window),
+  query(window),
   on(
     "resize",
     debounce(() => {
