@@ -1,4 +1,4 @@
-import jQuery from 'jquery'
+import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { dom } from '@/core/dom'
 import { appendTo } from '@/method/appendTo'
@@ -17,12 +17,14 @@ describe('appendTo', () => {
     `
   })
 
-  it('支持选择器', () => {
-    appendTo('h2')(dom('.inner'))
-    const h2 = document.querySelector('h2')
+  describe('支持选择器', () => {
+    it('domtify', () => {
+      dom('.inner', [appendTo('h2')])
+      const h2 = document.querySelector('h2')!
 
-    expect(h2.firstElementChild.classList.contains('inner')).toBe(true)
-    expect(h2.firstElementChild.textContent).toBe('Goodbye')
+      expect(h2.firstElementChild!.classList.contains('inner')).toBe(true)
+      expect(h2.firstElementChild!.textContent).toBe('Goodbye')
+    })
   })
 
   it('支持 HTML 字符串', () => {

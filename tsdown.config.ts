@@ -12,8 +12,9 @@ export default defineConfig([
     sourcemap: true,
     format: 'iife',
     minify: true,
+    dts: true,
     outputOptions: {
-      name: 'domtify',
+      name: 'dom',
       file: 'dist/domtify.js',
     },
   },

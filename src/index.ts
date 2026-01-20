@@ -1,5 +1,5 @@
 export * from '@/core/dom'
 export * from '@/core/pipe'
-export * from '@/core/query'
-export * from '@/fluent/methods'
+export * from '@/core/select'
+export * from '@/method'
 export * from '@/types'

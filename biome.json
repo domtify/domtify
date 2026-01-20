@@ -28,7 +28,8 @@
         "noNonNullAssertion": "off"
       },
       "correctness": {
-        "noUnusedImports": "off"
+        "noUnusedImports": "off",
+        "noConstructorReturn": "off"
       },
       "suspicious": {
         "noExplicitAny": "off",

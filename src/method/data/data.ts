@@ -1,5 +1,5 @@
 import { isPlainObject, isString, isUndefined } from 'is-what'
-import { DATA_KEY } from '@/constants/index'
+import { DATA_KEY } from '@/core/constant'
 import { parseDataValue } from '@/helpers/parseDataValue'
 import { toCamel } from '@/helpers/toCamel'
 

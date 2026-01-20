@@ -1,6 +1,6 @@
 import { dom } from '@/core/dom'
 import Event from '@/core/Event'
-import { data } from '@/fluent/data'
+import { data } from '@/method/data'
 import type { Selector } from '@/types'
 
 export const copyEventsAndData = (source: Selector, target: Selector) => {

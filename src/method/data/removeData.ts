@@ -1,5 +1,5 @@
 import { isArray, isMap, isString, isUndefined } from 'is-what'
-import { DATA_KEY } from '@/constants/index'
+import { DATA_KEY } from '@/core/constant'
 import { toCamel } from '@/helpers/toCamel'
 
 export const removeData = name => els => {

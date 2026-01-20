@@ -1,5 +1,5 @@
 import { isFunction, isNumber, isString } from 'is-what'
-import { BOX_PROPS } from '@/constants/index'
+import { BOX_PROPS } from '@/core/constant'
 import { cssInt } from './cssInt'
 
 export function isBorderBox(el) {

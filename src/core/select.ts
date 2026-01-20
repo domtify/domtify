@@ -1,20 +1,14 @@
 import { isArray, isFunction, isString } from 'is-what'
 import { isHtmlString } from '@/helpers/isHtmlString'
 import { onDOMContentLoaded } from '@/helpers/onDOMContentLoaded'
-import type { Context, Selector } from '@/types'
+import type { Context, Selector, SelectorContext } from '@/types'
 import { parseHTML } from '@/util/parseHTML'
 
-/**
- * 类似轻量版 jQuery 的 DOM 选择函数
- * @param selector CSS选择器、HTML字符串、Node节点、数组/集合或回调函数
- * @param context 可选上下文，默认 document
- * @returns Node[] 选中的节点数组
- */
-export function query<T extends Node = Node>(
+export function select(
   selector: Selector,
-  context: Context = document,
-): T[] {
-  let elements: Node[] = []
+  context: SelectorContext = document,
+): Context {
+  let elements: Context = []
 
   if (isString(selector)) {
     if (isHtmlString(selector)) {
@@ -24,6 +18,9 @@ export function query<T extends Node = Node>(
         elements = Array.from(context.querySelectorAll(selector))
       } catch {}
     }
+  } else if (selector.domtify !== undefined) {
+    // 判断是domtify对象
+    elements = selector.results
   } else if (
     selector instanceof NodeList ||
     selector instanceof HTMLCollection
@@ -36,7 +33,5 @@ export function query<T extends Node = Node>(
   } else if (selector) {
     elements.push(selector)
   }
-
-  // 断言
-  return elements as T[]
+  return elements
 }

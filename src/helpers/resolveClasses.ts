@@ -1,9 +1,11 @@
 import { isArray, isFunction, isString, isUndefined } from 'is-what'
+import type { ContextUnit } from '@/types'
 
 export type ClassInput =
   | string
   | string[]
   | ((
+      element: ContextUnit,
       index: number,
       current: string,
       state?: any,
@@ -18,22 +20,22 @@ export type ClassInput =
  * @returns 字符串数组
  */
 export const resolveClasses = (
-  element: Element,
+  element: ContextUnit,
   index: number,
   className?: ClassInput,
-  state?: any,
+  state?: boolean,
 ): string[] => {
   let value: string | string[] | undefined
 
   if (isFunction(className)) {
-    value = className.call(
+    value = className(
       element,
       index,
-      element?.classList?.value ?? '',
+      (element as Element)?.classList?.value ?? '',
       state,
     )
   } else if (isUndefined(className)) {
-    value = element.classList.value
+    value = (element as Element).classList.value
   } else {
     value = className
   }

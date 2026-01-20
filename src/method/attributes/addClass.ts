@@ -1,12 +1,13 @@
 import { type ClassInput, resolveClasses } from '@/helpers/resolveClasses'
+import type { Context } from '@/types'
 
 export const addClass =
-  <T extends Element = Element>(className: ClassInput) =>
-  (els: T[]): T[] => {
+  (className: ClassInput) =>
+  (els: Context): Context => {
     for (const [index, element] of els.entries()) {
       const classes = resolveClasses(element, index, className)
 
-      element?.classList?.add(...classes)
+      ;(element as Element)?.classList?.add(...classes)
     }
     return els
   }
