@@ -1,2 +1,5 @@
 export * from '@/method/attributes/addClass'
-export * from '@/method/collection/add'
+export * from '@/method/collection/get'
+// export * from '@/method/collection/add'
+export * from '@/method/collection/toArray'
+export * from '@/method/manipulation/text'

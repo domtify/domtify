@@ -1,26 +1,8 @@
-import {
-  add,
-  addClass,
-  dom,
-  each,
-  find,
-  first,
-  from,
-  parent,
-  parents,
-  trace,
-} from '@/index'
+import { d } from '@/index'
+import { addClass } from '@/method'
 
-console.log(dom('html'))
+d.fn.extend({ addClass })
 
-const res = from('ul')(
-  addClass('a'),
-  find('li'),
-  add(dom('#mycircle')),
-  addClass('li-class'),
-  parent(),
-  first(),
-  each((index, el) => {}),
-)
+let res = d('li').addClass('dsadaa')
 
 console.log(res)

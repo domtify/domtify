@@ -1,5 +1,2 @@
-export * from '@/core/dom'
-export * from '@/core/pipe'
-export * from '@/core/select'
-export * from '@/method'
+export * from '@/domtify'
 export * from '@/types'
