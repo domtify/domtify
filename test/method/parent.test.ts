@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { dom } from '@/core/dom'
-import { parent } from '@/method/parent'
+
+import { parent, pipe } from '@/index'
 
 describe('parent', () => {
   beforeEach(() => {
@@ -43,7 +43,7 @@ describe('parent', () => {
       expect(res[0].classList.contains('level-2')).toBe(true)
     })
     it('domtify', () => {
-      const res = dom('li.item-a', [parent()])
+      const res = pipe('li.item-a', parent())
       expect(res[0]).toBeInstanceOf(HTMLElement)
       expect(res[0].classList.contains('level-2')).toBe(true)
     })

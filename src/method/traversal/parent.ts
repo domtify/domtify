@@ -1,15 +1,10 @@
 import { isUndefined } from 'is-what'
+import type { Context, PipeOperator } from '@/types'
 
-export function parent<E extends Element = HTMLElement>(
-  selector?: string,
-): (els: Iterable<Node>) => E[]
-
-export function parent(
-  selector?: string,
-): (els: Iterable<Node>) => (Element | Document)[] {
-  return (els: Iterable<Node>) => {
-    const result: (Element | Document)[] = []
-    const seen = new Set<Node>()
+export function parent(selector?: string): PipeOperator {
+  return (els: Context) => {
+    const result: Context = []
+    const seen = new Set()
 
     for (const el of els) {
       const p = el?.parentNode
@@ -24,9 +19,8 @@ export function parent(
 
       if (seen.has(p)) continue
       seen.add(p)
-      result.push(p as Element | Document)
+      result.push(p)
     }
-
     return result
   }
 }
