@@ -18,9 +18,49 @@
     <script src="/domtify.js"></script>
 
     <script>
-      dom("dsad", find("dsad"), addClass("dsad"));
+      $.dom("dsa", $.addClass("dsad"), $.text("dsad"), $.html("dsasd"));
 
-      dom("a", addClass("a"), text("a"), child("a"), find("a"), html("a"));
+      // 也支持第二个参数约束上下文
+      $.dom(
+        "dsa",
+        ".container",
+        $.addClass("dsad"),
+        $.text("dsad"),
+        $.html("dsasd"),
+      );
+
+      // 也支持,数组也就是说不定参数,是数组最后都会统一推平变成一维数组
+      const findSome = [$.find(".some"), $.child()];
+      $.dom(
+        "dsa",
+        ".container",
+        $.addClass("dsad"),
+        $.text("dsad"),
+        $.html("dsasd"),
+        findSome,
+      );
+    </script>
+
+    <script type="module">
+      import {
+        addClass,
+        child,
+        dom,
+        find,
+        html,
+        text,
+      } from "dist/domtify.esm.js";
+
+      let htmlStr = dom(
+        "a",
+        addClass("dsad"),
+        text("dsads"),
+        child("dasd"),
+        find("dsad"),
+        html(),
+      );
+
+      console.log(htmlStr);
     </script>
   </body>
 </html>

@@ -1,2 +1,3 @@
-export * from '@/domtify'
+export * from '@/core/dom'
+
 export * from '@/types'

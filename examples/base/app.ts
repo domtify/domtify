@@ -1,8 +1,7 @@
-import { d } from '@/index'
+import { dom } from '@/index'
 import { addClass } from '@/method'
+import { trace } from '@/method/utilities/trace'
 
-d.fn.extend({ addClass })
-
-let res = d('li').addClass('dsadaa')
-
-console.log(res)
+let res = dom('li', addClass('a'), [addClass('b'), trace('aa')], els => {
+  return els
+})

@@ -1,15 +1,13 @@
-import type { Domtify } from '@/core/Domtify'
-import domtify from '@/domtify'
 import { type ClassInput, resolveClasses } from '@/helpers/resolveClasses'
-import { get, toArray } from '@/method'
+import type { Context } from '@/types'
 
-domtify.fn.extend({ toArray, get })
+export const addClass =
+  (className: ClassInput) =>
+  (els: Context): Context => {
+    for (const [index, element] of els.entries()) {
+      const classes = resolveClasses(element, index, className)
 
-export function addClass(this: Domtify, className: ClassInput) {
-  for (const [index, element] of this.toArray().entries()) {
-    const classes = resolveClasses(element, index, className)
-
-    ;(element as Element)?.classList?.add(...classes)
+      ;(element as Element)?.classList?.add(...classes)
+    }
+    return els
   }
-  return this
-}
