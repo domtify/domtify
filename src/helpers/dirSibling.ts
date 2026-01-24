@@ -1,5 +1,5 @@
 import { isUndefined } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from './select'
 import { unique } from './unique'
 
 /**
@@ -15,7 +15,7 @@ export const dirSibling = (elements, direction, options = {}) => {
   const { all = false, until, filter } = options
 
   let result = []
-  const untilElements = !isUndefined(until) ? dom(until) : []
+  const untilElements = !isUndefined(until) ? select(until) : []
 
   for (const el of elements) {
     let sibling = el[`${direction}ElementSibling`]

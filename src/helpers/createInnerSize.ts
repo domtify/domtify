@@ -1,6 +1,4 @@
 import { isUndefined } from 'is-what'
-import { dom } from '@/core/dom'
-
 import {
   border,
   getComputedSize,
@@ -12,6 +10,7 @@ import {
   resolveSizeValue,
   resolveToPx,
 } from '@/helpers/size'
+import { select } from './select'
 
 export const createInnerSize = prop => value => els => {
   if (isUndefined(value)) {
@@ -37,7 +36,7 @@ export const createInnerSize = prop => value => els => {
       element,
       value,
       index,
-      createInnerSize(prop)()(dom(element)),
+      createInnerSize(prop)()(select(element)),
     )
 
     if (!isPxValue(originVal)) {

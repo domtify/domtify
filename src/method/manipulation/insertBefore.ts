@@ -1,6 +1,6 @@
-import { dom } from '@/core/dom'
 import { flatElements } from '@/helpers/flatElements'
+import { select } from '@/helpers/select'
 import { before } from './before'
 
 export const insertBefore = target => els =>
-  before(els)(flatElements(dom(target)))
+  before(els)(flatElements(select(target)))

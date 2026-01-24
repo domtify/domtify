@@ -1,12 +1,12 @@
 import { isFunction } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const wrap = wrappingElement => els => {
   for (const [index, element] of els.entries()) {
     let wrapper = isFunction(wrappingElement)
       ? wrappingElement.call(element, index)
       : wrappingElement
-    wrapper = dom(wrapper).at(0)
+    wrapper = select(wrapper).at(0)
 
     if (!wrapper) return els
 

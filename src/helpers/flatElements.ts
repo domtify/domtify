@@ -1,6 +1,6 @@
 import { isString } from 'is-what'
-import { query } from '@/core/query'
 import type { Selector } from '@/types'
+import { select } from './select'
 
 export const flatElements = <T = unknown>(
   input: unknown,
@@ -22,7 +22,7 @@ export const flatElements = <T = unknown>(
       continue
     }
 
-    result.push(...(query(v as Selector) as unknown as T[]))
+    result.push(...(select(v as Selector) as unknown as T[]))
   }
 
   return result

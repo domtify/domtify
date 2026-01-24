@@ -1,5 +1,4 @@
 import { isBoolean, isUndefined } from 'is-what'
-import { dom } from '@/core/dom'
 import {
   border,
   getComputedSize,
@@ -12,6 +11,7 @@ import {
   resolveSizeValue,
   resolveToPx,
 } from '@/helpers/size'
+import { select } from './select'
 
 export const createOuterSize =
   prop =>
@@ -39,7 +39,7 @@ export const createOuterSize =
         element,
         value,
         index,
-        createOuterSize(prop)(includeMargin)(dom(element)),
+        createOuterSize(prop)(includeMargin)(select(element)),
       )
 
       const isPx = isPxValue(originVal)

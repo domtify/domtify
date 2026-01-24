@@ -1,6 +1,5 @@
 import { isUndefined } from 'is-what'
-import { off } from './off'
-import { removeData } from './removeData'
+import { off, removeData } from '@/method'
 
 export const remove = selector => els => {
   let elements = els

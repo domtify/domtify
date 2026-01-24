@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const wrapAll = wrappingElement => els => {
   if (!els.length) return els
@@ -11,7 +11,7 @@ export const wrapAll = wrappingElement => els => {
     wrapperEl = wrappingElement.call(firstEl)
   }
 
-  wrapperEl = dom(wrapperEl).at(0)
+  wrapperEl = select(wrapperEl).at(0)
   if (!isInstanceOf(wrapperEl, Element)) return els
   wrapperEl = wrapperEl.cloneNode(true)
 

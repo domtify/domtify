@@ -1,11 +1,11 @@
-import { dom } from '@/core/dom'
 import Event from '@/core/Event'
-import { data } from '@/method/data'
+import { data } from '@/method'
 import type { Selector } from '@/types'
+import { select } from './select'
 
 export const copyEventsAndData = (source: Selector, target: Selector) => {
-  const sourceEls = dom(source)
-  const targetEls = dom(target)
+  const sourceEls = select(source)
+  const targetEls = select(target)
   //  从 source 读取 data
   const sourceData = data()(sourceEls)
   //  写入到 target

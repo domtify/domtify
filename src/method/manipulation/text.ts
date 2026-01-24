@@ -1,18 +1,20 @@
 import { isFunction, isUndefined } from 'is-what'
-import type { Context, ContextUnit } from '@/types'
+import type {
+  Context,
+  ContextUnit,
+  PipeOperator,
+  TerminalOperator,
+} from '@/types'
 
-type TextSetterCallback = (
-  el: ContextUnit,
-  index: number,
-  oldText: string | null,
-) => string | number
+export type TextInput =
+  | string
+  | number
+  | boolean
+  | ((el: ContextUnit, index: number, oldText: string | null) => string)
 
-export function text(): (els: Context) => string
-export function text(
-  value: string | number | boolean,
-): (els: Context) => Context
-export function text(value: TextSetterCallback): (els: Context) => Context
-export function text(value?: string | number | boolean | TextSetterCallback) {
+export function text(): TerminalOperator<string>
+export function text(value: TextInput): PipeOperator
+export function text(value?: TextInput) {
   return (els: Context) => {
     // Getter
     if (isUndefined(value)) {

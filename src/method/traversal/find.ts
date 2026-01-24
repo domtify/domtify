@@ -1,7 +1,7 @@
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const find = selector => els => {
-  const candidates = dom(selector)
+  const candidates = select(selector)
   const roots = new Set(els)
   const result = []
 

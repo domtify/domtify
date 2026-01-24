@@ -1,5 +1,5 @@
 import { isArray, isFunction, isUndefined } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const val = value => els => {
   if (isUndefined(value)) {
@@ -16,7 +16,7 @@ export const val = value => els => {
     // setter
     for (const [index, element] of els.entries()) {
       let setVal = isFunction(value)
-        ? value.call(element, index, val()(dom(element)))
+        ? value.call(element, index, val()(select(element)))
         : value
 
       if (element.tagName == 'SELECT') {

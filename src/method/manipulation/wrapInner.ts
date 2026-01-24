@@ -1,5 +1,5 @@
 import { isFunction, isInstanceOf } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const wrapInner = wrappingElement => els => {
   for (const [index, element] of els.entries()) {
@@ -7,7 +7,7 @@ export const wrapInner = wrappingElement => els => {
     if (isFunction(wrappingElement)) {
       wrapperEl = wrappingElement.call(element, index)
     }
-    wrapperEl = dom(wrapperEl).at(0)
+    wrapperEl = select(wrapperEl).at(0)
     if (!isInstanceOf(wrapperEl, Element)) continue
 
     // 克隆 wrapper 避免重复插入

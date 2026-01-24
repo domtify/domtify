@@ -1,23 +1,38 @@
-import { isArray, isFunction, isString } from 'is-what'
-import { isHtmlString } from '@/helpers/isHtmlString'
-import { onDOMContentLoaded } from '@/helpers/onDOMContentLoaded'
-import type { Context, Selector, SelectorContext } from '@/types'
-import { parseHTML } from '@/util/parseHTML'
+import { select } from '@/helpers/select'
+import type {
+  Context,
+  Operator,
+  OperatorInput,
+  Selector,
+  SelectorContext,
+  TerminalOperator,
+} from '@/types'
 
-export type Operator<T = Context> = (ctx: T) => T | undefined
-export type OperatorInput<T = Context> = Operator<T> | OperatorInput<T>[]
-
-export function dom(fn: () => void): void
-export function dom(
+export function pipe(fn: () => void): void
+// ① 没有 terminal operator → 返回 Context
+export function pipe(
   selector: Exclude<Selector, Function>,
   ...operators: OperatorInput[]
 ): Context
-export function dom(
+
+// ② 有 terminal operator → 返回 R
+export function pipe<R>(
+  selector: Exclude<Selector, Function>,
+  ...operatorsAndLast: [...OperatorInput[], TerminalOperator<R>]
+): R
+
+export function pipe(
   selector: Exclude<Selector, Function>,
   context: SelectorContext,
   ...operators: OperatorInput[]
 ): Context
-export function dom(...args: any[]) {
+
+export function pipe<R>(
+  selector: Exclude<Selector, Function>,
+  context: SelectorContext,
+  ...operatorsAndLast: [...OperatorInput[], TerminalOperator<R>]
+): R
+export function pipe(...args: any[]) {
   const selector = args.shift()
   let context = document
 
@@ -26,11 +41,10 @@ export function dom(...args: any[]) {
   }
 
   const operators = flattenOperators(args)
-  let ctx = select(selector, context)
+  let ctx: any = select(selector, context)
 
   for (const op of operators) {
-    const res = op(ctx)
-    if (res) ctx = res
+    ctx = op(ctx)
   }
 
   return ctx
@@ -45,33 +59,4 @@ function flattenOperators(input: OperatorInput[], result: Operator[] = []) {
     }
   }
   return result
-}
-
-function select(
-  selector: Selector,
-  context: SelectorContext = document,
-): Context {
-  let elements: Context = []
-
-  if (isString(selector)) {
-    if (isHtmlString(selector)) {
-      elements = parseHTML(selector, context)
-    } else {
-      try {
-        elements = Array.from(context.querySelectorAll(selector))
-      } catch {}
-    }
-  } else if (
-    selector instanceof NodeList ||
-    selector instanceof HTMLCollection
-  ) {
-    elements = Array.from(selector)
-  } else if (isFunction(selector)) {
-    onDOMContentLoaded(selector)
-  } else if (isArray(selector)) {
-    elements = [...selector]
-  } else if (selector) {
-    elements.push(selector)
-  }
-  return elements
 }

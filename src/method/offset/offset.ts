@@ -1,6 +1,6 @@
 import { isFunction, isInstanceOf, isNull, isUndefined } from 'is-what'
-import { dom } from '@/core/dom'
 import { cssInt } from '@/helpers/cssInt'
+import { select } from '@/helpers/select'
 
 export const offset = coordinates => els => {
   if (isUndefined(coordinates)) {
@@ -15,7 +15,7 @@ export const offset = coordinates => els => {
     }
   } else {
     for (const [index, element] of els.entries()) {
-      const offsetRes = offset()(dom(element))
+      const offsetRes = offset()(select(element))
 
       // setter
       const newCoordinates = isFunction(coordinates)
@@ -36,11 +36,11 @@ export const offset = coordinates => els => {
       const curLeftCSS = cssInt(style, 'left')
 
       if (!isNull(newCoordinates.top)) {
-        element.style.top = curTopCSS + topDelta + 'px'
+        element.style.top = `${curTopCSS + topDelta}px`
       }
 
       if (!isNull(newCoordinates.left)) {
-        element.style.left = curLeftCSS + leftDelta + 'px'
+        element.style.left = `${curLeftCSS + leftDelta}px`
       }
     }
     return els

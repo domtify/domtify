@@ -5,7 +5,7 @@ import {
   isString,
   isUndefined,
 } from 'is-what'
-import { dom } from '@/core/dom'
+import { select } from '@/helpers/select'
 
 export const attr = (name, value) => els => {
   if (isUndefined(value) && !isPlainObject(name)) {
@@ -22,7 +22,7 @@ export const attr = (name, value) => els => {
         // 如果是null或者是非ARIA 属性的通过传递false来删除
         element.removeAttribute(name)
       } else if (isFunction(value)) {
-        const newVal = value.call(element, index, attr(name)(dom(element)))
+        const newVal = value.call(element, index, attr(name)(select(element)))
 
         if (!isNull(newVal)) {
           element.setAttribute(name, newVal)
@@ -33,7 +33,7 @@ export const attr = (name, value) => els => {
     }
     if (isPlainObject(name)) {
       for (const [key, val] of Object.entries(name)) {
-        attr(key, val)(dom(element))
+        attr(key, val)(select(element))
       }
     }
   }
