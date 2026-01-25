@@ -1,8 +1,7 @@
 import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { dom } from '@/core/dom'
-import { addClass } from '@/method/addClass'
+import { addClass, pipe } from '@/index'
 
 describe('addClass', () => {
   beforeEach(() => {
@@ -24,7 +23,7 @@ describe('addClass', () => {
     })
 
     it('domtify', () => {
-      dom('li', [addClass('foo')])
+      pipe('li', addClass('foo'))
       for (const element of document.querySelectorAll('li')) {
         expect(element.classList.contains('foo')).toBe(true)
       }
@@ -41,7 +40,7 @@ describe('addClass', () => {
       }
     })
     it('domtify', () => {
-      dom('li', [addClass('foo bar')])
+      pipe('li', addClass('foo bar'))
       for (const element of document.querySelectorAll('li')) {
         expect(element.classList.contains('foo')).toBe(true)
         expect(element.classList.contains('bar')).toBe(true)
@@ -60,7 +59,7 @@ describe('addClass', () => {
     })
 
     it('domtify', () => {
-      dom('li', [addClass(['foo bar', 'baz'])])
+      pipe('li', addClass(['foo bar', 'baz']))
       for (const element of document.querySelectorAll('li')) {
         expect(element.classList.contains('foo')).toBe(true)
         expect(element.classList.contains('bar')).toBe(true)
@@ -81,7 +80,10 @@ describe('addClass', () => {
     })
 
     it('domtify', () => {
-      dom('li', [addClass(index => `item-${index}`)])
+      pipe(
+        'li',
+        addClass((el, index) => `item-${index}`),
+      )
 
       for (const [index, element] of document
         .querySelectorAll('li')
@@ -106,7 +108,12 @@ describe('addClass', () => {
       }
     })
     it('domtify', () => {
-      dom('li', [addClass(index => [`item-${index}`, 'common', 'hello world'])])
+      pipe(
+        'li',
+        addClass((el, index) => {
+          return [`item-${index}`, 'common', 'hello world']
+        }),
+      )
 
       for (const [index, element] of document
         .querySelectorAll('li')
@@ -132,7 +139,7 @@ describe('addClass', () => {
       const div = document.createElement('div')
       div.className = 'a'
       // @ts-expect-error
-      dom(div, [addClass(null)])
+      pipe(div, addClass(null))
       expect(div.className).toBe('a')
     })
   })

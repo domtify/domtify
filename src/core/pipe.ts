@@ -1,30 +1,30 @@
 import { select } from '@/helpers/select'
 import type {
   ContextUnit,
+  NoFuncSelector,
   OperatorInput,
   PipeOperator,
-  Selector,
   SelectorContext,
   TerminalOperator,
 } from '@/types'
 
 export function pipe(selector: () => void): void
 export function pipe<T = ContextUnit>(
-  selector: Exclude<Selector, Function>,
+  selector: NoFuncSelector,
   ...operators: OperatorInput[]
 ): T[]
 export function pipe<R>(
-  selector: Exclude<Selector, Function>,
+  selector: NoFuncSelector,
   ...operators: [...OperatorInput[], TerminalOperator<R>]
 ): R
 export function pipe<T = ContextUnit>(
-  selector: Exclude<Selector, Function>,
+  selector: NoFuncSelector,
   context: SelectorContext,
   ...operators: OperatorInput[]
 ): T[]
 
 export function pipe<R>(
-  selector: Exclude<Selector, Function>,
+  selector: NoFuncSelector,
   context: SelectorContext,
   ...operators: [...OperatorInput[], TerminalOperator<R>]
 ): R

@@ -5,7 +5,7 @@ export default defineConfig([
     entry: {
       index: 'src/index.ts',
       util: 'src/util/index.ts',
-      method: 'src/method/index.ts',
     },
+    minify: true,
   },
 ])

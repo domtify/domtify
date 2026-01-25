@@ -3,10 +3,11 @@ import { isHtmlString } from '@/helpers/isHtmlString'
 import { onDOMContentLoaded } from '@/helpers/onDOMContentLoaded'
 import type { Context, Selector, SelectorContext } from '@/types'
 import { parseHTML } from '@/util/parseHTML'
+
 export function select(
   selector: Selector,
   context: SelectorContext = document,
-): Context {
+) {
   let elements: Context = []
 
   if (isString(selector)) {

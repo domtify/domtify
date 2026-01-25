@@ -26,6 +26,7 @@ describe('add', () => {
     })
     it('domtify', () => {
       const result = pipe<HTMLElement>('li', add('p'))
+
       expect(result.length).toBe(5) // 3 li + 2 p
       expect(result[3].tagName).toBe('P')
       expect(result[4].tagName).toBe('P')

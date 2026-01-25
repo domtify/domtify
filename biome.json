@@ -43,6 +43,19 @@
       }
     }
   },
+
+  "overrides": [
+    {
+      "includes": ["examples/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noTsIgnore": "off"
+          }
+        }
+      }
+    }
+  ],
   "javascript": {
     "formatter": {
       "arrowParentheses": "asNeeded",
