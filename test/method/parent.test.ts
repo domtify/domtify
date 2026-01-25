@@ -43,7 +43,7 @@ describe('parent', () => {
       expect(res[0].classList.contains('level-2')).toBe(true)
     })
     it('domtify', () => {
-      const res = pipe('li.item-a', parent())
+      const res = pipe<HTMLElement>('li.item-a', parent())
       expect(res[0]).toBeInstanceOf(HTMLElement)
       expect(res[0].classList.contains('level-2')).toBe(true)
     })
@@ -56,7 +56,7 @@ describe('parent', () => {
       expect(res[0].classList.contains('selected')).toBe(true)
     })
     it('domtify', () => {
-      const res = dom('p', [parent('.selected')])
+      const res = pipe<HTMLElement>('p', parent('.selected'))
       expect(res.length).toBe(1)
       expect(res[0].classList.contains('selected')).toBe(true)
     })
@@ -68,7 +68,7 @@ describe('parent', () => {
       expect(res.length).toBe(0)
     })
     it('domtify', () => {
-      const res = dom('p', [parent('.non-exist')])
+      const res = pipe('p', parent('.non-exist'))
       expect(res.length).toBe(0)
     })
   })
@@ -80,7 +80,7 @@ describe('parent', () => {
       expect(result[0].classList.contains('wrapper')).toBe(true)
     })
     it('domtify', () => {
-      const result = dom('.child', [parent()])
+      const result = pipe<HTMLElement>('.child', parent())
       expect(result.length).toBe(1)
       expect(result[0].classList.contains('wrapper')).toBe(true)
     })
@@ -93,7 +93,7 @@ describe('parent', () => {
       expect(result[0]).toBe(document)
     })
     it('domtify', () => {
-      const result = dom('html', [parent()])
+      const result = pipe('html', parent())
       expect(result.length).toBe(1)
       expect(result[0]).toBe(document)
     })
@@ -106,7 +106,7 @@ describe('parent', () => {
     })
 
     it('domtify', () => {
-      const result = dom(`<p>Foo</p>`, [parent()])
+      const result = pipe(`<p>Foo</p>`, parent())
       expect(result.length).toBe(0)
     })
   })

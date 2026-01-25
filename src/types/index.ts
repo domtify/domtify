@@ -11,7 +11,6 @@ export type Selector =
 
 export type SelectorContext = Document | Element
 
-export type PipeOperator<T = Context> = (ctx: T) => Context
 export type TerminalOperator<R, T = Context> = (ctx: T) => R
-export type Operator<T = Context> = (ctx: T) => T
+export type PipeOperator<T = Context> = (ctx: T) => Context
 export type OperatorInput = PipeOperator | OperatorInput[]

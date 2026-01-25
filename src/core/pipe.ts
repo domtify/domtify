@@ -1,36 +1,33 @@
 import { select } from '@/helpers/select'
 import type {
   Context,
-  Operator,
+  ContextUnit,
   OperatorInput,
+  PipeOperator,
   Selector,
   SelectorContext,
   TerminalOperator,
 } from '@/types'
 
-export function pipe(fn: () => void): void
-// ① 没有 terminal operator → 返回 Context
-export function pipe(
+export function pipe(selector: () => void): void
+export function pipe<T = ContextUnit>(
   selector: Exclude<Selector, Function>,
   ...operators: OperatorInput[]
-): Context
-
-// ② 有 terminal operator → 返回 R
+): T[]
 export function pipe<R>(
   selector: Exclude<Selector, Function>,
-  ...operatorsAndLast: [...OperatorInput[], TerminalOperator<R>]
+  ...operators: [...OperatorInput[], TerminalOperator<R>]
 ): R
-
-export function pipe(
+export function pipe<T = ContextUnit>(
   selector: Exclude<Selector, Function>,
   context: SelectorContext,
   ...operators: OperatorInput[]
-): Context
+): T[]
 
 export function pipe<R>(
   selector: Exclude<Selector, Function>,
   context: SelectorContext,
-  ...operatorsAndLast: [...OperatorInput[], TerminalOperator<R>]
+  ...operators: [...OperatorInput[], TerminalOperator<R>]
 ): R
 export function pipe(...args: any[]) {
   const selector = args.shift()
@@ -50,7 +47,7 @@ export function pipe(...args: any[]) {
   return ctx
 }
 
-function flattenOperators(input: OperatorInput[], result: Operator[] = []) {
+function flattenOperators(input: OperatorInput[], result: PipeOperator[] = []) {
   for (const item of input) {
     if (Array.isArray(item)) {
       flattenOperators(item, result)
