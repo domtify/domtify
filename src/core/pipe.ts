@@ -1,6 +1,5 @@
 import { select } from '@/helpers/select'
 import type {
-  Context,
   ContextUnit,
   OperatorInput,
   PipeOperator,

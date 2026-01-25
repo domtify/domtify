@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { dom } from '@/core/dom'
-import { add } from '@/method/add'
+import { add, pipe } from '@/index'
 
 describe('add', () => {
   beforeEach(() => {
@@ -26,7 +25,7 @@ describe('add', () => {
       expect(result[4].tagName).toBe('P')
     })
     it('domtify', () => {
-      const result = dom('li', [add('p')])
+      const result = pipe<HTMLElement>('li', add('p'))
       expect(result.length).toBe(5) // 3 li + 2 p
       expect(result[3].tagName).toBe('P')
       expect(result[4].tagName).toBe('P')
@@ -42,7 +41,7 @@ describe('add', () => {
     })
     it('domtify', () => {
       const p = document.querySelector('p')!
-      const result = dom('li', [add(p)])
+      const result = pipe('li', add(p))
       expect(result.length).toBe(4)
       expect(result.at(-1)).toBe(p)
     })
@@ -55,7 +54,10 @@ describe('add', () => {
       expect(result.toArray().at(-1)!.id).toBe('new')
     })
     it('domtify', () => {
-      const result = dom('li', [add("<p id='new'>new paragraph</p>")])
+      const result = pipe<HTMLElement>(
+        'li',
+        add("<p id='new'>new paragraph</p>"),
+      )
       expect(result.length).toBe(4)
       expect(result.at(-1)!.id).toBe('new')
     })
@@ -69,7 +71,7 @@ describe('add', () => {
     })
 
     it('domtify', () => {
-      const result = dom('li', [add(dom('p'))])
+      const result = pipe<HTMLElement>('li', add(pipe('p')))
       expect(result.length).toBe(5)
       expect(result.some(el => el.tagName === 'P')).toBe(true)
     })
@@ -85,7 +87,7 @@ describe('add', () => {
     })
     it('domtify', () => {
       const context = document.querySelector('.empty')!
-      const result = dom('li', [add('p', context)])
+      const result = pipe<HTMLElement>('li', add('p', context))
       const addedP = result.filter(el => el.tagName === 'P')
       expect(addedP.length).toBe(1)
       expect(addedP[0].textContent).toBe('this is empty p')
@@ -99,8 +101,8 @@ describe('add', () => {
       expect(result).not.toBe(li)
     })
     it('domtify', () => {
-      const li = dom('li')
-      const result = dom(li, [add('p')])
+      const li = pipe('li')
+      const result = pipe(li, add('p'))
       expect(result).not.toBe(li)
     })
   })

@@ -1,19 +1,27 @@
 import $ from 'jquery'
-
-import { parent, pipe } from '@/index'
+import { add, pipe } from '@/index'
 
 let res
 
 // css选择器
-// res = $('li').add('p')
+res = $('li').add('p')
+res = pipe('li', add('p'))
 
 // 元素
-// res = $('li').add(document.querySelector('p'))
+// @ts-expect-error
+res = $('li').add(document.querySelector('p'))
+res = pipe('li', add(document.querySelector('p')!))
 
-const textNode = document.createTextNode('Hello World')
+//html代码片段
+res = $('li').add(`<p id='new'>new paragraph</p>`)
+res = pipe('li', add(`<p id='new'>new paragraph</p>`))
 
-// console.log(textNode instanceof Node)
+// jquery对象 = 支持管道
+res = $('li').add($('p'))
+res = pipe('li', add(pipe('p')))
 
-res = $('li').add(textNode)
-
+// 支持第二个参数上下文
+const context = document.querySelector('.empty')!
+// res = $('li').add('p', context)
+res = pipe('li', add('p', context))
 console.log(res)

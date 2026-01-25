@@ -1,6 +1,8 @@
+import { select } from '@/helpers/select'
 import { unique } from '@/helpers/unique'
-import type { Context, Selector, SelectorContext } from '@/types'
+import type { PipeOperator, Selector, SelectorContext } from '@/types'
 
-export function add(selector: Selector, context?: SelectorContext) {
-  return unique([...els, ...select(selector, context)])
-}
+export const add =
+  (selector: Selector, context?: SelectorContext): PipeOperator =>
+  els =>
+    unique([...els, ...select(selector, context)])
