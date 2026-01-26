@@ -1,6 +1,7 @@
 import { type InsertContents, insertNode } from '@/helpers/insertNode'
+import type { PipeOperator } from '@/types'
 
 export const append =
-  <T extends Element = Element>(...content: InsertContents<T>) =>
-  (els: T[]): T[] =>
+  (...content: InsertContents): PipeOperator =>
+  els =>
     insertNode(els, content, 'beforeend')

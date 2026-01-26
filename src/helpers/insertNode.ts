@@ -1,33 +1,26 @@
-import { isFunction, isInstanceOf } from 'is-what'
+import { isFunction } from 'is-what'
 import { CACHE_INSERT_STATIC_KEY } from '@/core/constant'
 import { flatElements } from './flatElements'
 import { isHtmlString } from './isHtmlString'
 
 export type Insertable = Node | string | NodeList | HTMLCollection
 
-export type InsertContent =
-  | Insertable
-  | Insertable[]
-  | ReadonlyArray<Insertable>
-
-export type InsertCallback<T extends Element = Element> = (
-  element: T,
+export type InsertCallback = (
+  element: Element,
   index: number,
   html: string,
-) => InsertContent | InsertContent[]
+) => Insertable | Insertable[]
 
-export type InsertContents<T extends Element = Element> =
-  | InsertContent[]
-  | [InsertCallback<T>]
+export type InsertContents = Insertable[] | [InsertCallback]
 
 export type InsertPosition = Parameters<Element['insertAdjacentElement']>[0]
 
-export function insertNode<T extends Element = Element>(
-  targets: T[],
-  content: InsertContents<T>,
+export function insertNode(
+  targets: Element[],
+  content: InsertContents,
   position: InsertPosition,
   reverse: boolean = true,
-): T[] {
+): Element[] {
   const firstArg = content.at(0)
   const cache = new Map<number | symbol, Insertable[]>()
 
@@ -48,10 +41,10 @@ export function insertNode<T extends Element = Element>(
     if (!(element instanceof Node)) continue
 
     const nodes = isFunction(firstArg)
-      ? cache.get(index)
-      : cache.get(CACHE_INSERT_STATIC_KEY)
+      ? cache.get(index) || []
+      : cache.get(CACHE_INSERT_STATIC_KEY) || []
 
-    for (const node of nodes!) {
+    for (const node of nodes) {
       if (isHtmlString(node)) {
         element.insertAdjacentHTML(position, node)
       } else if (node instanceof Element) {

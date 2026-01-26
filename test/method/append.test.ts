@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { dom } from '@/core/dom'
-import { append } from '@/method/append'
+import { append, pipe } from '@/index'
 
 describe('append', () => {
   beforeEach(() => {
@@ -23,7 +22,7 @@ describe('append', () => {
     })
 
     it('domtify', () => {
-      dom('.inner', [append('<span>Test</span>')])
+      pipe('.inner', append('<span>Test</span>'))
       const html = document.querySelector('.container')!.innerHTML
       expect(html).toContain('<span>Test</span>')
     })

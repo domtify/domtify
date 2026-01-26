@@ -1,4 +1,6 @@
-import $ from 'jquery'
+// import $ from 'jquery'
+
+import $ from 'cash-dom'
 import { addClass, pipe } from '@/index'
 
 let res
@@ -15,5 +17,34 @@ let res
 // res = $('li').addClass(['myClass yourClass', 'foo', null, false, undefined])
 // @ts-ignore
 // res = pipe('li', addClass(['myClass yourClass', 'foo', null, false, undefined]))
+
+// 函数,返回字符串
+// res = $('li').addClass(function (index, currentClassName) {
+//   console.log(this, currentClassName)
+//   return `item-${index}`
+// })
+// res = pipe(
+//   'li',
+//   addClass((el, index, currentClassName) => {
+//     console.log(el, currentClassName)
+//     return `item-${index}`
+//   }),
+// )
+
+// @ts-ignore 函数，返回数组
+// res = $('li').addClass(function (index) {
+//   console.log(this)
+//   return [`item-${index}`, 'abc', 'hello domtify']
+// })
+
+res = $('li').addClass('a')
+
+res = pipe(
+  'li',
+  addClass((el, index) => {
+    console.log(el)
+    return [`item-${index}`, 'abc', 'hello domtify']
+  }),
+)
 
 console.log(res)

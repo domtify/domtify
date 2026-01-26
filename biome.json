@@ -51,6 +51,12 @@
         "rules": {
           "suspicious": {
             "noTsIgnore": "off"
+          },
+          "complexity": {
+            "useArrowFunction": "off"
+          },
+          "correctness": {
+            "noUnusedVariables": "off"
           }
         }
       }

@@ -50,6 +50,7 @@
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
+    "cash-dom": "^8.1.5",
     "cross-env": "^10.1.0",
     "is-what": "^5.5.0",
     "jquery": "3.7.1",
