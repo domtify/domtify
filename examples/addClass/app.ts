@@ -3,6 +3,8 @@
 import $ from 'cash-dom'
 import { addClass, pipe } from '@/index'
 
+let rwe = $('.a')
+
 let res
 // 一个或者多个空格分割的字符串
 // res = $('li').addClass('myClass yourClass')

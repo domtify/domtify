@@ -25,27 +25,5 @@
     <label><input type="checkbox" name="foo" /> Foo</label>
     <label><input type="checkbox" name="bar" /> Bar</label>
     <script type="module" src="./app.ts"></script>
-    <script>
-      document.querySelector("button").addEventListener("click", (e) => {
-        console.log(e);
-        console.log(this);
-      });
-
-      let res = $.pipe("a", $.addClass("a"), $.eq(0), $.find("a"));
-      console.log(res);
-
-      $.pipe(
-        "a",
-        $.each((el, index) => {
-          console.log(el, index);
-        }),
-        $.parent(),
-        $.next(),
-      );
-
-      $("a").each((index) => {
-        console.log(index);
-      });
-    </script>
   </body>
 </html>

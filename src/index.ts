@@ -1,3 +1,3 @@
-export * from '@/core/pipe'
-export * from '@/method'
+export * from '@/core/moola'
+// export * from '@/method'
 export * from '@/types'
