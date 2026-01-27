@@ -60,6 +60,16 @@
           }
         }
       }
+    },
+    {
+      "includes": ["test/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noTsIgnore": "off"
+          }
+        }
+      }
     }
   ],
   "javascript": {

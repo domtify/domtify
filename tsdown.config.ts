@@ -8,4 +8,15 @@ export default defineConfig([
     },
     minify: false,
   },
+  {
+    entry: 'src/index.iife.ts',
+    sourcemap: true,
+    format: 'iife',
+    minify: false,
+    inlineOnly: false,
+    outputOptions: {
+      name: 'moola',
+      file: 'dist/moola.js',
+    },
+  },
 ])

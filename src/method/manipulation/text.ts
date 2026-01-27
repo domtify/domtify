@@ -1,6 +1,5 @@
 import { isFunction, isUndefined } from 'is-what'
 import type { Moola } from '@/core/moola'
-import { toArray } from '@/helpers/getArray'
 import type { MoolaElement } from '@/types'
 
 export type TextInput =
@@ -12,15 +11,13 @@ export type TextInput =
 export function text(this: Moola): string
 export function text(this: Moola, value: TextInput): Moola
 export function text(this: Moola, value?: TextInput) {
-  const els = toArray(this)
-
   // Getter
   if (isUndefined(value)) {
-    return els.map(el => el.textContent).join('')
+    return this.elements.map(el => el.textContent).join('')
   }
 
   // Setter
-  for (const [index, el] of els.entries()) {
+  for (const [index, el] of this.elements.entries()) {
     const nextText = isFunction(value)
       ? value.call(el, index, (el as Node).textContent)
       : value
