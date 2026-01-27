@@ -2,7 +2,15 @@ import { isArray, isFunction, isString } from 'is-what'
 import { isHtmlString } from '@/helpers/isHtmlString'
 import { isInstanceOf } from '@/helpers/isInstanceOf'
 import { onDOMContentLoaded } from '@/helpers/onDOMContentLoaded'
-import type { Context, MoolaElement, Selector } from '@/types'
+import type * as methods from '@/method'
+
+import type {
+  Context,
+  FnMethods,
+  MoolaElement,
+  MoolaStatic,
+  Selector,
+} from '@/types'
 import { parseHTML } from '@/util'
 import { version } from '../../package.json' with { type: 'json' }
 
@@ -10,8 +18,10 @@ class Moola implements Iterable<MoolaElement> {
   // 上一个对象
   prevObject: Moola | null = null
   length = 0;
+
   [index: number]: MoolaElement
   [x: string]: any
+
   constructor(selector: Selector, context: Context = document) {
     let elements: MoolaElement[] = []
     // 如果已经是实例，无需处理直接返回
@@ -56,6 +66,13 @@ class Moola implements Iterable<MoolaElement> {
   }
 }
 
+// type MethodsMap = {
+//   [K in keyof typeof methods]: (typeof methods)[K]
+// }
+
+type Methods = typeof methods
+interface Moola extends Methods {}
+
 //类的原型
 const fn = Moola.prototype
 
@@ -65,7 +82,7 @@ const fn = Moola.prototype
 fn.moola = version
 
 // 唯一入口
-const $ = (selector: Selector, context?: Context) => {
+const $ = ((selector: Selector, context?: Context) => {
   const instance = new Moola(selector, context)
 
   const property = 'prevObject'
@@ -83,8 +100,13 @@ const $ = (selector: Selector, context?: Context) => {
   }
 
   return instance
-}
+}) as MoolaStatic
 
 $.fn = $.prototype = fn
 
-export { $ }
+$.use = (methods: FnMethods) => {
+  Object.assign($.fn, methods)
+  return $
+}
+
+export { $, type Moola }
