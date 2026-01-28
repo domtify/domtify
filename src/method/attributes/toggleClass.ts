@@ -1,11 +1,16 @@
-import { resolveClasses } from '@/helpers/resolveClasses'
+import { type ClassInput, resolveClasses } from '@/helpers/resolveClasses'
+import type { Moola } from '@/index'
 
-export const toggleClass = (className, state) => els => {
-  for (const [index, element] of els.entries()) {
+export function toggleClass(
+  this: Moola,
+  className: ClassInput,
+  state?: boolean,
+) {
+  for (const [index, element] of this.elements.entries()) {
     const classes = resolveClasses(element, index, className, state)
     for (const cls of classes) {
-      element?.classList?.toggle(cls, state)
+      ;(element as Element)?.classList?.toggle(cls, state)
     }
   }
-  return els
+  return this
 }
