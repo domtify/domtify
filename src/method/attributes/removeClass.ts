@@ -1,9 +1,10 @@
-import { resolveClasses } from '@/helpers/resolveClasses'
+import { type ClassInput, resolveClasses } from '@/helpers/resolveClasses'
+import type { Moola } from '@/index'
 
-export const removeClass = className => els => {
-  for (const [index, element] of els.entries()) {
+export function removeClass(this: Moola, className: ClassInput) {
+  for (const [index, element] of this.elements.entries()) {
     const classes = resolveClasses(element, index, className)
-    element?.classList?.remove(...classes)
+    ;(element as Element)?.classList?.remove(...classes)
   }
-  return els
+  return this
 }
