@@ -8,7 +8,7 @@ $.use({ addClass, text, get, add, attr })
 //   return 'ads'
 // })
 
-let res = $('li').attr({ a: 1 })
+let res = $('li').hasClass('a')
 
 // for (const [index, el] of $('li').get()) {
 //   console.log(index, el)
