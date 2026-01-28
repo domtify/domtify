@@ -1,6 +1,7 @@
 export * from '@/method/attributes/addClass'
 export * from '@/method/attributes/attr'
 export * from '@/method/attributes/hasClass'
+export * from '@/method/attributes/prop'
 export * from '@/method/collection/add'
 export * from '@/method/collection/get'
 export * from '@/method/manipulation/text'

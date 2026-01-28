@@ -1,33 +1,43 @@
 import { isFunction, isPlainObject, isUndefined } from 'is-what'
-import { select } from '@/helpers/select'
+import type { Moola } from '@/index'
 
-export const prop = (propertyName, value) => els => {
-  if (isUndefined(value) && !isPlainObject(propertyName)) {
+export function prop(this: Moola, property: string): any
+export function prop(
+  this: Moola,
+  property: string | Record<string, any>,
+  value?: any | ((index: number, oldValue: any) => any),
+): Moola
+
+export function prop(this: Moola, property: any, value?: any) {
+  if (isUndefined(value) && !isPlainObject(property)) {
     //getter
-    const el = els.at(0)
-    if (!el) return undefined
-    return el[propertyName]
-  } else {
-    // setter
-    if (isPlainObject(propertyName)) {
-      // 批量设置
-      for (const element of els) {
-        for (const [property, val] of Object.entries(propertyName)) {
-          prop(property, val)(select(element))
-        }
-      }
-    } else {
-      // 单个设置
-      for (const [index, element] of els.entries()) {
-        const newValue = isFunction(value)
-          ? value.call(element, index, prop(propertyName)(select(element)))
-          : value
+    const el = this.elements.at(0)
+    return getProperty(el, property)
+  }
 
-        if (!isUndefined(newValue)) {
-          element[propertyName] = newValue
-        }
+  // setter
+  if (isPlainObject(property)) {
+    // 批量设置
+    for (const element of this.elements) {
+      for (const [key, val] of Object.entries(property)) {
+        Reflect.set(element, key, val)
       }
     }
-    return els
+  } else {
+    // 单个设置
+    for (const [index, element] of this.elements.entries()) {
+      const newValue = isFunction(value)
+        ? value.call(element, index, getProperty(element, property))
+        : value
+
+      if (!isUndefined(newValue)) {
+        Reflect.set(element, property, newValue)
+      }
+    }
   }
+  return this
+}
+
+function getProperty(el: any, name: string): any {
+  return Reflect.get(el, name) ?? undefined
 }

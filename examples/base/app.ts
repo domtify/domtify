@@ -1,6 +1,6 @@
-import { $, add, addClass, attr, get, text } from '@/index'
+import { $, add, addClass, attr, get, prop, text } from '@/index'
 
-$.use({ addClass, text, get, add, attr })
+$.use({ addClass, text, get, add, attr, prop })
 // import $ from 'jquery'
 // let res = $('li').addClass(function () {
 //   console.log(this)
@@ -8,7 +8,10 @@ $.use({ addClass, text, get, add, attr })
 //   return 'ads'
 // })
 
-let res = $('li').hasClass('a')
+$(window).prop('a', 1)
+let res = $(window).prop('a')
+
+console.log(res)
 
 // for (const [index, el] of $('li').get()) {
 //   console.log(index, el)
