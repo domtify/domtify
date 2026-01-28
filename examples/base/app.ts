@@ -1,15 +1,14 @@
-import { $, add, addClass, get, text } from '@/index'
+import { $, add, addClass, attr, get, text } from '@/index'
 
+$.use({ addClass, text, get, add, attr })
 // import $ from 'jquery'
-$.use({ addClass, text, get, add })
-
 // let res = $('li').addClass(function () {
 //   console.log(this)
 
 //   return 'ads'
 // })
 
-console.log($('li').add(document))
+let res = $('li').attr({ a: 1 })
 
 // for (const [index, el] of $('li').get()) {
 //   console.log(index, el)

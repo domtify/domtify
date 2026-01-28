@@ -5,36 +5,63 @@ import {
   isString,
   isUndefined,
 } from 'is-what'
-import { select } from '@/helpers/select'
+import { isInstanceOf } from '@/helpers/isInstanceOf'
+import type { Moola } from '@/index'
 
-export const attr = (name, value) => els => {
-  if (isUndefined(value) && !isPlainObject(name)) {
-    // getter
-    const el = els.at(0)
-    if (!el) return undefined
-    const attribute = el.getAttribute(name)
-    return attribute ? attribute : undefined
+type AttrValue =
+  | string
+  | number
+  | boolean
+  | null
+  | ((index: number, oldValue: string | undefined) => AttrValue)
+type AttrMap = Record<string, Exclude<AttrValue, Function>>
+
+export function attr(this: Moola, attr: string): string | undefined
+export function attr(
+  this: Moola,
+  attr: string | AttrMap,
+  value?: AttrValue,
+): Moola
+export function attr(this: Moola, attr: any, value?: any) {
+  // getter
+  if (isUndefined(value) && !isPlainObject(attr)) {
+    const el = this.elements.at(0)
+
+    if (!isInstanceOf(el, Element)) return undefined
+
+    return getAttr(el, attr)
   }
-  //setter
-  for (const [index, element] of els.entries()) {
-    if (isString(name)) {
-      if (isNull(value) || (value === false && !name.startsWith('aria-'))) {
-        // 如果是null或者是非ARIA 属性的通过传递false来删除
-        element.removeAttribute(name)
-      } else if (isFunction(value)) {
-        const newVal = value.call(element, index, attr(name)(select(element)))
 
-        if (!isNull(newVal)) {
-          element.setAttribute(name, newVal)
-        }
-      } else {
-        element.setAttribute(name, value)
+  // setter
+  for (const [index, element] of this.elements.entries()) {
+    if (!isInstanceOf(element, Element)) continue
+
+    if (isString(attr)) {
+      setAttr(element, attr, value, index)
+    }
+
+    if (isPlainObject(attr)) {
+      for (const [key, val] of Object.entries(attr)) {
+        setAttr(element, key, val, index)
       }
     }
-    if (isPlainObject(name)) {
-      for (const [key, val] of Object.entries(name)) {
-        attr(key, val)(select(element))
-      }
-    }
+  }
+
+  return this
+}
+
+function getAttr(el: Element, name: string): string | undefined {
+  return el.getAttribute(name) ?? undefined
+}
+
+function setAttr(el: Element, name: string, value: any, index: number) {
+  if (isNull(value) || (value === false && !name.startsWith('aria-'))) {
+    el.removeAttribute(name)
+  } else if (isFunction(value)) {
+    const oldVal = getAttr(el, name)
+    const newVal = value.call(el, index, oldVal)
+    if (!isNull(newVal)) el.setAttribute(name, String(newVal))
+  } else {
+    el.setAttribute(name, String(value))
   }
 }
