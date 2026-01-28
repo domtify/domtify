@@ -19,3 +19,9 @@ export interface MoolaStatic {
   fn: Moola
   use: (methods: FnMethods) => MoolaStatic
 }
+
+export type EachArrayCallback<T> = (
+  this: T,
+  index: number,
+  ele: T,
+) => false | undefined
